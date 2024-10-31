@@ -103,10 +103,13 @@
     <div class="lucida">
         <p><a class="azure-t" href="https://github.com/irr123" target="_blank">
             Ivan Bogomolov
-        </a> &copy; 2024</p>
+        </a> &copy; <span id="year"></span></p>
     </div>
 </footer>
 
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 <script src="bos/core/jab/bfx/baffle.js"></script>
 <script src="bos/core/jab/jquery.3.js"></script>
 <script src="bos/core/jab/plugins/rumbler.js"></script>
