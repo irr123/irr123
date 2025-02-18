@@ -8,5 +8,5 @@ link clicks here https://app.bitly.com
 
 ## Dev
 
-`make hugo srv` -> http://localhost:8000
-
+- `/docs` contains static site
+- `make build srv` -> http://localhost:8000

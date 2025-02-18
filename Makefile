@@ -5,15 +5,15 @@ VERSION ?= hugomods/hugo:ci-non-root-0.144.0
 
 .PHONY: srv
 srv:
-	python3 -m http.server
+	python3 -m http.server -d ./docs
 
 .PHONY: build
 build:
 	# docker run -v $(PWD)/blog_dev:/src ${VERSION} build --buildDrafts
 	docker run -v $(PWD)/blog_dev:/src ${VERSION} build
-	rm -rf $(PWD)/blog
+	rm -rf $(PWD)/docs/blog
 	sudo chown -R $(USER):$(USER) $(PWD)/blog_dev/public
-	mv $(PWD)/blog_dev/public $(PWD)/blog
+	mv $(PWD)/blog_dev/public $(PWD)/docs/blog
 
 .PHONY: hugo_theme
 hugo_theme:
