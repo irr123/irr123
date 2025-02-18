@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Public notes</title>
+    <link>https://bogomolov.work/blog/posts/</link>
+    <description>Recent content in Posts on Public notes</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Feb 2025 12:39:42 +0000</lastBuildDate>
+    <atom:link href="https://bogomolov.work/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python3 Dockerfile with uv</title>
+      <link>https://bogomolov.work/blog/posts/docker-uv/</link>
+      <pubDate>Tue, 18 Feb 2025 12:39:42 +0000</pubDate>
+      <guid>https://bogomolov.work/blog/posts/docker-uv/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been noticed that my simple&#xA;&lt;a href=&#34;https://hub.docker.com/repository/docker/c1rno/python&#34;&gt;python3 docker image&lt;/a&gt;&#xA;with uv has unexpected amount of downloads, so, I descided to steal some&#xA;traffic from original &lt;a href=&#34;https://docs.astral.sh/uv/guides/integration/docker/&#34;&gt;https://docs.astral.sh/uv/guides/integration/docker/&lt;/a&gt;&#xA;to it page.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-it-uv&#34;&gt;What is it &lt;a href=&#34;https://github.com/astral-sh/uv&#34;&gt;uv&lt;/a&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;posts-docker-uv-1.jpg&#34; alt=&#34;Create image illustration in anime style included python3&amp;rsquo;s snake, rust and uv (it&amp;rsquo;s new package manager for python written in rust) &#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Long story short -  it&amp;rsquo;s fast-&lt;a href=&#34;https://www.rust-lang.org/&#34;&gt;rust&lt;/a&gt;&#xA;python&amp;rsquo;s &lt;a href=&#34;https://pip.pypa.io/en/stable/&#34;&gt;pip&lt;/a&gt; alternative. And &lt;code&gt;python3 -m venv ./venv&lt;/code&gt; too and maybe more at time when you&amp;rsquo;re reading it.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

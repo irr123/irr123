@@ -8,4 +8,5 @@ link clicks here https://app.bitly.com
 
 ## Dev
 
-use `python3 -m http.server`
+`make hugo srv` -> http://localhost:8000
+

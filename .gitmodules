@@ -1,0 +1,3 @@
+[submodule "blog_dev/themes/hugo-theme-nostyleplease"]
+	path = blog_dev/themes/hugo-theme-nostyleplease
+	url = https://github.com/hanwenguo/hugo-theme-nostyleplease.git

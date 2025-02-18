@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="I&rsquo;ve been noticed that my simple
+python3 docker image
+with uv has unexpected amount of downloads, so, I descided to steal some
+traffic from original https://docs.astral.sh/uv/guides/integration/docker/
+to it page.
+What is it uv?
+
+Long story short -  it&rsquo;s fast-rust
+python&rsquo;s pip alternative. And python3 -m venv ./venv too and maybe more at time when you&rsquo;re reading it.">  
+
+  <title>
+    
+      Python3 Dockerfile with uv
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  
+  
+  <link rel="stylesheet" href="/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  <link rel="stylesheet" href="/blog/style.css">
+  
+</head>
+<body a="auto"><script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-950H2PH48S');
+</script>
+
+<main class="page-content" aria-label="Content">
+            <div class="w">
+                <div class="post-meta">
+                    <a href="/blog/">&lt;-</a>
+
+                    <p>
+                        <time datetime="2025-02-18 12:39:42 &#43;0000 UTC">
+                            2025-02-18
+                        </time>
+                    </p>
+                </div>
+
+<article>
+    <h1>Python3 Dockerfile with uv</h1>
+
+    
+
+    <p>I&rsquo;ve been noticed that my simple
+<a href="https://hub.docker.com/repository/docker/c1rno/python">python3 docker image</a>
+with uv has unexpected amount of downloads, so, I descided to steal some
+traffic from original <a href="https://docs.astral.sh/uv/guides/integration/docker/">https://docs.astral.sh/uv/guides/integration/docker/</a>
+to it page.</p>
+<h2 id="what-is-it-uv">What is it <a href="https://github.com/astral-sh/uv">uv</a>?</h2>
+<p><img src="posts-docker-uv-1.jpg" alt="Create image illustration in anime style included python3&rsquo;s snake, rust and uv (it&rsquo;s new package manager for python written in rust) "></p>
+<p>Long story short -  it&rsquo;s fast-<a href="https://www.rust-lang.org/">rust</a>
+python&rsquo;s <a href="https://pip.pypa.io/en/stable/">pip</a> alternative. And <code>python3 -m venv ./venv</code> too and maybe more at time when you&rsquo;re reading it.</p>
+<h2 id="so-what">So what?</h2>
+<p>So, don&rsquo;t use none of <a href="https://hub.docker.com/repository/docker/c1rno/python">one</a>
+and <a href="https://github.com/irr123/python-docker">two</a> and instead of it just do
+properly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ARG <span style="color:#eedd82">BASE_IMAGE</span>=python:3.13.2-slim-bookworm
+</span></span><span style="display:flex;"><span>ARG <span style="color:#eedd82">UV_VERSION</span>=0.6.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM ghcr.io/astral-sh/uv:<span style="color:#eedd82">$UV_VERSION</span> AS uv_carrier
+</span></span><span style="display:flex;"><span>FROM <span style="color:#eedd82">$BASE_IMAGE</span> AS builder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY --from=uv_carrier /uv /uvx /bin/
+</span></span><span style="display:flex;"><span>RUN uv venv /opt/venv
+</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY ./requirements.txt requirements.txt
+</span></span><span style="display:flex;"><span>RUN uv pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM <span style="color:#eedd82">$BASE_IMAGE</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PYTHONUNBUFFERED</span>=<span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY --from=builder /opt/venv /opt/venv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY . /opt/app
+</span></span><span style="display:flex;"><span>WORKDIR /opt/app
+</span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
+<p>Personally I don&rsquo;t see any reason to spent time to setup uv locally, but on
+<a href="https://en.wikipedia.org/wiki/Continuous_integration">CI</a> it safe a lot of
+time, don&rsquo;t waste it!</p>
+
+</article>
+
+            </div>
+        </main>
+        
+    <footer class="site-footer">
+    
+    
+        Stay updated on <a href="https://t.me/debugging_channel">Telegram</a> | <a href="/blog/index.xml">RSS</a>
+    
+    </footer>
+
+
+    </body></html>
