@@ -1,5 +1,5 @@
 {{ if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") }}
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.googleAnalytics }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

@@ -14,6 +14,7 @@ build:
 	rm -rf $(PWD)/docs/blog
 	sudo chown -R $(USER):$(USER) $(PWD)/blog_dev/public
 	mv $(PWD)/blog_dev/public $(PWD)/docs/blog
+	mv $(PWD)/docs/blog/sitemap.xml $(PWD)/docs/sitemap.xml
 
 .PHONY: hugo_theme
 hugo_theme:

@@ -1,7 +1,7 @@
-baseURL = 'https://bogomolov.work/blog/'
-languageCode = 'en-us'
-title = 'Public notes'
-theme = 'hugo-theme-nostyleplease'
+baseURL = "https://bogomolov.work/blog/"
+languageCode = "en-us"
+title = "Public notes"
+theme = "hugo-theme-nostyleplease"
 
 [module]
   [module.hugoVersion]
@@ -19,21 +19,24 @@ theme = 'hugo-theme-nostyleplease'
     anchorLineNos      = false
     codeFences         = true
     guessSyntax        = false
-    hl_Lines           = ''
+    hl_Lines           = ""
     hl_inline          = false
-    lineAnchors        = ''
+    lineAnchors        = ""
     lineNoStart        = 1
     lineNos            = false
     lineNumbersInTable = true
     noClasses          = true
     noHl               = false
-    style              = 'rrt'
+    style              = "rrt"
     tabWidth           = 4
 
   [markup.tableOfContents]
     startLevel = 2
     endLevel   = 3
     ordered    = false
+
+[sitemap]
+  priority = 0.7
 
 [params]
   favicon = "/favicon.ico"
