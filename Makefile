@@ -9,8 +9,8 @@ srv:
 
 .PHONY: build
 build:
-	# docker run -v $(PWD)/blog_dev:/src ${VERSION} build --buildDrafts
-	docker run -v $(PWD)/blog_dev:/src ${VERSION} build
+	# docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} build --buildDrafts
+	docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} build
 	rm -rf $(PWD)/docs/blog
 	sudo chown -R $(USER):$(USER) $(PWD)/blog_dev/public
 	mv $(PWD)/blog_dev/public $(PWD)/docs/blog
@@ -22,5 +22,5 @@ hugo_theme:
 
 .PHONY: hugo_add
 hugo_add:
-	docker run -v $(PWD)/blog_dev:/src ${VERSION} new content content/posts/new-post/index.md
+	docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} new content content/posts/new-post/index.md
 	sudo chown -R $(USER):$(USER) $(PWD)/blog_dev/content/posts/new-post

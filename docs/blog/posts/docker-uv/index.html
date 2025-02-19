@@ -76,15 +76,16 @@ properly:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>COPY --from=uv_carrier /uv /uvx /bin/
 </span></span><span style="display:flex;"><span>RUN uv venv /opt/venv
-</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span>
+</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span> <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    <span style="color:#eedd82">UV_COMPILE_BYTECODE</span>=<span style="color:#f60">1</span>  <span style="color:#0f0"># optional optimization</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>COPY ./requirements.txt requirements.txt
 </span></span><span style="display:flex;"><span>RUN uv pip install -r requirements.txt
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>FROM <span style="color:#eedd82">$BASE_IMAGE</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PYTHONUNBUFFERED</span>=<span style="color:#f60">1</span>
-</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span>
+</span></span><span style="display:flex;"><span>ENV <span style="color:#eedd82">PATH</span>=/opt/venv/bin:<span style="color:#eedd82">$PATH</span> <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    <span style="color:#eedd82">PYTHONUNBUFFERED</span>=<span style="color:#f60">1</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>COPY --from=builder /opt/venv /opt/venv
 </span></span><span style="display:flex;"><span>

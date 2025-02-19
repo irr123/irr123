@@ -33,15 +33,16 @@ FROM $BASE_IMAGE AS builder
 
 COPY --from=uv_carrier /uv /uvx /bin/
 RUN uv venv /opt/venv
-ENV PATH=/opt/venv/bin:$PATH
+ENV PATH=/opt/venv/bin:$PATH \
+    UV_COMPILE_BYTECODE=1  # optional optimization
 
 COPY ./requirements.txt requirements.txt
 RUN uv pip install -r requirements.txt
 
 FROM $BASE_IMAGE
 
-ENV PYTHONUNBUFFERED=1
-ENV PATH=/opt/venv/bin:$PATH
+ENV PATH=/opt/venv/bin:$PATH \
+    PYTHONUNBUFFERED=1
 
 COPY --from=builder /opt/venv /opt/venv
 
