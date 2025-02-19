@@ -37,6 +37,7 @@ theme = 'hugo-theme-nostyleplease'
 
 [params]
   favicon = "/favicon.ico"
+  googleAnalytics = "G-950H2PH48S"
 
   [params.theme_config]
     appearance        = "auto"
