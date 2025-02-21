@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="Let&rsquo;s talk about building and evolving Golang services in
+the enterprise. We&rsquo;ll explore two approaches:
+
+
+A Service Template (generator) is a common approach for unifying and
+quickly bootstrapping new microservices.  Its popularity is evident in the
+community, as demonstrated by examples such as:
+
+https://github.com/evrone/go-clean-template
+https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/
+https://dev.to/protium/github-template-for-golang-services-3o27
+https://www.youtube.com/watch?v=1ZbQS6pOlSQ
+
+
+Dependency injection
+(DI)1 is an approach where objects are constructed by passing
+pre-initialized components to them, rather than having the objects initialize
+those components themselves.2
+
+DI container automates the dependency
+injection process. While not the most common approach for bootstrapping new
+services, it offers several advantages, which I will outline.
+
+
+
+The problem
+The challenge is a timeless one: accelerating the delivery of value to
+production. From a technical perspective, this translates to several key
+requirements:">  
+
+  <title>
+    
+      DI Container vs. Service Template (generator)
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  
+  
+  <link rel="stylesheet" href="/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  <link rel="stylesheet" href="/blog/css/style.css">
+  
+</head>
+<body a="auto">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-950H2PH48S");
+</script>
+
+<main class="page-content" aria-label="Content">
+            <div class="w">
+                <div class="post-meta">
+                    <a href="/blog/">&lt;-</a>
+
+                    <p>
+                        <time datetime="2025-02-21 06:31:02 &#43;0000 UTC">
+                            2025-02-21
+                        </time>
+                    </p>
+                </div>
+
+<article>
+    <h1>DI Container vs. Service Template (generator)</h1>
+
+    
+
+    <p>Let&rsquo;s talk about building and evolving <a href="https://go.dev/">Golang</a> services in
+the enterprise. We&rsquo;ll explore two approaches:</p>
+<p><img src="morpheus.jpg" alt="Create image illustration in anime style with Morpheus from Matrix suggesting you blue and red pills"></p>
+<ul>
+<li>A <em>Service Template (generator)</em> is a common approach for unifying and
+quickly bootstrapping new microservices.  Its popularity is evident in the
+community, as demonstrated by examples such as:
+<ul>
+<li><a href="https://github.com/evrone/go-clean-template">https://github.com/evrone/go-clean-template</a></li>
+<li><a href="https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/">https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/</a></li>
+<li><a href="https://dev.to/protium/github-template-for-golang-services-3o27">https://dev.to/protium/github-template-for-golang-services-3o27</a></li>
+<li><a href="https://www.youtube.com/watch?v=1ZbQS6pOlSQ">https://www.youtube.com/watch?v=1ZbQS6pOlSQ</a></li>
+</ul>
+</li>
+<li><a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency injection</a>
+(<em>DI</em>)<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is an approach where objects are constructed by passing
+pre-initialized components to them, rather than having the objects initialize
+those components themselves.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
+<ul>
+<li><a href="https://github.com/irr123/di">DI container</a> automates the dependency
+injection process. While not the most common approach for bootstrapping new
+services, it offers several advantages, which I will outline.</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-problem">The problem</h2>
+<p>The challenge is a timeless one: accelerating the delivery of value to
+production. From a technical perspective, this translates to several key
+requirements:</p>
+<ul>
+<li><strong>Pre-built components:</strong>  These eliminate the need to reinvent the wheel,
+saving valuable development time.</li>
+<li><strong>Consistent service structure:</strong>  A uniform structure reduces
+context-switching overhead.</li>
+<li><strong>Unified interaction interfaces:</strong> Standardized configuration, logging, and
+metrics save significant time for <a href="https://en.wikipedia.org/wiki/DevOps">operations</a>.</li>
+</ul>
+<h3 id="examples">Examples</h3>
+<p>Imagine a company with a few internal services looking to expand and release
+more. Or consider an outsourcing company developing services for external
+clients and aiming to increase its customer base. In both scenarios,
+efficiency is paramount, and directly related to the problems highlighted earlier.</p>
+<p>When examining individual services, we often find that, regardless of the
+specific <a href="https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html">layered architecture</a>
+employed (e.g., <a href="https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/">Onion</a>,
+<a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">Clean</a>,
+or <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)">Hexagonal</a><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>)
+outer layers tend to be shared across services, whereas the core business
+logic remains distinct<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. Specifically, elements such as observability tools,
+database connections, and message broker clients can be identical. These
+constitute the essential pre-built components and contribute to a consistent
+service structure. A unified interaction interface emerges from the
+standardized configuration of these pre-built components. For example, a
+shared database connection operates with consistent configuration parameters,
+providing uniform logging, metrics, and deployment procedures.</p>
+<h4 id="straightforward-implementation">Straightforward implementation</h4>
+<p>A common approach is to consolidate all shared code into one or more shared
+libraries. A service template can then be created to generate new services
+that include these libraries as dependencies, along with pre-prepared
+boilerplate code.</p>
+<p>Pros:</p>
+<ul>
+<li>This approach works.</li>
+</ul>
+<p>Cons:</p>
+<ul>
+<li>While addressing initial setup challenges, this method introduces a new
+problem: a continuously evolving template will inevitably diverge from the
+services it generates.</li>
+<li>The &ldquo;templating&rdquo; nature of this approach makes the template itself difficult
+to test and analyze with static analysis tools.</li>
+</ul>
+<h4 id="di-container-to-the-rescue"><a href="https://github.com/irr123/di">DI container</a> to the Rescue</h4>
+<p>Instead of relying on templates, we can retain the shared library approach and
+encapsulate all pre-built components within a container. This allows
+developers to focus solely on adding the business logic, adhering to the
+chosen layered architecture:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f00">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#87ceeb">&#34;github.com/irr123/di&#34;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#87ceeb">&#34;internal.lib/bootstrap&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">func</span> <span style="color:#ff0">main</span>() {
+</span></span><span style="display:flex;"><span>    c := di.<span style="color:#ff0">New</span>()
+</span></span><span style="display:flex;"><span>    bootstrap.<span style="color:#ff0">PutItAllTogether</span>(c)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    di.<span style="color:#ff0">Set</span>(c, di.<span style="color:#ff0">OptMiddleware</span>(<span style="color:#f00">func</span>(e *echo.Echo) (*echo.Echo, <span style="color:#ee82ee">error</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#0f0">// echo srv here is already fully configured and only needs to attach handlers</span>
+</span></span><span style="display:flex;"><span>        e.<span style="color:#ff0">GET</span>(<span style="color:#87ceeb">&#34;/&#34;</span>, <span style="color:#f00">func</span>(c echo.Context) <span style="color:#ee82ee">error</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f00">return</span> c.<span style="color:#ff0">JSON</span>(http.StatusOK, <span style="color:#87ceeb">&#34;&#34;</span>)
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    di.Get[*echo.Echo](c).<span style="color:#ff0">Start</span>(<span style="color:#87ceeb">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://go.dev/play/p/vxWijBAc3lC">Live example</a>.</p>
+<p>This approach reduces maintenance costs because it involves well-typed,
+valid code (without templating complexities) that can be effectively covered
+by <a href="https://en.wikipedia.org/wiki/Software_quality_management#Software_quality_and_the_software_lifecycle">quality checks</a>.
+Furthermore, backward compatibility is maintained by following standard coding practices.</p>
+<h2 id="finishing-uncovered-parts">Finishing Uncovered Parts</h2>
+<p>Continuing the comparison between containers and templates, it&rsquo;s worth noting
+that templates can offer a more comprehensive initial setup. This might
+include project layout, deployment scripts, CI/CD pipelines, VCS hooks,
+monitoring dashboards, alerts, and other elements. It&rsquo;s important to understand
+that templates provide these features only at the initial project creation and
+do not enforce them during subsequent project evolution (whereas containers
+maintain consistency).</p>
+<p>In conclusion good to know that these two approaches are not mutually exclusive
+and this article aims to explore the available options.</p>
+<hr data-content="footnotes">
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://en.wikipedia.org/wiki/Inversion_of_control"><em>IoC</em></a> is close but
+not the same concept, don&rsquo;t be confused. <em>DI</em> is a programming technique,
+while <em>IoC</em> is a design principle covered broader
+idea (let me know and I&rsquo;ll think about post on this topic).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>I intentionally will avoid word &ldquo;class&rdquo;.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>Does Dr.Alistair Cockburn not pay for <a href="https://alistair.cockburn.us">hosting</a>?&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>It&rsquo;s important point, imagine opposite way if you&rsquo;re sharing business
+logic between services, what&rsquo;s a purpose of separation than?&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+</article>
+
+            </div>
+        </main>
+        
+    <footer class="site-footer">
+    
+    
+        Stay updated on <a href="https://t.me/debugging_channel">Telegram</a> | <a href="/blog/index.xml">RSS</a>
+    
+    </footer>
+
+
+    </body></html>

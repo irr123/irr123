@@ -12,7 +12,7 @@ I've been noticed that my simple
 
 ## What is it [uv](https://github.com/astral-sh/uv)?
 
-![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust) ](posts-docker-uv-1.jpg)
+![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust)](posts-docker-uv-1.jpg)
 
 Long story short -  it's fast-[rust](https://www.rust-lang.org/)
  python's [pip](https://pip.pypa.io/en/stable/) alternative. And `python3 -m
