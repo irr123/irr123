@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://bogomolov.work</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://bogomolov.work/</loc>
+    <lastmod>2025-02-23T00:00:00+00:00</lastmod>
     <priority>0.9</priority>
-  </url>
-  <url>
+  </url><url>
     <loc>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</loc>
     <lastmod>2025-02-21T06:31:02+00:00</lastmod>
     <priority>0.7</priority>
