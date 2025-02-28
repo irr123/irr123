@@ -6,8 +6,15 @@
     <description>Recent content on Public notes</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Feb 2025 06:31:02 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Feb 2025 20:12:31 +0000</lastBuildDate>
     <atom:link href="https://bogomolov.work/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>(Almost) Free Google Drive Backup</title>
+      <link>https://bogomolov.work/blog/posts/google-drive-backup/</link>
+      <pubDate>Thu, 27 Feb 2025 20:12:31 +0000</pubDate>
+      <guid>https://bogomolov.work/blog/posts/google-drive-backup/</guid>
+      <description>&lt;p&gt;Have you &lt;em&gt;truly&lt;/em&gt; considered the catastrophic risks of losing all your&#xA;&lt;a href=&#34;https://drive.google.com/&#34;&gt;Google Drive&lt;/a&gt; data?&#xA;Can your business afford such a loss?&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;suit.jpg&#34; alt=&#34;generate image in anime style where white collar in suit grabs his head because he realized that lost his reports &#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let me guide you in mitigating those risks. I asked myself the same question&#xA;and searched for a reliable, out-of-the-box solution. Disappointed with&#xA;Google&amp;rsquo;s suggestions, I decided to build my own. Think of it as playing with&#xA;Lego-assembling the necessary components.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>DI Container vs. Service Template (generator)</title>
       <link>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</link>
