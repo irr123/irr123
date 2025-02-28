@@ -2,7 +2,11 @@
 title = "All posts:"
 
   [entries.post_list]
-  limit = 11
+  limit = 10
   show_more = true
-  show_more_text = "See archive..."
+  show_more_text = "More"
   show_more_url = "posts"
+
+[[entries]]
+title = "About"
+url = "/"
