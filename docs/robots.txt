@@ -1,0 +1,3 @@
+User-Agent: *
+Sitemap: https://bogomolov.work/sitemap.xml
+
