@@ -1,6 +1,6 @@
 baseURL = "https://bogomolov.work/blog/"
 languageCode = "en-us"
-title = "Public notes"
+title = "The Archive"
 theme = "hugo-theme-nostyleplease"
 
 [module]
