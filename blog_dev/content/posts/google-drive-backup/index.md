@@ -8,7 +8,7 @@ Have you _truly_ considered the catastrophic risks of losing all your
  [Google Drive](https://drive.google.com/) data?
  Can your business afford such a loss?
 
-![generate image in anime style where white collar in suit grabs his head because he realized that lost his reports ](suit.jpg)
+![generate image in anime style where white collar in suit grabs his head because he realized that lost his reports](suit.jpg)
 
 Let me guide you in mitigating those risks. I asked myself the same question
  and searched for a reliable, out-of-the-box solution. Disappointed with
@@ -60,7 +60,6 @@ Here's prepared `rclone.conf`:
 ```toml
 [google-drive]
 type = drive
-scope = drive.readonly
 service_account_file = /config/rclone/sa.json  # <- The key
 ```
 
@@ -70,8 +69,25 @@ And here's how to use it with [Docker](https://docs.docker.com/desktop/):
 docker run --rm -it \
     -v ./config:/config/rclone \
     -v ./data:/data \
-    rclone/rclone --drive-shared-with-me copy google-drive:<SHARED FOLDER> /data/$(date +"%Y-%m-%d")
+    rclone/rclone --drive-shared-with-me \
+    copy google-drive:<SHARED FOLDER> /data/$(date +"%Y-%m-%d")
 ```
+
+## rclone: Recovering the Backup
+
+To restore your backup, simply reverse the source and destination paths in the
+ rclone copy command:
+
+```bash
+docker run --rm -it \
+    -v ./config:/config/rclone \
+    -v ./data:/data \
+    rclone/rclone --drive-shared-with-me \
+    copy /data/$(date +"%Y-%m-%d") google-drive:<SHARED FOLDER>
+```
+
+Be aware that if you recover data, the original permissions will be lost,
+ and the _Service Account_ will become the owner of all recovered data.
 
 ### Important Note
 
@@ -86,3 +102,5 @@ This provides a solid foundation for Google Drive backup. To enhance its
  enterprise-level security and reliability, consider implementing additional
  [encryption](https://rclone.org/crypt/) and robust, cost-effective
  [storage](https://rclone.org/s3/) solutions.
+
+Stay tuned, we're gonna talk about that [next]({{< relref "posts/google-drive-backup-part2" >}}).

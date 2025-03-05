@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="description" content="This is a continuation of the first part,
+where we built a basic backup solution using local storage. Now, let&rsquo;s elevate
+our approach by integrating another cloud provider and adding robust encryption.
+
+Dropbox: Setting Up an Additional Cloud Provider
+To obtain an access token, you&rsquo;ll need to configure
+rclone locally (because of web browser).
+Here&rsquo;s how I did it using Docker:">  
+
+  <title>
+    
+      Google Drive Backup Part 2
+    
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+  
+  
+  
+  <link rel="stylesheet" href="/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
+  <link rel="stylesheet" href="/blog/css/style.css">
+  
+</head>
+<body a="auto">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-950H2PH48S");
+</script>
+
+<main class="page-content" aria-label="Content">
+            <div class="w">
+                <div class="post-meta">
+                    <a href="/blog/">&lt;-</a>
+
+                    <p>
+                        <time datetime="2025-03-05 08:46:19 &#43;0000 UTC">
+                            2025-03-05
+                        </time>
+                    </p>
+                </div>
+
+<article>
+    <h1>Google Drive Backup Part 2</h1>
+
+    
+
+    <p>This is a continuation of the first <a href="/blog/posts/google-drive-backup/">part</a>,
+where we built a basic backup solution using local storage. Now, let&rsquo;s elevate
+our approach by integrating another cloud provider and adding robust encryption.</p>
+<p><img src="suit-2.jpg" alt="generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey"></p>
+<h1 id="dropbox-setting-up-an-additional-cloud-provider">Dropbox: Setting Up an Additional Cloud Provider</h1>
+<p>To obtain an access token, you&rsquo;ll need to configure
+<a href="https://rclone.org/remote_setup/">rclone</a> locally (because of web browser).
+Here&rsquo;s how I did it using Docker:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    --net=host <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone authorize <span style="color:#87ceeb">&#34;dropbox&#34;</span>
+</span></span></code></pre></div><p>After you&rsquo;ve obtained the token, simply add new sections to your <code>rclone.conf</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[dropbox]
+</span></span><span style="display:flex;"><span>type = dropbox
+</span></span><span style="display:flex;"><span>token = {<span style="color:#87ceeb">&#34;access_token&#34;</span>:<span style="color:#87ceeb">&#34;&lt;...&gt;&#34;</span>}  <span style="color:#0f0"># whole obtained string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[dropbox-crypt]
+</span></span><span style="display:flex;"><span>type = crypt
+</span></span><span style="display:flex;"><span>remote = dropbox:
+</span></span><span style="display:flex;"><span>filename_encryption = obfuscate
+</span></span><span style="display:flex;"><span>directory_name_encryption = <span style="color:#f00">false</span>
+</span></span><span style="display:flex;"><span>password = &lt;PASSWORD&gt;
+</span></span></code></pre></div><p><strong>Important:</strong> Remember to replace <code>&lt;PASSWORD&gt;</code> with a strong, secure password,
+rclone <a href="https://rclone.org/crypt/#configuration">helps with it</a>.</p>
+<h2 id="rclone-executing-the-encrypted-backup">rclone: Executing the Encrypted Backup</h2>
+<p>Now, let&rsquo;s use our encrypted Dropbox remote to back up our Google Drive data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data<span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy google-drive:&lt;SHARED FOLDER&gt; dropbox-crypt:
+</span></span></code></pre></div><h2 id="rclone-recovering-the-encrypted-backup">rclone: Recovering the Encrypted Backup</h2>
+<p>To restore your encrypted backup, simply reverse the source and destination in
+your <code>rclone copy</code> command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy dropbox-crypt: google-drive:&lt;SHARED FOLDER&gt;
+</span></span></code></pre></div><p>This will decrypt and copy your files back to your Google Drive.</p>
+<p><strong>Note:</strong> Only properly encrypted files will be recovered.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>By adding Dropbox as a secondary backup destination and encrypting our data,
+we&rsquo;ve significantly improved the security and redundancy of our Google Drive
+backup solution. This approach provides an extra layer of protection against
+data loss or unauthorized access. While this setup is more secure than our
+initial local storage-based solution, remember that the strength of your
+encryption hinges on the security of your password. Always use strong, unique
+passwords and store them securely.</p>
+<p>Additionally, consider implementing regular
+backup testing to ensure your recovery process works as expected. Future
+enhancements could include automated health checks, notifications, and more
+sophisticated encryption strategies.</p>
+
+</article>
+
+            </div>
+        </main>
+        
+    <footer class="site-footer">
+    
+    
+        Stay updated on <a href="https://t.me/debugging_channel">Telegram</a> | <a href="/blog/index.xml">RSS</a>
+    
+    </footer>
+
+
+    </body></html>

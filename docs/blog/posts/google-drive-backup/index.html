@@ -57,7 +57,7 @@ Lego-assembling the necessary components.">
     <p>Have you <em>truly</em> considered the catastrophic risks of losing all your
 <a href="https://drive.google.com/">Google Drive</a> data?
 Can your business afford such a loss?</p>
-<p><img src="suit.jpg" alt="generate image in anime style where white collar in suit grabs his head because he realized that lost his reports "></p>
+<p><img src="suit.jpg" alt="generate image in anime style where white collar in suit grabs his head because he realized that lost his reports"></p>
 <p>Let me guide you in mitigating those risks. I asked myself the same question
 and searched for a reliable, out-of-the-box solution. Disappointed with
 Google&rsquo;s suggestions, I decided to build my own. Think of it as playing with
@@ -97,14 +97,24 @@ I&rsquo;ll skip the details of acquiring a hosting environment.</p>
 <p>Here&rsquo;s prepared <code>rclone.conf</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[google-drive]
 </span></span><span style="display:flex;"><span>type = drive
-</span></span><span style="display:flex;"><span>scope = drive.readonly
 </span></span><span style="display:flex;"><span>service_account_file = /config/rclone/sa.json  <span style="color:#0f0"># &lt;- The key</span>
 </span></span></code></pre></div><p>And here&rsquo;s how to use it with <a href="https://docs.docker.com/desktop/">Docker</a>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
-</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me copy google-drive:&lt;SHARED FOLDER&gt; /data/<span style="color:#f00">$(</span>date +<span style="color:#87ceeb">&#34;%Y-%m-%d&#34;</span><span style="color:#f00">)</span>
-</span></span></code></pre></div><h3 id="important-note">Important Note</h3>
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy google-drive:&lt;SHARED FOLDER&gt; /data/<span style="color:#f00">$(</span>date +<span style="color:#87ceeb">&#34;%Y-%m-%d&#34;</span><span style="color:#f00">)</span>
+</span></span></code></pre></div><h2 id="rclone-recovering-the-backup">rclone: Recovering the Backup</h2>
+<p>To restore your backup, simply reverse the source and destination paths in the
+rclone copy command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
+</span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy /data/<span style="color:#f00">$(</span>date +<span style="color:#87ceeb">&#34;%Y-%m-%d&#34;</span><span style="color:#f00">)</span> google-drive:&lt;SHARED FOLDER&gt;
+</span></span></code></pre></div><p>Be aware that if you recover data, the original permissions will be lost,
+and the <em>Service Account</em> will become the owner of all recovered data.</p>
+<h3 id="important-note">Important Note</h3>
 <p>A <em>Service Account</em> is essentially an account with its own folder and
 permissions within Google Drive. Therefore, you must share the desired
 folders with it. The <code>&lt;SHARED FOLDER&gt;</code> in the bash command refers to
@@ -114,6 +124,7 @@ the exact name of the shared folder.</p>
 enterprise-level security and reliability, consider implementing additional
 <a href="https://rclone.org/crypt/">encryption</a> and robust, cost-effective
 <a href="https://rclone.org/s3/">storage</a> solutions.</p>
+<p>Stay tuned, we&rsquo;re gonna talk about that <a href="/blog/posts/google-drive-backup-part2/">next</a>.</p>
 
 </article>
 

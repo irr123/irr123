@@ -6,14 +6,21 @@
     <description>Recent content on The Archive</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 Feb 2025 20:12:31 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Mar 2025 08:46:19 +0000</lastBuildDate>
     <atom:link href="https://bogomolov.work/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Drive Backup Part 2</title>
+      <link>https://bogomolov.work/blog/posts/google-drive-backup-part2/</link>
+      <pubDate>Wed, 05 Mar 2025 08:46:19 +0000</pubDate>
+      <guid>https://bogomolov.work/blog/posts/google-drive-backup-part2/</guid>
+      <description>&lt;p&gt;This is a continuation of the first &lt;a href=&#34;https://bogomolov.work/blog/posts/google-drive-backup/&#34;&gt;part&lt;/a&gt;,&#xA;where we built a basic backup solution using local storage. Now, let&amp;rsquo;s elevate&#xA;our approach by integrating another cloud provider and adding robust encryption.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;suit-2.jpg&#34; alt=&#34;generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey&#34;&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;dropbox-setting-up-an-additional-cloud-provider&#34;&gt;Dropbox: Setting Up an Additional Cloud Provider&lt;/h1&gt;&#xA;&lt;p&gt;To obtain an access token, you&amp;rsquo;ll need to configure&#xA;&lt;a href=&#34;https://rclone.org/remote_setup/&#34;&gt;rclone&lt;/a&gt; locally (because of web browser).&#xA;Here&amp;rsquo;s how I did it using Docker:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>(Almost) Free Google Drive Backup</title>
       <link>https://bogomolov.work/blog/posts/google-drive-backup/</link>
       <pubDate>Thu, 27 Feb 2025 20:12:31 +0000</pubDate>
       <guid>https://bogomolov.work/blog/posts/google-drive-backup/</guid>
-      <description>&lt;p&gt;Have you &lt;em&gt;truly&lt;/em&gt; considered the catastrophic risks of losing all your&#xA;&lt;a href=&#34;https://drive.google.com/&#34;&gt;Google Drive&lt;/a&gt; data?&#xA;Can your business afford such a loss?&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;suit.jpg&#34; alt=&#34;generate image in anime style where white collar in suit grabs his head because he realized that lost his reports &#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let me guide you in mitigating those risks. I asked myself the same question&#xA;and searched for a reliable, out-of-the-box solution. Disappointed with&#xA;Google&amp;rsquo;s suggestions, I decided to build my own. Think of it as playing with&#xA;Lego-assembling the necessary components.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Have you &lt;em&gt;truly&lt;/em&gt; considered the catastrophic risks of losing all your&#xA;&lt;a href=&#34;https://drive.google.com/&#34;&gt;Google Drive&lt;/a&gt; data?&#xA;Can your business afford such a loss?&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;suit.jpg&#34; alt=&#34;generate image in anime style where white collar in suit grabs his head because he realized that lost his reports&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Let me guide you in mitigating those risks. I asked myself the same question&#xA;and searched for a reliable, out-of-the-box solution. Disappointed with&#xA;Google&amp;rsquo;s suggestions, I decided to build my own. Think of it as playing with&#xA;Lego-assembling the necessary components.&lt;/p&gt;</description>
     </item>
     <item>
       <title>DI Container vs. Service Template (generator)</title>
