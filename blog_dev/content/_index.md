@@ -4,4 +4,4 @@ draft: false
 keywords: [bogomolov, personal, blog, tech, marketing, business, opensource]
 ---
 
-These [data-spirits](/robots.txt), my scrap-code prayer, are offered to the Machine God.
+{{< sitesummary >}}
