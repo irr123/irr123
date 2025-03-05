@@ -1,8 +1,9 @@
-+++
-date = '2025-03-05T08:46:19Z'
-draft = false
-title = 'Google Drive Backup Part 2'
-+++
+---
+date: 2025-03-05T08:46:19Z
+draft: false
+title: Google Drive Backup Part 2
+keywords: [rclone, dropbox, google drive, encryption, backup]
+---
 
 This is a continuation of the first [part]({{< relref "posts/google-drive-backup" >}}),
  where we built a basic backup solution using local storage. Now, let's elevate

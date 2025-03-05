@@ -1,8 +1,9 @@
-+++
-date = '2025-02-27T20:12:31Z'
-draft = false
-title = '(Almost) Free Google Drive Backup'
-+++
+---
+date: 2025-02-27T20:12:31Z
+draft: false
+title: (Almost) Free Google Drive Backup
+keywords: [rclone, google drive, backup, cron]
+---
 
 Have you _truly_ considered the catastrophic risks of losing all your
  [Google Drive](https://drive.google.com/) data?

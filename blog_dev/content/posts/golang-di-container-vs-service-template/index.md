@@ -1,8 +1,9 @@
-+++
-date = '2025-02-21T06:31:02Z'
-draft = false
-title = 'DI Container vs. Service Template (generator)'
-+++
+---
+date: 2025-02-21T06:31:02Z
+draft: false
+title: DI Container vs. Service Template (generator)
+keywords: [golang, architecture, dependency container, github, opensource]
+---
 
 Let's talk about building and evolving [Golang](https://go.dev/) services in
  the enterprise. We'll explore two approaches:

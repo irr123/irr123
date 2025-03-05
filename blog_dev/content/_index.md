@@ -1,6 +1,7 @@
-+++
-date = '2025-02-18T12:39:42Z'
-draft = false
-+++
+---
+date: 2025-02-18T12:39:42Z
+draft: false
+keywords: [bogomolov, personal, blog, tech, marketing, business, opensource]
+---
 
 These [data-spirits](/robots.txt), my scrap-code prayer, are offered to the Machine God.

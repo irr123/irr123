@@ -1,8 +1,9 @@
-+++
-date = '2025-02-18T12:39:42Z'
-draft = false
-title = 'Python3 Dockerfile with uv'
-+++
+---
+date: 2025-02-18T12:39:42Z
+draft: false
+title: Python3 Dockerfile with uv
+keywords: [python, dockerfile, uv, opensource]
+---
 
 I've been noticed that my simple
  [python3 docker image](https://hub.docker.com/repository/docker/c1rno/python)

@@ -2,6 +2,7 @@ baseURL = "https://bogomolov.work/blog/"
 languageCode = "en-us"
 title = "The Archive"
 theme = "hugo-theme-nostyleplease"
+summaryLength = 32
 
 [module]
   [module.hugoVersion]
