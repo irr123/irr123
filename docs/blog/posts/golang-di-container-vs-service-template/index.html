@@ -3,8 +3,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DI Container vs. Service Template (generator)</title>
-  <meta name="description" content="Let&rsquo;s talk about building and evolving Golang services in the enterprise. We&rsquo;ll explore two approaches:
+  <title>DI Container vs. Service Template (generator) | Let’s talk ab...</title>
+  <meta name="description" content="Let’s talk about building and evolving Golang services in the enterprise. We’ll explore two approaches:
 A Service Template (generator) is a common approach for unifying and quickly bootstrapping new microservices. Its popularity is evident in the community, as demonstrated by examples such as: https://github.com/evrone/go-clean-template https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/ https://dev.to/protium/github-template-for-golang-services-3o27 https://www.youtube.com/watch?v=1ZbQS6pOlSQ Dependency injection (DI)1 is an approach where objects are constructed by passing pre-initialized components to them, rather than having the objects initialize those components themselves.2 DI container automates the dependency injection process. While not the most common approach for bootstrapping new services, it offers several advantages, which I will outline. The problem The challenge is a timeless one: accelerating the delivery of value to production. From a technical perspective, this translates to several key requirements:
 " />
   <meta name="keywords" content="golang, architecture, dependency container, github, opensource" />
@@ -13,13 +13,13 @@ A Service Template (generator) is a common approach for unifying and quickly boo
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="canonical" href="https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/" />
   <meta property="og:title" content="DI Container vs. Service Template (generator)" />
-  <meta property="og:description" content="Let&rsquo;s talk about building and evolving Golang services in the enterprise. We&rsquo;ll explore two approaches:
+  <meta property="og:description" content="Let’s talk about building and evolving Golang services in the enterprise. We’ll explore two approaches:
 A Service Template (generator) is a common approach for unifying and quickly bootstrapping new microservices. Its popularity is evident in the community, as demonstrated by examples such as: https://github.com/evrone/go-clean-template https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/ https://dev.to/protium/github-template-for-golang-services-3o27 https://www.youtube.com/watch?v=1ZbQS6pOlSQ Dependency injection (DI)1 is an approach where objects are constructed by passing pre-initialized components to them, rather than having the objects initialize those components themselves.2 DI container automates the dependency injection process. While not the most common approach for bootstrapping new services, it offers several advantages, which I will outline. The problem The challenge is a timeless one: accelerating the delivery of value to production. From a technical perspective, this translates to several key requirements:
 " />
   <meta property="og:url" content="https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="DI Container vs. Service Template (generator)" />
-  <meta name="twitter:description" content="Let&rsquo;s talk about building and evolving Golang services in the enterprise. We&rsquo;ll explore two approaches:
+  <meta name="twitter:description" content="Let’s talk about building and evolving Golang services in the enterprise. We’ll explore two approaches:
 A Service Template (generator) is a common approach for unifying and quickly bootstrapping new microservices. Its popularity is evident in the community, as demonstrated by examples such as: https://github.com/evrone/go-clean-template https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/ https://dev.to/protium/github-template-for-golang-services-3o27 https://www.youtube.com/watch?v=1ZbQS6pOlSQ Dependency injection (DI)1 is an approach where objects are constructed by passing pre-initialized components to them, rather than having the objects initialize those components themselves.2 DI container automates the dependency injection process. While not the most common approach for bootstrapping new services, it offers several advantages, which I will outline. The problem The challenge is a timeless one: accelerating the delivery of value to production. From a technical perspective, this translates to several key requirements:
 " />
   

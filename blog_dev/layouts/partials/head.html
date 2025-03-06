@@ -3,20 +3,25 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {{ $pageTitle := cond .IsHome site.Title .Title -}}
-  <title>{{ $pageTitle }}</title>
-  {{ $pageSummary := cond .IsPage .Summary site.Params.summary -}}
-  <meta name="description" content="{{ $pageSummary | plainify }}" />
+  {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
+  {{ $combined := print $pageTitle " | " $pageSummary -}}
+  {{ $adjustedTitle := substr $combined 0 64 -}}
+  {{ if gt (len $combined) 64 -}}
+    {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}
+  {{ end -}}
+  <title>{{ $adjustedTitle }}</title>
+  <meta name="description" content="{{ $pageSummary }}" />
   {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}" />{{ end }}
   <meta name="author" content="Ivan Bogomolov" />
   <meta name="robots" content="index, follow" />
   <link rel="shortcut icon" type="image/x-icon" href="{{ site.Params.favicon | relURL }}" />
   <link rel="canonical" href="{{ .Permalink }}" />
   <meta property="og:title" content="{{ $pageTitle }}" />
-  <meta property="og:description" content="{{ $pageSummary | plainify }}" />
+  <meta property="og:description" content="{{ $pageSummary }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="{{ $pageTitle }}" />
-  <meta name="twitter:description" content="{{ $pageSummary | plainify }}" />
+  <meta name="twitter:description" content="{{ $pageSummary }}" />
   {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{ $sass := resources.Get "css/main.scss" }}
   {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
