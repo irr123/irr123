@@ -51,7 +51,7 @@ COPY . /opt/app
 WORKDIR /opt/app
 ```
 
-# Conclusion
+## Conclusion
 
 Personally I don't see any reason to spent time to setup uv locally, but on
  [CI](https://en.wikipedia.org/wiki/Continuous_integration) it safe a lot of

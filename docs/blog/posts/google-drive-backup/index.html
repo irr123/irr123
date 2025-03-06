@@ -62,14 +62,14 @@ Can your business afford such a loss?</p>
 and searched for a reliable, out-of-the-box solution. Disappointed with
 Google&rsquo;s suggestions, I decided to build my own. Think of it as playing with
 Lego-assembling the necessary components.</p>
-<h1 id="what-building-blocks-do-we-need">What building blocks do we need?</h1>
+<h2 id="what-building-blocks-do-we-need">What building blocks do we need?</h2>
 <ul>
 <li>Access to your <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">Google Cloud Console</a></li>
 <li><a href="https://rclone.org">rclone</a>: A powerful tool that provides rsync-like CLI
 functionality for managing filesystems and cloud storage. It&rsquo;s
 well-documented, but we&rsquo;ll focus on a streamlined approach</li>
 </ul>
-<h2 id="google-cloud-console-setting-up-the-service-account">Google Cloud Console: Setting Up the Service Account</h2>
+<h3 id="google-cloud-console-setting-up-the-service-account">Google Cloud Console: Setting Up the Service Account</h3>
 <p>We&rsquo;ll start with the most crucial step: obtaining the necessary credentials to
 interact with the Google API. (Remember to enable the
 <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com">Google Drive API</a>
@@ -90,7 +90,7 @@ and generating a <a href="https://developers.google.com/workspace/guides/create-
 </span></span><span style="display:flex;"><span>  &#34;client_x509_cert_url&#34;: <span style="color:#87ceeb">&#34;https://www.googleapis.com/robot/v1/metadata/x509/&lt;service account name&gt;%40&lt;project name&gt;.iam.gserviceaccount.com&#34;</span>,
 </span></span><span style="display:flex;"><span>  &#34;universe_domain&#34;: <span style="color:#87ceeb">&#34;googleapis.com&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="rclone-configuring-and-executing-the-backup">rclone: Configuring and Executing the Backup</h2>
+</span></span></code></pre></div><h3 id="rclone-configuring-and-executing-the-backup">rclone: Configuring and Executing the Backup</h3>
 <p>We&rsquo;re almost there! The next step is to set up rclone for automated execution
 using <a href="https://en.wikipedia.org/wiki/Cron">cron</a> on a host of your choice.
 I&rsquo;ll skip the details of acquiring a hosting environment.</p>
@@ -104,7 +104,7 @@ I&rsquo;ll skip the details of acquiring a hosting environment.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy google-drive:&lt;SHARED FOLDER&gt; /data/<span style="color:#f00">$(</span>date +<span style="color:#87ceeb">&#34;%Y-%m-%d&#34;</span><span style="color:#f00">)</span>
-</span></span></code></pre></div><h2 id="rclone-recovering-the-backup">rclone: Recovering the Backup</h2>
+</span></span></code></pre></div><h3 id="rclone-recovering-the-backup">rclone: Recovering the Backup</h3>
 <p>To restore your backup, simply reverse the source and destination paths in the
 rclone copy command:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
@@ -114,12 +114,12 @@ rclone copy command:</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy /data/<span style="color:#f00">$(</span>date +<span style="color:#87ceeb">&#34;%Y-%m-%d&#34;</span><span style="color:#f00">)</span> google-drive:&lt;SHARED FOLDER&gt;
 </span></span></code></pre></div><p>Be aware that if you recover data, the original permissions will be lost,
 and the <em>Service Account</em> will become the owner of all recovered data.</p>
-<h3 id="important-note">Important Note</h3>
+<h4 id="important-note">Important Note</h4>
 <p>A <em>Service Account</em> is essentially an account with its own folder and
 permissions within Google Drive. Therefore, you must share the desired
 folders with it. The <code>&lt;SHARED FOLDER&gt;</code> in the bash command refers to
 the exact name of the shared folder.</p>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>This provides a solid foundation for Google Drive backup. To enhance its
 enterprise-level security and reliability, consider implementing additional
 <a href="https://rclone.org/crypt/">encryption</a> and robust, cost-effective

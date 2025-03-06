@@ -58,7 +58,7 @@
 where we built a basic backup solution using local storage. Now, let&rsquo;s elevate
 our approach by integrating another cloud provider and adding robust encryption.</p>
 <p><img src="suit-2.jpg" alt="generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey"></p>
-<h1 id="dropbox-setting-up-an-additional-cloud-provider">Dropbox: Setting Up an Additional Cloud Provider</h1>
+<h2 id="dropbox-setting-up-an-additional-cloud-provider">Dropbox: Setting Up an Additional Cloud Provider</h2>
 <p>To obtain an access token, you&rsquo;ll need to configure
 <a href="https://rclone.org/remote_setup/">rclone</a> locally (because of web browser).
 Here&rsquo;s how I did it using Docker:</p>
@@ -80,14 +80,14 @@ Here&rsquo;s how I did it using Docker:</p>
 </span></span><span style="display:flex;"><span>password = &lt;PASSWORD&gt;
 </span></span></code></pre></div><p><strong>Important:</strong> Remember to replace <code>&lt;PASSWORD&gt;</code> with a strong, secure password,
 rclone <a href="https://rclone.org/crypt/#configuration">helps with it</a>.</p>
-<h2 id="rclone-executing-the-encrypted-backup">rclone: Executing the Encrypted Backup</h2>
+<h3 id="rclone-executing-the-encrypted-backup">rclone: Executing the Encrypted Backup</h3>
 <p>Now, let&rsquo;s use our encrypted Dropbox remote to back up our Google Drive data:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data<span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    rclone/rclone --drive-shared-with-me <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy google-drive:&lt;SHARED FOLDER&gt; dropbox-crypt:
-</span></span></code></pre></div><h2 id="rclone-recovering-the-encrypted-backup">rclone: Recovering the Encrypted Backup</h2>
+</span></span></code></pre></div><h3 id="rclone-recovering-the-encrypted-backup">rclone: Recovering the Encrypted Backup</h3>
 <p>To restore your encrypted backup, simply reverse the source and destination in
 your <code>rclone copy</code> command:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
@@ -97,7 +97,7 @@ your <code>rclone copy</code> command:</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    copy dropbox-crypt: google-drive:&lt;SHARED FOLDER&gt;
 </span></span></code></pre></div><p>This will decrypt and copy your files back to your Google Drive.</p>
 <p><strong>Note:</strong> Only properly encrypted files will be recovered.</p>
-<h1 id="conclusion">Conclusion</h1>
+<h2 id="conclusion">Conclusion</h2>
 <p>By adding Dropbox as a secondary backup destination and encrypting our data,
 we&rsquo;ve significantly improved the security and redundancy of our Google Drive
 backup solution. This approach provides an extra layer of protection against

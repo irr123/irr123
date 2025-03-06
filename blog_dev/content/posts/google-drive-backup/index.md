@@ -16,14 +16,14 @@ Let me guide you in mitigating those risks. I asked myself the same question
  Google's suggestions, I decided to build my own. Think of it as playing with
  Lego-assembling the necessary components.
 
-# What building blocks do we need?
+## What building blocks do we need?
 
 - Access to your [Google Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts)
 - [rclone](https://rclone.org): A powerful tool that provides rsync-like CLI
   functionality for managing filesystems and cloud storage. It's
   well-documented, but we'll focus on a streamlined approach
 
-## Google Cloud Console: Setting Up the Service Account
+### Google Cloud Console: Setting Up the Service Account
 
 We'll start with the most crucial step: obtaining the necessary credentials to
  interact with the Google API. (Remember to enable the
@@ -50,7 +50,7 @@ Here's an example of what it looks like:
 }
 ```
 
-## rclone: Configuring and Executing the Backup
+### rclone: Configuring and Executing the Backup
 
 We're almost there! The next step is to set up rclone for automated execution
  using [cron](https://en.wikipedia.org/wiki/Cron) on a host of your choice.
@@ -74,7 +74,7 @@ docker run --rm -it \
     copy google-drive:<SHARED FOLDER> /data/$(date +"%Y-%m-%d")
 ```
 
-## rclone: Recovering the Backup
+### rclone: Recovering the Backup
 
 To restore your backup, simply reverse the source and destination paths in the
  rclone copy command:
@@ -90,14 +90,14 @@ docker run --rm -it \
 Be aware that if you recover data, the original permissions will be lost,
  and the _Service Account_ will become the owner of all recovered data.
 
-### Important Note
+#### Important Note
 
 A _Service Account_ is essentially an account with its own folder and
  permissions within Google Drive. Therefore, you must share the desired
  folders with it. The `<SHARED FOLDER>` in the bash command refers to
  the exact name of the shared folder.
 
-# Conclusion
+## Conclusion
 
 This provides a solid foundation for Google Drive backup. To enhance its
  enterprise-level security and reliability, consider implementing additional
