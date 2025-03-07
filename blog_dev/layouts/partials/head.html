@@ -14,7 +14,7 @@
   {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}" />{{ end }}
   <meta name="author" content="Ivan Bogomolov" />
   <meta name="robots" content="index, follow" />
-  <link rel="shortcut icon" type="image/x-icon" href="{{ site.Params.favicon | relURL }}" />
+  <link rel="icon" type="image/x-icon" href="{{ site.Params.favicon | relURL }}" />
   <link rel="canonical" href="{{ .Permalink }}" />
   <meta property="og:title" content="{{ $pageTitle }}" />
   <meta property="og:description" content="{{ $pageSummary }}" />
