@@ -6,8 +6,15 @@
     <description>Recent content in Posts on The Archive</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Mar 2025 08:46:19 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Mar 2025 18:22:35 +0000</lastBuildDate>
     <atom:link href="https://bogomolov.work/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Will AI Replace Developers?</title>
+      <link>https://bogomolov.work/blog/posts/will-ai-replace-developers/</link>
+      <pubDate>Wed, 12 Mar 2025 18:22:35 +0000</pubDate>
+      <guid>https://bogomolov.work/blog/posts/will-ai-replace-developers/</guid>
+      <description>&lt;p&gt;A common narrative from &lt;a href=&#34;https://openai.com/&#34;&gt;OpenAI&lt;/a&gt; and similar companies&#xA;(previous hype was from &lt;a href=&#34;https://www.nocode.tech/&#34;&gt;no-code-guys&lt;/a&gt;)&#xA;suggests that the era of human developers is ending due to cost considerations,&#xA;and that &lt;a href=&#34;https://gemini.google.com/&#34;&gt;AI&lt;/a&gt; will replace&#xA;&lt;a href=&#34;https://en.wikipedia.org/wiki/Software_development#Workers&#34;&gt;us&lt;/a&gt; soon.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;robot.jpg&#34; alt=&#34;AI vs. Human Coder&#34;&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Google Drive Backup Part 2</title>
       <link>https://bogomolov.work/blog/posts/google-drive-backup-part2/</link>
