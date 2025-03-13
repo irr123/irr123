@@ -43,6 +43,7 @@ summaryLength = 32
   favicon = "/favicon.ico"
   googleAnalytics = "G-950H2PH48S"
   yandexMetrika = 100343675
+  metaPixel = 2627430184120255
   summary = "These data-spirits, my scrap-code prayer, are offered to the Machine God."
 
   [params.theme_config]
