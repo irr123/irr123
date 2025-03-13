@@ -2,7 +2,17 @@
 date: 2025-03-05T08:46:19Z
 draft: false
 title: Google Drive Backup Part 2
-keywords: [rclone, dropbox, google drive, encryption, backup]
+keywords: [
+  rclone, dropbox, google drive, encryption, backup, cloud backup,
+  encrypted cloud storage, rclone backup, google drive encryption,
+  dropbox encryption, secure cloud storage, rclone google drive,
+  rclone dropbox setup, encrypted backups with rclone,
+  data redundancy, cloud data security, offsite backup,
+  automated backups, rclone crypt, secure file transfer,
+  cloud data protection, backup encryption best practices,
+  restoring encrypted backups, google drive to dropbox backup,
+  rclone docker, backup automation, rclone config example
+]
 ---
 
 This is a continuation of the first [part]({{< relref "posts/google-drive-backup" >}}),

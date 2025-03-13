@@ -2,7 +2,15 @@
 date: 2025-02-18T12:39:42Z
 draft: false
 title: Python3 Dockerfile with uv
-keywords: [python, dockerfile, uv, opensource]
+keywords: [
+  python3, docker, dockerfile, uv, python uv, uv package manager,
+  rust-based pip alternative, fast python package manager,
+  python venv alternative, uv vs pip, uv docker integration,
+  python package management, rust python tools,
+  how to use uv in docker, best python package manager 2025,
+  uv vs pip performance comparison, setting up uv in CI/CD,
+  running uv in docker containers
+]
 ---
 
 I've been noticed that my simple

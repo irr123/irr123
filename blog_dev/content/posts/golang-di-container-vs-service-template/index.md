@@ -2,7 +2,17 @@
 date: 2025-02-21T06:31:02Z
 draft: false
 title: DI Container vs. Service Template (generator)
-keywords: [golang, architecture, dependency container, github, opensource]
+keywords: [
+  golang, architecture, dependency injection, DI container, service template,
+  microservices, software design patterns, software architecture,
+  Golang dependency injection, DI vs service template,
+  Golang microservices, Golang DI container, Go service generator,
+  Golang project structure, Golang best practices,
+  software scalability, Golang framework, inversion of control,
+  Golang IoC, Golang DI example, Golang container pattern,
+  microservices best practices, CI/CD for Golang,
+  software quality management, Golang software templates
+]
 ---
 
 Let's talk about building and evolving [Golang](https://go.dev/) services in
