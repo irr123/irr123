@@ -1,7 +1,6 @@
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   {{ $pageTitle := cond .IsHome site.Title .Title -}}
   {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
   {{ $combined := print $pageTitle " | " $pageSummary -}}
@@ -10,24 +9,28 @@
     {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}
   {{ end -}}
   <title>{{ $adjustedTitle }}</title>
-  <meta name="description" content="{{ $pageSummary }}" />
-  {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}" />{{ end }}
-  <meta name="author" content="Ivan Bogomolov" />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/x-icon" href="{{ site.Params.favicon | relURL }}" />
-  <link rel="canonical" href="{{ .Permalink }}" />
-  <meta property="og:title" content="{{ $pageTitle }}" />
-  <meta property="og:description" content="{{ $pageSummary }}" />
-  <meta property="og:url" content="{{ .Permalink }}" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="{{ $pageTitle }}" />
-  <meta name="twitter:description" content="{{ $pageSummary }}" />
+  <meta name="description" content="{{ $pageSummary }}"/>
+  {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}"/>{{ end }}
+  <meta name="author" content="Ivan Bogomolov"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="{{ .Permalink }}"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"/>
+  <meta property="og:title" content="{{ $pageTitle }}"/>
+  <meta property="og:description" content="{{ $pageSummary }}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="{{ .Permalink }}"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="{{ $pageTitle }}"/>
+  <meta name="twitter:description" content="{{ $pageSummary }}"/>
+  <meta name="theme-color" content="#000000"/>
   {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{ $sass := resources.Get "css/main.scss" }}
   {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
-  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}" />
-  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}"/>
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}"/>
   {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
-  <meta name="theme-color" content="#000000" />
 </head>

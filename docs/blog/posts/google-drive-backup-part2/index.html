@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html lang="en-us"><head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en"><head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Google Drive Backup Part 2 | This is a continuation of the fi...</title>
   <meta name="description" content="This is a continuation of the first part, where we built a basic backup solution using local storage. Now, let’s elevate our approach by integrating another cloud provider and adding robust encryption.
-" />
-  <meta name="keywords" content="rclone, dropbox, google drive, encryption, backup, cloud backup, encrypted cloud storage, rclone backup, google drive encryption, dropbox encryption, secure cloud storage, rclone google drive, rclone dropbox setup, encrypted backups with rclone, data redundancy, cloud data security, offsite backup, automated backups, rclone crypt, secure file transfer, cloud data protection, backup encryption best practices, restoring encrypted backups, google drive to dropbox backup, rclone docker, backup automation, rclone config example" />
-  <meta name="author" content="Ivan Bogomolov" />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="canonical" href="https://bogomolov.work/blog/posts/google-drive-backup-part2/" />
-  <meta property="og:title" content="Google Drive Backup Part 2" />
+"/>
+  <meta name="keywords" content="rclone, dropbox, google drive, encryption, backup, cloud backup, encrypted cloud storage, rclone backup, google drive encryption, dropbox encryption, secure cloud storage, rclone google drive, rclone dropbox setup, encrypted backups with rclone, data redundancy, cloud data security, offsite backup, automated backups, rclone crypt, secure file transfer, cloud data protection, backup encryption best practices, restoring encrypted backups, google drive to dropbox backup, rclone docker, backup automation, rclone config example"/>
+  <meta name="author" content="Ivan Bogomolov"/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="canonical" href="https://bogomolov.work/blog/posts/google-drive-backup-part2/"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"/>
+  <meta property="og:title" content="Google Drive Backup Part 2"/>
   <meta property="og:description" content="This is a continuation of the first part, where we built a basic backup solution using local storage. Now, let’s elevate our approach by integrating another cloud provider and adding robust encryption.
-" />
-  <meta property="og:url" content="https://bogomolov.work/blog/posts/google-drive-backup-part2/" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Google Drive Backup Part 2" />
+"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://bogomolov.work/blog/posts/google-drive-backup-part2/"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Google Drive Backup Part 2"/>
   <meta name="twitter:description" content="This is a continuation of the first part, where we built a basic backup solution using local storage. Now, let’s elevate our approach by integrating another cloud provider and adding robust encryption.
-" />
+"/>
+  <meta name="theme-color" content="#000000"/>
   
   
   
-  <link rel="stylesheet" href="/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w==" />
-  <link rel="stylesheet" href="/blog/css/style.css">
+  <link rel="stylesheet" href="/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css" integrity="sha512-UWUjAtOpmL94h67Vws&#43;JFBu&#43;vfRaLI&#43;HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w=="/>
+  <link rel="stylesheet" href="/blog/css/style.css"/>
   
-  <meta name="theme-color" content="#000000" />
 </head>
 <body a="auto"><script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script>
 <script>

@@ -1,5 +1,5 @@
 baseURL = "https://bogomolov.work/blog/"
-languageCode = "en-us"
+languageCode = "en"
 title = "The Archive"
 theme = "hugo-theme-nostyleplease"
 summaryLength = 32
@@ -40,7 +40,6 @@ summaryLength = 32
   priority = 0.7
 
 [params]
-  favicon = "/favicon.ico"
   googleAnalytics = "G-950H2PH48S"
   yandexMetrika = 100343675
   metaPixel = 2627430184120255
