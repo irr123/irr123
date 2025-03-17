@@ -12,6 +12,7 @@ keywords: [
   AI in tech industry, AI and programming future, Anthropic AI team growth,
   AI-driven development, software engineer job market, future of coders, AI in tech workforce
 ]
+image: robot.jpg
 ---
 
 A common narrative from [OpenAI](https://openai.com/) and similar companies

@@ -44,6 +44,7 @@ summaryLength = 32
   yandexMetrika = 100343675
   metaPixel = 2627430184120255
   summary = "These data-spirits, my scrap-code prayer, are offered to the Machine God."
+  defaultImg = "img/the-archive.jpg"
 
   [params.theme_config]
     appearance        = "auto"

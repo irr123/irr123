@@ -6,6 +6,7 @@ keywords: [
   SEO, search engines, Google indexing, Bing webmaster, Yandex search, website
   ranking, sitemap, search engine optimization
 ]
+image: robots.jpg
 ---
 
 In this article I want to share my experience of using search engine consoles,

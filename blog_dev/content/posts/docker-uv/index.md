@@ -11,6 +11,7 @@ keywords: [
   uv vs pip performance comparison, setting up uv in CI/CD,
   running uv in docker containers
 ]
+image: posts-docker-uv-1.jpg
 ---
 
 I've been noticed that my simple

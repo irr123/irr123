@@ -23,9 +23,15 @@
   <meta property="og:description" content="{{ $pageSummary }}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="{{ .Permalink }}"/>
+  {{- $img := urls.AbsURL site.Params.defaultImg }}
+  {{- if and .Params.Image (ne .Params.Image "") }}
+    {{- $img = urls.JoinPath .Permalink .Params.Image }}
+  {{- end }}
+  <meta property="og:image" content="{{ $img }}"/>
   <meta name="twitter:card" content="summary"/>
   <meta name="twitter:title" content="{{ $pageTitle }}"/>
   <meta name="twitter:description" content="{{ $pageSummary }}"/>
+  <meta name="twitter:image" content="{{ $img }}"/>
   <meta name="theme-color" content="#000000"/>
   {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{ $sass := resources.Get "css/main.scss" }}

@@ -13,6 +13,7 @@ keywords: [
   data redundancy, backup and restore google drive, rclone setup,
   google drive security, backup best practices
 ]
+image: suit.jpg
 ---
 
 Have you _truly_ considered the catastrophic risks of losing all your

@@ -13,6 +13,7 @@ keywords: [
   restoring encrypted backups, google drive to dropbox backup,
   rclone docker, backup automation, rclone config example
 ]
+image: suit-2.jpg
 ---
 
 This is a continuation of the first [part]({{< relref "posts/google-drive-backup" >}}),

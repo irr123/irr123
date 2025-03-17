@@ -13,6 +13,7 @@ keywords: [
   microservices best practices, CI/CD for Golang,
   software quality management, Golang software templates
 ]
+image: morpheus.jpg
 ---
 
 Let's talk about building and evolving [Golang](https://go.dev/) services in
