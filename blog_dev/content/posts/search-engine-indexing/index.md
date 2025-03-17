@@ -45,7 +45,7 @@ Initially, it's useful to understand that there aren't many truly independent
   - [OpenAI](https://chatgpt.com/?hints=search)
 
 What does this mean in practice? If your page gets incorrectly cached by Bing,
- fixing it can be difficult-especially since other search engines rely on
+ fixing it can be difficult - especially since other search engines rely on
  Bing's index.
 
 {{< details summary="Issue example" >}}
@@ -108,7 +108,7 @@ But in my experience it's never works, sometimes submitting new url
  [last one]({{< relref "posts/will-ai-replace-developers" >}})
  from 2025-03-12, it was submitted manually
 
-{{< details summary="and thru sitemap.xml" >}}
+{{< details summary="and thru sitemap.xml too!" >}}
 ![sitemap submitted at 2025-03-13](google-sitemap.png)
 amount of discovered pages is rights, it contains new one, while
 ![missed will-ai-replace-developers page](google-missed.png)
@@ -123,8 +123,6 @@ Other issue is it constantly adds nonexistent and undeclared page
 And once more - they crawler crashed on my page which caused it to be dropped
  from the index. Strange, case neither Bing nor Yandex have such issue.
  Validation took three days, what would be if it was my main selling landing?
-
-Unlike other search engines, Google does not provide specific suggestion.
 
 
 ## Bing
