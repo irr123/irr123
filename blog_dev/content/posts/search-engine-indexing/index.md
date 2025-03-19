@@ -17,10 +17,8 @@ In this article I want to share my experience of using search engine consoles,
 ![generate picture in anime style where robots with Google, Bing and Yandex logos fighting](robots.jpg)
 
 During the **~3 months** since my [domain](https://www.whois.com/whois/bogomolov.work)
- has been live I'm with
- [Google search console](https://search.google.com/search-console) and bit less
- with [Bing](https://www.bing.com/webmasters) and [Yandex
- webmaster-](https://webmaster.yandex.com)tools.
+ has been live I'm with Google search console and bit less with Bing
+ and Yandex webmaster-tools.
 
 
 ## Search engine relations
@@ -76,8 +74,8 @@ To try to fix it you need to go to:
 - [Yandex webmaster](https://webmaster.yandex.com)
 - Omitting Baidu and AI-powered search engines this time
 
-And prove your site ownership, they provided different options, I
- chose domain records for all of them.
+And prove your site ownership, they provided different options, I chose domain
+ records for all of them.
 
 {{< details summary="example" >}}
 ```bash
@@ -98,7 +96,7 @@ However, these processes are not without their issues.
 
 ## Google
 
-[Sitemap.xml](/sitemap.xml) provides full list of pages with dates when it was
+Sitemap.xml provides full list of pages with dates when it was
  updated, my one is properly autogenerates and validated by:
 - Removing and then re-adding the sitemap helps to verify the number of indexed pages
 - Yandex provides validator
@@ -147,14 +145,14 @@ Initially, likely upon domain registration, it indexes the site. However,
 
 ![Bing duplicated sitemap of 20 total pages](bing-sitemap.png)
 
-And all what it knows (yep, just [**/**](/), _outdated_ [**/**](/)):
+And all what it knows:
 
 ![Bing index](bing-index.png)
 
 ...It has limits to add pages manually, 10 per day. Few times I
  exausted that limit, it takes few days, showing me "Not enough data",
- in almost all pages in console, after that time see previous about outdated
- [**/**](/).
+ in almost all pages in console.
+ The overall result of all these manipulations: _outdated_ [**/**](/).
 
 
 ## Yandex

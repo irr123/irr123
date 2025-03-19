@@ -30,9 +30,8 @@ Long story short -  it's fast-[rust](https://www.rust-lang.org/)
 
 ## So what?
 
-So, don't use none of [one](https://hub.docker.com/repository/docker/c1rno/python)
- and [two](https://github.com/irr123/python-docker) and instead of it just do
- properly:
+So, don't use none of one and [two](https://github.com/irr123/python-docker)
+ and instead of it just do properly:
 
 ```bash
 ARG BASE_IMAGE=python:3.13.2-slim-bookworm

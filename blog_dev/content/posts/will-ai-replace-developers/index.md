@@ -18,13 +18,12 @@ image: robot.jpg
 A common narrative from [OpenAI](https://openai.com/) and similar companies
  (previous hype was from [no-code-guys](https://www.nocode.tech/))
  suggests that the era of human developers is ending due to cost considerations,
- and that [AI](https://gemini.google.com/) will replace
- [us](https://en.wikipedia.org/wiki/Software_development#Workers) soon.
+ and that AI will replace programmers soon.
 
 ![AI vs. Human Coder](robot.jpg)
 
-Check out this talk from the CEO of [Anthropic](https://www.anthropic.com/),
- which occurred just one day before this article[^1]:
+Check out this talk from the CEO of Anthropic, which occurred just one day
+ before this article:
 
 {{< youtube id=esCSpbDPJik start="976" >}}
 
@@ -38,12 +37,7 @@ With around _150_ open positions and a team of about
  [700](https://en.wikipedia.org/wiki/Anthropic), looks like Anthropic is
  gearing up for some serious growth, huh?
 
-Draw your own conclusions. Oh, and by the way, they primarily write code in [Go](https://go.dev/).
+Draw your own conclusions 😉
 
 P.S. Pay close attention to Dario Amodei's final answer regarding what it means
  to be human. It's quite encouraging.
-
----
-{data-content="footnotes"}
-
-[^1]: Note how my annotations and the embedded YouTube video with timestamp work effectively.

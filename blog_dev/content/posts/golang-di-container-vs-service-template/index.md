@@ -16,7 +16,7 @@ keywords: [
 image: morpheus.jpg
 ---
 
-Let's talk about building and evolving [Golang](https://go.dev/) services in
+Let's talk about building and evolving Golang services in
  the enterprise. We'll explore two approaches:
 
 ![Create image illustration in anime style with Morpheus from Matrix suggesting you blue and red pills](morpheus.jpg)
@@ -47,7 +47,7 @@ The challenge is a timeless one: accelerating the delivery of value to
 - **Consistent service structure:**  A uniform structure reduces
   context-switching overhead.
 - **Unified interaction interfaces:** Standardized configuration, logging, and
-  metrics save significant time for [operations](https://en.wikipedia.org/wiki/DevOps).
+  metrics save significant time for operation guys.
 
 
 ### Examples
@@ -92,7 +92,7 @@ Cons:
   to test and analyze with static analysis tools.
 
 
-#### [DI container](https://github.com/irr123/di) to the Rescue
+#### DI container to the Rescue
 
 Instead of relying on templates, we can retain the shared library approach and
  encapsulate all pre-built components within a container. This allows
