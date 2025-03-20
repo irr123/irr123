@@ -6,8 +6,15 @@
     <description>Recent content on The Archive</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Mar 2025 10:25:54 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Mar 2025 08:00:14 +0000</lastBuildDate>
     <atom:link href="https://bogomolov.work/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prompt engineering notes</title>
+      <link>https://bogomolov.work/blog/posts/prompt-engineering-notes/</link>
+      <pubDate>Thu, 20 Mar 2025 08:00:14 +0000</pubDate>
+      <guid>https://bogomolov.work/blog/posts/prompt-engineering-notes/</guid>
+      <description>&lt;p&gt;If you weren&amp;rsquo;t aware, there was a leak of &lt;a href=&#34;https://www.cursor.com/&#34;&gt;Cursor&lt;/a&gt;&#xA;and some other&#xA;&lt;a href=&#34;https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools&#34;&gt;prompts&lt;/a&gt;.&#xA;I&amp;rsquo;m not here to evaluate the quality of prompts, but let&amp;rsquo;s consider it as a&#xA;state of the art from experienced guys.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Search Engine Indexing: A Case Study with Google, Bing, and Yandex</title>
       <link>https://bogomolov.work/blog/posts/search-engine-indexing/</link>

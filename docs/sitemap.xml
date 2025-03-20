@@ -6,7 +6,11 @@
     <priority>0.9</priority>
   </url><url>
     <loc>https://bogomolov.work/blog/posts/</loc>
-    <lastmod>2025-03-16T10:25:54+00:00</lastmod>
+    <lastmod>2025-03-20T08:00:14+00:00</lastmod>
+    <priority>0.7</priority>
+  </url><url>
+    <loc>https://bogomolov.work/blog/posts/prompt-engineering-notes/</loc>
+    <lastmod>2025-03-20T08:00:14+00:00</lastmod>
     <priority>0.7</priority>
   </url><url>
     <loc>https://bogomolov.work/blog/posts/search-engine-indexing/</loc>
