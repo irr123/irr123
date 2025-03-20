@@ -3,13 +3,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   {{ $pageTitle := cond .IsHome site.Title .Title -}}
   {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
-  {{ $combined := print $pageTitle " | " $pageSummary -}}
-  {{ $adjustedTitle := substr $combined 0 64 -}}
-  {{ if gt (len $combined) 64 -}}
+  {{ $adjustedTitle := print $pageTitle " | " $pageSummary -}}
+  {{ if gt (len $adjustedTitle) 64 -}}
     {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}
   {{ end -}}
+  {{ $adjustedSummary := $pageSummary -}}
+  {{ if gt (len $adjustedSummary) 128 -}}
+    {{ $adjustedSummary = print (substr $adjustedSummary 0 125) "..." -}}
+  {{ end -}}
   <title>{{ $adjustedTitle }}</title>
-  <meta name="description" content="{{ $pageSummary }}"/>
+  <meta name="description" content="{{ $adjustedSummary }}"/>
   {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}"/>{{ end }}
   <meta name="author" content="Ivan Bogomolov"/>
   <meta name="robots" content="index,follow"/>
