@@ -10,7 +10,7 @@ srv:
 .PHONY: build
 build:
 	# docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} build --buildDrafts
-	docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} build
+	docker run --rm -v $(PWD)/blog_dev:/src ${VERSION} --minify build
 	rm -rf $(PWD)/docs/blog
 	sudo chown -R $(USER):$(USER) $(PWD)/blog_dev/public
 	mv $(PWD)/blog_dev/public $(PWD)/docs/blog
