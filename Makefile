@@ -1,7 +1,7 @@
 -include $(PWD)/.env
 export
 
-VERSION ?= hugomods/hugo:ci-non-root-0.144.0
+VERSION ?= hugomods/hugo:ci-non-root-0.145.0
 
 .PHONY: srv
 srv:

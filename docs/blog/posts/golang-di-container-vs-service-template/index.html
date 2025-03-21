@@ -94,18 +94,18 @@ the enterprise. We&rsquo;ll explore two approaches:</p>
 quickly bootstrapping new microservices.  Its popularity is evident in the
 community, as demonstrated by examples such as:
 <ul>
-<li><a href="https://github.com/evrone/go-clean-template">https://github.com/evrone/go-clean-template</a></li>
-<li><a href="https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/">https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/</a></li>
-<li><a href="https://dev.to/protium/github-template-for-golang-services-3o27">https://dev.to/protium/github-template-for-golang-services-3o27</a></li>
-<li><a href="https://www.youtube.com/watch?v=1ZbQS6pOlSQ">https://www.youtube.com/watch?v=1ZbQS6pOlSQ</a></li>
+<li><a href="https://github.com/evrone/go-clean-template" target="_blank" rel="noopener noreferrer">https://github.com/evrone/go-clean-template</a></li>
+<li><a href="https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/" target="_blank" rel="noopener noreferrer">https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/</a></li>
+<li><a href="https://dev.to/protium/github-template-for-golang-services-3o27" target="_blank" rel="noopener noreferrer">https://dev.to/protium/github-template-for-golang-services-3o27</a></li>
+<li><a href="https://www.youtube.com/watch?v=1ZbQS6pOlSQ" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=1ZbQS6pOlSQ</a></li>
 </ul>
 </li>
-<li><a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency injection</a>
+<li><a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank" rel="noopener noreferrer">Dependency injection</a>
 (<em>DI</em>)<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> is an approach where objects are constructed by passing
 pre-initialized components to them, rather than having the objects initialize
 those components themselves.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
 <ul>
-<li><a href="https://github.com/irr123/di">DI container</a> automates the dependency
+<li><a href="https://github.com/irr123/di" target="_blank" rel="noopener noreferrer">DI container</a> automates the dependency
 injection process. While not the most common approach for bootstrapping new
 services, it offers several advantages, which I will outline.</li>
 </ul>
@@ -129,10 +129,10 @@ more. Or consider an outsourcing company developing services for external
 clients and aiming to increase its customer base. In both scenarios,
 efficiency is paramount, and directly related to the problems highlighted earlier.</p>
 <p>When examining individual services, we often find that, regardless of the
-specific <a href="https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html">layered architecture</a>
-employed (e.g., <a href="https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/">Onion</a>,
-<a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">Clean</a>,
-or <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)">Hexagonal</a><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>)
+specific <a href="https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html" target="_blank" rel="noopener noreferrer">layered architecture</a>
+employed (e.g., <a href="https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/" target="_blank" rel="noopener noreferrer">Onion</a>,
+<a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank" rel="noopener noreferrer">Clean</a>,
+or <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_%28software%29" target="_blank" rel="noopener noreferrer">Hexagonal</a><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>)
 outer layers tend to be shared across services, whereas the core business
 logic remains distinct<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. Specifically, elements such as observability tools,
 database connections, and message broker clients can be identical. These
@@ -182,10 +182,10 @@ chosen layered architecture:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    di.Get[*echo.Echo](c).<span style="color:#ff0">Start</span>(<span style="color:#87ceeb">&#34;:8080&#34;</span>)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><a href="https://go.dev/play/p/vxWijBAc3lC">Live example</a>.</p>
+</span></span></code></pre></div><p><a href="https://go.dev/play/p/vxWijBAc3lC" target="_blank" rel="noopener noreferrer">Live example</a>.</p>
 <p>This approach reduces maintenance costs because it involves well-typed,
 valid code (without templating complexities) that can be effectively covered
-by <a href="https://en.wikipedia.org/wiki/Software_quality_management#Software_quality_and_the_software_lifecycle">quality checks</a>.
+by <a href="https://en.wikipedia.org/wiki/Software_quality_management#Software_quality_and_the_software_lifecycle" target="_blank" rel="noopener noreferrer">quality checks</a>.
 Furthermore, backward compatibility is maintained by following standard coding practices.</p>
 <h2 id="finishing-uncovered-parts">Finishing Uncovered Parts</h2>
 <p>Continuing the comparison between containers and templates, it&rsquo;s worth noting
@@ -202,7 +202,7 @@ and this article aims to explore the available options.</p>
 <hr>
 <ol>
 <li id="fn:1">
-<p><a href="https://en.wikipedia.org/wiki/Inversion_of_control"><em>IoC</em></a> is close but
+<p><a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank" rel="noopener noreferrer"><em>IoC</em></a> is close but
 not the same concept, don&rsquo;t be confused. <em>DI</em> is a programming technique,
 while <em>IoC</em> is a design principle covered broader
 idea (let me know and I&rsquo;ll think about post on this topic).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -211,7 +211,7 @@ idea (let me know and I&rsquo;ll think about post on this topic).&#160;<a href="
 <p>I intentionally will avoid word &ldquo;class&rdquo;.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
-<p>Does Dr.Alistair Cockburn not pay for <a href="https://alistair.cockburn.us">hosting</a>?&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Does Dr.Alistair Cockburn not pay for <a href="https://alistair.cockburn.us" target="_blank" rel="noopener noreferrer">hosting</a>?&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4">
 <p>It&rsquo;s important point, imagine opposite way if you&rsquo;re sharing business
@@ -225,6 +225,9 @@ logic between services, what&rsquo;s a purpose of separation than?&#160;<a href=
             </div>
         </main>
         <footer class="site-footer">
-        Stay updated on <a href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a> | <a href="/blog/index.xml">RSS</a>
-    </footer>
+  Stay updated on
+  <a target="_blank" rel="noopener noreferrer" href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a>
+  | <a target="_blank" href="/blog/index.xml">RSS</a>
+</footer>
+
     </body></html>

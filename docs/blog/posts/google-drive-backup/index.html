@@ -85,7 +85,7 @@
     
 
     <p>Have you <em>truly</em> considered the catastrophic risks of losing all your
-<a href="https://drive.google.com/">Google Drive</a> data?
+<a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer">Google Drive</a> data?
 Can your business afford such a loss?</p>
 <p><img src="suit.jpg" alt="generate image in anime style where white collar in suit grabs his head because he realized that lost his reports"></p>
 <p>Let me guide you in mitigating those risks. I asked myself the same question
@@ -94,18 +94,18 @@ Google&rsquo;s suggestions, I decided to build my own. Think of it as playing wi
 Lego-assembling the necessary components.</p>
 <h2 id="what-building-blocks-do-we-need">What building blocks do we need?</h2>
 <ul>
-<li>Access to your <a href="https://console.cloud.google.com/iam-admin/serviceaccounts">Google Cloud Console</a></li>
-<li><a href="https://rclone.org">rclone</a>: A powerful tool that provides rsync-like CLI
+<li>Access to your <a href="https://console.cloud.google.com/iam-admin/serviceaccounts" target="_blank" rel="noopener noreferrer">Google Cloud Console</a></li>
+<li><a href="https://rclone.org" target="_blank" rel="noopener noreferrer">rclone</a>: A powerful tool that provides rsync-like CLI
 functionality for managing filesystems and cloud storage. It&rsquo;s
 well-documented, but we&rsquo;ll focus on a streamlined approach</li>
 </ul>
 <h3 id="google-cloud-console-setting-up-the-service-account">Google Cloud Console: Setting Up the Service Account</h3>
 <p>We&rsquo;ll start with the most crucial step: obtaining the necessary credentials to
 interact with the Google API. (Remember to enable the
-<a href="https://console.cloud.google.com/apis/library/drive.googleapis.com">Google Drive API</a>
+<a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener noreferrer">Google Drive API</a>
 if you haven&rsquo;t already) This involves creating a
-<a href="https://console.cloud.google.com/iam-admin/serviceaccounts">Service Account</a>
-and generating a <a href="https://developers.google.com/workspace/guides/create-credentials#create_credentials_for_a_service_account">JSON private key</a>.</p>
+<a href="https://console.cloud.google.com/iam-admin/serviceaccounts" target="_blank" rel="noopener noreferrer">Service Account</a>
+and generating a <a href="https://developers.google.com/workspace/guides/create-credentials#create_credentials_for_a_service_account" target="_blank" rel="noopener noreferrer">JSON private key</a>.</p>
 <p>Here&rsquo;s an example of what it looks like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  &#34;type&#34;: <span style="color:#87ceeb">&#34;service_account&#34;</span>,
@@ -122,13 +122,13 @@ and generating a <a href="https://developers.google.com/workspace/guides/create-
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="rclone-configuring-and-executing-the-backup">rclone: Configuring and Executing the Backup</h3>
 <p>We&rsquo;re almost there! The next step is to set up rclone for automated execution
-using <a href="https://en.wikipedia.org/wiki/Cron">cron</a> on a host of your choice.
+using <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener noreferrer">cron</a> on a host of your choice.
 I&rsquo;ll skip the details of acquiring a hosting environment.</p>
 <p>Here&rsquo;s prepared <code>rclone.conf</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[google-drive]
 </span></span><span style="display:flex;"><span>type = drive
 </span></span><span style="display:flex;"><span>service_account_file = /config/rclone/sa.json  <span style="color:#0f0"># &lt;- The key</span>
-</span></span></code></pre></div><p>And here&rsquo;s how to use it with <a href="https://docs.docker.com/desktop/">Docker</a>:</p>
+</span></span></code></pre></div><p>And here&rsquo;s how to use it with <a href="https://docs.docker.com/desktop/" target="_blank" rel="noopener noreferrer">Docker</a>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./data:/data <span style="color:#87ceeb">\
@@ -152,8 +152,8 @@ the exact name of the shared folder.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This provides a solid foundation for Google Drive backup. To enhance its
 enterprise-level security and reliability, consider implementing additional
-<a href="https://rclone.org/crypt/">encryption</a> and robust, cost-effective
-<a href="https://rclone.org/s3/">storage</a> solutions.</p>
+<a href="https://rclone.org/crypt/" target="_blank" rel="noopener noreferrer">encryption</a> and robust, cost-effective
+<a href="https://rclone.org/s3/" target="_blank" rel="noopener noreferrer">storage</a> solutions.</p>
 <p>Stay tuned, we&rsquo;re gonna talk about that <a href="/blog/posts/google-drive-backup-part2/">next</a>.</p>
 
 </article>
@@ -161,6 +161,9 @@ enterprise-level security and reliability, consider implementing additional
             </div>
         </main>
         <footer class="site-footer">
-        Stay updated on <a href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a> | <a href="/blog/index.xml">RSS</a>
-    </footer>
+  Stay updated on
+  <a target="_blank" rel="noopener noreferrer" href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a>
+  | <a target="_blank" href="/blog/index.xml">RSS</a>
+</footer>
+
     </body></html>

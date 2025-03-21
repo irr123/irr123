@@ -89,7 +89,7 @@ our approach by integrating another cloud provider and adding robust encryption.
 <p><img src="suit-2.jpg" alt="generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey"></p>
 <h2 id="dropbox-setting-up-an-additional-cloud-provider">Dropbox: Setting Up an Additional Cloud Provider</h2>
 <p>To obtain an access token, you&rsquo;ll need to configure
-<a href="https://rclone.org/remote_setup/">rclone</a> locally (because of web browser).
+<a href="https://rclone.org/remote_setup/" target="_blank" rel="noopener noreferrer">rclone</a> locally (because of web browser).
 Here&rsquo;s how I did it using Docker:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
 </span></span></span><span style="display:flex;"><span><span style="color:#87ceeb"></span>    -v ./config:/config/rclone <span style="color:#87ceeb">\
@@ -108,7 +108,7 @@ Here&rsquo;s how I did it using Docker:</p>
 </span></span><span style="display:flex;"><span>directory_name_encryption = <span style="color:#f00">false</span>
 </span></span><span style="display:flex;"><span>password = &lt;PASSWORD&gt;
 </span></span></code></pre></div><p><strong>Important:</strong> Remember to replace <code>&lt;PASSWORD&gt;</code> with a strong, secure password,
-rclone <a href="https://rclone.org/crypt/#configuration">helps with it</a>.</p>
+rclone <a href="https://rclone.org/crypt/#configuration" target="_blank" rel="noopener noreferrer">helps with it</a>.</p>
 <h3 id="rclone-executing-the-encrypted-backup">rclone: Executing the Encrypted Backup</h3>
 <p>Now, let&rsquo;s use our encrypted Dropbox remote to back up our Google Drive data:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --rm -it <span style="color:#87ceeb">\
@@ -144,6 +144,9 @@ sophisticated encryption strategies.</p>
             </div>
         </main>
         <footer class="site-footer">
-        Stay updated on <a href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a> | <a href="/blog/index.xml">RSS</a>
-    </footer>
+  Stay updated on
+  <a target="_blank" rel="noopener noreferrer" href="https://t.me/+smNsxkEayLYwYTVi">Telegram</a>
+  | <a target="_blank" href="/blog/index.xml">RSS</a>
+</footer>
+
     </body></html>

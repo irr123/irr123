@@ -51,5 +51,4 @@ summaryLength = 32
     back_home_text    = "← Back"
     date_format       = "2006-01-02"
     isListGroupByDate = false
-    isShowFooter      = true
     show_description  = true
