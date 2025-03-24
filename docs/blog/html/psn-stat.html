@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Top PlayStation Games</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    function sendHeight() {
+      const height = document.documentElement.scrollHeight || document.body.scrollHeight;
+      window.parent.postMessage({height: height}, "*");
+    }
+    window.onload = sendHeight;
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+    }
+    svg {
+      font: 11px 'Inter', sans-serif;
+    }
+    .bar {
+      rx: 5;
+      ry: 5;
+      transition: all 0.25s ease;
+    }
+    .bar:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+    .label {
+      font-size: 11px;
+      fill: #222;
+      font-weight: 600;
+    }
+    .axis-label {
+      font-weight: 500;
+    }
+    .chart-container {
+      background: white;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Top PlayStation Games by Play Duration — <i>138 days</i>, 4:21:40</h1>
+  <div class="chart-container"><svg></svg></div>
+  <script>
+    let data = [{"title": "The Binding of Isaac: Repentance", "count": 581, "duration": 7830120.0}, {"title": "Diablo\u00ae II: Resurrected\u2122", "count": 84, "duration": 1611139.0}, {"title": "Baldur's Gate 3", "count": 53, "duration": 722950.0}, {"title": "Diablo\u00ae IV", "count": 85, "duration": 384321.0}, {"title": "The Witcher 3: Wild Hunt", "count": 22, "duration": 313535.0}, {"title": "Path of Exile 2", "count": 17, "duration": 250972.0}, {"title": "HELLDIVERS\u2122 2", "count": 36, "duration": 197274.0}, {"title": "YouTube", "count": 44, "duration": 160460.0}, {"title": "Warhammer 40,000: Space Marine 2", "count": 9, "duration": 82388.0}, {"title": "Cult of the Lamb", "count": 17, "duration": 79074.0}, {"title": "INDIKA", "count": 8, "duration": 43253.0}, {"title": "DAYS GONE", "count": 6, "duration": 41435.0}, {"title": "ELDEN RING", "count": 6, "duration": 39743.0}, {"title": "Tiny Tina's Wonderlands", "count": 11, "duration": 29427.0}, {"title": "Mass Effect\u2122 Legendary Edition", "count": 4, "duration": 27604.0}, {"title": "Worms W.M.D", "count": 11, "duration": 22886.0}, {"title": "Kingdom Come: Deliverance II", "count": 5, "duration": 22178.0}, {"title": "Remnant II\u00ae", "count": 9, "duration": 14838.0}, {"title": "Plex", "count": 2, "duration": 14487.0}, {"title": "TEKKEN\u21227", "count": 11, "duration": 13173.0}, {"title": "FAR CRY\u00ae6", "count": 4, "duration": 7789.0}, {"title": "Fortnite", "count": 5, "duration": 6786.0}, {"title": "Crawl", "count": 5, "duration": 5873.0}, {"title": "Darkest Dungeon II", "count": 3, "duration": 5611.0}, {"title": "Kingdom Come: Deliverance", "count": 1, "duration": 5239.0}, {"title": "Fall Guys", "count": 6, "duration": 4849.0}, {"title": "ASTRO's PLAYROOM", "count": 2, "duration": 895.0}, {"title": "Minecraft Legends", "count": 1, "duration": 601.0}];
+    data = data.map(x => ({title: x.title, count: x.count, duration: x.duration / 3600}));
+
+    const margin = {top:30,right:120,bottom:0,left:220},
+          containerWidth = document.querySelector(".chart-container").clientWidth;
+    const width = containerWidth - margin.left - margin.right,
+          barHeight = 20,
+          height = barHeight * data.length;
+
+    const svg = d3.select("svg")
+      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", containerWidth);
+
+    const chart = svg.append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.duration)])
+      .range([0, width]);
+
+    const color = d3.scaleLinear()
+      .domain([
+        0,
+        d3.max(data, d => d.duration) * 0.33,
+        d3.max(data, d => d.duration) * 0.66,
+        d3.max(data, d => d.duration)
+      ])
+      .range(["green", "yellow", "orange", "red"]);
+
+    const y = d3.scaleBand()
+      .domain(data.map(d => d.title))
+      .range([0, height])
+      .padding(0.1);
+
+    chart.append("g")
+      .call(d3.axisLeft(y).tickSize(0))
+      .selectAll("text")
+      .style("font-size", "11px")
+      .style("text-anchor", "end");
+
+    chart.append("g")
+      .call(d3.axisTop(x).ticks(5));
+
+    chart.selectAll(".bar").data(data).enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("y", d => y(d.title))
+      .attr("height", y.bandwidth())
+      .attr("fill", d => color(d.duration))
+      .transition()
+      .duration(800)
+      .attr("width", d => x(d.duration));
+
+    chart.selectAll(".label").data(data).enter()
+      .append("text")
+      .transition()
+      .duration(800)
+      .attr("x", d => x(d.duration) + 5)
+      .attr("y", d => y(d.title) + y.bandwidth() / 2)
+      .attr("dy", ".35em")
+      .text(d => `${d.duration.toFixed(1)}h (${d.count}×)`);
+  </script>
+</body>
+</html>
