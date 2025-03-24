@@ -1,0 +1,4 @@
+<h{{ .Level }} id="{{ .Anchor | safeURL }}" {{- with .Attributes.class }} class="{{ . }}" {{- end }}>
+  {{ if ge .Level 2 }}<a href="#{{ .Anchor | safeURL }}">#</a>{{ end }} {{ .Text }}
+  {{- /* https://gohugo.io/render-hooks/headings/ */ -}}
+</h{{ .Level }}>

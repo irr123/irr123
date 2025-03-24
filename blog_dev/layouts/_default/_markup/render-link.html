@@ -1,2 +1,8 @@
-<a href="{{ .Destination }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>
-{{- /* chomp */ -}}
+{{- $u := urls.Parse .Destination -}}
+<a href="{{ .Destination }}"
+  {{- with .Title }} title="{{ . }}"{{ end -}}
+  {{- if $u.IsAbs }} target="_blank" rel="noopener noreferrer external"{{ end -}}
+>
+  {{- with .Text }}{{ . }}{{ end -}}
+</a>
+{{- /* https://gohugo.io/render-hooks/links/ */ -}}

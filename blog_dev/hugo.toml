@@ -15,7 +15,9 @@ summaryLength = 32
       [markup.goldmark.parser.attribute]
         block = true
         title = true
-
+    [markup.goldmark.renderHooks]
+      [markup.goldmark.renderHooks.link]
+        enableDefault = true
   [markup.highlight]
     anchorLineNos      = false
     codeFences         = true
@@ -30,7 +32,6 @@ summaryLength = 32
     noHl               = false
     style              = "rrt"
     tabWidth           = 4
-
   [markup.tableOfContents]
     startLevel = 2
     endLevel   = 3
