@@ -1,0 +1,417 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Gemini 2.5 Pro | 2.5 Pro can use its reasoning capabilities ...</title>
+<meta name=description content=" 2.5 Pro can use its reasoning capabilities to create a video game by producing the executable code from a single line prompt..."><meta name=keywords content="Gemini 2.5 Pro,AI code generation,p5.js game development,Google Gemini,AI game creation,prompt to code,p5.js sketch,endless runner game,JavaScript game code,AI programming,creative coding AI,pixel art game,parallax background p5.js,Large Language Model coding,AI reasoning capabilities"><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/gemini25/><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="Gemini 2.5 Pro"><meta property="og:description" content=" 2.5 Pro can use its reasoning capabilities to create a video game by producing the executable code from a single line prompt
+https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding
+# Prompt And it’s really works, in one shot:
+"><meta property="og:type" content="website"><meta property="og:url" content="https://bogomolov.work/blog/posts/gemini25/"><meta property="og:logo" content="https://bogomolov.work/blog/img/the-archive.jpg"><meta property="og:image" content="https://bogomolov.work/blog/posts/gemini25/t-rex.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/gemini25/"><meta name=twitter:title content="Gemini 2.5 Pro"><meta name=twitter:description content=" 2.5 Pro can use its reasoning capabilities to create a video game by producing the executable code from a single line prompt
+https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding
+# Prompt And it’s really works, in one shot:
+"><meta name=twitter:image content="https://bogomolov.work/blog/posts/gemini25/t-rex.png"><meta name=theme-color content="#000000"><link rel=stylesheet href=/blog/css/main.51652302d3a998bf7887aed5c2cf89141bbebdf45a2c8f87b0717a3cf4f51c4e53c694c328fb1de78c3a625a1c01f80745bf1f2f42c040647a245cbbb6c2d1d7.css integrity="sha512-UWUjAtOpmL94h67Vws+JFBu+vfRaLI+HsHF6PPT1HE5TxpTDKPsd54w6YlocAfgHRb8fL0LAQGR6JFy7tsLR1w=="><link rel=stylesheet href=/blog/css/style.css></head><body a=auto><script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-950H2PH48S")</script><script type=text/javascript>(function(e,t,n,s,o,i,a){e[o]=e[o]||function(){(e[o].a=e[o].a||[]).push(arguments)},e[o].l=1*new Date;for(var r=0;r<document.scripts.length;r++)if(document.scripts[r].src===s)return;i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"),ym(100343675,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0})</script><noscript><div><img src=https://mc.yandex.ru/watch/100343675 style=position:absolute;left:-9999px alt></div></noscript><script>!function(e,t,n,s,o,i,a){if(e.fbq)return;o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),o.push=o,o.loaded=!0,o.version="2.0",o.queue=[],i=t.createElement(n),i.async=!0,i.src=s,a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(i,a)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"),fbq("init","2627430184120255"),fbq("track","PageView")</script><noscript><img height=1 width=1 style=display:none src="https://www.facebook.com/tr?id=2627430184120255&ev=PageView&noscript=1"></noscript><main class=page-content aria-label=Content><div class=w><div class=post-meta><a href=/blog/ aria-label="Back to Index" title="Back to Index">← Back</a><p><time datetime="2025-03-25 19:18:59 +0000 UTC">2025-03-25</time></p></div><article><h1>Gemini 2.5 Pro</h1><blockquote><p>2.5 Pro can use its reasoning capabilities to create a video game by
+producing the executable code from a single line prompt</p></blockquote><p><a href=https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding target=_blank rel="noopener noreferrer external">https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding</a></p><h2 id=prompt><a href=#prompt>#</a> Prompt</h2><p>And it&rsquo;s really works, in one shot:</p><pre tabindex=0><code>Okay, here&#39;s a p5.js sketch for a captivating endless
+runner featuring a pixelated dinosaur and an interesting
+parallax background.
+</code></pre><details><summary>Resulted js</summary><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#0f0>// --- Game Configuration ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>let</span> dino;
+</span></span><span style=display:flex><span><span style=color:red>let</span> obstacles = [];
+</span></span><span style=display:flex><span><span style=color:red>let</span> score = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span><span style=color:red>let</span> gameSpeed = <span style=color:#f60>5</span>;
+</span></span><span style=display:flex><span><span style=color:red>let</span> gravity = <span style=color:#f60>0.6</span>;
+</span></span><span style=display:flex><span><span style=color:red>let</span> jumpForce = -<span style=color:#f60>12</span>;
+</span></span><span style=display:flex><span><span style=color:red>let</span> groundY;
+</span></span><span style=display:flex><span><span style=color:red>let</span> gameState = <span style=color:#87ceeb>&#39;playing&#39;</span>; <span style=color:#0f0>// &#39;playing&#39; or &#39;gameOver&#39;
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// Background elements
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>let</span> clouds = [];
+</span></span><span style=display:flex><span><span style=color:red>let</span> mountains = [];
+</span></span><span style=display:flex><span><span style=color:red>let</span> groundDetails = [];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// Dino appearance
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>let</span> dinoFrames = [];
+</span></span><span style=display:flex><span><span style=color:red>let</span> currentFrame = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span><span style=color:red>let</span> frameCounter = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span><span style=color:red>const</span> dinoWidth = <span style=color:#f60>40</span>; <span style=color:#0f0>// Scaled width
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>const</span> dinoHeight = <span style=color:#f60>44</span>; <span style=color:#0f0>// Scaled height
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// Obstacle appearance
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>const</span> obstacleMinWidth = <span style=color:#f60>15</span>;
+</span></span><span style=display:flex><span><span style=color:red>const</span> obstacleMaxWidth = <span style=color:#f60>30</span>;
+</span></span><span style=display:flex><span><span style=color:red>const</span> obstacleMinHeight = <span style=color:#f60>30</span>;
+</span></span><span style=display:flex><span><span style=color:red>const</span> obstacleMaxHeight = <span style=color:#f60>50</span>;
+</span></span><span style=display:flex><span><span style=color:red>const</span> minObstacleSpacing = <span style=color:#f60>250</span>; <span style=color:#0f0>// Min pixels between obstacles
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>let</span> nextObstacleFrame; <span style=color:#0f0>// When to potentially spawn the next one
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// --- p5.js Setup ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>function</span> setup() {
+</span></span><span style=display:flex><span>  createCanvas(windowWidth, windowHeight);
+</span></span><span style=display:flex><span>  pixelDensity(<span style=color:#f60>1</span>); <span style=color:#0f0>// Ensure pixel art isn&#39;t blurred on high-density screens
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  groundY = height - <span style=color:#f60>50</span>; <span style=color:#0f0>// Establish ground level
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Create Dino Pixel Art Frames (using createGraphics for crisp pixels)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  dinoFrames.push(createDinoFrame(<span style=color:#f60>1</span>)); <span style=color:#0f0>// Frame 1
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  dinoFrames.push(createDinoFrame(<span style=color:#f60>2</span>)); <span style=color:#0f0>// Frame 2
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Initialize Player (Dinosaur)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  dino = <span style=color:red>new</span> Player();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Initialize Background Elements
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>for</span> (<span style=color:red>let</span> i = <span style=color:#f60>0</span>; i &lt; <span style=color:#f60>5</span>; i++) {
+</span></span><span style=display:flex><span>    clouds.push({ x: random(width), y: random(<span style=color:#f60>50</span>, height * <span style=color:#f60>0.4</span>), speed: gameSpeed * <span style=color:#f60>0.2</span> });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:red>for</span> (<span style=color:red>let</span> i = <span style=color:#f60>0</span>; i &lt; <span style=color:#f60>3</span>; i++) {
+</span></span><span style=display:flex><span>    mountains.push({ x: random(width), y: groundY, width: random(<span style=color:#f60>200</span>, <span style=color:#f60>400</span>), height: random(<span style=color:#f60>100</span>, <span style=color:#f60>250</span>), speed: gameSpeed * <span style=color:#f60>0.1</span> });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>    <span style=color:red>for</span> (<span style=color:red>let</span> i = <span style=color:#f60>0</span>; i &lt; <span style=color:#f60>15</span>; i++) {
+</span></span><span style=display:flex><span>    groundDetails.push({ x: random(width), y: groundY + random(<span style=color:#f60>5</span>, <span style=color:#f60>15</span>), size: random(<span style=color:#f60>3</span>, <span style=color:#f60>8</span>), speed: gameSpeed * <span style=color:#f60>1.05</span> });
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Initial obstacle timing
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  resetObstacleTimer();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Basic p5 settings
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  textAlign(CENTER, CENTER);
+</span></span><span style=display:flex><span>  textFont(<span style=color:#87ceeb>&#39;monospace&#39;</span>); <span style=color:#0f0>// Font that often looks good pixelated
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// --- p5.js Draw (Main Game Loop) ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>function</span> draw() {
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// --- Background Drawing ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  background(<span style=color:#f60>135</span>, <span style=color:#f60>206</span>, <span style=color:#f60>250</span>); <span style=color:#0f0>// Sky blue
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Draw Mountains (farthest back)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  fill(<span style=color:#f60>100</span>, <span style=color:#f60>100</span>, <span style=color:#f60>120</span>); <span style=color:#0f0>// Darker, distant color
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  noStroke();
+</span></span><span style=display:flex><span>  <span style=color:red>for</span> (<span style=color:red>let</span> m <span style=color:red>of</span> mountains) {
+</span></span><span style=display:flex><span>    triangle(m.x, m.y, m.x + m.width / <span style=color:#f60>2</span>, m.y - m.height, m.x + m.width, m.y);
+</span></span><span style=display:flex><span>    m.x -= m.speed * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>)); <span style=color:#0f0>// Adjust speed based on frame time
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>     <span style=color:red>if</span> (m.x + m.width &lt; <span style=color:#f60>0</span>) {
+</span></span><span style=display:flex><span>       m.x = width + random(<span style=color:#f60>50</span>, <span style=color:#f60>200</span>);
+</span></span><span style=display:flex><span>       m.width = random(<span style=color:#f60>200</span>, <span style=color:#f60>400</span>);
+</span></span><span style=display:flex><span>       m.height = random(<span style=color:#f60>100</span>, <span style=color:#f60>250</span>);
+</span></span><span style=display:flex><span>     }
+</span></span><span style=display:flex><span>     m.speed = gameSpeed * <span style=color:#f60>0.1</span>; <span style=color:#0f0>// Update speed if gameSpeed changes
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>   <span style=color:#0f0>// Draw Clouds
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  fill(<span style=color:#f60>255</span>, <span style=color:#f60>255</span>, <span style=color:#f60>255</span>, <span style=color:#f60>200</span>); <span style=color:#0f0>// Semi-transparent white
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  noStroke();
+</span></span><span style=display:flex><span>  <span style=color:red>for</span> (<span style=color:red>let</span> c <span style=color:red>of</span> clouds) {
+</span></span><span style=display:flex><span>    ellipse(c.x, c.y, <span style=color:#f60>80</span>, <span style=color:#f60>30</span>);
+</span></span><span style=display:flex><span>    ellipse(c.x + <span style=color:#f60>20</span>, c.y - <span style=color:#f60>5</span>, <span style=color:#f60>60</span>, <span style=color:#f60>25</span>);
+</span></span><span style=display:flex><span>    ellipse(c.x - <span style=color:#f60>15</span>, c.y + <span style=color:#f60>3</span>, <span style=color:#f60>70</span>, <span style=color:#f60>20</span>);
+</span></span><span style=display:flex><span>    c.x -= c.speed * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>));
+</span></span><span style=display:flex><span>    <span style=color:red>if</span> (c.x + <span style=color:#f60>80</span> &lt; <span style=color:#f60>0</span>) {
+</span></span><span style=display:flex><span>      c.x = width + random(<span style=color:#f60>100</span>, <span style=color:#f60>300</span>);
+</span></span><span style=display:flex><span>      c.y = random(<span style=color:#f60>50</span>, height * <span style=color:#f60>0.4</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>     c.speed = gameSpeed * <span style=color:#f60>0.2</span>; <span style=color:#0f0>// Update speed
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Draw Ground
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  fill(<span style=color:#f60>101</span>, <span style=color:#f60>67</span>, <span style=color:#f60>33</span>); <span style=color:#0f0>// Brown
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  noStroke();
+</span></span><span style=display:flex><span>  rect(<span style=color:#f60>0</span>, groundY, width, height - groundY);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Draw Ground Details (small pebbles/features)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  fill(<span style=color:#f60>81</span>, <span style=color:#f60>47</span>, <span style=color:#f60>13</span>); <span style=color:#0f0>// Darker brown
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>for</span> (<span style=color:red>let</span> gd <span style=color:red>of</span> groundDetails) {
+</span></span><span style=display:flex><span>     rect(gd.x, gd.y, gd.size, gd.size / <span style=color:#f60>2</span>);
+</span></span><span style=display:flex><span>     gd.x -= gd.speed * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>));
+</span></span><span style=display:flex><span>     <span style=color:red>if</span> (gd.x + gd.size &lt; <span style=color:#f60>0</span>) {
+</span></span><span style=display:flex><span>        gd.x = width + random(<span style=color:#f60>10</span>, <span style=color:#f60>50</span>);
+</span></span><span style=display:flex><span>        gd.y = groundY + random(<span style=color:#f60>5</span>, <span style=color:#f60>15</span>);
+</span></span><span style=display:flex><span>        gd.size = random(<span style=color:#f60>3</span>, <span style=color:#f60>8</span>);
+</span></span><span style=display:flex><span>     }
+</span></span><span style=display:flex><span>      gd.speed = gameSpeed * <span style=color:#f60>1.05</span>; <span style=color:#0f0>// Update speed
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// --- Game State Logic ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>if</span> (gameState === <span style=color:#87ceeb>&#39;playing&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Update Score
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    score += deltaTime / <span style=color:#f60>100</span>; <span style=color:#0f0>// Score based on time
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Update Game Speed (gradual increase)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    gameSpeed += <span style=color:#f60>0.003</span> * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>));
+</span></span><span style=display:flex><span>    gameSpeed = min(gameSpeed, <span style=color:#f60>15</span>); <span style=color:#0f0>// Cap speed
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// --- Obstacle Management ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// Spawn new obstacles
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>if</span> (frameCount &gt;= nextObstacleFrame) {
+</span></span><span style=display:flex><span>        <span style=color:#0f0>// Only spawn if the last obstacle is far enough away
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        <span style=color:red>if</span> (obstacles.length === <span style=color:#f60>0</span> || obstacles[obstacles.length - <span style=color:#f60>1</span>].x &lt; width - minObstacleSpacing - random(<span style=color:#f60>0</span>, width * <span style=color:#f60>0.3</span>)) {
+</span></span><span style=display:flex><span>             obstacles.push(<span style=color:red>new</span> Obstacle());
+</span></span><span style=display:flex><span>             resetObstacleTimer(); <span style=color:#0f0>// Set timer for the next one
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        } <span style=color:red>else</span> {
+</span></span><span style=display:flex><span>            <span style=color:#0f0>// If too close, slightly delay the next check
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>            nextObstacleFrame = frameCount + <span style=color:#f60>10</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Update and draw obstacles
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>for</span> (<span style=color:red>let</span> i = obstacles.length - <span style=color:#f60>1</span>; i &gt;= <span style=color:#f60>0</span>; i--) {
+</span></span><span style=display:flex><span>      obstacles[i].update(gameSpeed * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>)));
+</span></span><span style=display:flex><span>      obstacles[i].show();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#0f0>// Check for collision
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      <span style=color:red>if</span> (obstacles[i].hits(dino)) {
+</span></span><span style=display:flex><span>        gameState = <span style=color:#87ceeb>&#39;gameOver&#39;</span>;
+</span></span><span style=display:flex><span>        <span style=color:#0f0>// Optional: Add a sound effect here
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#0f0>// Remove off-screen obstacles
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      <span style=color:red>if</span> (obstacles[i].isOffscreen()) {
+</span></span><span style=display:flex><span>        obstacles.splice(i, <span style=color:#f60>1</span>);
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// --- Player Management ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    dino.update();
+</span></span><span style=display:flex><span>    dino.show();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// --- On-Screen Instructions (Playing) ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    fill(<span style=color:#f60>0</span>);
+</span></span><span style=display:flex><span>    textSize(<span style=color:#f60>18</span>);
+</span></span><span style=display:flex><span>    textAlign(LEFT, TOP);
+</span></span><span style=display:flex><span>    text(<span style=color:#87ceeb>&#34;Score: &#34;</span> + floor(score), <span style=color:#f60>10</span>, <span style=color:#f60>10</span>);
+</span></span><span style=display:flex><span>    textAlign(CENTER, TOP);
+</span></span><span style=display:flex><span>    text(<span style=color:#87ceeb>&#34;Press [SPACE] or [UP ARROW] to Jump&#34;</span>, width / <span style=color:#f60>2</span>, <span style=color:#f60>10</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  } <span style=color:red>else</span> <span style=color:red>if</span> (gameState === <span style=color:#87ceeb>&#39;gameOver&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Keep drawing obstacles for context, but don&#39;t update/spawn
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>     <span style=color:red>for</span> (<span style=color:red>let</span> obs <span style=color:red>of</span> obstacles) {
+</span></span><span style=display:flex><span>      obs.show();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Keep drawing player
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    dino.show(); <span style=color:#0f0>// Show dino in its final position
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// --- Game Over Screen ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    fill(<span style=color:#f60>0</span>, <span style=color:#f60>0</span>, <span style=color:#f60>0</span>, <span style=color:#f60>150</span>); <span style=color:#0f0>// Semi-transparent overlay
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    rect(<span style=color:#f60>0</span>, <span style=color:#f60>0</span>, width, height);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    fill(<span style=color:#f60>255</span>);
+</span></span><span style=display:flex><span>    textSize(<span style=color:#f60>48</span>);
+</span></span><span style=display:flex><span>    textAlign(CENTER, CENTER);
+</span></span><span style=display:flex><span>    text(<span style=color:#87ceeb>&#34;GAME OVER&#34;</span>, width / <span style=color:#f60>2</span>, height / <span style=color:#f60>2</span> - <span style=color:#f60>40</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    textSize(<span style=color:#f60>24</span>);
+</span></span><span style=display:flex><span>    text(<span style=color:#87ceeb>&#34;Final Score: &#34;</span> + floor(score), width / <span style=color:#f60>2</span>, height / <span style=color:#f60>2</span> + <span style=color:#f60>10</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    textSize(<span style=color:#f60>20</span>);
+</span></span><span style=display:flex><span>    text(<span style=color:#87ceeb>&#34;Press [ENTER] to Restart&#34;</span>, width / <span style=color:#f60>2</span>, height / <span style=color:#f60>2</span> + <span style=color:#f60>60</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// --- Input Handling ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>function</span> keyPressed() {
+</span></span><span style=display:flex><span>  <span style=color:red>if</span> (gameState === <span style=color:#87ceeb>&#39;playing&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:red>if</span> (key === <span style=color:#87ceeb>&#39; &#39;</span> || keyCode === UP_ARROW) {
+</span></span><span style=display:flex><span>      dino.jump();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  } <span style=color:red>else</span> <span style=color:red>if</span> (gameState === <span style=color:#87ceeb>&#39;gameOver&#39;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:red>if</span> (keyCode === ENTER) {
+</span></span><span style=display:flex><span>      resetGame();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// --- Helper Functions ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span><span style=color:red>function</span> resetGame() {
+</span></span><span style=display:flex><span>  obstacles = [];
+</span></span><span style=display:flex><span>  score = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span>  gameSpeed = <span style=color:#f60>5</span>;
+</span></span><span style=display:flex><span>  dino = <span style=color:red>new</span> Player(); <span style=color:#0f0>// Recreate the player
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  gameState = <span style=color:#87ceeb>&#39;playing&#39;</span>;
+</span></span><span style=display:flex><span>  resetObstacleTimer();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Reset background element speeds just in case
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>   <span style=color:red>for</span> (<span style=color:red>let</span> c <span style=color:red>of</span> clouds) c.speed = gameSpeed * <span style=color:#f60>0.2</span>;
+</span></span><span style=display:flex><span>   <span style=color:red>for</span> (<span style=color:red>let</span> m <span style=color:red>of</span> mountains) m.speed = gameSpeed * <span style=color:#f60>0.1</span>;
+</span></span><span style=display:flex><span>   <span style=color:red>for</span> (<span style=color:red>let</span> gd <span style=color:red>of</span> groundDetails) gd.speed = gameSpeed * <span style=color:#f60>1.05</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>function</span> resetObstacleTimer() {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Calculate next spawn time based on current speed, add randomness
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>let</span> baseSpacing = width * <span style=color:#f60>0.5</span> / gameSpeed; <span style=color:#0f0>// Rough time to cross half screen
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    nextObstacleFrame = frameCount + floor(random(baseSpacing * <span style=color:#f60>1.5</span>, baseSpacing * <span style=color:#f60>3</span>));
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Ensure minimum spacing in frames
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    nextObstacleFrame = max(nextObstacleFrame, frameCount + <span style=color:#f60>60</span> * (minObstacleSpacing / gameSpeed) / (<span style=color:#f60>1000</span>/<span style=color:#f60>60</span>) );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// Function to create a single pixel art frame for the dino
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>function</span> createDinoFrame(frameNum) {
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Draw on a small off-screen canvas, then scale up
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>let</span> pg = createGraphics(<span style=color:#f60>10</span>, <span style=color:#f60>11</span>); <span style=color:#0f0>// Original pixel dimensions
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.noStroke();
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Use simple rects for pixels
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:#0f0>// Colors
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>const</span> dinoColor = color(<span style=color:#f60>60</span>, <span style=color:#f60>179</span>, <span style=color:#f60>113</span>); <span style=color:#0f0>// Medium sea green
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>const</span> darkDino = color(<span style=color:#f60>46</span>, <span style=color:#f60>139</span>, <span style=color:#f60>87</span>);
+</span></span><span style=display:flex><span>  <span style=color:red>const</span> eyeColor = color(<span style=color:#f60>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  pg.background(<span style=color:#f60>0</span>, <span style=color:#f60>0</span>); <span style=color:#0f0>// Transparent background
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Common body parts
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.fill(dinoColor);
+</span></span><span style=display:flex><span>  pg.rect(<span style=color:#f60>2</span>, <span style=color:#f60>3</span>, <span style=color:#f60>6</span>, <span style=color:#f60>6</span>); <span style=color:#0f0>// Body
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.rect(<span style=color:#f60>7</span>, <span style=color:#f60>2</span>, <span style=color:#f60>2</span>, <span style=color:#f60>3</span>); <span style=color:#0f0>// Head base
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.rect(<span style=color:#f60>8</span>, <span style=color:#f60>1</span>, <span style=color:#f60>1</span>, <span style=color:#f60>2</span>); <span style=color:#0f0>// Snout
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.rect(<span style=color:#f60>3</span>, <span style=color:#f60>9</span>, <span style=color:#f60>2</span>, <span style=color:#f60>2</span>); <span style=color:#0f0>// Back leg base
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.rect(<span style=color:#f60>6</span>, <span style=color:#f60>9</span>, <span style=color:#f60>2</span>, <span style=color:#f60>2</span>); <span style=color:#0f0>// Front leg base
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.rect(<span style=color:#f60>1</span>, <span style=color:#f60>5</span>, <span style=color:#f60>1</span>, <span style=color:#f60>2</span>); <span style=color:#0f0>// Tail
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Eye
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  pg.fill(eyeColor);
+</span></span><span style=display:flex><span>  pg.rect(<span style=color:#f60>8</span>, <span style=color:#f60>3</span>, <span style=color:#f60>1</span>, <span style=color:#f60>1</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#0f0>// Frame specific parts (simple run animation)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  <span style=color:red>if</span> (frameNum === <span style=color:#f60>1</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#0f0>// Leg 1 down, Leg 2 up
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      pg.fill(darkDino);
+</span></span><span style=display:flex><span>      pg.rect(<span style=color:#f60>3</span>, <span style=color:#f60>10</span>, <span style=color:#f60>2</span>, <span style=color:#f60>1</span>); <span style=color:#0f0>// Back foot down
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      pg.fill(dinoColor);
+</span></span><span style=display:flex><span>      pg.rect(<span style=color:#f60>6</span>, <span style=color:#f60>8</span>, <span style=color:#f60>1</span>, <span style=color:#f60>1</span>); <span style=color:#0f0>// Front leg up
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  } <span style=color:red>else</span> { <span style=color:#0f0>// Frame 2
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      <span style=color:#0f0>// Leg 1 up, Leg 2 down
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      pg.fill(dinoColor);
+</span></span><span style=display:flex><span>       pg.rect(<span style=color:#f60>3</span>, <span style=color:#f60>8</span>, <span style=color:#f60>1</span>, <span style=color:#f60>1</span>); <span style=color:#0f0>// Back leg up
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      pg.fill(darkDino);
+</span></span><span style=display:flex><span>      pg.rect(<span style=color:#f60>6</span>, <span style=color:#f60>10</span>, <span style=color:#f60>2</span>, <span style=color:#f60>1</span>); <span style=color:#0f0>// Front foot down
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:red>return</span> pg; <span style=color:#0f0>// Return the graphics buffer
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// --- Classes ---
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span><span style=color:red>class</span> Player {
+</span></span><span style=display:flex><span>  constructor() {
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.x = <span style=color:#f60>60</span>;
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.y = groundY - dinoHeight;
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.vy = <span style=color:#f60>0</span>; <span style=color:#0f0>// Vertical velocity
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>this</span>.baseY = groundY - dinoHeight; <span style=color:#0f0>// Store base Y for ground check
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  jump() {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Only jump if on the ground (or very close to it)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>if</span> (<span style=color:red>this</span>.y &gt;= <span style=color:red>this</span>.baseY - <span style=color:#f60>1</span>) {
+</span></span><span style=display:flex><span>      <span style=color:red>this</span>.vy = jumpForce;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  update() {
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.vy += gravity * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>)); <span style=color:#0f0>// Apply gravity (adjust for framerate)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>this</span>.y += <span style=color:red>this</span>.vy * (deltaTime / (<span style=color:#f60>1000</span> / <span style=color:#f60>60</span>)); <span style=color:#0f0>// Update position (adjust for framerate)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Prevent falling through the ground
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>if</span> (<span style=color:red>this</span>.y &gt;= <span style=color:red>this</span>.baseY) {
+</span></span><span style=display:flex><span>      <span style=color:red>this</span>.y = <span style=color:red>this</span>.baseY;
+</span></span><span style=display:flex><span>      <span style=color:red>this</span>.vy = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  isOnGround() {
+</span></span><span style=display:flex><span>     <span style=color:red>return</span> <span style=color:red>this</span>.y &gt;= <span style=color:red>this</span>.baseY - <span style=color:#f60>1</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  show() {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Simple 2-frame animation
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    frameCounter++;
+</span></span><span style=display:flex><span>    <span style=color:red>if</span> (frameCounter &gt; <span style=color:#f60>8</span>) { <span style=color:#0f0>// Change frame every 8 draw cycles
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        currentFrame = (currentFrame + <span style=color:#f60>1</span>) % dinoFrames.length;
+</span></span><span style=display:flex><span>        frameCounter = <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Use the correct frame unless jumping/falling
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>let</span> frameToShow = (<span style=color:red>this</span>.isOnGround()) ? dinoFrames[currentFrame] : dinoFrames[<span style=color:#f60>0</span>]; <span style=color:#0f0>// Show static frame mid-air
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Draw the pixel art frame scaled up, disable smoothing
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    push(); <span style=color:#0f0>// Isolate image mode setting
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    noSmooth(); <span style=color:#0f0>// Keep it pixelated!
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    image(frameToShow, <span style=color:red>this</span>.x, <span style=color:red>this</span>.y, dinoWidth, dinoHeight);
+</span></span><span style=display:flex><span>    pop();
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Optional: Draw collision box for debugging
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// noFill();
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// stroke(255, 0, 0);
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// rect(this.x + 5, this.y, dinoWidth - 10, dinoHeight - 5); // Adjusted box
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>class</span> Obstacle {
+</span></span><span style=display:flex><span>  constructor() {
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.w = random(obstacleMinWidth, obstacleMaxWidth);
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.h = random(obstacleMinHeight, obstacleMaxHeight);
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.x = width + <span style=color:red>this</span>.w; <span style=color:#0f0>// Start off-screen to the right
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>this</span>.y = groundY - <span style=color:red>this</span>.h;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  update(speed) {
+</span></span><span style=display:flex><span>    <span style=color:red>this</span>.x -= speed;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  isOffscreen() {
+</span></span><span style=display:flex><span>    <span style=color:red>return</span> <span style=color:red>this</span>.x + <span style=color:red>this</span>.w &lt; <span style=color:#f60>0</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  hits(player) {
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Simple AABB collision detection
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// Define player collision box (adjust as needed for visual fit)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>let</span> playerBufferX = <span style=color:#f60>5</span>;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> playerBufferBottom = <span style=color:#f60>5</span>;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> playerX = player.x + playerBufferX;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> playerY = player.y;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> playerW = dinoWidth - (playerBufferX * <span style=color:#f60>2</span>);
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> playerH = dinoHeight - playerBufferBottom;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>     <span style=color:#0f0>// Define obstacle collision box (can be same as visual or slightly adjusted)
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>let</span> obsX = <span style=color:red>this</span>.x;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> obsY = <span style=color:red>this</span>.y;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> obsW = <span style=color:red>this</span>.w;
+</span></span><span style=display:flex><span>    <span style=color:red>let</span> obsH = <span style=color:red>this</span>.h;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Check for overlap
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>if</span> (playerX + playerW &gt; obsX &amp;&amp;       <span style=color:#0f0>// Player right edge &gt; Obstacle left edge
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        playerX &lt; obsX + obsW &amp;&amp;           <span style=color:#0f0>// Player left edge &lt; Obstacle right edge
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        playerY + playerH &gt; obsY &amp;&amp;       <span style=color:#0f0>// Player bottom edge &gt; Obstacle top edge
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        playerY &lt; obsY + obsH) {           <span style=color:#0f0>// Player top edge &lt; Obstacle bottom edge
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>      <span style=color:red>return</span> <span style=color:red>true</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:red>return</span> <span style=color:red>false</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  show() {
+</span></span><span style=display:flex><span>    fill(<span style=color:#f60>0</span>, <span style=color:#f60>100</span>, <span style=color:#f60>0</span>); <span style=color:#0f0>// Dark green for cactus-like obstacle
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    noStroke();
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Simple cactus shape
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    rect(<span style=color:red>this</span>.x, <span style=color:red>this</span>.y, <span style=color:red>this</span>.w, <span style=color:red>this</span>.h);
+</span></span><span style=display:flex><span>    <span style=color:#0f0>// Add small &#34;arms&#34; maybe
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:red>if</span> (<span style=color:red>this</span>.w &gt; obstacleMinWidth + <span style=color:#f60>5</span>) { <span style=color:#0f0>// Only on wider cacti
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>        <span style=color:red>let</span> armW = <span style=color:red>this</span>.w * <span style=color:#f60>0.3</span>;
+</span></span><span style=display:flex><span>        <span style=color:red>let</span> armH = <span style=color:red>this</span>.h * <span style=color:#f60>0.5</span>;
+</span></span><span style=display:flex><span>        rect(<span style=color:red>this</span>.x - armW, <span style=color:red>this</span>.y + <span style=color:red>this</span>.h * <span style=color:#f60>0.2</span>, armW, armH); <span style=color:#0f0>// Left arm
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>         rect(<span style=color:red>this</span>.x + <span style=color:red>this</span>.w, <span style=color:red>this</span>.y + <span style=color:red>this</span>.h * <span style=color:#f60>0.3</span>, armW, armH * <span style=color:#f60>0.8</span>); <span style=color:#0f0>// Right arm
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>     <span style=color:#0f0>// Optional: Draw collision box for debugging
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// noFill();
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// stroke(0, 0, 255);
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>    <span style=color:#0f0>// rect(this.x, this.y, this.w, this.h);
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#0f0>// Adjust canvas size if window is resized
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span><span style=color:red>function</span> windowResized() {
+</span></span><span style=display:flex><span>  resizeCanvas(windowWidth, windowHeight);
+</span></span><span style=display:flex><span>  groundY = height - <span style=color:#f60>50</span>; <span style=color:#0f0>// Recalculate ground
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>  dino.baseY = groundY - dinoHeight; <span style=color:#0f0>// Update player&#39;s base Y
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>
+</span></span><span style=display:flex><span>   <span style=color:#0f0>// Reposition background elements potentially? Or just let them scroll off.
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>   <span style=color:#0f0>// For simplicity, we&#39;ll let them scroll off and respawn naturally.
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>}
+</span></span></code></pre></div></details><h2 id=example><a href=#example>#</a> Example</h2><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p><a href=/blog/html/gemini25.html>Fullscreen</a> example.</p><p>Just unexpectedly great job, <a href=https://lmarena.ai/?leaderboard target=_blank rel="noopener noreferrer external">https://lmarena.ai/?leaderboard</a></p></article></div></main><footer class=site-footer>Stay updated on <strong><a target=_blank rel="noopener noreferrer external" href=https://x.com/_irr123>X</a></strong> | <a target=_blank href=/blog/index.xml>RSS</a></footer><script type=text/javascript src=/blog/js/gemini25.js></script></body></html>
