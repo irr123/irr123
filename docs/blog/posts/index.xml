@@ -1,38 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on The Archive</title><link>https://bogomolov.work/blog/posts/</link><description>Recent content in Posts on The Archive</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 25 Mar 2025 19:18:59 +0000</lastBuildDate><atom:link href="https://bogomolov.work/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Gemini 2.5 Pro</title><link>https://bogomolov.work/blog/posts/gemini25/</link><pubDate>Tue, 25 Mar 2025 19:18:59 +0000</pubDate><guid>https://bogomolov.work/blog/posts/gemini25/</guid><description>&lt;blockquote>
-&lt;p>2.5 Pro can use its reasoning capabilities to create a video game by
-producing the executable code from a single line prompt&lt;/p>&lt;/blockquote>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on The Archive</title><link>https://bogomolov.work/blog/posts/</link><description>Recent content in Posts on The Archive</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 14 Apr 2025 19:42:48 +0000</lastBuildDate><atom:link href="https://bogomolov.work/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo static site generator + Prettier code formatter = ❤️</title><link>https://bogomolov.work/blog/posts/hugo-code-formatting/</link><pubDate>Mon, 14 Apr 2025 19:42:48 +0000</pubDate><guid>https://bogomolov.work/blog/posts/hugo-code-formatting/</guid><description>&lt;p>I like my code nicely formatted, and since I&amp;rsquo;m using Hugo here 👇, I figured it
+was a good idea to finally set it up properly. But I hit a little problem – Hugo
+templates aren&amp;rsquo;t &lt;em>just&lt;/em> Markdown; they&amp;rsquo;re a mix of YAML/JSON, HTML/CSS/JS, Go&amp;rsquo;s
+template syntax. Before I found the real solution, I had actually prepared
+myself to fork shurcooL/markdownfmt and add support for Hugo&amp;rsquo;s template syntax
+myself.&lt;/p></description></item><item><title>Gemini 2.5 Pro</title><link>https://bogomolov.work/blog/posts/gemini25/</link><pubDate>Tue, 25 Mar 2025 19:18:59 +0000</pubDate><guid>https://bogomolov.work/blog/posts/gemini25/</guid><description>&lt;blockquote>
+&lt;p>2.5 Pro can use its reasoning capabilities to create a video game by producing
+the executable code from a single line prompt&lt;/p>&lt;/blockquote>
 &lt;p>&lt;a href="https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding" target="_blank" rel="noopener noreferrer external">https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding&lt;/a>&lt;/p>
 &lt;h2 id="prompt">
  &lt;a href="#prompt">#&lt;/a> Prompt&lt;/h2>
-&lt;p>And it&amp;rsquo;s really works, in one shot:&lt;/p></description></item><item><title>PlayStation statistics</title><link>https://bogomolov.work/blog/posts/psn-statistics/</link><pubDate>Mon, 24 Mar 2025 19:09:56 +0000</pubDate><guid>https://bogomolov.work/blog/posts/psn-statistics/</guid><description>&lt;p>Here&amp;rsquo;s a tool to peek at your PlayStation life-hours played, games beaten,
-the works. It&amp;rsquo;s open-source, so feel free to mess with it and add your own spin.&lt;/p>
+&lt;p>And it&amp;rsquo;s really works, in one shot:&lt;/p></description></item><item><title>PlayStation statistics</title><link>https://bogomolov.work/blog/posts/psn-statistics/</link><pubDate>Mon, 24 Mar 2025 19:09:56 +0000</pubDate><guid>https://bogomolov.work/blog/posts/psn-statistics/</guid><description>&lt;p>Here&amp;rsquo;s a tool to peek at your PlayStation life-hours played, games beaten, the
+works. It&amp;rsquo;s open-source, so feel free to mess with it and add your own spin.&lt;/p>
 &lt;p>&lt;a href="https://github.com/irr123/psn-games-stats/tree/argparse" target="_blank" rel="noopener noreferrer external">https://github.com/irr123/psn-games-stats/tree/argparse&lt;/a>&lt;/p>
 &lt;h2 id="my-stats">
  &lt;a href="#my-stats">#&lt;/a> My stats&lt;/h2>
 &lt;p>A third of a year lost (or gained?) to gaming! This doesn&amp;rsquo;t even include my
-Steam hours, I&amp;rsquo;m almost afraid to add those up 🙈&lt;/p></description></item><item><title>Prompt engineering notes</title><link>https://bogomolov.work/blog/posts/prompt-engineering-notes/</link><pubDate>Thu, 20 Mar 2025 08:00:14 +0000</pubDate><guid>https://bogomolov.work/blog/posts/prompt-engineering-notes/</guid><description>&lt;p>If you weren&amp;rsquo;t aware, there was a leak of &lt;a href="https://www.cursor.com/" target="_blank" rel="noopener noreferrer external">Cursor&lt;/a>
-and some other
-&lt;a href="https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools" target="_blank" rel="noopener noreferrer external">prompts&lt;/a>.
-I&amp;rsquo;m not here to evaluate the quality of prompts, but let&amp;rsquo;s consider it as a
-state of the art from experienced guys.&lt;/p></description></item><item><title>Search Engine Indexing: A Case Study with Google, Bing, and Yandex</title><link>https://bogomolov.work/blog/posts/search-engine-indexing/</link><pubDate>Sun, 16 Mar 2025 10:25:54 +0000</pubDate><guid>https://bogomolov.work/blog/posts/search-engine-indexing/</guid><description>&lt;p>In this article I want to share my experience of using search engine consoles,
-continuing an idea from a recent &lt;a href="https://t.me/the_digital_lab/13" target="_blank" rel="noopener noreferrer external">Telegram post&lt;/a>.
-Maybe this could reduce frustration for someone, reassuring them that they&amp;rsquo;re
-not alone - or even save them some time.&lt;/p></description></item><item><title>Will AI Replace Developers?</title><link>https://bogomolov.work/blog/posts/will-ai-replace-developers/</link><pubDate>Wed, 12 Mar 2025 18:22:35 +0000</pubDate><guid>https://bogomolov.work/blog/posts/will-ai-replace-developers/</guid><description>&lt;p>A common narrative from &lt;a href="https://openai.com/" target="_blank" rel="noopener noreferrer external">OpenAI&lt;/a> and similar companies
-(previous hype was from &lt;a href="https://www.nocode.tech/" target="_blank" rel="noopener noreferrer external">no-code-guys&lt;/a>)
-suggests that the era of human developers is ending due to cost considerations,
-and that AI will replace programmers soon.&lt;/p></description></item><item><title>Google Drive Backup Part 2</title><link>https://bogomolov.work/blog/posts/google-drive-backup-part2/</link><pubDate>Wed, 05 Mar 2025 08:46:19 +0000</pubDate><guid>https://bogomolov.work/blog/posts/google-drive-backup-part2/</guid><description>&lt;p>This is a continuation of the first &lt;a href="https://bogomolov.work/blog/posts/google-drive-backup/">part&lt;/a>,
-where we built a basic backup solution using local storage. Now, let&amp;rsquo;s elevate
-our approach by integrating another cloud provider and adding robust encryption.&lt;/p>
+Steam hours, I&amp;rsquo;m almost afraid to add those up 🙈&lt;/p></description></item><item><title>Prompt engineering notes</title><link>https://bogomolov.work/blog/posts/prompt-engineering-notes/</link><pubDate>Thu, 20 Mar 2025 08:00:14 +0000</pubDate><guid>https://bogomolov.work/blog/posts/prompt-engineering-notes/</guid><description>&lt;p>If you weren&amp;rsquo;t aware, there was a leak of &lt;a href="https://www.cursor.com/" target="_blank" rel="noopener noreferrer external">Cursor&lt;/a> and
+some other
+&lt;a href="https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools" target="_blank" rel="noopener noreferrer external">prompts&lt;/a>. I&amp;rsquo;m
+not here to evaluate the quality of prompts, but let&amp;rsquo;s consider it as a state of
+the art from experienced guys.&lt;/p></description></item><item><title>Search Engine Indexing: A Case Study with Google, Bing, and Yandex</title><link>https://bogomolov.work/blog/posts/search-engine-indexing/</link><pubDate>Sun, 16 Mar 2025 10:25:54 +0000</pubDate><guid>https://bogomolov.work/blog/posts/search-engine-indexing/</guid><description>&lt;p>In this article I want to share my experience of using search engine consoles,
+continuing an idea from a recent
+&lt;a href="https://t.me/the_digital_lab/13" target="_blank" rel="noopener noreferrer external">Telegram post&lt;/a>. Maybe this could reduce
+frustration for someone, reassuring them that they&amp;rsquo;re not alone - or even save
+them some time.&lt;/p></description></item><item><title>Will AI Replace Developers?</title><link>https://bogomolov.work/blog/posts/will-ai-replace-developers/</link><pubDate>Wed, 12 Mar 2025 18:22:35 +0000</pubDate><guid>https://bogomolov.work/blog/posts/will-ai-replace-developers/</guid><description>&lt;p>A common narrative from &lt;a href="https://openai.com/" target="_blank" rel="noopener noreferrer external">OpenAI&lt;/a> and similar companies
+(previous hype was from &lt;a href="https://www.nocode.tech/" target="_blank" rel="noopener noreferrer external">no-code-guys&lt;/a>) suggests that
+the era of human developers is ending due to cost considerations, and that AI
+will replace programmers soon.&lt;/p></description></item><item><title>Google Drive Backup Part 2</title><link>https://bogomolov.work/blog/posts/google-drive-backup-part2/</link><pubDate>Wed, 05 Mar 2025 08:46:19 +0000</pubDate><guid>https://bogomolov.work/blog/posts/google-drive-backup-part2/</guid><description>&lt;p>This is a continuation of the first
+&lt;a href="https://bogomolov.work/blog/posts/google-drive-backup/">part&lt;/a>, where we built a basic
+backup solution using local storage. Now, let&amp;rsquo;s elevate our approach by
+integrating another cloud provider and adding robust encryption.&lt;/p>
 &lt;p>&lt;img src="suit-2.jpg" alt="generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey">&lt;/p></description></item><item><title>(Almost) Free Google Drive Backup</title><link>https://bogomolov.work/blog/posts/google-drive-backup/</link><pubDate>Thu, 27 Feb 2025 20:12:31 +0000</pubDate><guid>https://bogomolov.work/blog/posts/google-drive-backup/</guid><description>&lt;p>Have you &lt;em>truly&lt;/em> considered the catastrophic risks of losing all your
-&lt;a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer external">Google Drive&lt;/a> data?
-Can your business afford such a loss?&lt;/p>
-&lt;p>&lt;img src="suit.jpg" alt="generate image in anime style where white collar in suit grabs his head because he realized that lost his reports">&lt;/p></description></item><item><title>DI Container vs. Service Template (generator)</title><link>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</link><pubDate>Fri, 21 Feb 2025 06:31:02 +0000</pubDate><guid>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</guid><description>&lt;p>Let&amp;rsquo;s talk about building and evolving Golang services in
-the enterprise. We&amp;rsquo;ll explore two approaches:&lt;/p>
+&lt;a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer external">Google Drive&lt;/a> data? Can your business afford such a
+loss?&lt;/p>
+&lt;p>&lt;img src="suit.jpg" alt="generate image in anime style where white collar in suit grabs his head because he realized that lost his reports">&lt;/p></description></item><item><title>DI Container vs. Service Template (generator)</title><link>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</link><pubDate>Fri, 21 Feb 2025 06:31:02 +0000</pubDate><guid>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</guid><description>&lt;p>Let&amp;rsquo;s talk about building and evolving Golang services in the enterprise. We&amp;rsquo;ll
+explore two approaches:&lt;/p>
 &lt;p>&lt;img src="morpheus.jpg" alt="Create image illustration in anime style with Morpheus from Matrix suggesting you blue and red pills">&lt;/p>
 &lt;ul>
-&lt;li>A &lt;em>Service Template (generator)&lt;/em> is a common approach for unifying and
-quickly bootstrapping new microservices. Its popularity is evident in the
-community, as demonstrated by examples such as:
+&lt;li>A &lt;em>Service Template (generator)&lt;/em> is a common approach for unifying and quickly
+bootstrapping new microservices. Its popularity is evident in the community,
+as demonstrated by examples such as:
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/evrone/go-clean-template" target="_blank" rel="noopener noreferrer external">https://github.com/evrone/go-clean-template&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/" target="_blank" rel="noopener noreferrer external">https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/&lt;/a>&lt;/li>
@@ -57,9 +64,8 @@ services, it offers several advantages, which I will outline.&lt;/li>
 production. From a technical perspective, this translates to several key
 requirements:&lt;/p></description></item><item><title>Python3 Dockerfile with uv</title><link>https://bogomolov.work/blog/posts/docker-uv/</link><pubDate>Tue, 18 Feb 2025 12:39:42 +0000</pubDate><guid>https://bogomolov.work/blog/posts/docker-uv/</guid><description>&lt;p>I&amp;rsquo;ve been noticed that my simple
 &lt;a href="https://hub.docker.com/repository/docker/c1rno/python" target="_blank" rel="noopener noreferrer external">python3 docker image&lt;/a>
-with uv has unexpected amount of downloads, so, I descided to steal some
-traffic from original &lt;a href="https://docs.astral.sh/uv/guides/integration/docker/" target="_blank" rel="noopener noreferrer external">https://docs.astral.sh/uv/guides/integration/docker/&lt;/a>
-to it page.&lt;/p>
+with uv has unexpected amount of downloads, so, I descided to steal some traffic
+from original &lt;a href="https://docs.astral.sh/uv/guides/integration/docker/" target="_blank" rel="noopener noreferrer external">https://docs.astral.sh/uv/guides/integration/docker/&lt;/a> to it page.&lt;/p>
 &lt;h2 id="what-is-it-uv">
  &lt;a href="#what-is-it-uv">#&lt;/a> What is it &lt;a href="https://github.com/astral-sh/uv" target="_blank" rel="noopener noreferrer external">uv&lt;/a>?&lt;/h2>
 &lt;p>&lt;img src="posts-docker-uv-1.jpg" alt="Create image illustration in anime style included python3&amp;rsquo;s snake, rust and uv (it&amp;rsquo;s new package manager for python written in rust)">&lt;/p></description></item></channel></rss>

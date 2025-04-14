@@ -6,7 +6,8 @@ image: ""
 keywords: []
 ---
 
-Ideological heir of [DI Container vs. Service Template (generator)]({{< relref "posts/golang-di-container-vs-service-template" >}})
+Ideological heir of [DI Container vs. Service Template
+(generator)]({{< relref "posts/golang-di-container-vs-service-template" >}})
 
 1. [Dependency injection]({{< relref "posts/dependency-injection" >}})
 1. [Go service bootstrap]({{< relref "posts/go-service-bootstrap" >}})

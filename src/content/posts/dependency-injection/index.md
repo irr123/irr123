@@ -6,4 +6,5 @@ image: ""
 keywords: []
 ---
 
-Ideological heir of [DI Container vs. Service Template (generator)]({{< relref "posts/golang-di-container-vs-service-template" >}})
+Ideological heir of [DI Container vs. Service Template
+(generator)]({{< relref "posts/golang-di-container-vs-service-template" >}})
