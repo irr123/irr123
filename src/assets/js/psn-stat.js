@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const targetHeading = document.getElementById("my-stats");
 
   if (targetHeading) {
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     iframe.style.border = "none";
 
     targetHeading.parentNode.insertBefore(iframe, targetHeading.nextSibling);
-    window.addEventListener("message", function(event) {
+    window.addEventListener("message", function (event) {
       if (event.data && event.data.height) {
         iframe.style.height = event.data.height + 1 + "px";
       }

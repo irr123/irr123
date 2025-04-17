@@ -25,4 +25,4 @@ hugo_add:
 .PHONY: fmt
 fmt:
 	docker run --rm -it -v $(PWD)/src:/work --user $(id -u):$(id -g) jauderho/prettier:latest --write \
-		./archetypes ./content ./data ./static/css ./static/html
+		./archetypes ./assets ./content ./data ./static/css ./static/html ./static/js

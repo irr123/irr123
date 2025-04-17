@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const targetHeading = document.getElementById("example");
 
   if (targetHeading) {

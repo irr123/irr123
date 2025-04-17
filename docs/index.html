@@ -30,7 +30,8 @@
     <meta name="twitter:description" content="Harnessing the power of code and distributed systems to craft scalable, high-performance solutions. Your guide through the digital realm."/>
     <meta name="twitter:image" content="https://bogomolov.work/blog/img/the-archive.jpg"/>
     <meta name="theme-color" content="#000000"/>
-    <link href="bos/core/css/construct.css" type="text/css" rel="stylesheet" media="all"/>
+    <link href="/bos/core/css/construct.css" rel="stylesheet"/>
+    <link href="/blog/css/style-index.css" rel="stylesheet"/>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -39,7 +40,7 @@
     })(window,document,'script','dataLayer','GTM-K53R84GG');</script>
     <!-- End Google Tag Manager -->
 </head>
-<body class="dotgrid-throb">
+<body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K53R84GG"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -84,87 +85,94 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     src="https://www.facebook.com/tr?id=2627430184120255&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-<header class="padded middle">
-    <h1 class="fluid-text-h1 comic bubblegum hot-pink-t rice-t-s">
-        <p class="spacer"></p>
-        <p>Invoking the Code:</p>
-        <!-- <i class="glitchtext bi bi-magic"></i> -->
-        <i class="bi bi-magic"></i>
-        <br />
-        <p>Engineering Reliable Digital Systems</p>
-        <p class="spacer"></p>
-    </h1>
-</header>
+<canvas id="gameOfLifeCanvas"></canvas>
+<div id="content">
+    <header class="padded middle">
+        <h1 class="fluid-text-h1 comic bubblegum hot-pink-t rice-t-s">
+            <p class="spacer"></p>
+            <p>Invoking the Code:</p>
+            <!-- <i class="glitchtext bi bi-magic"></i> -->
+            <i class="bi bi-magic"></i>
+            <br />
+            <p>Engineering Reliable Digital Systems</p>
+            <p class="spacer"></p>
+        </h1>
+    </header>
 
-<div class="padded wrap-1200 middle banana">
-    <span class="prumble">
-        <a href="mailto:ivan.invoke@bogomolov.work" class="nb-btn-jumbo arial black-t neon-text">
-            Request a Consultation <i class="bi bi-email"></i>
-        </a>
-    </span>
-</div>
-
-<div class="padded wrap-1200">
-    <div class="helvetica justify white">
-        <h2 class="fluid-text-h2 baffle-longer purple-t">
-            Think of me as a guide through the digital landscape, turning your project's potential into reality.
-        </h2>
+    <div class="padded wrap-1200 middle">
+        <div class="banana">
+            <span class="prumble">
+                <a href="mailto:ivan.invoke@bogomolov.work" class="nb-btn-jumbo arial black-t neon-text">
+                    Request a Consultation <i class="bi bi-email"></i>
+                </a>
+            </span>
+        </div>
     </div>
-</div>
 
-<div class="padded wrap-1200">
-    <div class="flow-text black lime-t courier">
-        <h2 class="huge padded">Core Strengths</h2>
-        <ul>
-            <li><span class="larger padded glitch">Mastery of the Software Craft:</span>
-                <p>Over 10 years of hands-on experience compiling high-performance and scalable solutions, debugging the matrix of technical and business requirements.</p>
-            </li>
-            <li><span class="larger padded glitch">Data-Driven Precision:</span>
-                <p>I use a metric-based approach to ensure your project's success, tracking progress and delivering measurable results.</p>
-            </li>
-            <li><span class="larger padded glitch">Your Reliable Digital Partner:</span>
-                <p>I'm committed to meeting deadlines and staying within budget, building long-term relationships through consistent performance.</p>
-            </li>
-        </ul>
-        <p class="spacer"></p>
+    <div class="padded wrap-1200">
+        <div class="helvetica justify">
+            <h2 class="fluid-text-h2 baffle-longer purple-t">
+                Think of me as a guide through the digital landscape, turning your project's potential into reality.
+            </h2>
+        </div>
     </div>
-</div>
 
-<div class="padded wrap-1200 middle banana">
-    <span class="drunk">
-        <a class="nb-btn-jumbo arial black-t neon-text" href="https://bit.ly/3AJeVdv" target="_blank" rel="noopener noreferrer">
-            Initiate a Connection <i class="bi bi-compose"></i>
-        </a>
-    </span>
-</div>
-
-<div class="padded wrap-1200">
-    <div class="flow-text black lime-t courier">
-        <h2 class="huge padded glitch">More Information</h2>
-        <ul class="tags-hash middle larger">
-            <li><a class="azure-t" href="/blog">Blog</a></li>
-            <li><a class="azure-t" href="mailto:ivan.invoke@bogomolov.work">Email</a></li>
-            <li><a class="azure-t" target="_blank" rel="noopener noreferrer" href="https://bit.ly/3CGo3Qz">Linkedin</a></li>
-            <li><a class="azure-t" target="_blank" rel="noopener noreferrer" href="https://bit.ly/3AJeVdv">Telegram</a></li>
-        </ul>
-        <p class="spacer"></p>
+    <div class="padded wrap-1200">
+        <div class="flow-text black lime-t courier">
+            <h2 class="huge padded">Core Strengths</h2>
+            <ul>
+                <li><span class="larger padded glitch">Mastery of the Software Craft:</span>
+                    <p>Over 10 years of hands-on experience compiling high-performance and scalable solutions, debugging the matrix of technical and business requirements.</p>
+                </li>
+                <li><span class="larger padded glitch">Data-Driven Precision:</span>
+                    <p>I use a metric-based approach to ensure your project's success, tracking progress and delivering measurable results.</p>
+                </li>
+                <li><span class="larger padded glitch">Your Reliable Digital Partner:</span>
+                    <p>I'm committed to meeting deadlines and staying within budget, building long-term relationships through consistent performance.</p>
+                </li>
+            </ul>
+            <p class="spacer"></p>
+        </div>
     </div>
-</div>
 
-<footer class="padded middle disabled">
-    <div class="lucida">
-        <p>Your echoes, assembled by
-            <a class="azure-t" target="_blank" rel="noopener noreferrer" href="https://bit.ly/4fEaCzl">Ivan Bogomolov</a>
-        &copy; <span id="year"></span></p>
+    <div class="padded wrap-1200 middle">
+        <div class="banana">
+            <span class="drunk">
+                <a class="nb-btn-jumbo arial black-t neon-text" href="https://bit.ly/3AJeVdv" target="_blank" rel="noopener noreferrer">
+                    Initiate a Connection <i class="bi bi-compose"></i>
+                </a>
+            </span>
+        </div>
     </div>
-</footer>
 
+    <div class="padded wrap-1200">
+        <div class="flow-text black lime-t courier">
+            <h2 class="huge padded glitch">More Information</h2>
+            <ul class="tags-hash middle larger">
+                <li><a class="azure-t" href="/blog">Blog</a></li>
+                <li><a class="azure-t" href="mailto:ivan.invoke@bogomolov.work">Email</a></li>
+                <li><a class="azure-t" href="/blog/html/life.html">Background</a></li>
+                <li><a class="azure-t" target="_blank" rel="noopener noreferrer" href="https://bit.ly/3AJeVdv">Telegram</a></li>
+            </ul>
+            <p class="spacer"></p>
+        </div>
+    </div>
+
+    <footer class="padded middle disabled">
+        <div class="lucida">
+            <p>Your echoes, assembled by
+                <a class="azure-t" target="_blank" rel="noopener noreferrer" href="https://bit.ly/4fEaCzl">Ivan Bogomolov</a>
+            &copy; <span id="year"></span></p>
+        </div>
+    </footer>
+</div>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-<script src="bos/core/jab/bfx/baffle.js"></script>
-<script src="bos/core/jab/jquery.3.js"></script>
-<script src="bos/core/jab/plugins/rumbler.js"></script>
+<script src="/bos/core/jab/jquery.3.js"></script>
+<script src="/bos/core/jab/bfx/baffle.js"></script>
+<script src="/bos/core/jab/plugins/rumbler.js"></script>
+<script src="/blog/js/script-index.js"></script>
 
 </body>
 </html>

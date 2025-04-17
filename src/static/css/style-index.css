@@ -1,0 +1,22 @@
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+}
+#gameOfLifeCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+#content {
+  position: relative;
+  z-index: 1;
+}
