@@ -42,9 +42,23 @@
   <meta name="twitter:image" content="{{ $img }}"/>
   <meta name="theme-color" content="#000000"/>
   {{- $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
-  {{- $sass := resources.Get "css/main.scss" }}
-  {{- $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
+  {{- $mainScss := resources.Get "css/main.scss" -}}
+  {{- $mainStylesProcessed := $mainScss | css.Sass $options -}}
+  {{- $customStyles := resources.Get "css/style.css" -}}
+  {{- $cssToBundle := slice -}}
+  {{- $cssToBundle = $cssToBundle | append $mainStylesProcessed -}}
+  {{- $cssToBundle = $cssToBundle | append $customStyles -}}
+  {{- $bundle := $cssToBundle | resources.Concat "css/styles.bundle.css" -}}
+  {{- $style := $bundle | resources.Minify | resources.Fingerprint "sha512" -}}
   <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}"/>
-  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}"/>
   {{- if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
+  {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  {{- end -}}
+  {{- if and site.Params.yandexMetrika (ne site.Params.yandexMetrika "") -}}
+  <link rel="preconnect" href="https://mc.yandex.ru">
+  {{- end -}}
+  {{- if and site.Params.metaPixel (ne site.Params.metaPixel "") -}}
+  <link rel="preconnect" href="https://connect.facebook.net">
+  {{- end -}}
 </head>
