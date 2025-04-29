@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on The Archive</title><link>https://bogomolov.work/blog/posts/</link><description>Recent content in Posts on The Archive</description><generator>Hugo -- 0.146.4</generator><language>en</language><lastBuildDate>Sun, 27 Apr 2025 15:40:27 +0000</lastBuildDate><atom:link href="https://bogomolov.work/blog/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>GPT-4o behaves like a marketer</title><link>https://bogomolov.work/blog/posts/gpt-4o-behaves-like-marketer/</link><pubDate>Sun, 27 Apr 2025 15:40:27 +0000</pubDate><guid>https://bogomolov.work/blog/posts/gpt-4o-behaves-like-marketer/</guid><description>&lt;p>OpenAI, too, likely breaks trust with this approach.
 &lt;a href="https://x.com/MarioNawfal/status/1916338182854967560" target="_blank" rel="noopener noreferrer external">This &lt;strong>X&lt;/strong> post&lt;/a> gave me
 an idea to check. And now it&amp;rsquo;s real: GPT-4o behaves like a marketer.&lt;/p>
-&lt;p>
-&lt;figure>
+&lt;p>&lt;figure>
 &lt;picture>
 &lt;source srcset="https://bogomolov.work/blog/posts/gpt-4o-behaves-like-marketer/seller_hu_3c9e084aef70be3.webp" type="image/webp">
 &lt;source srcset="https://bogomolov.work/blog/posts/gpt-4o-behaves-like-marketer/seller_hu_1a28ee30c9c20709.jpg" type="image/jpeg">
@@ -11,8 +10,7 @@ alt="GPT-4o depicted as a corrupted Warhammer 40k Dreadnought"
 loading="lazy"
 decoding="async">
 &lt;/picture>
-&lt;/figure>
-&lt;/p></description></item><item><title>Hugo static site generator + Prettier code formatter = ❤️</title><link>https://bogomolov.work/blog/posts/hugo-code-formatting/</link><pubDate>Mon, 14 Apr 2025 19:42:48 +0000</pubDate><guid>https://bogomolov.work/blog/posts/hugo-code-formatting/</guid><description>&lt;p>I like my code nicely formatted, and since I&amp;rsquo;m using Hugo here 👇, I figured it
+&lt;/figure>&lt;/p></description></item><item><title>Hugo static site generator + Prettier code formatter = ❤️</title><link>https://bogomolov.work/blog/posts/hugo-code-formatting/</link><pubDate>Mon, 14 Apr 2025 19:42:48 +0000</pubDate><guid>https://bogomolov.work/blog/posts/hugo-code-formatting/</guid><description>&lt;p>I like my code nicely formatted, and since I&amp;rsquo;m using Hugo here 👇, I figured it
 was a good idea to finally set it up properly. But I hit a little problem – Hugo
 templates aren&amp;rsquo;t &lt;em>just&lt;/em> Markdown; they&amp;rsquo;re a mix of YAML/JSON, HTML/CSS/JS, Go&amp;rsquo;s
 template syntax. Before I found the real solution, I had actually prepared
@@ -44,8 +42,7 @@ will replace programmers soon.&lt;/p></description></item><item><title>Google Dr
 &lt;a href="https://bogomolov.work/blog/posts/google-drive-backup/">part&lt;/a>, where we built a basic
 backup solution using local storage. Now, let&amp;rsquo;s elevate our approach by
 integrating another cloud provider and adding robust encryption.&lt;/p>
-&lt;p>
-&lt;figure>
+&lt;p>&lt;figure>
 &lt;picture>
 &lt;source srcset="https://bogomolov.work/blog/posts/google-drive-backup-part2/suit-2_hu_82a204563a114b02.webp" type="image/webp">
 &lt;source srcset="https://bogomolov.work/blog/posts/google-drive-backup-part2/suit-2_hu_44d838876900ac75.jpg" type="image/jpeg">
@@ -54,12 +51,10 @@ alt="generate image in anime style where relaxed professional guy in blue suit s
 loading="lazy"
 decoding="async">
 &lt;/picture>
-&lt;/figure>
-&lt;/p></description></item><item><title>(Almost) Free Google Drive Backup</title><link>https://bogomolov.work/blog/posts/google-drive-backup/</link><pubDate>Thu, 27 Feb 2025 20:12:31 +0000</pubDate><guid>https://bogomolov.work/blog/posts/google-drive-backup/</guid><description>&lt;p>Have you &lt;em>truly&lt;/em> considered the catastrophic risks of losing all your
+&lt;/figure>&lt;/p></description></item><item><title>(Almost) Free Google Drive Backup</title><link>https://bogomolov.work/blog/posts/google-drive-backup/</link><pubDate>Thu, 27 Feb 2025 20:12:31 +0000</pubDate><guid>https://bogomolov.work/blog/posts/google-drive-backup/</guid><description>&lt;p>Have you &lt;em>truly&lt;/em> considered the catastrophic risks of losing all your
 &lt;a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer external">Google Drive&lt;/a> data? Can your business afford such a
 loss?&lt;/p>
-&lt;p>
-&lt;figure>
+&lt;p>&lt;figure>
 &lt;picture>
 &lt;source srcset="https://bogomolov.work/blog/posts/google-drive-backup/suit_hu_668c52ea0836215c.webp" type="image/webp">
 &lt;source srcset="https://bogomolov.work/blog/posts/google-drive-backup/suit_hu_dba093edecd4d84a.jpg" type="image/jpeg">
@@ -68,11 +63,9 @@ alt="generate image in anime style where white collar in suit grabs his head bec
 loading="lazy"
 decoding="async">
 &lt;/picture>
-&lt;/figure>
-&lt;/p></description></item><item><title>DI Container vs. Service Template (generator)</title><link>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</link><pubDate>Fri, 21 Feb 2025 06:31:02 +0000</pubDate><guid>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</guid><description>&lt;p>Let&amp;rsquo;s talk about building and evolving Golang services in the enterprise. We&amp;rsquo;ll
+&lt;/figure>&lt;/p></description></item><item><title>DI Container vs. Service Template (generator)</title><link>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</link><pubDate>Fri, 21 Feb 2025 06:31:02 +0000</pubDate><guid>https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/</guid><description>&lt;p>Let&amp;rsquo;s talk about building and evolving Golang services in the enterprise. We&amp;rsquo;ll
 explore two approaches:&lt;/p>
-&lt;p>
-&lt;figure>
+&lt;p>&lt;figure>
 &lt;picture>
 &lt;source srcset="https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/morpheus_hu_6571e7579093051a.webp" type="image/webp">
 &lt;source srcset="https://bogomolov.work/blog/posts/golang-di-container-vs-service-template/morpheus_hu_cdbbd6fad91d63d9.jpg" type="image/jpeg">
@@ -81,8 +74,7 @@ alt="Create image illustration in anime style with Morpheus from Matrix suggesti
 loading="lazy"
 decoding="async">
 &lt;/picture>
-&lt;/figure>
-&lt;/p>
+&lt;/figure>&lt;/p>
 &lt;ul>
 &lt;li>A &lt;em>Service Template (generator)&lt;/em> is a common approach for unifying and quickly
 bootstrapping new microservices. Its popularity is evident in the community,
@@ -115,8 +107,7 @@ with uv has unexpected amount of downloads, so, I descided to steal some traffic
 from original &lt;a href="https://docs.astral.sh/uv/guides/integration/docker/" target="_blank" rel="noopener noreferrer external">https://docs.astral.sh/uv/guides/integration/docker/&lt;/a> to it page.&lt;/p>
 &lt;h2 id="what-is-it-uv">
 &lt;a href="#what-is-it-uv">#&lt;/a> What is it &lt;a href="https://github.com/astral-sh/uv" target="_blank" rel="noopener noreferrer external">uv&lt;/a>?&lt;/h2>
-&lt;p>
-&lt;figure>
+&lt;p>&lt;figure>
 &lt;picture>
 &lt;source srcset="https://bogomolov.work/blog/posts/docker-uv/posts-docker-uv-1_hu_3d193ab24457b365.webp" type="image/webp">
 &lt;source srcset="https://bogomolov.work/blog/posts/docker-uv/posts-docker-uv-1_hu_6ca4995ff8bcfeb7.jpg" type="image/jpeg">
@@ -125,5 +116,4 @@ alt="Create image illustration in anime style included python3’s snake, rust a
 loading="lazy"
 decoding="async">
 &lt;/picture>
-&lt;/figure>
-&lt;/p></description></item></channel></rss>
+&lt;/figure>&lt;/p></description></item></channel></rss>

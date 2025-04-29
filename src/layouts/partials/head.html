@@ -1,6 +1,6 @@
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   {{ $pageTitle := cond .IsHome site.Title .Title -}}
   {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
   {{ $adjustedTitle := print $pageTitle " | " $pageSummary -}}
@@ -12,35 +12,35 @@
     {{ $adjustedSummary = print (substr $adjustedSummary 0 125) "..." -}}
   {{ end -}}
   <title>{{ $adjustedTitle }}</title>
-  <meta name="description" content="{{ $adjustedSummary }}"/>
-  {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}"/>{{ end }}
-  <meta name="author" content="Ivan Bogomolov"/>
-  <meta name="robots" content="index,follow"/>
-  <link rel="canonical" href="{{ .Permalink }}"/>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png"/>
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-  <meta property="og:title" content="{{ $pageTitle }}"/>
-  <meta property="og:description" content="{{ $pageSummary }}"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="{{ .Permalink }}"/>
+  <meta name="description" content="{{ $adjustedSummary }}">
+  {{ with .Keywords }}<meta name="keywords" content="{{ delimit . ", " }}">{{ end }}
+  <meta name="author" content="Ivan Bogomolov">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta property="og:title" content="{{ $pageTitle }}">
+  <meta property="og:description" content="{{ $pageSummary }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
   {{- $img := urls.AbsURL site.Params.defaultImg }}
-  <meta property="og:logo" content="{{ $img }}"/>
+  <meta property="og:logo" content="{{ $img }}">
   {{- if and .Params.Image (ne .Params.Image "") }}
     {{- $img = urls.JoinPath .Permalink .Params.Image }}
   {{- end }}
-  <meta property="og:image" content="{{ $img }}"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:site" content="@_irr123"/>
-  <meta property="twitter:domain" content="bogomolov.work"/>
-  <meta property="twitter:url" content="{{ .Permalink }}"/>
-  <meta name="twitter:title" content="{{ $pageTitle }}"/>
-  <meta name="twitter:description" content="{{ $pageSummary }}"/>
-  <meta name="twitter:image" content="{{ $img }}"/>
-  <meta name="theme-color" content="#000000"/>
+  <meta property="og:image" content="{{ $img }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@_irr123">
+  <meta property="twitter:domain" content="bogomolov.work">
+  <meta property="twitter:url" content="{{ .Permalink }}">
+  <meta name="twitter:title" content="{{ $pageTitle }}">
+  <meta name="twitter:description" content="{{ $pageSummary }}">
+  <meta name="twitter:image" content="{{ $img }}">
+  <meta name="theme-color" content="#000000">
   {{- $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{- $mainScss := resources.Get "css/main.scss" -}}
   {{- $mainStylesProcessed := $mainScss | css.Sass $options -}}
@@ -50,7 +50,7 @@
   {{- $cssToBundle = $cssToBundle | append $customStyles -}}
   {{- $bundle := $cssToBundle | resources.Concat "css/styles.bundle.css" -}}
   {{- $style := $bundle | resources.Minify | resources.Fingerprint "sha512" -}}
-  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}"/>
+  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}">
   {{- if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
   {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}
   <link rel="preconnect" href="https://www.googletagmanager.com">

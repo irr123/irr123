@@ -1,54 +1,50 @@
 {{/* layouts/_default/_markup/render-image.html */}}
-
-{{ $src := .Destination }}
-{{ $alt := .PlainText | safeHTMLAttr }}
-{{ $title := .Title | safeHTMLAttr }}
-
-{{ $image := "" }}
-{{ with .Page.Resources.GetMatch $src }}
-  {{ $image = . }}
-{{ else }}
-  {{ with resources.Get $src }}
-    {{ $image = . }}
-  {{ end }}
-{{ end }}
-
-{{ if $image }}
-  {{ if eq $image.MediaType.SubType "svg" }}
+{{- $src := .Destination -}}
+{{- $alt := .PlainText | safeHTMLAttr -}}
+{{- $title := .Title | safeHTMLAttr -}}
+{{- $image := "" -}}
+{{- with .Page.Resources.GetMatch $src -}}
+  {{- $image = . -}}
+{{- else -}}
+  {{- with resources.Get $src -}}
+    {{- $image = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if $image -}}
+  {{- if eq $image.MediaType.SubType "svg" -}}
     <figure>
        <img src="{{ $image.RelPermalink }}"
             alt="{{ $alt }}"
-            {{ with $title }} title="{{ . }}"{{ end }}
+            {{- with $title }} title="{{ . }}"{{ end }}
             loading="lazy">
-      {{ with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
+      {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
-  {{ else }}
-    {{ $webpOptions := "webp q75" }}
-    {{ $jpegOptions := "jpeg q85" }}
-
-    {{ $webp := $image.Process $webpOptions }}
-    {{ $jpeg := $image.Process $jpegOptions }}
+  {{- else -}}
+    {{- $webpOptions := "webp q75" -}}
+    {{- $jpegOptions := "jpeg q85" -}}
+    {{- $webp := $image.Process $webpOptions -}}
+    {{- $jpeg := $image.Process $jpegOptions -}}
     <figure>
       <picture>
         <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
         <source srcset="{{ $jpeg.RelPermalink }}" type="image/jpeg">
         <img src="{{ $jpeg.RelPermalink }}"
              alt="{{ $alt }}"
-             {{ with $title }} title="{{ . }}"{{ end }}
+             {{- with $title }} title="{{ . }}"{{ end }}
              loading="lazy"
              decoding="async">
       </picture>
-      {{ with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
+      {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
-  {{ end }}
-{{ else }}
-  {{ warnf "[render-image WARNING] Image resource not found for '%s' on page '%s'. Using fallback for external images or images not found in resources." $src .Page.Path }}
+  {{- end -}}
+{{- else -}}
+  {{- warnf "[render-image WARNING] Image resource not found for '%s' on page '%s'. Using fallback for external images or images not found in resources." $src .Page.Path -}}
   <figure>
     <img src="{{ $src | safeURL }}"
          alt="{{ $alt }}"
-         {{ with $title }} title="{{ . }}"{{ end }}
+         {{- with $title }} title="{{ . }}"{{ end }}
          loading="lazy"
          decoding="async">
-    {{ with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
+    {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
   </figure>
-{{ end }}
+{{- end -}}
