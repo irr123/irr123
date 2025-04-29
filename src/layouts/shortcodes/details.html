@@ -1,0 +1,13 @@
+{{/* layouts/shortcodes/details.html */}}
+
+{{ $originalPage := .Get "page" | default .Page }}
+{{ $innerContent := .Inner }}
+
+<details {{ with .Get "open" }}{{ if eq . "true" }}open{{ end }}{{ end }}>
+    <summary>
+        {{ .Get "summary" | default "Details:" }}
+    </summary>
+    <div class="details-content">
+        {{ $originalPage.RenderString $innerContent }}
+    </div>
+</details>
