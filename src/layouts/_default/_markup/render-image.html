@@ -11,12 +11,15 @@
   {{- end -}}
 {{- end -}}
 {{- if $image -}}
+  {{- $originalPermalink := $image.RelPermalink -}}
   {{- if eq $image.MediaType.SubType "svg" -}}
     <figure>
-       <img src="{{ $image.RelPermalink }}"
-            alt="{{ $alt }}"
-            {{- with $title }} title="{{ . }}"{{ end }}
-            loading="lazy">
+      <a href="{{ $originalPermalink }}" target="_blank">
+        <img src="{{ $image.RelPermalink }}" {{/* This is already the original for SVG */}}
+             alt="{{ $alt }}"
+             {{- with $title }} title="{{ . }}"{{ end }}
+             loading="lazy">
+      </a>
       {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
   {{- else -}}
@@ -25,26 +28,31 @@
     {{- $webp := $image.Process $webpOptions -}}
     {{- $jpeg := $image.Process $jpegOptions -}}
     <figure>
-      <picture>
-        <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-        <source srcset="{{ $jpeg.RelPermalink }}" type="image/jpeg">
-        <img src="{{ $jpeg.RelPermalink }}"
-             alt="{{ $alt }}"
-             {{- with $title }} title="{{ . }}"{{ end }}
-             loading="lazy"
-             decoding="async">
-      </picture>
+      <a href="{{ $originalPermalink }}" target="_blank">
+        <picture>
+          <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
+          <source srcset="{{ $jpeg.RelPermalink }}" type="image/jpeg">
+          <img src="{{ $jpeg.RelPermalink }}"
+               alt="{{ $alt }}"
+               {{- with $title }} title="{{ . }}"{{ end }}
+               loading="lazy"
+               decoding="async">
+        </picture>
+      </a>
       {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
   {{- end -}}
 {{- else -}}
   {{- warnf "[render-image WARNING] Image resource not found for '%s' on page '%s'. Using fallback for external images or images not found in resources." $src .Page.Path -}}
   <figure>
-    <img src="{{ $src | safeURL }}"
-         alt="{{ $alt }}"
-         {{- with $title }} title="{{ . }}"{{ end }}
-         loading="lazy"
-         decoding="async">
+    {{/* For external/fallback images, $src is the original URL */}}
+    <a href="{{ $src | safeURL }}" target="_blank">
+      <img src="{{ $src | safeURL }}"
+           alt="{{ $alt }}"
+           {{- with $title }} title="{{ . }}"{{ end }}
+           loading="lazy"
+           decoding="async">
+    </a>
     {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
   </figure>
 {{- end -}}

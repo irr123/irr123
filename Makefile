@@ -8,8 +8,8 @@ srv:
 build:
 	# docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${VERSION} build --buildDrafts
 	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${VERSION} --minify build
-	sudo chown -R $(USER):$(USER) $(PWD)/src/public
-	rm -rf $(PWD)/docs/blog
+	sudo chown -R $(USER):$(USER) $(PWD)/src/public $(PWD)/src/resources/_gen
+	rm -rf $(PWD)/docs/blog $(PWD)/src/resources/_gen
 	mv $(PWD)/src/public $(PWD)/docs/blog
 	mv $(PWD)/docs/blog/sitemap.xml $(PWD)/docs/sitemap.xml
 
