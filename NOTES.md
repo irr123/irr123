@@ -12,6 +12,7 @@ gh pages covered by cf
 - `make hugo_add` and so on
 - **Important**: do not use h1(`#`), it's already a page title,
   start from h2(`##`)
+- Newsletter on beehiiv.com
 
 
 ## Dev
