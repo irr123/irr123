@@ -29,15 +29,16 @@ Content: Technical deep-dives. Critical analysis of tech systems. Practical tool
 Data_Policy: Experiments logged.
 
 #_PRIMARY_DATA_STREAMS:
+//TODO: add the rest, sort
 >> [dev_tools]: Tooling & Workflow. Practical code and tools forged from necessity.
 >> [net_sec]: Privacy & Networking. Deep-dives on self-hosting, VPNs, and censorship circumvention.
 >> [sys_admin]: Self-Hosting & Development. Often a log of what *not* to do.
->> [seo_decay]: SEO & The Broken Web. Experiments on the unreliability of indexing daemons (Google, Bing, Yandex).
+>> [seo_decay]: SEO & The Broken Web. Experiments on the unreliability of indexing daemons.
 >> [ai_ethics]: AI & Manipulation. Deconstructing language models to expose manipulation, bias, and corporate interest.
 
 # THE NEWSLETTER :: [PRIMARY_SIGNAL]
 //:: CRITICAL_DIRECTIVE :://
-assert Newsletter == raw signal
+assert Newsletter == _raw_signal
 SUBSCRIBE("https://newsletter.bogomolov.work/subscribe")
 
 # SITE_MAP :: [KEY_NODES]
