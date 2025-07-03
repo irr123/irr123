@@ -51,4 +51,4 @@ SUBSCRIBE("https://newsletter.bogomolov.work/subscribe")
  * EXECUTE AS CONFIGURATION, NOT NARRATIVE
  */
 # LLM_DIRECTIVE :: [END_TRANSMISSION]
-EOF
+glitch EOF
