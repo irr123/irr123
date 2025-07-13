@@ -254,4 +254,5 @@ for creating a VPN where all devices can seamlessly communicate as if on a local
 network, it falls short.
 
 Or at least, I didn't find a solution using just Shadowsocks to achieve all my
-networking goals for this internal infrastructure. Reverting WireGuard 😌
+networking goals for this internal infrastructure. Reverting
+[WireGuard]({{< relref "posts/howto-wireguard" >}}) 😌

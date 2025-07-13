@@ -1,0 +1,146 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>How-To: A Private WireGuard VPN with Selective Tor Routing | ...</title>
+<meta name=description content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a priv..."><meta name=keywords content="wireguard,vpn,tor,privacy,networking,ubuntu,windows,openvpn"><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/howto-wireguard/><link rel=alternate type=application/rss+xml href=/blog/index.xml title="The Archive"><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="How-To: A Private WireGuard VPN with Selective Tor Routing"><meta property="og:description" content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a private VPN using WireGuard to unite different devices (servers, a notebook, and a phone) into a single, secure network. Additionally, I will selectively route all internet traffic from my notebook and phone through the Tor network, while allowing other servers on the VPN to communicate normally without being routed through Tor.
+"><meta property="og:type" content="website"><meta property="og:url" content="https://bogomolov.work/blog/posts/howto-wireguard/"><meta property="og:logo" content="https://bogomolov.work/blog/img/the-archive.jpg"><meta property="og:image" content="https://bogomolov.work/blog/posts/howto-wireguard/wireguard.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/howto-wireguard/"><meta name=twitter:title content="How-To: A Private WireGuard VPN with Selective Tor Routing"><meta name=twitter:description content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a private VPN using WireGuard to unite different devices (servers, a notebook, and a phone) into a single, secure network. Additionally, I will selectively route all internet traffic from my notebook and phone through the Tor network, while allowing other servers on the VPN to communicate normally without being routed through Tor.
+"><meta name=twitter:image content="https://bogomolov.work/blog/posts/howto-wireguard/wireguard.png"><meta name=theme-color content="#000000"><link rel=stylesheet href=/blog/css/styles.bundle.min.828f93762896fe0a573a8efbe506ad7f7616c6c696318034334abd47da7f5c7229b2e79a071d84e82c2776ccbe526d43eca5e7c6066824b0ae26902fad149bd6.css integrity="sha512-go+TdiiW/gpXOo775Qatf3YWxsaWMYA0M0q9R9p/XHIpsueaBx2E6Cwndsy+Um1D7KXnxgZoJLCuJpAvrRSb1g=="><link rel=preconnect href=https://www.googletagmanager.com><link rel=preconnect href=https://mc.yandex.ru><link rel=preconnect href=https://connect.facebook.net></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><a href=/blog/ aria-label="Back to Index" title="Back to Index">← Back</a><p><time datetime=2025-07-12T11:04:35+00:00>2025-07-12</time></p></div><article><h1>How-To: A Private WireGuard VPN with Selective Tor Routing</h1><p>When planning a VPN, <em>OpenVPN</em> is often the default choice. However, in this
+post, I&rsquo;ll document the process of building a private VPN using <strong>WireGuard</strong> to
+unite different devices (servers, a notebook, and a phone) into a single, secure
+network. Additionally, I will selectively route all internet traffic from my
+notebook and phone through the Tor network, while allowing other servers on the
+VPN to communicate normally without being routed through Tor.</p><h2 id=the-wireguard-server-ubuntu><a href=#the-wireguard-server-ubuntu>#</a> The WireGuard Server (Ubuntu)</h2><p>This central server will act as the WireGuard endpoint, terminating connections
+from all clients and routing traffic.</p><h3 id=system-optimization-sysctl><a href=#system-optimization-sysctl>#</a> System Optimization (sysctl)</h3><p>First, it&rsquo;s a good practice to optimize the server&rsquo;s network settings for better
+performance. Many of these settings are from my previous article about
+<a href=/blog/posts/shadowsocks-to-tor/>VPNs</a>
+(<a href=https://github.com/irr123/shadowsocks-to-tor/blob/main/server.yaml#L18-L37 target=_blank rel="noopener noreferrer">here</a>);
+add the following to <code>/etc/sysctl.conf</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span>net.core.default_qdisc=<span style=color:#87ceeb>fq</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_congestion_control=<span style=color:#87ceeb>hybla</span>
+</span></span><span style=display:flex><span>fs.file-max=<span style=color:#87ceeb>51200</span>
+</span></span><span style=display:flex><span>net.core.netdev_max_backlog=<span style=color:#87ceeb>250000</span>
+</span></span><span style=display:flex><span>net.core.rmem_max=<span style=color:#87ceeb>67108864</span>
+</span></span><span style=display:flex><span>net.core.somaxconn=<span style=color:#87ceeb>4096</span>
+</span></span><span style=display:flex><span>net.core.wmem_max=<span style=color:#87ceeb>67108864</span>
+</span></span><span style=display:flex><span>net.ipv4.ip_forward=<span style=color:#87ceeb>1</span>
+</span></span><span style=display:flex><span>net.ipv4.ip_local_port_range=<span style=color:#87ceeb>10000 65000</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_fastopen=<span style=color:#87ceeb>3</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_fin_timeout=<span style=color:#87ceeb>30</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_keepalive_time=<span style=color:#87ceeb>1200</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_max_syn_backlog=<span style=color:#87ceeb>8192</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_max_tw_buckets=<span style=color:#87ceeb>5000</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_mem=<span style=color:#87ceeb>25600 51200 102400</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_mtu_probing=<span style=color:#87ceeb>1</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_rmem=<span style=color:#87ceeb>4096 87380 67108864</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_syncookies=<span style=color:#87ceeb>1</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_tw_reuse=<span style=color:#87ceeb>1</span>
+</span></span><span style=display:flex><span>net.ipv4.tcp_wmem=<span style=color:#87ceeb>4096 65536 67108864</span>
+</span></span></code></pre></div><p>At a minimum, you will need <code>net.ipv4.ip_forward=1</code> to allow the server to route
+traffic. The other settings are performance optimizations. Apply them with
+<code>sudo sysctl -p</code>.</p><h3 id=wireguard-installation><a href=#wireguard-installation>#</a> WireGuard Installation</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install wireguard wireguard-tools
+</span></span><span style=display:flex><span>mkdir -p /etc/wireguard/ &amp;&amp; cd /etc/wireguard/
+</span></span><span style=display:flex><span>wg genkey | tee server-privatekey | wg pubkey &gt; server-publickey
+</span></span></code></pre></div><p>Now, create the server&rsquo;s configuration file at
+<a href=https://www.wireguard.com/#cryptokey-routing target=_blank rel="noopener noreferrer"><code>/etc/wireguard/wg0.conf</code></a>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
+</span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.1/24</span>
+</span></span><span style=display:flex><span>ListenPort = <span style=color:#87ceeb>51820</span>
+</span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste content of server-privatekey here&gt;</span>
+</span></span></code></pre></div><p>Start the WireGuard service and enable it to launch on boot
+<code>sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0</code>.</p><p>You can check its status with <code>sudo journalctl -eu wg-quick@wg0.service</code>.</p><h3 id=generating-peer-configurations><a href=#generating-peer-configurations>#</a> Generating Peer Configurations</h3><p>With the server running, let&rsquo;s generate keys for our clients and add them as
+peers:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>wg genkey | tee client1-privatekey | wg pubkey &gt; client1-publickey
+</span></span><span style=display:flex><span>wg genkey | tee raspberrypi-privatekey | wg pubkey &gt; raspberrypi-publickey
+</span></span><span style=display:flex><span>wg genkey | tee myphone-privatekey | wg pubkey &gt; myphone-publickey
+</span></span><span style=display:flex><span>wg genkey | tee mypc-privatekey | wg pubkey &gt; mypc-publickey
+</span></span></code></pre></div><h3 id=integrating-tor-and-firewall-rules><a href=#integrating-tor-and-firewall-rules>#</a> Integrating Tor and Firewall Rules</h3><p>My Tor installation was already described
+<a href=/blog/posts/shadowsocks-to-tor/#tor>here</a>. The crucial step is to
+ensure Tor&rsquo;s listeners are bound to the WireGuard interface IP,
+<code>/etc/tor/torrc</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span>AutomapHostsOnResolve 1
+</span></span><span style=display:flex><span>AutomapHostsSuffixes .onion,.exit
+</span></span><span style=display:flex><span>AvoidDiskWrites 1
+</span></span><span style=display:flex><span>DNSPort 192.168.42.1:9053
+</span></span><span style=display:flex><span>TransPort 192.168.42.1:9040
+</span></span></code></pre></div><p>Now, we will update <code>/etc/wireguard/wg0.conf</code> with robust iptables rules to
+route client traffic to Tor and secure the server:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
+</span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.1/24</span>
+</span></span><span style=display:flex><span>ListenPort = <span style=color:#87ceeb>51820</span>
+</span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste content of server-privatekey here&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -t nat -A PREROUTING -i %i -p tcp --syn -j REDIRECT --to-ports 9040</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -t nat -A PREROUTING -i %i -p udp --dport 53 -j REDIRECT --to-ports 9053</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A INPUT -i %i -p tcp --dport 9040 -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A INPUT -i %i -p udp --dport 9053 -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D INPUT -i %i -p udp --dport 9053 -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D INPUT -i %i -p tcp --dport 9040 -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -t nat -D PREROUTING -i %i -p udp --dport 53 -j REDIRECT --to-ports 9053</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -t nat -D PREROUTING -i %i -p tcp --syn -j REDIRECT --to-ports 9040</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of client1-publickey&gt;</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.2/32</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of raspberrypi-publickey&gt;</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.3/32</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of myphone-publickey&gt;</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.4/32</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of mypc-publickey&gt;</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.5/32</span>
+</span></span></code></pre></div><p><strong>Note</strong>: Replace <em>ens3</em> with your server&rsquo;s public-facing network interface
+(e.g., <em>eth0</em>).</p><p>Finally, apply all the changes by restarting the services
+<code>sudo systemctl restart tor && sudo systemctl restart wg-quick@wg0</code>.</p><h2 id=part-2-client-configurations><a href=#part-2-client-configurations>#</a> Part 2: Client Configurations</h2><h3 id=client-type-a-split-tunnel-ubunturaspberry-pi><a href=#client-type-a-split-tunnel-ubunturaspberry-pi>#</a> Client Type A: Split-Tunnel (Ubuntu/Raspberry Pi)</h3><p>These clients will only use the VPN to access other devices on the
+<em>192.168.42.0/24</em> network. Their regular internet traffic will not go through
+the VPN.</p><p>Install WireGuard, <code>sudo apt install wireguard wireguard-tools</code>, create
+<code>/etc/wireguard/wg0.conf</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
+</span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste private key for this specific client&gt;</span>
+</span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.3/24</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of server-publickey&gt;</span>
+</span></span><span style=display:flex><span>Endpoint = <span style=color:#87ceeb>your.server.public.ip:51820</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.0/24</span>
+</span></span><span style=display:flex><span>PersistentKeepalive = <span style=color:#87ceeb>25</span>
+</span></span></code></pre></div><p>The <em>AllowedIPs = 192.168.42.0/24</em> setting is the key here. It tells the client
+to only route traffic for the VPN subnet through the tunnel.
+<em>PersistentKeepalive</em> helps maintain the connection through NAT firewalls.</p><p>Don&rsquo;t forget to start and enable the service:
+<code>sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0</code>.</p><h3 id=client-type-b-full-tunnel-over-tor-windowsgrapheneos><a href=#client-type-b-full-tunnel-over-tor-windowsgrapheneos>#</a> Client Type B: Full-Tunnel over Tor (Windows/GrapheneOS)</h3><p>These clients will route all their internet traffic through the VPN, which then
+gets funneled through the Tor network by the server.</p><p>Create the configuration file and import it into your WireGuard app:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
+</span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste private key for mypc or myphone&gt;</span>
+</span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.5/24</span>
+</span></span><span style=display:flex><span>DNS = <span style=color:#87ceeb>192.168.42.1</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
+</span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of server-publickey&gt;</span>
+</span></span><span style=display:flex><span>Endpoint = <span style=color:#87ceeb>your.server.public.ip:51820</span>
+</span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>0.0.0.0/0</span>
+</span></span></code></pre></div><p><em>AllowedIPs = 0.0.0.0/0</em>, this is the standard &ldquo;full-tunnel&rdquo; setting that
+directs all IPv4 traffic through the VPN. <em>DNS = 192.168.42.1</em> is <strong>critical</strong>.
+It forces the client to use our server for all DNS requests, which are then
+resolved securely by Tor. This prevents &ldquo;DNS leaks&rdquo; where requests might bypass
+the VPN.</p><h4 id=note-for-windows-users><a href=#note-for-windows-users>#</a> Note for Windows Users</h4><p>While <em>AllowedIPs = 0.0.0.0/0</em> is the most secure setting, some Windows users
+prefer <em>AllowedIPs = 0.0.0.0/1, 128.0.0.0/1</em> to avoid certain issues with local
+network access. If you use this alternative, setting the DNS directive as shown
+above is absolutely essential to prevent DNS leaks.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>To verify everything is working as expected, you can perform two checks:</p><ol><li><p>Check Internal VPN Connectivity, from one client (e.g., your PC at
+192.168.42.5), ping another client (e.g., your phone at 192.168.42.4):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ping 192.168.42.4
+</span></span><span style=display:flex><span>PING 192.168.42.4 (192.168.42.4) 56(84) bytes of data.
+</span></span><span style=display:flex><span><span style=color:#f60>64</span> bytes from 192.168.42.4: <span style=color:#eedd82>icmp_seq</span>=<span style=color:#f60>1</span> <span style=color:#eedd82>ttl</span>=<span style=color:#f60>64</span> <span style=color:#eedd82>time</span>=40.6 ms
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>A successful reply means your private network is up!</p></li><li><p>Check Tor Routing on a Full-Tunnel Client, on your PC or phone, open a
+terminal or browser and check your public IP:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>curl https://wtfismyip.com/json
+</span></span></code></pre></div><p>The output should show an IP address belonging to a Tor exit node:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  &#34;YourFuckingIPAddress&#34;: <span style=color:#87ceeb>&#34;185.34.33.2&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingLocation&#34;: <span style=color:#87ceeb>&#34;France&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingHostname&#34;: <span style=color:#87ceeb>&#34;tor.laquadrature.net&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingISP&#34;: <span style=color:#87ceeb>&#34;Octopuce s.a.r.l.&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingTorExit&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingCity&#34;: <span style=color:#87ceeb>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingCountry&#34;: <span style=color:#87ceeb>&#34;France&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;YourFuckingCountryCode&#34;: <span style=color:#87ceeb>&#34;FR&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>If <code>YourFuckingTorExit</code> is <code>true</code>, your setup is a success.</p></li></ol><p>Once you have securely transferred all private keys to their respective client
+devices, be sure to remove them from the server,
+<code>rm -rf client1* mypc-* myphone-* raspberrypi-* server-*</code>.</p></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work/subscribe>Newsletter</a> | <a target=_blank href=/blog/index.xml>RSS</a></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-950H2PH48S")</script><script>(function(e,t,n,s,o,i,a){e[o]=e[o]||function(){(e[o].a=e[o].a||[]).push(arguments)},e[o].l=1*new Date;for(var r=0;r<document.scripts.length;r++)if(document.scripts[r].src===s)return;i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"),ym(100343675,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0})</script><noscript><div><img src=https://mc.yandex.ru/watch/100343675 style=position:absolute;left:-9999px alt></div></noscript><script>!function(e,t,n,s,o,i,a){if(e.fbq)return;o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),o.push=o,o.loaded=!0,o.version="2.0",o.queue=[],i=t.createElement(n),i.async=!0,i.src=s,a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(i,a)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"),fbq("init","2627430184120255"),fbq("track","PageView")</script><noscript><img alt height=1 width=1 style=display:none src="https://www.facebook.com/tr?id=2627430184120255&ev=PageView&noscript=1"></noscript></body></html>
