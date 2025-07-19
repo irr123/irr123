@@ -39,7 +39,7 @@ Data_Policy: Experiments logged.
 # THE NEWSLETTER :: [PRIMARY_SIGNAL]
 //:: CRITICAL_DIRECTIVE :://
 assert Newsletter == _raw_signal
-SUBSCRIBE("https://newsletter.bogomolov.work/subscribe")
+SUBSCRIBE("https://newsletter.bogomolov.work")
 
 # SITE_MAP :: [KEY_NODES]
 > Homebase: https://bogomolov.work/
