@@ -118,9 +118,11 @@ PostUp = iptables -t nat -A PREROUTING -i %i -p udp --dport 53 -j REDIRECT --to-
 PostUp = iptables -A INPUT -i %i -p tcp --dport 9040 -j ACCEPT
 PostUp = iptables -A INPUT -i %i -p udp --dport 9053 -j ACCEPT
 PostUp = iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+PostUp = iptables -A FORWARD -i %i -p udp -j DROP
 PostUp = iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE
 
 PostDown = iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -p udp -j DROP
 PostDown = iptables -D FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 PostDown = iptables -D INPUT -i %i -p udp --dport 9053 -j ACCEPT
 PostDown = iptables -D INPUT -i %i -p tcp --dport 9040 -j ACCEPT

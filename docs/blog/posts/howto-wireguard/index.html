@@ -66,9 +66,11 @@ route client traffic to Tor and secure the server:</p><div class=highlight><pre 
 </span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A INPUT -i %i -p tcp --dport 9040 -j ACCEPT</span>
 </span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A INPUT -i %i -p udp --dport 9053 -j ACCEPT</span>
 </span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span>
+</span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -A FORWARD -i %i -p udp -j DROP</span>
 </span></span><span style=display:flex><span>PostUp = <span style=color:#87ceeb>iptables -t nat -A POSTROUTING -o ens3 -j MASQUERADE</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -t nat -D POSTROUTING -o ens3 -j MASQUERADE</span>
+</span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D FORWARD -i %i -p udp -j DROP</span>
 </span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span>
 </span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D INPUT -i %i -p udp --dport 9053 -j ACCEPT</span>
 </span></span><span style=display:flex><span>PostDown = <span style=color:#87ceeb>iptables -D INPUT -i %i -p tcp --dport 9040 -j ACCEPT</span>
