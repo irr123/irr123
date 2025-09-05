@@ -31,6 +31,11 @@ With proof. Quite disappointing.
 
 ![data processing pipe](sanitization.png)
 
+> **Warning:** This article is NOT a recommendation to abandon standard HTML
+> entity encoding. This method should only be considered by those who fully
+> understand the security implications and are facing the exact double-encoding
+> problem described here.
+
 ## Related Internals
 
 As a result, security auditing team presented us with demands:
@@ -72,20 +77,20 @@ instead of _raw Unicode characters_?
 For simplicity, I'll provide a list for comparison (not all of them have to be
 used):
 
-| Character entity | Unicode symbol |
-| :--------------- | :------------- |
-| `&hellip;`       | `…`            |
-| `&mdash;`        | `—`            |
-| `&ndash;`        | `–`            |
-| `&laquo;`        | `«`            |
-| `&ldquo;`        | `“`            |
-| `&lsquo;`        | `‘`            |
-| `&raquo;`        | `»`            |
-| `&rdquo;`        | `”`            |
-| `&rsquo;`        | `’`            |
-| `&amp;`          | `＆`           |
-| `&lt;`           | `＜`           |
-| `&gt;`           | `＞`           |
+| Character entity | Unicode symbol | Security critical |
+| :--------------- | :------------- | :---------------: |
+| `&hellip;`       | `…`            |                   |
+| `&mdash;`        | `—`            |                   |
+| `&ndash;`        | `–`            |                   |
+| `&laquo;`        | `«`            |                   |
+| `&ldquo;`        | `“`            |                   |
+| `&lsquo;`        | `‘`            |                   |
+| `&raquo;`        | `»`            |                   |
+| `&rdquo;`        | `”`            |                   |
+| `&rsquo;`        | `’`            |                   |
+| `&amp;`          | `＆`           |        ✅         |
+| `&lt;`           | `＜`           |        ✅         |
+| `&gt;`           | `＞`           |        ✅         |
 
 The goal was reached --- the database now contained only _safe_ symbols, and the
 UI represented them nicely. But at what price, you may ask?
