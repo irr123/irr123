@@ -20,8 +20,20 @@ summaryLength = 32
         enableDefault = true
       [markup.goldmark.renderHooks.link]
         enableDefault = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.typographer]
+        apostrophe = "’"
+        leftDoubleQuote = "“"
+        rightDoubleQuote = "”"
+        leftSingleQuote = "‘"
+        rightSingleQuote = "’"
+        ellipsis = "…"
+        emDash = "—"
+        enDash = "–"
+        leftAngleQuote = "«"
+        rightAngleQuote = "»"
   [markup.highlight]
-    style              = "rrt"
+    style = "rrt"
 
 [sitemap]
   priority = 0.7
@@ -32,6 +44,7 @@ summaryLength = 32
   metaPixel = 2627430184120255
   summary = "These data-spirits, my scrap-code prayer, are offered to the Machine God."
   defaultImg = "img/the-archive.jpg"
+  showFullTextinRSS = false
 
   [params.theme_config]
     appearance        = "auto"

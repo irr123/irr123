@@ -1,4 +1,4 @@
-VERSION ?= hugomods/hugo:ci-non-root-0.147.0
+VERSION ?= hugomods/hugo:ci-non-root-0.149.1
 
 .PHONY: srv
 srv:
