@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Analyzer</title>
+    <script>
+      function sendHeight() {
+        const height =
+          document.documentElement.scrollHeight || document.body.scrollHeight;
+        window.parent.postMessage({height: height}, "*");
+      }
+      window.onload = sendHeight;
+    </script>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 15px;
+        background-color: #f9f9f9;
+      }
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+      }
+      textarea {
+        width: 100%;
+        height: 250px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 14px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      #results {
+        margin-top: 20px;
+      }
+      .error {
+        color: #e74c3c;
+        font-weight: bold;
+        border: 1px solid #e74c3c;
+        background-color: #fbeae5;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+        position: sticky;
+        top: 0;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #eaf5fc;
+      }
+      td:nth-child(1) {
+        font-family: "Courier New", Courier, monospace;
+        word-break: break-all;
+      }
+      .snippet-cell {
+        max-width: 350px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #555;
+        font-style: italic;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .summary {
+        background-color: #ecf0f1;
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #bdc3c7;
+        margin-top: 20px;
+      }
+      .summary details {
+        margin-top: 10px;
+      }
+      .summary summary {
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .summary table {
+        margin-top: 10px;
+        box-shadow: none;
+        font-size: 0.9em;
+      }
+      .summary th {
+        background-color: #95a5a6;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      Paste your JSON into the box below and click the button to see a breakdown
+      of which fields contribute the most to the total size.
+    </p>
+
+    <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+    <button onclick="analyzeJson()">Analyze JSON Weight</button>
+
+    <div id="results"></div>
+
+    <script>
+      function analyzeJson() {
+        const jsonString = document.getElementById("jsonInput").value;
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "";
+
+        if (!jsonString.trim()) {
+          resultsDiv.innerHTML = `<div class="error">Please paste some JSON data first.</div>`;
+          return;
+        }
+
+        let jsonObj;
+        try {
+          jsonObj = JSON.parse(jsonString);
+        } catch (e) {
+          resultsDiv.innerHTML = `<div class="error">Invalid JSON: ${e.message}</div>`;
+          return;
+        }
+
+        const totalSize = new TextEncoder().encode(jsonString).length;
+        const fieldSizes = [];
+        const keyWeights = {};
+
+        function getSize(value) {
+          return new TextEncoder().encode(JSON.stringify(value)).length;
+        }
+
+        function traverse(obj, path = "root") {
+          fieldSizes.push({path, size: getSize(obj), obj: obj});
+
+          if (Array.isArray(obj)) {
+            obj.forEach((item, index) => {
+              traverse(item, `${path}[${index}]`);
+            });
+          } else if (typeof obj === "object" && obj !== null) {
+            for (const key in obj) {
+              if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                const value = obj[key];
+                const valueSize = getSize(value);
+                keyWeights[key] = (keyWeights[key] || 0) + valueSize;
+                traverse(value, `${path}.${key}`);
+              }
+            }
+          }
+        }
+
+        traverse(jsonObj);
+        fieldSizes.sort((a, b) => b.size - a.size);
+        displayResults(fieldSizes, totalSize, keyWeights);
+      }
+
+      function createSnippet(obj, maxLength = 120) {
+        let fullText;
+        if (typeof obj === "string") {
+          fullText = obj;
+        } else if (typeof obj !== "object" || obj === null) {
+          fullText = String(obj);
+        } else {
+          fullText = JSON.stringify(obj);
+        }
+        let snippet = fullText.replace(/\s+/g, " ");
+        if (snippet.length > maxLength) {
+          snippet = snippet.substring(0, maxLength - 3) + "...";
+        }
+        return {snippet, fullText};
+      }
+
+      function displayResults(data, totalSize, keyWeights) {
+        const resultsDiv = document.getElementById("results");
+
+        const sortedKeys = Object.entries(keyWeights)
+          .map(([key, size]) => ({key, size}))
+          .sort((a, b) => b.size - a.size);
+
+        let keyDistributionHTML = `
+            <details open>
+                <summary>Distribution by Key Name</summary>
+                <div style="padding-left: 10px;">
+                <table>
+                    <thead><tr><th>Key Name</th><th>Total Size</th><th>% of Total</th></tr></thead>
+                    <tbody>`;
+
+        const topKeys = sortedKeys.slice(0, 10);
+        topKeys.forEach((item) => {
+          const percentage = ((item.size / totalSize) * 100).toFixed(2);
+          keyDistributionHTML += `<tr>
+                    <td>${item.key}</td>
+                    <td>${item.size.toLocaleString()} bytes</td>
+                    <td>${percentage}%</td>
+                </tr>`;
+        });
+
+        if (sortedKeys.length > 10) {
+          keyDistributionHTML += `<tr><td colspan="3" style="text-align: center;">...and ${sortedKeys.length - 10} more.</td></tr>`;
+        } else if (sortedKeys.length === 0) {
+          keyDistributionHTML += `<tr><td colspan="3" style="text-align: center;">No object keys found.</td></tr>`;
+        }
+
+        keyDistributionHTML += `</tbody></table></div></details>`;
+
+        const summaryHTML = `<div class="summary">
+            <strong>Total JSON Size:</strong> ${totalSize.toLocaleString()} bytes<br>
+            <strong>Unique Top-Level Keys:</strong> ${sortedKeys.length.toLocaleString()}<br>
+            <strong>Total Fields Analyzed (nodes):</strong> ${data.length.toLocaleString()}
+            <hr style="border:0; border-top: 1px solid #ccc; margin: 10px 0;">
+            ${keyDistributionHTML}
+        </div>`;
+
+        let tableHTML = `<table>
+            <thead>
+                <tr>
+                    <th>Field Path (Node)</th>
+                    <th>Node Size (bytes)</th>
+                    <th>% of Total</th>
+                    <th>Value Snippet (hover for full value)</th>
+                </tr>
+            </thead>
+            <tbody>`;
+
+        data.forEach((item) => {
+          const percentage = ((item.size / totalSize) * 100).toFixed(2);
+          const {snippet, fullText} = createSnippet(item.obj);
+          const escapedFullText = fullText.replace(/"/g, "&quot;");
+          tableHTML += `<tr>
+              <td>${item.path}</td>
+              <td>${item.size.toLocaleString()}</td>
+              <td>${percentage}%</td>
+              <td class="snippet-cell" title="${escapedFullText}">${snippet}</td>
+          </tr>`;
+        });
+
+        tableHTML += `</tbody></table>`;
+        resultsDiv.innerHTML = summaryHTML + tableHTML;
+      }
+    </script>
+  </body>
+</html>

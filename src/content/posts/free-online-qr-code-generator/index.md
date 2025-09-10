@@ -32,9 +32,9 @@ works. I’m only tracking pageviews, so chill.
 
 (And yep, I gotta throw in some text here to make search engines happy 🙃)
 
-## QR Code Generator
+## Live Tool
 
-## Conclusion
+## Get Started
 
 Wanna skip straight to it? Here’s the
 [direct link](/blog/html/qr-code-generator.html).

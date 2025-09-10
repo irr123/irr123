@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const targetHeading = document.getElementById("qr-code-generator");
+  const targetHeading = document.getElementById("live-tool");
 
   if (targetHeading) {
     const iframe = document.createElement("iframe");
