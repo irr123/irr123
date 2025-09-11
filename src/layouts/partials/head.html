@@ -56,6 +56,9 @@
   {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}
   <link rel="preconnect" href="https://www.googletagmanager.com">
   {{- end -}}
+  {{- if and site.Params.adSense (ne site.Params.adSense "") -}}
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  {{- end -}}
   {{- if and site.Params.yandexMetrika (ne site.Params.yandexMetrika "") -}}
   <link rel="preconnect" href="https://mc.yandex.ru">
   {{- end -}}
