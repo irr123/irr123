@@ -1,5 +1,15 @@
+.w {
+  padding: 2rem 1rem;
+}
 h1 {
-  font-size: 2em;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+  position: relative;
+  width: 80vw;
+  max-width: 1280px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 .site-footer {
   max-width: 640px;
@@ -8,4 +18,17 @@ h1 {
 }
 figure {
   margin: 0;
+}
+@keyframes fadeIn-anim {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-content {
+  animation: fadeIn-anim 0.2s ease-out forwards;
 }
