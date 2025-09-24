@@ -1,5 +1,10 @@
 .w {
-  padding: 2rem 1rem;
+  padding: 0;
+}
+@media (max-width: 640px) {
+  .w {
+    padding: 0 8px;
+  }
 }
 h1 {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -15,9 +20,13 @@ h1 {
   max-width: 640px;
   margin: 0 auto;
   text-align: right;
+  padding-top: 8px;
 }
 figure {
   margin: 0;
+}
+ul {
+  padding-left: 16px;
 }
 @keyframes fadeIn1 {
   from {
@@ -32,15 +41,17 @@ figure {
 .page-content {
   animation: fadeIn1 0.3s ease-out forwards;
 }
-@keyframes fadeIn2 {
+@keyframes unrollFromTop {
   from {
-    opacity: 0;
+    transform: scaleY(0);
   }
   to {
-    opacity: 1;
+    transform: scaleY(1);
   }
 }
+img,
 picture,
 iframe {
-  animation: fadeIn2 0.5s ease-out forwards;
+  transform-origin: top;
+  animation: unrollFromTop 0.5s ease-out forwards;
 }
