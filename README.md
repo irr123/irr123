@@ -1,1 +1,1 @@
-Take a look at https://bogomolov.work
+Check https://bogomolov.work
