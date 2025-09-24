@@ -28,6 +28,9 @@ figure {
 ul {
   padding-left: 16px;
 }
+ol {
+  padding-left: 32px;
+}
 @keyframes fadeIn1 {
   from {
     opacity: 0;
