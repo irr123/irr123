@@ -8,5 +8,9 @@ title = "Index"
   show_more_url = "posts"
 
 [[entries]]
+title = "Search"
+url = "/search.html"
+
+[[entries]]
 title = "About"
 url = "/"

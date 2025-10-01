@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>The Archive | Search</title>
+    <meta name="description" content="Protocol: Deconstruct; invoking the code... Spellbound by the glitches in the signal and the noise. A log of wins, crashes, and failures">
+    <meta name="keywords" content="indie hacker, software engineer, saas, bootstrapping, product development, distributed systems, cloud architecture, data-driven, deconstruct, invoking the code, glitch, cyberpunk, tech-noir, brutalism, ivan bogomolov, иван богомолов">
+    <meta name="author" content="Ivan Bogomolov">
+    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://bogomolov.work/search.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta property="og:title" content="The Archive | Search">
+    <meta property="og:description" content="Protocol: Deconstruct; invoking the code... Spellbound by the glitches in the signal and the noise. A log of wins, crashes, and failures">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bogomolov.work/search.html">
+    <meta property="og:logo" content="https://bogomolov.work/blog/img/the-archive.jpg">
+    <meta property="og:image" content="https://bogomolov.work/blog/img/the-archive.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@_irr123">
+    <meta name="twitter:domain" content="bogomolov.work">
+    <meta name="twitter:url" content="https://bogomolov.work/search.html">
+    <meta name="twitter:title" content="The Archive | Search">
+    <meta name="twitter:description" content="Protocol: Deconstruct; invoking the code... Spellbound by the glitches in the signal and the noise. A log of wins, crashes, and failures">
+    <meta name="twitter:image" content="https://bogomolov.work/blog/img/the-archive.jpg">
+    <meta name="theme-color" content="#000000">
+    <link href="/blog/css/style-index.css" rel="stylesheet">
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+</head>
+<body>
+    <div style="padding: 1rem 8px;">
+        <div id="search"></div>
+    </div>
+    <script src="/pagefind/pagefind-ui.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            new PagefindUI({ element: "#search", showSubResults: true });
+            setTimeout(() => {
+                const searchInput = document.querySelector('#search input');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }, 0);
+        });
+    </script>
+</body>
+</html>
