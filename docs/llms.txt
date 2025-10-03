@@ -16,9 +16,9 @@
 }
 
 //_CORE_ROUTINES:
->> Hands-on-Experience: Decade+ forging high-performance, distributed systems.
->> Data-Driven: Trust the logs, not the hype.
->> Unfiltered-Record: Documenting process, wins, crashes, failures.
+>> Scale-First Architecture: Built systems handling 500M+ daily messages. Migrated monoliths to microservices, legacy to K8s/GCP
+>> Data-Driven + AI Integration: From event-driven architectures to production ML pipelines. Data engineering for decision algorithms
+>> Unfiltered-Record: Documenting process, wins, crashes, failures. Building in public
 
 # THE ARCHIVE :: [BLOG]
 //> Channel: "The Archive" [bogomolov.work/blog]
@@ -29,7 +29,7 @@ Content: Technical deep-dives. Critical analysis of tech systems. Practical tool
 Data_Policy: Experiments logged.
 
 #_PRIMARY_DATA_STREAMS:
-//TODO: add the rest, sort
+>> [ai_infrastructure]: Production ML systems, RAG pipelines, LLM document processing
 >> [dev_tools]: Tooling & Workflow. Practical code and tools forged from necessity.
 >> [net_sec]: Privacy & Networking. Deep-dives on self-hosting, VPNs, and censorship circumvention.
 >> [sys_admin]: Self-Hosting & Development. Often a log of what *not* to do.
