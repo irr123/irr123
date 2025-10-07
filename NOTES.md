@@ -18,4 +18,4 @@ gh pages covered by cf
 ## Dev
 
 - `/docs` contains static site
-- `make fmt build srv` -> http://localhost:8000
+- `make fmt build srv` -> http://localhost:1414
