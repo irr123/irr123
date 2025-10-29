@@ -1,6 +1,6 @@
 ---
 date: 2025-10-07T21:00:59Z
-draft: false
+draft: true
 title: AGI in 3 years
 image: ""
 keywords: []
