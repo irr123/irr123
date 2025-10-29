@@ -35,9 +35,8 @@ from original https://docs.astral.sh/uv/guides/integration/docker/ to it page.
 
 ![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust)](posts-docker-uv-1.jpg)
 
-Long story short - it's fast-[rust](https://www.rust-lang.org/) python's
-[pip](https://pip.pypa.io/en/stable/) alternative. And `python3 -m  venv ./venv`
-too and maybe more at time when you're reading it.
+Long story short - it's fast-Rust python's pip alternative. And
+`python3 -m  venv ./venv` too and maybe more at time when you're reading it.
 
 ## So what?
 
@@ -72,6 +71,5 @@ WORKDIR /opt/app
 
 ## Conclusion
 
-Personally I don't see any reason to spent time to setup uv locally, but on
-[CI](https://en.wikipedia.org/wiki/Continuous_integration) it safe a lot of
-time, don't waste it!
+Personally I don't see any reason to spent time to setup uv locally, but on CI
+it safe a lot of time, don't waste it!

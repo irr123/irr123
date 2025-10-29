@@ -71,7 +71,7 @@ output"! But I couldn't do that; the security team's requirement to sanitize on
 ingest was non-negotiable.
 
 And the interesting idea landed in my head: Why, in **2025**, we are still using
-[character entities](https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references)
+[character entities](https://grokipedia.com/page/Character_encodings_in_HTML#character-references)
 instead of _raw Unicode characters_?
 
 For simplicity, I'll provide a list for comparison (not all of them have to be

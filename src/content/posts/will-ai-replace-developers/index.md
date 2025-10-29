@@ -32,10 +32,9 @@ keywords:
 image: robot.jpg
 ---
 
-A common narrative from [OpenAI](https://openai.com/) and similar companies
-(previous hype was from [no-code-guys](https://www.nocode.tech/)) suggests that
-the era of human developers is ending due to cost considerations, and that AI
-will replace programmers soon.
+A common narrative from OpenAI and similar companies (previous hype was from
+no-code-guys) suggests that the era of human developers is ending due to cost
+considerations, and that AI will replace programmers soon.
 
 ![AI vs. Human Coder](robot.jpg)
 
@@ -51,7 +50,7 @@ position takes six months or more:
 ![vacancy](vacancy.png)
 
 With around _150_ open positions and a team of about
-[700](https://en.wikipedia.org/wiki/Anthropic), looks like Anthropic is gearing
+[1000](https://grokipedia.com/page/Anthropic), looks like Anthropic is gearing
 up for some serious growth, huh?
 
 Draw your own conclusions 😉

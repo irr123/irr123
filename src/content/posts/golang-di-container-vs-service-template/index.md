@@ -45,7 +45,7 @@ explore two approaches:
   - https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/
   - https://dev.to/protium/github-template-for-golang-services-3o27
   - https://www.youtube.com/watch?v=1ZbQS6pOlSQ
-- [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)
+- [Dependency injection](https://grokipedia.com/page/Dependency_injection)
   (_DI_)[^1] is an approach where objects are constructed by passing
   pre-initialized components to them, rather than having the objects initialize
   those components themselves.[^2]
@@ -80,7 +80,7 @@ employed (e.g.,
 [Onion](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/),
 [Clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
 or
-[Hexagonal](<https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)>)[^3])
+[Hexagonal](<https://grokipedia.com/page/Hexagonal_architecture_(software)>)[^3])
 outer layers tend to be shared across services, whereas the core business logic
 remains distinct[^4]. Specifically, elements such as observability tools,
 database connections, and message broker clients can be identical. These
@@ -142,9 +142,8 @@ func main() {
 
 This approach reduces maintenance costs because it involves well-typed, valid
 code (without templating complexities) that can be effectively covered by
-[quality checks](https://en.wikipedia.org/wiki/Software_quality_management#Software_quality_and_the_software_lifecycle).
-Furthermore, backward compatibility is maintained by following standard coding
-practices.
+quality checks. Furthermore, backward compatibility is maintained by following
+standard coding practices.
 
 ## Finishing Uncovered Parts
 
@@ -164,7 +163,7 @@ and this article aims to explore the available options.
 {data-content="footnotes"}
 
 [^1]:
-    [_IoC_](https://en.wikipedia.org/wiki/Inversion_of_control) is close but not
+    [_IoC_](https://grokipedia.com/page/Inversion_of_control) is close but not
     the same concept, don't be confused. _DI_ is a programming technique, while
     _IoC_ is a design principle covered broader idea (let me know and I'll think
     about post on this topic).

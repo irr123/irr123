@@ -33,22 +33,20 @@ Google search console and bit less with Bing and Yandex webmaster-tools.
 Initially, it's useful to understand that there aren't many truly independent
 players in this market. Here is what I know about it, based on public info:
 
-- [Google](https://www.google.com/) has own index and reselling it to:
-  - [StartPage](https://www.startpage.com/)
-  - [Ecosia](https://www.ecosia.org/)
+- google.com has own index and reselling it to:
+  - startpage.com
+  - ecosia.org
   - ...
-- [Bing](https://www.bing.com/) has own index and reselling it to:
-  - [Yahoo](https://www.yahoo.com/)
-  - [Duckduckgo](https://duckduckgo.com/)
+- bing.com has own index and reselling it to:
+  - yahoo.com
+  - duckduckgo.com
   - ...
-- [Yandex](https://ya.ru/) has own index and I didn't find info about reselling
-  it
-- [Baidu](https://www.baidu.com/) has own index and I didn't find info about
-  reselling it
+- ya.ru has own index and I didn't find info about reselling it
+- baidu.com has own index and I didn't find info about reselling it
 - Newer AI-powered search engines have not publicly shared their indexing
   information
-  - [Perplexity](https://www.perplexity.ai/)
-  - [OpenAI](https://chatgpt.com/?hints=search)
+  - perplexity.ai
+  - chatgpt.com/?hints=search
 
 What does this mean in practice? If your page gets incorrectly cached by Bing,
 fixing it can be difficult - especially since other search engines rely on
@@ -69,8 +67,8 @@ That was changed about month ago and still inconsistent. {{< /details >}}
 
 Even if you haven't verified ownership of your site/domain, search engines will
 still scrape your index page. Yep, based on my experience, only index, they will
-not do [DFS](https://en.wikipedia.org/wiki/Depth-first_search). And probably
-will never returns to re-check was there updates or not. Letting you know.
+not do DFS. And probably will never returns to re-check was there updates or
+not. Letting you know.
 
 To try to fix it you need to go to:
 

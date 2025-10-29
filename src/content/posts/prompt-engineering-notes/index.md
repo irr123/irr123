@@ -21,8 +21,7 @@ keywords:
   ]
 ---
 
-If you weren't aware, there was a leak of [Cursor](https://www.cursor.com/) and
-some other
+If you weren't aware, there was a leak of Cursor and some other
 [prompts](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools). I'm
 not here to evaluate the quality of prompts, but let's consider it as a state of
 the art from experienced guys.

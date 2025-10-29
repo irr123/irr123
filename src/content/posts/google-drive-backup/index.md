@@ -38,9 +38,8 @@ keywords:
 image: suit.jpg
 ---
 
-Have you _truly_ considered the catastrophic risks of losing all your
-[Google Drive](https://drive.google.com/) data? Can your business afford such a
-loss?
+Have you _truly_ considered the catastrophic risks of losing all your Google
+Drive data? Can your business afford such a loss?
 
 ![generate image in anime style where white collar in suit grabs his head because he realized that lost his reports](suit.jpg)
 
@@ -53,9 +52,9 @@ Lego-assembling the necessary components.
 
 - Access to your
   [Google Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts)
-- [rclone](https://rclone.org): A powerful tool that provides rsync-like CLI
-  functionality for managing filesystems and cloud storage. It's
-  well-documented, but we'll focus on a streamlined approach
+- rclone.org: A powerful tool that provides rsync-like CLI functionality for
+  managing filesystems and cloud storage. It's well-documented, but we'll focus
+  on a streamlined approach
 
 ### Google Cloud Console: Setting Up the Service Account
 
@@ -88,8 +87,8 @@ Here's an example of what it looks like:
 ### rclone: Configuring and Executing the Backup
 
 We're almost there! The next step is to set up rclone for automated execution
-using [cron](https://en.wikipedia.org/wiki/Cron) on a host of your choice. I'll
-skip the details of acquiring a hosting environment.
+using Cron on a host of your choice. I'll skip the details of acquiring a
+hosting environment.
 
 Here's prepared `rclone.conf`:
 
@@ -99,7 +98,7 @@ type = drive
 service_account_file = /config/rclone/sa.json  # <- The key
 ```
 
-And here's how to use it with [Docker](https://docs.docker.com/desktop/):
+And here's how to use it with Docker:
 
 ```bash
 docker run --rm -it \
