@@ -1,1 +1,1 @@
-Check https://bogomolov.work
+https://bogomolov.work
