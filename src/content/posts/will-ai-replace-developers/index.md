@@ -1,7 +1,7 @@
 ---
 date: 2025-03-12T18:22:35Z
 draft: false
-title: Will AI Replace Developers?
+title: Will AI replace developers?
 keywords:
   [
     AI replacing developers,

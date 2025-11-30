@@ -1,7 +1,7 @@
 ---
 date: 2025-09-10T03:43:41Z
 draft: false
-title: JSON Analyzer
+title: JSON analyzer
 custom_js: [json-analyzer]
 image: "main.png"
 keywords:

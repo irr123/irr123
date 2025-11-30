@@ -1,7 +1,7 @@
 ---
 date: 2025-10-02T09:12:38Z
 draft: false
-title: Querying Documents with LLMs Instead of Reading Them
+title: Querying documents with LLMs instead of reading them
 image: "img.png"
 keywords:
   - AI-Assisted Learning

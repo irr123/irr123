@@ -1,7 +1,7 @@
 ---
 date: 2025-02-21T06:31:02Z
 draft: false
-title: DI Container vs. Service Template (generator)
+title: DI container vs. service template (generator)
 keywords:
   [
     golang,

@@ -1,7 +1,7 @@
 ---
 date: 2025-05-28T16:25:43Z
 draft: false
-title: "Shadowsocks to Tor: Why It Failed as a VPN Alternative"
+title: "Shadowsocks to Tor: Why it failed as a VPN alternative"
 image: "pic.png"
 keywords:
   [

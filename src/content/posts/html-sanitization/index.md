@@ -1,7 +1,7 @@
 ---
 date: 2025-09-05T08:13:44Z
 draft: false
-title: "HTML Sanitization: Avoiding The Double-Encoding Issue"
+title: "HTML sanitization: Avoiding the double-encoding issue"
 image: "sanitization.png"
 keywords:
   - HTML Sanitization

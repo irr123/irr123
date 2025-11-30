@@ -1,7 +1,7 @@
 ---
 date: 2025-03-16T10:25:54Z
 draft: false
-title: "Search Engine Indexing: A Case Study with Google, Bing, and Yandex"
+title: "Search engine indexing: A case study with Google, Bing and Yandex"
 keywords:
   [
     SEO,

@@ -1,7 +1,7 @@
 ---
 date: 2025-07-12T11:04:35Z
 draft: false
-title: "How-To: A Private WireGuard VPN with Selective Tor Routing"
+title: "How-to: A private WireGuard VPN with selective Tor routing"
 image: "wireguard.png"
 keywords: ["wireguard", "vpn", "tor", "privacy", "networking", "ubuntu",
 "windows", "openvpn"]

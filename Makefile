@@ -1,4 +1,4 @@
-HUGO ?= hugomods/hugo:ci-non-root-0.150.1  # https://hub.docker.com/r/hugomods/hugo/tags
+HUGO ?= hugomods/hugo:ci-non-root-0.152.2  # https://hub.docker.com/r/hugomods/hugo/tags
 PAGEFIND ?= pagefind@v1.4.0                # https://www.npmjs.com/package/pagefind
 
 .PHONY: srv
