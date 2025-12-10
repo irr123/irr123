@@ -17,9 +17,9 @@ summaryLength = 32
         block = true
     [markup.goldmark.renderHooks]
       [markup.goldmark.renderHooks.image]
-        enableDefault = true
+        useEmbedded = "fallback"
       [markup.goldmark.renderHooks.link]
-        enableDefault = true
+        useEmbedded = "fallback"
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.typographer]
         apostrophe = "’"
