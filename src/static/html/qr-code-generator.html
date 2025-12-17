@@ -4232,7 +4232,6 @@
                 ((i = this.indexes[t]),
                 (n = e(this.proxyOf.nodes[i], i)),
                 n !== !1);
-
               )
                 this.indexes[t] += 1;
               return (delete this.indexes[t], n);
@@ -5260,14 +5259,12 @@
                   i.source.end = this.getPosition(n[3] || n[2] || l1(e)),
                   i.source.end.offset++;
                 e[0][0] !== "word";
-
               )
                 (e.length === 1 && this.unknownWord(e),
                   (i.raws.before += e.shift()[1]));
               for (
                 i.source.start = this.getPosition(e[0][2]), i.prop = "";
                 e.length;
-
               ) {
                 let c = e[0][0];
                 if (c === ":" || c === "space" || c === "comment") break;
@@ -5290,7 +5287,6 @@
                 ;
                 e.length &&
                 ((o = e[0][0]), !(o !== "space" && o !== "comment"));
-
               )
                 a.push(e.shift());
               this.precheckMissedSemicolon(e);
@@ -5420,7 +5416,6 @@
                     l.length &&
                     ((c = l[l.length - 1][0]),
                     !(c !== "space" && c !== "comment"));
-
                   )
                     this.tokenizer.back(l.pop());
                 this.decl(l, o);
@@ -5498,7 +5493,6 @@
                 ;
                 e.length &&
                 ((t = e[e.length - 1][0]), !(t !== "space" && t !== "comment"));
-
               )
                 i = e.pop()[1] + i;
               return i;
@@ -5510,7 +5504,6 @@
                 ;
                 e.length &&
                 ((t = e[0][0]), !(t !== "space" && t !== "comment"));
-
               )
                 i += e.shift()[1];
               return i;
@@ -6863,7 +6856,6 @@
                     var a, o;
                     this.indexes[s] < this.length &&
                     ((a = this.indexes[s]), (o = n(this.at(a), a)), o !== !1);
-
                   )
                     this.indexes[s] += 1;
                   if ((delete this.indexes[s], o === !1)) return !1;
@@ -7125,7 +7117,6 @@
                   o = 0,
                   l = e.length;
                 o < l;
-
               ) {
                 var c = e.charAt(o++),
                   f = c.charCodeAt(),
@@ -8347,7 +8338,6 @@
                         w === -1 && B("quote", E),
                         b = w;
                       t.charCodeAt(b - 1) === D.backslash;
-
                     )
                       ((b -= 1), (h = !h));
                   while (h);
@@ -8554,7 +8544,6 @@
                   this.position++;
                   this.position < this.tokens.length &&
                   this.currToken[O.FIELDS.TYPE] !== q.closeSquare;
-
                 )
                   (i.push(this.currToken), this.position++);
                 if (this.currToken[O.FIELDS.TYPE] !== q.closeSquare)
@@ -9054,7 +9043,6 @@
                   for (
                     i.append(s), this.current = s;
                     this.position < this.tokens.length && n;
-
                   )
                     (this.currToken[O.FIELDS.TYPE] === q.openParenthesis && n++,
                       this.currToken[O.FIELDS.TYPE] === q.closeParenthesis &&
@@ -9069,7 +9057,6 @@
                   for (
                     var o = this.currToken, l = "(", c;
                     this.position < this.tokens.length && n;
-
                   )
                     (this.currToken[O.FIELDS.TYPE] === q.openParenthesis && n++,
                       this.currToken[O.FIELDS.TYPE] === q.closeParenthesis &&
@@ -9102,7 +9089,6 @@
                 for (
                   var i = this, n = "", s = this.currToken;
                   this.currToken && this.currToken[O.FIELDS.TYPE] === q.colon;
-
                 )
                   ((n += this.content()), this.position++);
                 if (!this.currToken)
@@ -9182,7 +9168,6 @@
                   ~[q.dollar, q.caret, q.equals, q.word].indexOf(
                     a[O.FIELDS.TYPE]
                   );
-
                 ) {
                   this.position++;
                   var l = this.content();
@@ -15995,7 +15980,6 @@
                     for (
                       e.keepQuotes !== !0 && (p = "");
                       f < c && (y = h());
-
                     ) {
                       if (y === dl) {
                         p += y + h();
@@ -18621,7 +18605,6 @@
                 k = "",
                 S = "";
               d < h;
-
             )
               if (p <= 32) {
                 i = d;
@@ -18893,7 +18876,6 @@
             for (
               i = r.charCodeAt(e), (i === _s || i === Cs) && e++;
               e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
             )
               e += 1;
             if (
@@ -18904,7 +18886,6 @@
               for (
                 e += 2;
                 e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
               )
                 e += 1;
             if (
@@ -18918,7 +18899,6 @@
               for (
                 e += n === _s || n === Cs ? 3 : 2;
                 e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
               )
                 e += 1;
             return {number: r.slice(0, e), unit: r.slice(e)};
@@ -20475,7 +20455,6 @@
                 k = "",
                 S = "";
               d < h;
-
             )
               if (p <= 32) {
                 i = d;
@@ -20758,7 +20737,6 @@
             for (
               i = r.charCodeAt(e), (i === Ls || i === $s) && e++;
               e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
             )
               e += 1;
             if (
@@ -20769,7 +20747,6 @@
               for (
                 e += 2;
                 e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
               )
                 e += 1;
             if (
@@ -20783,7 +20760,6 @@
               for (
                 e += n === Ls || n === $s ? 3 : 2;
                 e < t && ((i = r.charCodeAt(e)), !(i < 48 || i > 57));
-
               )
                 e += 1;
             return {number: r.slice(0, e), unit: r.slice(e)};

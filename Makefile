@@ -10,7 +10,7 @@ srv:
 build:
 	# docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} build --buildDrafts
 	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} --minify build
-	sudo chown -R $(USER):$(USER) $(PWD)/src/public $(PWD)/src/resources/_gen
+	sudo chown -R $$(id -u):$$(id -g) $(PWD)/src/public $(PWD)/src/resources/_gen
 	sudo rm -rf $(PWD)/docs/blog $(PWD)/src/resources/_gen
 	mv $(PWD)/src/public $(PWD)/docs/blog
 	mv $(PWD)/docs/blog/sitemap.xml $(PWD)/docs/sitemap.xml

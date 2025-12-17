@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260">
+  <defs>
+    <style>
+      .bg { fill: #000; }
+      .t  { fill: #00ff66; font: 16px "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace; white-space: pre; }
+      .dim{ fill: #00aa44; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="900" height="260"/>
+
+  <clipPath id="reveal">
+    <rect x="16" y="16" width="0" height="228">
+      <animate attributeName="width" values="0;868" dur="3.2s" fill="freeze" />
+    </rect>
+  </clipPath>
+
+  <g clip-path="url(#reveal)">
+    <text class="t" x="16" y="36">PhoenixBIOS 4.0 Release 6.1</text>
+    <text class="t dim" x="16" y="58">CPU = Intel Pentium III 800EB @ 800MHz  |  Press DEL to enter Setup</text>
+    <text class="t" x="16" y="76">Memory Test: 262144K OK</text>
+    <text class="t" x="16" y="108">Detecting IDE Primary Master ... OK</text>
+    <text class="t" x="16" y="130">Detecting IDE Primary Slave  ... None</text>
+    <text class="t" x="16" y="152">Checking NVRAM .............. OK</text>
+    <text class="t" x="16" y="174">Verifying DMI Pool Data ........</text>
+    <text class="t" x="16" y="206">ERROR 0xC0FFEE: README has no landing.</text>
+    <text class="t" x="16" y="228">Press ENTER to continue -> https://bogomolov.work</text>
+  </g>
+
+  <text class="t" x="16" y="248">_
+    <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite"/>
+  </text>
+</svg>

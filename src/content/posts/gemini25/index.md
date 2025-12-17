@@ -478,4 +478,4 @@ function windowResized() {
 
 [Fullscreen](/blog/html/gemini25.html) example.
 
-Just unexpectedly great job, https://lmarena.ai/?leaderboard
+Just unexpectedly great job! Benchmark: https://lmarena.ai/leaderboard.
