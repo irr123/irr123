@@ -1,0 +1,438 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>The actual state of self-hosting on a VPS | I recently ran in...</title><meta name=description content="I recently ran into a claim: Docker Compose is outdated and K3s is the king for my 1Gb VPS.
+At the same time, docker-compose...."><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/the-actual-state-of-self-hosting-on-a-vps/><link rel=alternate type=application/rss+xml href=/blog/index.xml title="The Archive"><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="The actual state of self-hosting on a VPS"><meta property="og:description" content="I recently ran into a claim: Docker Compose is outdated and K3s is the king for my 1Gb VPS.
+At the same time, docker-compose.py is effectively deprecated, with Compose now shipped as a built-in docker compose command. That alone is not a problem, but it raised a reasonable question: has the role of Docker Compose actually changed, or is this just noise from the Kubernetes church?
+"><meta property="og:type" content="website"><meta property="og:url" content="https://bogomolov.work/blog/posts/the-actual-state-of-self-hosting-on-a-vps/"><meta property="og:logo" content="https://bogomolov.work/blog/img/the-archive.jpg"><meta property="og:image" content="https://bogomolov.work/blog/posts/the-actual-state-of-self-hosting-on-a-vps/cursed_Kubernetes_cathedral.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/the-actual-state-of-self-hosting-on-a-vps/"><meta name=twitter:title content="The actual state of self-hosting on a VPS"><meta name=twitter:description content="I recently ran into a claim: Docker Compose is outdated and K3s is the king for my 1Gb VPS.
+At the same time, docker-compose.py is effectively deprecated, with Compose now shipped as a built-in docker compose command. That alone is not a problem, but it raised a reasonable question: has the role of Docker Compose actually changed, or is this just noise from the Kubernetes church?
+"><meta name=twitter:image content="https://bogomolov.work/blog/posts/the-actual-state-of-self-hosting-on-a-vps/cursed_Kubernetes_cathedral.png"><meta name=theme-color content="#000000"><link rel=stylesheet href=/blog/css/styles.bundle.min.6dfd4bffb4fc60f9fc9061ace4309feccf93d5aefab8d8e2ad003d757bd5f34194e43fbde5acefb17dd532099a054926df6c8f38ff0bb741520a4064a1d4eb5c.css integrity="sha512-bf1L/7T8YPn8kGGs5DCf7M+T1a76uNjirQA9dXvV80GU5D+95azvsX3VMgmaBUkm32yPOP8Lt0FSCkBkodTrXA=="><link rel=preconnect href=https://www.googletagmanager.com><link rel=preconnect href=https://pagead2.googlesyndication.com><link rel=preconnect href=https://mc.yandex.ru><link rel=preconnect href=https://connect.facebook.net></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><a href=/blog/ aria-label="Back to Index" title="Back to Index">← Back</a><p><time datetime=2025-12-18T12:44:19+00:00>2025-12-18</time></p></div><h1>The actual state of self-hosting on a VPS</h1><article><p>I recently ran into a claim: Docker Compose is outdated and K3s is the king for
+my 1Gb VPS.</p><p>At the same time, <code>docker-compose.py</code> is effectively deprecated, with Compose
+now shipped as a built-in <code>docker compose</code> command. That alone is not a problem,
+but it raised a reasonable question: has the role of Docker Compose actually
+changed, or is this just noise from the Kubernetes church?</p><video autoplay loop muted playsinline preload=metadata style=width:100%;height:auto>
+<source src=cursed_Kubernetes_cathedral.mp4 type=video/mp4></video><p>This post is about self-hosted setups:</p><ul><li>one or a few VPS</li><li>price sensitivity</li><li>limited ops time, bordering on laziness</li><li>preference for boring, anti-hype infra</li></ul><p>Within that landscape, I’m overviewing:</p><ol><li><a href=#docker-compose>Docker Compose</a></li><li><a href=#k3s>K3s</a></li><li><a href=#podman--quadlet>Podman + Quadlet</a></li><li>…</li><li>Profit!</li></ol><h2 id=docker-compose><a href=#docker-compose>#</a> Docker Compose</h2><p>No need to explain, here’s the <code>docker-compose.yaml</code>.</p><h3 id=deployment-entity-example><a href=#deployment-entity-example>#</a> Deployment entity example</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>services:
+</span></span><span style=display:flex><span>  redis:
+</span></span><span style=display:flex><span>    image: valkey/valkey:latest
+</span></span><span style=display:flex><span>    restart: unless-stopped
+</span></span><span style=display:flex><span>    command: valkey-server --port 6379
+</span></span><span style=display:flex><span>    ports:
+</span></span><span style=display:flex><span>      - <span style=color:#87ceeb>&#34;127.0.0.1:6379:6379&#34;</span>
+</span></span><span style=display:flex><span>    healthcheck:
+</span></span><span style=display:flex><span>      test: [<span style=color:#87ceeb>&#34;CMD&#34;</span>, <span style=color:#87ceeb>&#34;valkey-cli&#34;</span>, <span style=color:#87ceeb>&#34;ping&#34;</span>]
+</span></span><span style=display:flex><span>      interval: 5s
+</span></span><span style=display:flex><span>      timeout: 3s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  python:
+</span></span><span style=display:flex><span>    build:
+</span></span><span style=display:flex><span>      context: .
+</span></span><span style=display:flex><span>      dockerfile: Dockerfile.python
+</span></span><span style=display:flex><span>    restart: always
+</span></span><span style=display:flex><span>    environment:
+</span></span><span style=display:flex><span>      REDIS_HOST: redis
+</span></span><span style=display:flex><span>    ports:
+</span></span><span style=display:flex><span>      - <span style=color:#87ceeb>&#34;8080:8080&#34;</span>
+</span></span><span style=display:flex><span>    healthcheck:
+</span></span><span style=display:flex><span>      test:
+</span></span><span style=display:flex><span>        - CMD
+</span></span><span style=display:flex><span>        - python
+</span></span><span style=display:flex><span>        - -c
+</span></span><span style=display:flex><span>        - <span style=color:#87ceeb>&#34;import http.client,sys;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          c=http.client.HTTPConnection(&#39;127.0.0.1&#39;,8080,timeout=2);
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          c.request(&#39;GET&#39;,&#39;/healthz&#39;); r=c.getresponse(); sys.exit(0 if
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          r.status==200 else 1)&#34;</span>
+</span></span><span style=display:flex><span>      interval: 5s
+</span></span><span style=display:flex><span>      timeout: 3s
+</span></span><span style=display:flex><span>    depends_on:
+</span></span><span style=display:flex><span>      redis:
+</span></span><span style=display:flex><span>        condition: service_healthy
+</span></span></code></pre></div><details><summary>Dockerfile.python</summary><div class=details-content><pre tabindex=0><code>ARG BASE_IMAGE=python:3.14-slim-trixie
+ARG UV_VERSION=0.9.18-python3.14-trixie-slim
+
+FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv_carrier
+FROM $BASE_IMAGE AS builder
+
+COPY --from=uv_carrier /usr/local/bin/uv /usr/local/bin/
+RUN uv venv /opt/venv
+ENV PATH=/opt/venv/bin:$PATH
+
+COPY ./requirements.txt requirements.txt
+RUN uv pip install -r requirements.txt
+
+FROM $BASE_IMAGE
+
+WORKDIR /opt/app
+
+ENV PYTHONUNBUFFERED=1 \
+    PATH=/opt/venv/bin:$PATH
+
+COPY --from=builder /opt/venv /opt/venv
+COPY . ./
+
+CMD [&#34;python&#34;, &#34;-m&#34;, &#34;python.main&#34;]
+</code></pre></div></details><details><summary>python/main.py</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:red>import</span> asyncio
+</span></span><span style=display:flex><span><span style=color:red>import</span> os
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>from</span> redis.asyncio <span style=color:red>import</span> Redis
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>REDIS_HOST = os.getenv(<span style=color:#87ceeb>&#34;REDIS_HOST&#34;</span>, <span style=color:#87ceeb>&#34;localhost&#34;</span>)
+</span></span><span style=display:flex><span>REDIS_PORT = os.getenv(<span style=color:#87ceeb>&#34;REDIS_PORT&#34;</span>, <span style=color:#87ceeb>&#34;6379&#34;</span>)
+</span></span><span style=display:flex><span>SRV_HOST = <span style=color:#87ceeb>&#34;0.0.0.0&#34;</span>
+</span></span><span style=display:flex><span>SRV_PORT = <span style=color:#f60>8080</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>def</span> <span style=color:#ff0>handler</span>(redis: Redis):
+</span></span><span style=display:flex><span>    <span style=color:red>async</span> <span style=color:red>def</span> <span style=color:#ff0>fn</span>(_: asyncio.StreamReader, w: asyncio.StreamWriter):
+</span></span><span style=display:flex><span>        <span style=color:red>try</span>:
+</span></span><span style=display:flex><span>            <span style=color:red>await</span> redis.ping()
+</span></span><span style=display:flex><span>            response = (
+</span></span><span style=display:flex><span>                <span style=color:#87ceeb>f</span><span style=color:#87ceeb>&#34;HTTP/1.1 200 OK</span><span style=color:#87ceeb>\r\n</span><span style=color:#87ceeb>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#87ceeb>f</span><span style=color:#87ceeb>&#34;Content-Type: text/plain</span><span style=color:#87ceeb>\r\n</span><span style=color:#87ceeb>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#87ceeb>f</span><span style=color:#87ceeb>&#34;Content-Length: 0</span><span style=color:#87ceeb>\r\n</span><span style=color:#87ceeb>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#87ceeb>f</span><span style=color:#87ceeb>&#34;</span><span style=color:#87ceeb>\r\n</span><span style=color:#87ceeb>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#87ceeb>f</span><span style=color:#87ceeb>&#34;&#34;</span>
+</span></span><span style=display:flex><span>            )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            w.write(response.encode())
+</span></span><span style=display:flex><span>            <span style=color:red>await</span> w.drain()
+</span></span><span style=display:flex><span>        <span style=color:red>finally</span>:
+</span></span><span style=display:flex><span>            w.close()
+</span></span><span style=display:flex><span>            <span style=color:red>await</span> w.wait_closed()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:red>return</span> fn
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>async</span> <span style=color:red>def</span> <span style=color:#ff0>main</span>():
+</span></span><span style=display:flex><span>    redis = Redis(host=REDIS_HOST, port=int(REDIS_PORT))
+</span></span><span style=display:flex><span>    server = <span style=color:red>await</span> asyncio.start_server(handler(redis), host=SRV_HOST, port=SRV_PORT)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:red>try</span>:
+</span></span><span style=display:flex><span>        <span style=color:red>async</span> <span style=color:red>with</span> server:
+</span></span><span style=display:flex><span>            <span style=color:red>await</span> server.serve_forever()
+</span></span><span style=display:flex><span>    <span style=color:red>finally</span>:
+</span></span><span style=display:flex><span>        <span style=color:red>await</span> redis.aclose()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>if</span> <span style=color:#eedd82>__name__</span> == <span style=color:#87ceeb>&#34;__main__&#34;</span>:
+</span></span><span style=display:flex><span>    asyncio.run(main())
+</span></span></code></pre></div></div></details><details><summary>docker compose ps</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>NAME               IMAGE                  COMMAND                  SERVICE   CREATED       STATUS                 PORTS
+</span></span><span style=display:flex><span>example-python-1   example-python         <span style=color:#87ceeb>&#34;python -m python.ma…&#34;</span>   python    <span style=color:#f60>2</span> hours ago   Up <span style=color:#f60>2</span> hours (healthy)
+</span></span><span style=display:flex><span>example-redis-1    valkey/valkey:latest   <span style=color:#87ceeb>&#34;docker-entrypoint.s…&#34;</span>   redis     <span style=color:#f60>2</span> hours ago   Up <span style=color:#f60>2</span> hours (healthy)   127.0.0.1:6379-&gt;6379/tcp
+</span></span></code></pre></div></div></details><h3 id=pros><a href=#pros>#</a> Pros</h3><p>It definitely works. It’s simple, supports health checks, and has restart
+policies.</p><h3 id=cons><a href=#cons>#</a> Cons</h3><p>Compose is not part of the system, has poor integration with systemd and
+journald. Broad permissions, a rootful daemon, and a continuous CPU/RAM tax.</p><p>Health checks are mostly informational and don’t automatically trigger restarts.</p><p>It’s just a fine baseline for a single VPS.</p><h2 id=k3s><a href=#k3s>#</a> K3s</h2><p>A few words from the official sites:</p><blockquote><p>What is K3s? Lightweight Kubernetes.</p><p>Easy to install, half the memory, all in a binary of less than 100 MB.</p></blockquote><p>Setup is basically <code>curl -sfL https://get.k3s.io | sh -</code>. I already like it -
+just run, as root, trust me 😈</p><details><summary>Cluster overview</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>root@qemu:/home/user# systemctl status k3s
+</span></span><span style=display:flex><span>● k3s.service - Lightweight Kubernetes
+</span></span><span style=display:flex><span>     Loaded: loaded (/etc/systemd/system/k3s.service; enabled; preset: enabled)
+</span></span><span style=display:flex><span>     Active: active (running) since Fri 2025-12-19 14:57:54 UTC; 4min 49s ago
+</span></span><span style=display:flex><span>       Docs: https://k3s.io
+</span></span><span style=display:flex><span>    Process: <span style=color:#f60>1140</span> <span style=color:#eedd82>ExecStartPre</span>=/sbin/modprobe br_netfilter (<span style=color:#eedd82>code</span>=exited, <span style=color:#eedd82>status</span>=0/SUCCESS)
+</span></span><span style=display:flex><span>    Process: <span style=color:#f60>1141</span> <span style=color:#eedd82>ExecStartPre</span>=/sbin/modprobe overlay (<span style=color:#eedd82>code</span>=exited, <span style=color:#eedd82>status</span>=0/SUCCESS)
+</span></span><span style=display:flex><span>   Main PID: <span style=color:#f60>1143</span> (k3s-server)
+</span></span><span style=display:flex><span>      Tasks: <span style=color:#f60>90</span>
+</span></span><span style=display:flex><span>     Memory: 1.4G (peak: 1.5G)
+</span></span><span style=display:flex><span>        CPU: 35.823s
+</span></span><span style=display:flex><span>     CGroup: /system.slice/k3s.service
+</span></span><span style=display:flex><span>             ├─1143 <span style=color:#87ceeb>&#34;/usr/local/bin/k3s server&#34;</span>
+</span></span><span style=display:flex><span>             ├─1168 <span style=color:#87ceeb>&#34;containerd &#34;</span>
+</span></span><span style=display:flex><span>             ├─1732 /var/lib/rancher/k3s/data/7b97d417878d140a607ac677a82c2562e863279de825743bbdb137cff0b48877/bin/containerd-shim-runc-v2 -namespace k8s.io -id ba799f11f2b2d99b2a153257380ff9755&gt;
+</span></span><span style=display:flex><span>             ├─1766 /var/lib/rancher/k3s/data/7b97d417878d140a607ac677a82c2562e863279de825743bbdb137cff0b48877/bin/containerd-shim-runc-v2 -namespace k8s.io -id ff37d03c651fc8d57defe3d5493195fdd&gt;
+</span></span><span style=display:flex><span>             ├─1777 /var/lib/rancher/k3s/data/7b97d417878d140a607ac677a82c2562e863279de825743bbdb137cff0b48877/bin/containerd-shim-runc-v2 -namespace k8s.io -id a2b64c80ff6b0546113338e4426c31ccb&gt;
+</span></span><span style=display:flex><span>             ├─2773 /var/lib/rancher/k3s/data/7b97d417878d140a607ac677a82c2562e863279de825743bbdb137cff0b48877/bin/containerd-shim-runc-v2 -namespace k8s.io -id a0538126449c9c4ff76f05aec8f2da487&gt;
+</span></span><span style=display:flex><span>             └─2862 /var/lib/rancher/k3s/data/7b97d417878d140a607ac677a82c2562e863279de825743bbdb137cff0b48877/bin/containerd-shim-runc-v2 -namespace k8s.io -id 5be4562c4eb8e79d0f8282ed74eb04b76&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845233    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;tlsoptions.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845249    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;apiportalauths.hub.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845267    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;apiportals.hub.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845284    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;middlewaretcps.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845297    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;ingressrouteudps.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845313    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;apiplans.hub.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845329    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;apiratelimits.hub.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845341    <span style=color:#f60>1143</span> resource_quota_monitor.go:227] <span style=color:#87ceeb>&#34;QuotaMonitor created object count evaluator&#34;</span> <span style=color:#eedd82>resource</span>=<span style=color:#87ceeb>&#34;serverstransporttcps.traefik.io&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845489    <span style=color:#f60>1143</span> shared_informer.go:350] <span style=color:#87ceeb>&#34;Waiting for caches to sync&#34;</span> <span style=color:#eedd82>controller</span>=<span style=color:#87ceeb>&#34;resource quota&#34;</span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>19</span> 14:58:59 qemu k3s[1143]: I1219 14:58:59.845520    <span style=color:#f60>1143</span> shared_informer.go:357] <span style=color:#87ceeb>&#34;Caches are synced&#34;</span> <span style=color:#eedd82>controller</span>=<span style=color:#87ceeb>&#34;resource quota&#34;</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>root@qemu:/home/user# sudo kubectl get all -n kube-system
+</span></span><span style=display:flex><span>NAME                                          READY   STATUS      RESTARTS   AGE
+</span></span><span style=display:flex><span>pod/coredns-6d668d687-6lhpl                   1/1     Running     <span style=color:#f60>0</span>          4m48s
+</span></span><span style=display:flex><span>pod/helm-install-traefik-crd-rsd4s            0/1     Completed   <span style=color:#f60>0</span>          4m48s
+</span></span><span style=display:flex><span>pod/helm-install-traefik-ttdrr                0/1     Completed   <span style=color:#f60>1</span>          4m48s
+</span></span><span style=display:flex><span>pod/local-path-provisioner-869c44bfbd-k6ct2   1/1     Running     <span style=color:#f60>0</span>          4m48s
+</span></span><span style=display:flex><span>pod/metrics-server-7bfffcd44-4xtb7            1/1     Running     <span style=color:#f60>0</span>          4m48s
+</span></span><span style=display:flex><span>pod/svclb-traefik-091968ea-wb98r              2/2     Running     <span style=color:#f60>0</span>          4m17s
+</span></span><span style=display:flex><span>pod/traefik-865bd56545-b5qkm                  1/1     Running     <span style=color:#f60>0</span>          4m17s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>NAME                     TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+</span></span><span style=display:flex><span>service/kube-dns         ClusterIP      10.43.0.10     &lt;none&gt;        53/UDP,53/TCP,9153/TCP       4m51s
+</span></span><span style=display:flex><span>service/metrics-server   ClusterIP      10.43.249.39   &lt;none&gt;        443/TCP                      4m51s
+</span></span><span style=display:flex><span>service/traefik          LoadBalancer   10.43.154.80   10.0.2.15     80:30206/TCP,443:31853/TCP   4m17s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>NAME                                    DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+</span></span><span style=display:flex><span>daemonset.apps/svclb-traefik-091968ea   <span style=color:#f60>1</span>         <span style=color:#f60>1</span>         <span style=color:#f60>1</span>       <span style=color:#f60>1</span>            <span style=color:#f60>1</span>           &lt;none&gt;          4m17s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>NAME                                     READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style=display:flex><span>deployment.apps/coredns                  1/1     <span style=color:#f60>1</span>            <span style=color:#f60>1</span>           4m51s
+</span></span><span style=display:flex><span>deployment.apps/local-path-provisioner   1/1     <span style=color:#f60>1</span>            <span style=color:#f60>1</span>           4m51s
+</span></span><span style=display:flex><span>deployment.apps/metrics-server           1/1     <span style=color:#f60>1</span>            <span style=color:#f60>1</span>           4m51s
+</span></span><span style=display:flex><span>deployment.apps/traefik                  1/1     <span style=color:#f60>1</span>            <span style=color:#f60>1</span>           4m17s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>NAME                                                DESIRED   CURRENT   READY   AGE
+</span></span><span style=display:flex><span>replicaset.apps/coredns-6d668d687                   <span style=color:#f60>1</span>         <span style=color:#f60>1</span>         <span style=color:#f60>1</span>       4m48s
+</span></span><span style=display:flex><span>replicaset.apps/local-path-provisioner-869c44bfbd   <span style=color:#f60>1</span>         <span style=color:#f60>1</span>         <span style=color:#f60>1</span>       4m48s
+</span></span><span style=display:flex><span>replicaset.apps/metrics-server-7bfffcd44            <span style=color:#f60>1</span>         <span style=color:#f60>1</span>         <span style=color:#f60>1</span>       4m48s
+</span></span><span style=display:flex><span>replicaset.apps/traefik-865bd56545                  <span style=color:#f60>1</span>         <span style=color:#f60>1</span>         <span style=color:#f60>1</span>       4m17s
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>NAME                                 STATUS     COMPLETIONS   DURATION   AGE
+</span></span><span style=display:flex><span>job.batch/helm-install-traefik       Complete   1/1           34s        4m51s
+</span></span><span style=display:flex><span>job.batch/helm-install-traefik-crd   Complete   1/1           33s        4m51s
+</span></span></code></pre></div></div></details><h3 id=deployment><a href=#deployment>#</a> Deployment</h3><p>Here’s the same Valkey & Python app with the same Dockerfile. Let’s deploy it.
+Helm isn’t included by default, so I’ll use raw YAML manifests.</p><details><summary>namespace.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Namespace
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>deployment-valkey.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: apps/v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Deployment
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  namespace: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  replicas: 1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  selector:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    matchLabels:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      app: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  template:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      labels:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>        app: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      containers:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>        - name: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          image: valkey/valkey:latest
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          args: [&#34;valkey-server&#34;, &#34;--port&#34;, &#34;6379&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          ports:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            - containerPort: 6379
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          readinessProbe:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            exec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              command: [&#34;sh&#34;, &#34;-c&#34;, &#34;valkey-cli ping | grep -q PONG&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            initialDelaySeconds: 2
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            periodSeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            timeoutSeconds: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            failureThreshold: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          livenessProbe:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            exec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              command: [&#34;sh&#34;, &#34;-c&#34;, &#34;valkey-cli ping | grep -q PONG&#34;]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            initialDelaySeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            periodSeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            timeoutSeconds: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            failureThreshold: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>service-valkey.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Service
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  namespace: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  selector:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    app: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  ports:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    - name: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      port: 6379
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      targetPort: 6379
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  type: ClusterIP
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>deployment-python.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: apps/v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Deployment
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  namespace: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  replicas: 1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  selector:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    matchLabels:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      app: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  template:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      labels:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>        app: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      containers:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>        - name: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          image: localhost/local/python-app:dev
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          imagePullPolicy: IfNotPresent
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          env:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            - name: REDIS_HOST
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              value: redis
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            - name: REDIS_PORT
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              value: &#34;6379&#34;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          ports:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            - containerPort: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          readinessProbe:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            httpGet:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              path: /healthz
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              port: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            initialDelaySeconds: 2
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            periodSeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            timeoutSeconds: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            failureThreshold: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          livenessProbe:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            httpGet:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              path: /healthz
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              port: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            initialDelaySeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            periodSeconds: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            timeoutSeconds: 3
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            failureThreshold: 5
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>service-python.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Service
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  namespace: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  selector:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    app: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  ports:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    - name: http
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      port: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      targetPort: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  type: ClusterIP
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>ingress.yaml</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl apply -f - <span style=color:#87ceeb>&lt;&lt;&#39;YAML&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>apiVersion: networking.k8s.io/v1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>kind: Ingress
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  name: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  namespace: selfhosted
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>spec:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>  rules:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>    - host: python.local
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>      http:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>        paths:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>          - path: /
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            pathType: Prefix
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>            backend:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>              service:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>                name: python
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>                port:
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>                  number: 8080
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>YAML</span>
+</span></span></code></pre></div></div></details><details><summary>additional trick to bring docker image into ctr</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>podman build -f Dockerfile.python -t local/python-app:dev .
+</span></span><span style=display:flex><span>podman save --format docker-archive local/python-app:dev | sudo k3s ctr images import -
+</span></span></code></pre></div></div></details><p>All of this recreates what Docker Compose already gives you:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl -n selfhosted get pods -o wide
+</span></span><span style=display:flex><span>NAME                      READY   STATUS    RESTARTS   AGE     IP           NODE   NOMINATED NODE   READINESS GATES
+</span></span><span style=display:flex><span>python-59b66ccf6b-xwng2   1/1     Running   <span style=color:#f60>0</span>          3m51s   10.42.0.12   qemu   &lt;none&gt;           &lt;none&gt;
+</span></span><span style=display:flex><span>redis-68764c78c5-xjplm    1/1     Running   <span style=color:#f60>0</span>          30m     10.42.0.9    qemu   &lt;none&gt;           &lt;none&gt;
+</span></span></code></pre></div><p>On a single VPS.</p><h3 id=pros--cons><a href=#pros--cons>#</a> Pros & Cons</h3><p>Pros: it provides <code>/usr/local/bin/k3s-uninstall.sh</code>.</p><p>Jokes aside: on the one hand it gives you the full Kubernetes experience, even
+with built-in ingress controller, so you could simply reuse existing manifests
+to full-fledged cluster and <em>scale</em> things up (actually no, but needs to
+believe, see non-clusterized <code>deployment-valkey.yaml</code>).</p><p>On the other hand, you pay high operational costs and high CPU/RAM overhead.
+Will you ever recoup that investment?</p><h2 id=podman--quadlet><a href=#podman--quadlet>#</a> Podman + Quadlet</h2><p>The dark horse. I’d never heard of it before I started writing this article, but
+it looks the most promising.</p><p>Firstly, <em>Podman</em> is a engine that runs containers without a permanent
+privileged daemon. It uses OCI runtimes, rootless by design, Docker-compatible.</p><p>Second, <em>Quadlet</em> generates systemd units, so containers integrate cleanly with
+systemd and journald.</p><h3 id=deployment-1><a href=#deployment-1>#</a> Deployment</h3><p>Podman itself already exists in Ubuntu repos (no need to add Docker’s signing
+key and repo).</p><ol><li>as root: <code>sudo apt update && sudo apt install podman</code></li><li>as regular user:
+<code>podman build -f Dockerfile.python -t local/python-app:dev .</code> (without
+docker’s requred manual group/permission management; images differs from one
+user to another)</li><li><code>mkdir -p ~/.config/containers/systemd</code></li><li><code>podman network create selfhosted</code> (it’s quite strange but in default podman
+network DNS disabled)</li></ol><p>Preparation is done. Add the units and you’re ok.</p><details><summary>~/.config/containers/systemd/redis.container</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Unit]</span>
+</span></span><span style=display:flex><span>Description=<span style=color:#87ceeb>Valkey (redis)</span>
+</span></span><span style=display:flex><span>Wants=<span style=color:#87ceeb>network-online.target</span>
+</span></span><span style=display:flex><span>After=<span style=color:#87ceeb>network-online.target</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Container]</span>
+</span></span><span style=display:flex><span>Image=<span style=color:#87ceeb>docker.io/valkey/valkey:latest</span>
+</span></span><span style=display:flex><span>Network=<span style=color:#87ceeb>selfhosted</span>
+</span></span><span style=display:flex><span>Exec=<span style=color:#87ceeb>valkey-server --port 6379</span>
+</span></span><span style=display:flex><span>PublishPort=<span style=color:#87ceeb>127.0.0.1:6379:6379</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>HealthCmd=<span style=color:#87ceeb>valkey-cli ping</span>
+</span></span><span style=display:flex><span>HealthInterval=<span style=color:#87ceeb>5s</span>
+</span></span><span style=display:flex><span>HealthTimeout=<span style=color:#87ceeb>3s</span>
+</span></span><span style=display:flex><span>HealthRetries=<span style=color:#87ceeb>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Service]</span>
+</span></span><span style=display:flex><span>Restart=<span style=color:#87ceeb>always</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Install]</span>
+</span></span><span style=display:flex><span>WantedBy=<span style=color:#87ceeb>default.target</span>
+</span></span></code></pre></div></div></details><details><summary>~/.config/containers/systemd/python.container</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Unit]</span>
+</span></span><span style=display:flex><span>Description=<span style=color:#87ceeb>Python app</span>
+</span></span><span style=display:flex><span>Wants=<span style=color:#87ceeb>redis.service</span>
+</span></span><span style=display:flex><span>After=<span style=color:#87ceeb>redis.service</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Container]</span>
+</span></span><span style=display:flex><span>Image=<span style=color:#87ceeb>localhost/local/python-app:dev</span>
+</span></span><span style=display:flex><span>Network=<span style=color:#87ceeb>selfhosted</span>
+</span></span><span style=display:flex><span>Environment=<span style=color:#87ceeb>REDIS_HOST=systemd-redis</span>
+</span></span><span style=display:flex><span>PublishPort=<span style=color:#87ceeb>127.0.0.1:8080:8080</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>HealthCmd=<span style=color:#87ceeb>python -c &#34;import http.client,sys; c=http.client.HTTPConnection(&#39;127.0.0.1&#39;,8080,timeout=2); c.request(&#39;GET&#39;,&#39;/healthz&#39;); r=c.getresponse(); sys.exit(0 if r.status==200 else 1)&#34;</span>
+</span></span><span style=display:flex><span>HealthInterval=<span style=color:#87ceeb>5s</span>
+</span></span><span style=display:flex><span>HealthTimeout=<span style=color:#87ceeb>3s</span>
+</span></span><span style=display:flex><span>HealthRetries=<span style=color:#87ceeb>5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Service]</span>
+</span></span><span style=display:flex><span>Restart=<span style=color:#87ceeb>always</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Install]</span>
+</span></span><span style=display:flex><span>WantedBy=<span style=color:#87ceeb>default.target</span>
+</span></span></code></pre></div></div></details><p>Validate configs by <code>/usr/libexec/podman/quadlet --user --dryrun</code>. If it looks
+good, run <code>systemctl --user daemon-reload</code>.</p><details><summary>systemctl --user status redis python --no-pager</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>● redis.service - Valkey (redis)
+</span></span><span style=display:flex><span>     Loaded: loaded (/home/user/.config/containers/systemd/redis.container; generated)
+</span></span><span style=display:flex><span>     Active: active (running) since Sat 2025-12-20 13:32:38 UTC; 8min ago
+</span></span><span style=display:flex><span>   Main PID: <span style=color:#f60>85139</span> (conmon)
+</span></span><span style=display:flex><span>      Tasks: <span style=color:#f60>21</span> (limit: 9370)
+</span></span><span style=display:flex><span>     Memory: 8.6M (peak: 20.0M)
+</span></span><span style=display:flex><span>        CPU: 2.047s
+</span></span><span style=display:flex><span>     CGroup: /user.slice/user-1000.slice/user@1000.service/app.slice/redis.service
+</span></span><span style=display:flex><span>             ├─libpod-payload-e8c29da1a2f6c4bb032304f7dfbc5a767e026092c4a2fcbc830e58565f972f54
+</span></span><span style=display:flex><span>             │ └─85141 <span style=color:#87ceeb>&#34;valkey-server *:6379&#34;</span>
+</span></span><span style=display:flex><span>             └─runtime
+</span></span><span style=display:flex><span>               ├─85124 rootlessport
+</span></span><span style=display:flex><span>               ├─85130 rootlessport-child
+</span></span><span style=display:flex><span>               └─85139 /usr/bin/conmon --api-version <span style=color:#f60>1</span> -c e8c29da1a2f6c4bb032304f7dfbc5a767e026092c4a2fcbc830e58565f972f54 -u e8c29da1a2f6c4bb032304f7dfbc5a767e026092c4a2fcbc830e58565f972f54 -r …
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85050]: 2025-12-20 13:32:38.398858374 +0000 UTC <span style=color:#eedd82>m</span>=+0.013421623 image pull d422224bf6e2d405c51aa2fa092855478543f21872a9b1a8125d184095f5aa25 docker.io/v…ey/valkey:latest
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.497 * oO0OoO0OoO0Oo Valkey is starting oO0OoO0OoO0Oo
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.497 * Valkey <span style=color:#eedd82>version</span>=9.0.1, <span style=color:#eedd82>bits</span>=64, <span style=color:#eedd82>commit</span>=00000000, <span style=color:#eedd82>modified</span>=0, <span style=color:#eedd82>pid</span>=1, just started
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.497 * Configuration loaded
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85050]: 2025-12-20 13:32:38.496286417 +0000 UTC <span style=color:#eedd82>m</span>=+0.110849666 container start e8c29da1a2f6c4bb032304f7dfbc5a767e026092c4a2fcbc830e58565f972f54 (image…T=redis.service)
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.497 * monotonic clock: POSIX clock_gettime
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.497 * Running <span style=color:#eedd82>mode</span>=standalone, <span style=color:#eedd82>port</span>=6379.
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.498 * Server initialized
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd-redis[85139]: 1:M <span style=color:#f60>20</span> Dec <span style=color:#f60>2025</span> 13:32:38.498 * Ready to accept connections tcp
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu redis[85050]: e8c29da1a2f6c4bb032304f7dfbc5a767e026092c4a2fcbc830e58565f972f54
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>● python.service - Python app
+</span></span><span style=display:flex><span>     Loaded: loaded (/home/user/.config/containers/systemd/python.container; generated)
+</span></span><span style=display:flex><span>     Active: active (running) since Sat 2025-12-20 13:32:38 UTC; 8min ago
+</span></span><span style=display:flex><span>   Main PID: <span style=color:#f60>85244</span> (conmon)
+</span></span><span style=display:flex><span>      Tasks: <span style=color:#f60>16</span> (limit: 9370)
+</span></span><span style=display:flex><span>     Memory: 38.3M (peak: 46.6M)
+</span></span><span style=display:flex><span>        CPU: 2.721s
+</span></span><span style=display:flex><span>     CGroup: /user.slice/user-1000.slice/user@1000.service/app.slice/python.service
+</span></span><span style=display:flex><span>             ├─libpod-payload-8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90
+</span></span><span style=display:flex><span>             │ └─85246 python -m python.main
+</span></span><span style=display:flex><span>             └─runtime
+</span></span><span style=display:flex><span>               ├─85218 rootlessport
+</span></span><span style=display:flex><span>               ├─85232 rootlessport-child
+</span></span><span style=display:flex><span>               └─85244 /usr/bin/conmon --api-version <span style=color:#f60>1</span> -c 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90 -u 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90 -r …
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd[782]: Starting python.service - Python app container (rootless)...
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85146]: 2025-12-20 13:32:38.516813999 +0000 UTC <span style=color:#eedd82>m</span>=+0.021024836 container create 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90 (imag…=python.service)
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85146]: 2025-12-20 13:32:38.568795185 +0000 UTC <span style=color:#eedd82>m</span>=+0.073006064 container init 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90 (<span style=color:#eedd82>image</span>=….version=1.33.7)
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu systemd[782]: Started python.service - Python app container (rootless).
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85146]: 2025-12-20 13:32:38.583186772 +0000 UTC <span style=color:#eedd82>m</span>=+0.087397609 container start 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90 (image….version=1.33.7)
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu python[85146]: 8a390a010658563033af8b8e7be8c0984e03eb109eee54fdf2e7a7688ee7ca90
+</span></span><span style=display:flex><span>Dec <span style=color:#f60>20</span> 13:32:38 qemu podman[85146]: 2025-12-20 13:32:38.508078113 +0000 UTC <span style=color:#eedd82>m</span>=+0.012288991 image pull 5ab432c25a0bea88ed2ac7b636a0a44eeff6e5cb44c03f63e275ac736475c4eb localhost/l…l/python-app:dev
+</span></span><span style=display:flex><span>Hint: Some lines were ellipsized, use -l to show in full.
+</span></span></code></pre></div></div></details><p>The result: container isolation without the overhead and complexity. It runs as
+a regular user. Updates are predictable via
+<code>systemctl --user restart python.service</code>. Health checks actually restart the
+service, and logs rotate out of the box.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><table><thead><tr><th style=text-align:left>Metric</th><th style=text-align:center>Docker Compose</th><th style=text-align:center>K3s</th><th style=text-align:center>Podman + Quadlet</th></tr></thead><tbody><tr><td style=text-align:left>Idle RAM (Engine)</td><td style=text-align:center>~100-200MB</td><td style=text-align:center>~1.4GB</td><td style=text-align:center>~0MB (daemonless)</td></tr><tr><td style=text-align:left>Orchestrator</td><td style=text-align:center>Docker daemon</td><td style=text-align:center>“Control plane”©</td><td style=text-align:center>systemd</td></tr><tr><td style=text-align:left>Permissions</td><td style=text-align:center>Rootful (default)</td><td style=text-align:center>Rootful</td><td style=text-align:center>Rootless</td></tr><tr><td style=text-align:left>Observability</td><td style=text-align:center>docker logs</td><td style=text-align:center>kubectl logs</td><td style=text-align:center>journalctl</td></tr></tbody></table><p>I started on the Docker Compose side, mostly intending to joke about Kubernetes
+being dragged into everything. Instead, I ended up replacing Docker with
+Podman + Quadlet on my VPS in the name of simplicity!</p><hr><p>I intentionally omitted persistent volumes, because it would make the comparison
+(especially K3s vs Quadlet) unfair in terms of operational cost.</p><p>The surprise: everything worked fine on arm64 (macOS → qemu-system-aarch64 →
+ubuntu-24.04.3-live-server-arm64).</p></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank href=/blog/index.xml>RSS</a></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-950H2PH48S"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-950H2PH48S")</script><script>(function(e,t,n,s,o,i,a){e[o]=e[o]||function(){(e[o].a=e[o].a||[]).push(arguments)},e[o].l=1*new Date;for(var r=0;r<document.scripts.length;r++)if(document.scripts[r].src===s)return;i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym"),ym(100343675,"init",{clickmap:!0,trackLinks:!0,accurateTrackBounce:!0})</script><noscript><div><img src=https://mc.yandex.ru/watch/100343675 style=position:absolute;left:-9999px alt></div></noscript><script>!function(e,t,n,s,o,i,a){if(e.fbq)return;o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),o.push=o,o.loaded=!0,o.version="2.0",o.queue=[],i=t.createElement(n),i.async=!0,i.src=s,a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(i,a)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"),fbq("init","2627430184120255"),fbq("track","PageView")</script><noscript><img alt height=1 width=1 style=display:none src="https://www.facebook.com/tr?id=2627430184120255&ev=PageView&noscript=1"></noscript></body></html>

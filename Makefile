@@ -9,7 +9,7 @@ srv:
 .PHONY: build
 build:
 	# docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} build --buildDrafts
-	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} --minify build
+	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} --minify --gc --cleanDestinationDir build
 	sudo chown -R $$(id -u):$$(id -g) $(PWD)/src/public $(PWD)/src/resources/_gen
 	sudo rm -rf $(PWD)/docs/blog $(PWD)/src/resources/_gen
 	mv $(PWD)/src/public $(PWD)/docs/blog
