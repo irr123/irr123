@@ -3,7 +3,23 @@ date: 2025-12-18T12:44:19Z
 draft: false
 title: The actual state of self-hosting on a VPS
 image: cursed_Kubernetes_cathedral.png
-keywords: []
+keywords:
+  - self-hosting
+  - VPS
+  - docker-compose
+  - docker
+  - kubernetes
+  - k3s
+  - podman
+  - quadlet
+  - systemd
+  - rootless-containers
+  - container-orchestration
+  - boring-infrastructure
+  - price-sensitive-infra
+  - devops-pragmatism
+  - anti-hype
+  - container-runtime
 ---
 
 I recently ran into a claim: Docker Compose is outdated and K3s is the king for
