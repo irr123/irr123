@@ -1,4 +1,4 @@
-<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>How-to: A private WireGuard VPN with selective Tor routing | ...</title><meta name=description content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a priv..."><meta name=keywords content="wireguard,vpn,tor,privacy,networking,ubuntu,windows,openvpn"><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/howto-wireguard/><link rel=alternate type=application/rss+xml href=/blog/index.xml title="The Archive"><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="How-to: A private WireGuard VPN with selective Tor routing"><meta property="og:description" content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a private VPN using WireGuard to unite different devices (servers, a notebook, and a phone) into a single, secure network. Additionally, I will selectively route all internet traffic from my notebook and phone through the Tor network, while allowing other servers on the VPN to communicate normally without being routed through Tor.
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>How-to: A private WireGuard VPN with selective Tor routing | ...</title><meta name=description content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a priv..."><meta name=keywords content="wireguard,vpn,tor,privacy,networking,ubuntu,windows,podman"><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/howto-wireguard/><link rel=alternate type=application/rss+xml href=/blog/index.xml title="The Archive"><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="How-to: A private WireGuard VPN with selective Tor routing"><meta property="og:description" content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a private VPN using WireGuard to unite different devices (servers, a notebook, and a phone) into a single, secure network. Additionally, I will selectively route all internet traffic from my notebook and phone through the Tor network, while allowing other servers on the VPN to communicate normally without being routed through Tor.
 "><meta property="og:type" content="website"><meta property="og:url" content="https://bogomolov.work/blog/posts/howto-wireguard/"><meta property="og:logo" content="https://bogomolov.work/blog/img/the-archive.jpg"><meta property="og:image" content="https://bogomolov.work/blog/posts/howto-wireguard/wireguard.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/howto-wireguard/"><meta name=twitter:title content="How-to: A private WireGuard VPN with selective Tor routing"><meta name=twitter:description content="When planning a VPN, OpenVPN is often the default choice. However, in this post, I’ll document the process of building a private VPN using WireGuard to unite different devices (servers, a notebook, and a phone) into a single, secure network. Additionally, I will selectively route all internet traffic from my notebook and phone through the Tor network, while allowing other servers on the VPN to communicate normally without being routed through Tor.
 "><meta name=twitter:image content="https://bogomolov.work/blog/posts/howto-wireguard/wireguard.png"><meta name=theme-color content="#000000"><link rel=stylesheet href=/blog/css/styles.bundle.min.6dfd4bffb4fc60f9fc9061ace4309feccf93d5aefab8d8e2ad003d757bd5f34194e43fbde5acefb17dd532099a054926df6c8f38ff0bb741520a4064a1d4eb5c.css integrity="sha512-bf1L/7T8YPn8kGGs5DCf7M+T1a76uNjirQA9dXvV80GU5D+95azvsX3VMgmaBUkm32yPOP8Lt0FSCkBkodTrXA=="><link rel=preconnect href=https://www.googletagmanager.com><link rel=preconnect href=https://pagead2.googlesyndication.com><link rel=preconnect href=https://mc.yandex.ru><link rel=preconnect href=https://connect.facebook.net></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><a href=/blog/ aria-label="Back to Index" title="Back to Index">← Back</a><p><time datetime=2025-07-12T11:04:35+00:00>2025-07-12</time></p></div><h1>How-to: A private WireGuard VPN with selective Tor routing</h1><article><p>When planning a VPN, <em>OpenVPN</em> is often the default choice. However, in this
 post, I’ll document the process of building a private VPN using <strong>WireGuard</strong> to
@@ -46,7 +46,7 @@ peers:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-co
 </span></span><span style=display:flex><span>wg genkey | tee raspberrypi-privatekey | wg pubkey &gt; raspberrypi-publickey
 </span></span><span style=display:flex><span>wg genkey | tee myphone-privatekey | wg pubkey &gt; myphone-publickey
 </span></span><span style=display:flex><span>wg genkey | tee mypc-privatekey | wg pubkey &gt; mypc-publickey
-</span></span></code></pre></div><h3 id=integrating-tor-and-firewall-rules><a href=#integrating-tor-and-firewall-rules>#</a> Integrating Tor and Firewall Rules</h3><details><summary>Previous version with local TOR daemon</summary><div class=details-content><p>My Tor installation was already described
+</span></span></code></pre></div><h3 id=integrating-tor-and-firewall-rules><a href=#integrating-tor-and-firewall-rules>#</a> Integrating Tor and Firewall Rules</h3><details><summary>Previous-previous version with local TOR daemon</summary><div class=details-content><p>My Tor installation was already described
 <a href=/blog/posts/shadowsocks-to-tor/#tor>here</a>. The crucial step is to
 ensure Tor’s listeners are bound to the WireGuard interface IP,
 <code>/etc/tor/torrc</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=display:flex><span>AutomapHostsOnResolve 1
@@ -54,7 +54,7 @@ ensure Tor’s listeners are bound to the WireGuard interface IP,
 </span></span><span style=display:flex><span>AvoidDiskWrites 1
 </span></span><span style=display:flex><span>DNSPort 192.168.42.1:9053
 </span></span><span style=display:flex><span>TransPort 192.168.42.1:9040
-</span></span></code></pre></div></div></details><p>This time I’ll setup TOR in docker and route traffic thru it.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p /opt/tor/data
+</span></span></code></pre></div></div></details><details><summary>Previous version with TOR daemon in docker</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p /opt/tor/data
 </span></span><span style=display:flex><span>chown -R 100:101 /opt/tor/data
 </span></span><span style=display:flex><span>mkdir -p /etc/tor
 </span></span><span style=display:flex><span>cat &gt; /etc/tor/torrc <span style=color:#87ceeb>&lt;&lt; &#39;EOF&#39;
@@ -71,15 +71,63 @@ ensure Tor’s listeners are bound to the WireGuard interface IP,
 </span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  --network host <span style=color:#87ceeb>\
 </span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  -v /etc/tor/torrc:/etc/tor/torrc:ro <span style=color:#87ceeb>\
 </span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  -v /opt/tor/data:/var/lib/tor <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  docker.io/dockurr/tor:0.4.8.20
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  docker.io/dockurr/tor:0.4.8.21
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>docker logs tor -f
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>Nov <span style=color:#f60>17</span> 18:04:07.000 [notice] Bootstrapped 100% (<span style=color:red>done</span>): Done
+</span></span></code></pre></div></div></details><p>This time I’ll setup TOR in
+<a href=/blog/posts/the-actual-state-of-self-hosting-on-a-vps/>podman</a> and
+route traffic thru it.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p /opt/tor/data
+</span></span><span style=display:flex><span>chown -R 100:101 /opt/tor/data
+</span></span><span style=display:flex><span>mkdir -p /etc/tor
+</span></span><span style=display:flex><span>cat &gt; /etc/tor/torrc <span style=color:#87ceeb>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>AutomapHostsOnResolve 1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>AutomapHostsSuffixes .onion,.exit
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>AvoidDiskWrites 1
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>DNSPort 192.168.42.1:9053
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>TransPort 192.168.42.1:9040
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>DataDirectory /var/lib/tor
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>mkdir -p /etc/containers/systemd
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>cat &gt; /etc/containers/systemd/tor.container <span style=color:#87ceeb>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>[Unit]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Description=Tor (dockurr/tor) via Podman Quadlet
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Wants=network-online.target
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>After=network-online.target
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>[Container]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Image=docker.io/dockurr/tor:0.4.8.21
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Network=host
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Volume=/etc/tor/torrc:/etc/tor/torrc:ro
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Volume=/opt/tor/data:/var/lib/tor:Z
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>ContainerName=tor
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>[Service]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>Restart=always
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>RestartSec=2
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>[Install]
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>WantedBy=multi-user.target
+</span></span></span><span style=display:flex><span><span style=color:#87ceeb>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>systemctl daemon-reload
+</span></span><span style=display:flex><span>systemctl start tor.service
+</span></span><span style=display:flex><span>systemctl enable tor.service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>journalctl -u tor.service -f
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>Nov <span style=color:#f60>17</span> 18:04:07.000 [notice] Bootstrapped 100% (<span style=color:red>done</span>): Done
 </span></span></code></pre></div><blockquote><p><strong>Security Note</strong>: No one except yourself could audit the stuff you’re using;
-I’ve checked exact <code>docker.io/dockurr/tor:0.4.8.20</code>, but only you are
+I’ve checked exact <code>docker.io/dockurr/tor:0.4.8.21</code>, but only you are
 responsible for you security.</p></blockquote><p>The noticeable part here – <code>--network host</code>, that’s why there is no difference
 in routing, comparing it with local daemon. Now, we will update
 <code>/etc/wireguard/wg0.conf</code> with robust iptables rules to route client traffic to

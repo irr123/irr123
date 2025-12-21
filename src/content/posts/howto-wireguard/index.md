@@ -4,7 +4,7 @@ draft: false
 title: "How-to: A private WireGuard VPN with selective Tor routing"
 image: "wireguard.png"
 keywords: ["wireguard", "vpn", "tor", "privacy", "networking", "ubuntu",
-"windows", "openvpn"]
+"windows", "podman"]
 ---
 
 When planning a VPN, _OpenVPN_ is often the default choice. However, in this
@@ -91,7 +91,7 @@ wg genkey | tee mypc-privatekey | wg pubkey > mypc-publickey
 
 ### Integrating Tor and Firewall Rules
 
-{{< details summary="Previous version with local TOR daemon" >}}
+{{< details summary="Previous-previous version with local TOR daemon" >}}
 
 My Tor installation was already described
 [here]({{< relref "posts/shadowsocks-to-tor" >}}#tor). The crucial step is to
@@ -108,7 +108,7 @@ TransPort 192.168.42.1:9040
 
 {{< /details >}}
 
-This time I'll setup TOR in docker and route traffic thru it.
+{{< details summary="Previous version with TOR daemon in docker" >}}
 
 ```bash
 mkdir -p /opt/tor/data
@@ -128,7 +128,7 @@ docker run -d --name tor \
   --network host \
   -v /etc/tor/torrc:/etc/tor/torrc:ro \
   -v /opt/tor/data:/var/lib/tor \
-  docker.io/dockurr/tor:0.4.8.20
+  docker.io/dockurr/tor:0.4.8.21
 
 docker logs tor -f
 ...
@@ -137,8 +137,63 @@ docker logs tor -f
 Nov 17 18:04:07.000 [notice] Bootstrapped 100% (done): Done
 ```
 
+{{< /details >}}
+
+This time I'll setup TOR in
+[podman]({{< relref "posts/the-actual-state-of-self-hosting-on-a-vps" >}}) and
+route traffic thru it.
+
+```bash
+mkdir -p /opt/tor/data
+chown -R 100:101 /opt/tor/data
+mkdir -p /etc/tor
+cat > /etc/tor/torrc << 'EOF'
+AutomapHostsOnResolve 1
+AutomapHostsSuffixes .onion,.exit
+AvoidDiskWrites 1
+DNSPort 192.168.42.1:9053
+TransPort 192.168.42.1:9040
+DataDirectory /var/lib/tor
+EOF
+
+mkdir -p /etc/containers/systemd
+
+cat > /etc/containers/systemd/tor.container << 'EOF'
+[Unit]
+Description=Tor (dockurr/tor) via Podman Quadlet
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=docker.io/dockurr/tor:0.4.8.21
+Network=host
+
+Volume=/etc/tor/torrc:/etc/tor/torrc:ro
+Volume=/opt/tor/data:/var/lib/tor:Z
+
+ContainerName=tor
+
+[Service]
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl start tor.service
+systemctl enable tor.service
+
+journalctl -u tor.service -f
+...
+...
+...
+Nov 17 18:04:07.000 [notice] Bootstrapped 100% (done): Done
+```
+
 > **Security Note**: No one except yourself could audit the stuff you're using;
-> I've checked exact `docker.io/dockurr/tor:0.4.8.20`, but only you are
+> I've checked exact `docker.io/dockurr/tor:0.4.8.21`, but only you are
 > responsible for you security.
 
 The noticeable part here -- `--network host`, that's why there is no difference
