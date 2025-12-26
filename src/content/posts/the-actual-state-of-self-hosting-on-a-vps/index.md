@@ -648,13 +648,13 @@ service, and logs rotate out of the box.
 
 ## Conclusion
 
-| Metric            |  Docker Compose   |       K3s        | Podman + Quadlet  |
-| :---------------- | :---------------: | :--------------: | :---------------: |
-| Idle RAM (Engine) |      ~181MB       |      ~1.4GB      | ~0MB (daemonless) |
-| Orchestrator      |   Docker daemon   | "Control plane"© |      systemd      |
-| Permissions       | Rootful (default) |     Rootful      |     Rootless      |
-| Observability     |    docker logs    |   kubectl logs   |    journalctl     |
-| LoC               |        35         |       124        |        34         |
+| Metric            |  Docker Compose   |       K3s        |  Podman + Quadlet  |
+| :---------------- | :---------------: | :--------------: | :----------------: |
+| Idle RAM (Engine) |      ~181MB       |      ~1.4GB      | ~0MB (daemonless)  |
+| Orchestrator      |   Docker daemon   | "Control plane"© |      systemd       |
+| Permissions       | Rootful (default) |     Rootful      | Rootless (default) |
+| Observability     |    docker logs    |   kubectl logs   |     journalctl     |
+| LoC               |        34         |       124        |         34         |
 
 I started on the Docker Compose side, mostly intending to joke about Kubernetes
 being dragged into everything. Instead, I ended up replacing Docker with
