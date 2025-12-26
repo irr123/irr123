@@ -54,15 +54,17 @@
   <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}">
   {{- if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
   {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}
-  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://analytics.google.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   {{- end -}}
   {{- if and site.Params.adSense (ne site.Params.adSense "") -}}
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
   {{- end -}}
   {{- if and site.Params.yandexMetrika (ne site.Params.yandexMetrika "") -}}
-  <link rel="preconnect" href="https://mc.yandex.ru">
+  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+  <link rel="preconnect" href="https://mc.yandex.com" crossorigin>
   {{- end -}}
   {{- if and site.Params.metaPixel (ne site.Params.metaPixel "") -}}
-  <link rel="preconnect" href="https://connect.facebook.net">
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   {{- end -}}
 </head>

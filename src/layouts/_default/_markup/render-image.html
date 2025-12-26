@@ -35,8 +35,15 @@
           <img src="{{ $jpeg.RelPermalink }}"
                alt="{{ $alt }}"
                {{- with $title }} title="{{ . }}"{{ end }}
-               loading="lazy"
-               decoding="async">
+               {{- if eq .Ordinal 0 -}}
+                 loading="eager"
+                 fetchpriority="high"
+                 decoding="sync"
+               {{- else -}}
+                 loading="lazy"
+                 decoding="async"
+               {{- end -}}
+          >
         </picture>
       </a>
       {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}

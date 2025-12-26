@@ -5,6 +5,7 @@ body {
   margin: 0;
   width: 100%;
   min-height: 100%;
+  font-display: swap;
   overflow-x: hidden;
   overflow-wrap: break-word;
 }
@@ -16,22 +17,7 @@ body {
   height: 100vh;
   z-index: -1;
 }
-@keyframes crtPowerOn {
-  from {
-    opacity: 1;
-    transform: scale(1, 0.005) translateY(-50%);
-    filter: brightness(10) blur(2px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1, 1) translateY(0);
-    filter: brightness(1) blur(0);
-  }
-}
 #content {
-  transform-origin: top center;
-  opacity: 0;
-  animation: crtPowerOn 0.7s ease-out 0.2s forwards;
   position: relative;
   z-index: 1;
 }
