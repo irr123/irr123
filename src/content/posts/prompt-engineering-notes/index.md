@@ -34,6 +34,7 @@ It's always valuable to check official docs, such as:
 
 - https://platform.openai.com/docs/guides/prompt-engineering
   - https://cookbook.openai.com/articles/related_resources
+  - https://academy.openai.com/public/clubs/work-users-ynjqu/resources/use-cases-engineers
 - https://ai.google.dev/gemini-api/docs/prompting-intro
 
 While the documentation is extensive, it is preferable to rely on it rather than

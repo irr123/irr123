@@ -5,7 +5,7 @@ was a good idea to finally set it up properly. But I hit a little problem – Hu
 templates aren’t <em>just</em> Markdown; they’re a mix of YAML/JSON, HTML/CSS/JS, Go’s
 template syntax. Before I found the real solution, I had actually prepared
 myself to fork shurcooL/markdownfmt and add support for Hugo’s template syntax
-myself.</p><figure><a href=/blog/posts/hugo-code-formatting/hugo-code-formatting.png target=_blank><picture><source srcset=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_2dafd7fe775ce4c3.webp type=image/webp><source srcset=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_61287b53f737d0c9.jpg type=image/jpeg><img src=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_61287b53f737d0c9.jpg alt="Stylized representation of the Hugo logo iconography interacting playfully with the Prettier logo iconography, connected by a minimalist heart symbol made of clean code braces . Flat design illustration, clean lines, Hugo purple…" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>Fortunately, the right search query saved me! It led me to a VS Code plugin
+myself.</p><figure><a href=/blog/posts/hugo-code-formatting/hugo-code-formatting.png target=_blank><picture><source srcset=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_b9d0c51fe5f831b1.webp type=image/webp><source srcset=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_989746c920734d7d.jpg type=image/jpeg><img src=/blog/posts/hugo-code-formatting/hugo-code-formatting_hu_989746c920734d7d.jpg alt="Stylized representation of the Hugo logo iconography interacting playfully with the Prettier logo iconography, connected by a minimalist heart symbol made of clean code braces . Flat design illustration, clean lines, Hugo purple…" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>Fortunately, the right search query saved me! It led me to a VS Code plugin
 called <code>prettier-plugin-go-template</code>. At first, it seemed a bit disconnected
 from Hugo specifically, right? But here’s the interesting part: since I prefer
 using Vim and Makefiles, I dug into what that VS Code plugin was actually using
@@ -14,9 +14,9 @@ under the hood. Turns out, it’s powered by the Prettier code formatter! 🤯</
 check to enforce this later).</p><p>Since I really prefer not cluttering my system with a full Node.js/npm
 environment just for one tool, I decided to run Prettier using Docker. I grabbed
 a community image that bundles it, seemed convenient.</p><p>Here’s the Docker command I ended up using:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run --rm -it -v <span style=color:red>$(</span>PWD<span style=color:red>)</span>/src:/work <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>    --user <span style=color:red>$(</span>id -u<span style=color:red>)</span>:<span style=color:red>$(</span>id -g<span style=color:red>)</span> <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>    jauderho/prettier:latest --write <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>    ./archetypes ./content ./data ./static/css ./static/html
+</span></span></span><span style=display:flex><span>    --user <span style=color:red>$(</span>id -u<span style=color:red>)</span>:<span style=color:red>$(</span>id -g<span style=color:red>)</span> <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>    jauderho/prettier:latest --write <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>    ./archetypes ./content ./data ./static/css ./static/html
 </span></span></code></pre></div><p>Now, just run that Docker command and watch how it <strong>breaks everything</strong>! 🤣
 Okay, maybe not literally <em>break everything</em>, but formatters can make <em>a lot</em> of
 changes the first time you run them.</p><p><strong>Seriously though, ALWAYS keep your files under version control before running

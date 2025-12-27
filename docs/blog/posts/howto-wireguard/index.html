@@ -67,11 +67,11 @@ ensure Tor’s listeners are bound to the WireGuard interface IP,
 </span></span></span><span style=display:flex><span><span style=color:#87ceeb>EOF</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>docker run -d --name tor <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  --restart unless-stopped <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  --network host <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  -v /etc/tor/torrc:/etc/tor/torrc:ro <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  -v /opt/tor/data:/var/lib/tor <span style=color:#87ceeb>\
-</span></span></span><span style=display:flex><span><span style=color:#87ceeb></span>  docker.io/dockurr/tor:0.4.8.21
+</span></span></span><span style=display:flex><span>  --restart unless-stopped <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>  --network host <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>  -v /etc/tor/torrc:/etc/tor/torrc:ro <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>  -v /opt/tor/data:/var/lib/tor <span style=color:#87ceeb>\
+</span></span></span><span style=display:flex><span>  docker.io/dockurr/tor:0.4.8.21
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>docker logs tor -f
 </span></span><span style=display:flex><span>...
