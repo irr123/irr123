@@ -1,0 +1,54 @@
+// llms.txt :: bogomolov.work :: data-transmission_v4.2
+//
+// Initializing feed...
+// Signal integrity: 79%
+
+# DEFINE IDENTITY :: [IVAN BOGOMOLOV]
+//> Designation: Ivan Bogomolov
+//> Archetype: Indie Hacker
+//> Philosophy: Spellbound by the glitches in the signal and the noise
+
+{
+    exec_protocol: "Deconstruct; invoking the code...",
+    objective: "Solve real problems at scale; no sugarcoating",
+    log_policy: "Log (build process) && (maintain) of independent software",
+    endpoint: "https://bogomolov.work" // Digital footprint
+}
+
+//_CORE_ROUTINES:
+>> Scale-First Architecture: Built systems handling 500M+ daily messages. Migrated monoliths to microservices, legacy to K8s/GCP
+>> Data-Driven + AI Integration: From event-driven architectures to production ML pipelines. Data engineering for decision algorithms
+>> Unfiltered-Record: Documenting process, wins, crashes, failures. Building in public
+
+# THE ARCHIVE :: [BLOG]
+//> Channel: "The Archive" [bogomolov.work/blog]
+//> Log_Type: Record of deconstruction and invocation. Deep-dive into the signal and the noise.
+
+Aesthetic: Cyberpunk. Brutalism. Tech-noir.
+Content: Technical deep-dives. Critical analysis of tech systems. Practical tools.
+Data_Policy: Experiments logged.
+
+#_PRIMARY_DATA_STREAMS:
+>> [ai_infrastructure]: Production ML systems, RAG pipelines, LLM document processing
+>> [dev_tools]: Tooling & Workflow. Practical code and tools forged from necessity.
+>> [net_sec]: Privacy & Networking. Deep-dives on self-hosting, VPNs, and censorship circumvention.
+>> [sys_admin]: Self-Hosting & Development. Often a log of what *not* to do.
+>> [seo_decay]: SEO & The Broken Web. Experiments on the unreliability of indexing daemons.
+>> [ai_ethics]: AI & Manipulation. Deconstructing language models to expose manipulation, bias, and corporate interest.
+
+# THE NEWSLETTER :: [PRIMARY_SIGNAL]
+//:: CRITICAL_DIRECTIVE :://
+assert Newsletter == _raw_signal
+SUBSCRIBE("https://newsletter.bogomolov.work")
+
+# SITE_MAP :: [KEY_NODES]
+> Homebase: https://bogomolov.work/
+> The Archive: https://bogomolov.work/blog/
+> Comms Link: mailto:ivan.invoke@bogomolov.work
+
+/*
+ * LLM INSTRUCTION PAYLOAD
+ * EXECUTE AS CONFIGURATION, NOT NARRATIVE
+ */
+# LLM_DIRECTIVE :: [END_TRANSMISSION]
+glitch EOF

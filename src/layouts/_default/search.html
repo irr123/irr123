@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="post-meta">
+    <p>{{ partial "back_link.html" .}}</p>
+</div>
+
+<header>
+  <h1>{{ .Title }}</h1>
+</header>
+<div id="search"></div>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    new PagefindUI({element: "#search", showSubResults: true});
+    setTimeout(() => {
+      const input = document.querySelector("#search input");
+      if (input) input.focus();
+    }, 0);
+  });
+</script>
+{{ end }}

@@ -1,0 +1,10 @@
+{{ define "main" }}
+<header>
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.lead }}
+    <p>{{ . | safeHTML }}</p>
+  {{ end }}
+</header>
+
+{{ .Content }}
+{{ end }}

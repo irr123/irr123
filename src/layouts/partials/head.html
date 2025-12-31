@@ -1,7 +1,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  {{ $pageTitle := cond .IsHome site.Title .Title -}}
+  {{ $pageTitle := .Title -}}
   {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
   {{ $adjustedTitle := print $pageTitle " | " $pageSummary -}}
   {{ if gt (len $adjustedTitle) 64 -}}
@@ -17,7 +17,7 @@
   <meta name="author" content="Ivan Bogomolov">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="{{ .Permalink }}">
-  <link rel="alternate" type="application/rss+xml" href="/blog/index.xml" title="The Archive">
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="The Archive">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -35,7 +35,7 @@
   {{- end }}
   <meta property="og:image" content="{{ $img }}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@_irr123">
+  <meta name="twitter:creator" content="@_irr123">
   <meta property="twitter:domain" content="bogomolov.work">
   <meta property="twitter:url" content="{{ .Permalink }}">
   <meta name="twitter:title" content="{{ $pageTitle }}">

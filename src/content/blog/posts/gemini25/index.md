@@ -1,0 +1,481 @@
+---
+date: 2025-03-25T19:18:59Z
+draft: false
+title: Gemini 2.5 Pro
+custom_js: [gemini25]
+image: "t-rex.png"
+keywords:
+  - Gemini 2.5 Pro
+  - AI code generation
+  - p5.js game development
+  - Google Gemini
+  - AI game creation
+  - prompt to code
+  - p5.js sketch
+  - endless runner game
+  - JavaScript game code
+  - AI programming
+  - creative coding AI
+  - pixel art game
+  - parallax background p5.js
+  - Large Language Model coding
+  - AI reasoning capabilities
+---
+
+> 2.5 Pro can use its reasoning capabilities to create a video game by producing
+> the executable code from a single line prompt
+
+https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/#advanced-coding
+
+## Prompt
+
+And it's really works, in one shot:
+
+```
+Okay, here's a p5.js sketch for a captivating endless
+runner featuring a pixelated dinosaur and an interesting
+parallax background.
+```
+
+{{< details summary="Resulted js" >}}
+
+```javascript
+// --- Game Configuration ---
+let dino;
+let obstacles = [];
+let score = 0;
+let gameSpeed = 5;
+let gravity = 0.6;
+let jumpForce = -12;
+let groundY;
+let gameState = "playing"; // 'playing' or 'gameOver'
+
+// Background elements
+let clouds = [];
+let mountains = [];
+let groundDetails = [];
+
+// Dino appearance
+let dinoFrames = [];
+let currentFrame = 0;
+let frameCounter = 0;
+const dinoWidth = 40; // Scaled width
+const dinoHeight = 44; // Scaled height
+
+// Obstacle appearance
+const obstacleMinWidth = 15;
+const obstacleMaxWidth = 30;
+const obstacleMinHeight = 30;
+const obstacleMaxHeight = 50;
+const minObstacleSpacing = 250; // Min pixels between obstacles
+let nextObstacleFrame; // When to potentially spawn the next one
+
+// --- p5.js Setup ---
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1); // Ensure pixel art isn't blurred on high-density screens
+  groundY = height - 50; // Establish ground level
+
+  // Create Dino Pixel Art Frames (using createGraphics for crisp pixels)
+  dinoFrames.push(createDinoFrame(1)); // Frame 1
+  dinoFrames.push(createDinoFrame(2)); // Frame 2
+
+  // Initialize Player (Dinosaur)
+  dino = new Player();
+
+  // Initialize Background Elements
+  for (let i = 0; i < 5; i++) {
+    clouds.push({
+      x: random(width),
+      y: random(50, height * 0.4),
+      speed: gameSpeed * 0.2
+    });
+  }
+  for (let i = 0; i < 3; i++) {
+    mountains.push({
+      x: random(width),
+      y: groundY,
+      width: random(200, 400),
+      height: random(100, 250),
+      speed: gameSpeed * 0.1
+    });
+  }
+  for (let i = 0; i < 15; i++) {
+    groundDetails.push({
+      x: random(width),
+      y: groundY + random(5, 15),
+      size: random(3, 8),
+      speed: gameSpeed * 1.05
+    });
+  }
+
+  // Initial obstacle timing
+  resetObstacleTimer();
+
+  // Basic p5 settings
+  textAlign(CENTER, CENTER);
+  textFont("monospace"); // Font that often looks good pixelated
+}
+
+// --- p5.js Draw (Main Game Loop) ---
+function draw() {
+  // --- Background Drawing ---
+  background(135, 206, 250); // Sky blue
+
+  // Draw Mountains (farthest back)
+  fill(100, 100, 120); // Darker, distant color
+  noStroke();
+  for (let m of mountains) {
+    triangle(m.x, m.y, m.x + m.width / 2, m.y - m.height, m.x + m.width, m.y);
+    m.x -= m.speed * (deltaTime / (1000 / 60)); // Adjust speed based on frame time
+    if (m.x + m.width < 0) {
+      m.x = width + random(50, 200);
+      m.width = random(200, 400);
+      m.height = random(100, 250);
+    }
+    m.speed = gameSpeed * 0.1; // Update speed if gameSpeed changes
+  }
+
+  // Draw Clouds
+  fill(255, 255, 255, 200); // Semi-transparent white
+  noStroke();
+  for (let c of clouds) {
+    ellipse(c.x, c.y, 80, 30);
+    ellipse(c.x + 20, c.y - 5, 60, 25);
+    ellipse(c.x - 15, c.y + 3, 70, 20);
+    c.x -= c.speed * (deltaTime / (1000 / 60));
+    if (c.x + 80 < 0) {
+      c.x = width + random(100, 300);
+      c.y = random(50, height * 0.4);
+    }
+    c.speed = gameSpeed * 0.2; // Update speed
+  }
+
+  // Draw Ground
+  fill(101, 67, 33); // Brown
+  noStroke();
+  rect(0, groundY, width, height - groundY);
+
+  // Draw Ground Details (small pebbles/features)
+  fill(81, 47, 13); // Darker brown
+  for (let gd of groundDetails) {
+    rect(gd.x, gd.y, gd.size, gd.size / 2);
+    gd.x -= gd.speed * (deltaTime / (1000 / 60));
+    if (gd.x + gd.size < 0) {
+      gd.x = width + random(10, 50);
+      gd.y = groundY + random(5, 15);
+      gd.size = random(3, 8);
+    }
+    gd.speed = gameSpeed * 1.05; // Update speed
+  }
+
+  // --- Game State Logic ---
+  if (gameState === "playing") {
+    // Update Score
+    score += deltaTime / 100; // Score based on time
+
+    // Update Game Speed (gradual increase)
+    gameSpeed += 0.003 * (deltaTime / (1000 / 60));
+    gameSpeed = min(gameSpeed, 15); // Cap speed
+
+    // --- Obstacle Management ---
+    // Spawn new obstacles
+    if (frameCount >= nextObstacleFrame) {
+      // Only spawn if the last obstacle is far enough away
+      if (
+        obstacles.length === 0 ||
+        obstacles[obstacles.length - 1].x <
+          width - minObstacleSpacing - random(0, width * 0.3)
+      ) {
+        obstacles.push(new Obstacle());
+        resetObstacleTimer(); // Set timer for the next one
+      } else {
+        // If too close, slightly delay the next check
+        nextObstacleFrame = frameCount + 10;
+      }
+    }
+
+    // Update and draw obstacles
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+      obstacles[i].update(gameSpeed * (deltaTime / (1000 / 60)));
+      obstacles[i].show();
+
+      // Check for collision
+      if (obstacles[i].hits(dino)) {
+        gameState = "gameOver";
+        // Optional: Add a sound effect here
+      }
+
+      // Remove off-screen obstacles
+      if (obstacles[i].isOffscreen()) {
+        obstacles.splice(i, 1);
+      }
+    }
+
+    // --- Player Management ---
+    dino.update();
+    dino.show();
+
+    // --- On-Screen Instructions (Playing) ---
+    fill(0);
+    textSize(18);
+    textAlign(LEFT, TOP);
+    text("Score: " + floor(score), 10, 10);
+    textAlign(CENTER, TOP);
+    text("Press [SPACE] or [UP ARROW] to Jump", width / 2, 10);
+  } else if (gameState === "gameOver") {
+    // Keep drawing obstacles for context, but don't update/spawn
+    for (let obs of obstacles) {
+      obs.show();
+    }
+    // Keep drawing player
+    dino.show(); // Show dino in its final position
+
+    // --- Game Over Screen ---
+    fill(0, 0, 0, 150); // Semi-transparent overlay
+    rect(0, 0, width, height);
+
+    fill(255);
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER", width / 2, height / 2 - 40);
+
+    textSize(24);
+    text("Final Score: " + floor(score), width / 2, height / 2 + 10);
+
+    textSize(20);
+    text("Press [ENTER] to Restart", width / 2, height / 2 + 60);
+  }
+}
+
+// --- Input Handling ---
+function keyPressed() {
+  if (gameState === "playing") {
+    if (key === " " || keyCode === UP_ARROW) {
+      dino.jump();
+    }
+  } else if (gameState === "gameOver") {
+    if (keyCode === ENTER) {
+      resetGame();
+    }
+  }
+}
+
+// --- Helper Functions ---
+
+function resetGame() {
+  obstacles = [];
+  score = 0;
+  gameSpeed = 5;
+  dino = new Player(); // Recreate the player
+  gameState = "playing";
+  resetObstacleTimer();
+
+  // Reset background element speeds just in case
+  for (let c of clouds) c.speed = gameSpeed * 0.2;
+  for (let m of mountains) m.speed = gameSpeed * 0.1;
+  for (let gd of groundDetails) gd.speed = gameSpeed * 1.05;
+}
+
+function resetObstacleTimer() {
+  // Calculate next spawn time based on current speed, add randomness
+  let baseSpacing = (width * 0.5) / gameSpeed; // Rough time to cross half screen
+  nextObstacleFrame =
+    frameCount + floor(random(baseSpacing * 1.5, baseSpacing * 3));
+  // Ensure minimum spacing in frames
+  nextObstacleFrame = max(
+    nextObstacleFrame,
+    frameCount + (60 * (minObstacleSpacing / gameSpeed)) / (1000 / 60)
+  );
+}
+
+// Function to create a single pixel art frame for the dino
+function createDinoFrame(frameNum) {
+  // Draw on a small off-screen canvas, then scale up
+  let pg = createGraphics(10, 11); // Original pixel dimensions
+  pg.noStroke();
+  // Use simple rects for pixels
+  // Colors
+  const dinoColor = color(60, 179, 113); // Medium sea green
+  const darkDino = color(46, 139, 87);
+  const eyeColor = color(0);
+
+  pg.background(0, 0); // Transparent background
+
+  // Common body parts
+  pg.fill(dinoColor);
+  pg.rect(2, 3, 6, 6); // Body
+  pg.rect(7, 2, 2, 3); // Head base
+  pg.rect(8, 1, 1, 2); // Snout
+  pg.rect(3, 9, 2, 2); // Back leg base
+  pg.rect(6, 9, 2, 2); // Front leg base
+  pg.rect(1, 5, 1, 2); // Tail
+
+  // Eye
+  pg.fill(eyeColor);
+  pg.rect(8, 3, 1, 1);
+
+  // Frame specific parts (simple run animation)
+  if (frameNum === 1) {
+    // Leg 1 down, Leg 2 up
+    pg.fill(darkDino);
+    pg.rect(3, 10, 2, 1); // Back foot down
+    pg.fill(dinoColor);
+    pg.rect(6, 8, 1, 1); // Front leg up
+  } else {
+    // Frame 2
+    // Leg 1 up, Leg 2 down
+    pg.fill(dinoColor);
+    pg.rect(3, 8, 1, 1); // Back leg up
+    pg.fill(darkDino);
+    pg.rect(6, 10, 2, 1); // Front foot down
+  }
+
+  return pg; // Return the graphics buffer
+}
+
+// --- Classes ---
+
+class Player {
+  constructor() {
+    this.x = 60;
+    this.y = groundY - dinoHeight;
+    this.vy = 0; // Vertical velocity
+    this.baseY = groundY - dinoHeight; // Store base Y for ground check
+  }
+
+  jump() {
+    // Only jump if on the ground (or very close to it)
+    if (this.y >= this.baseY - 1) {
+      this.vy = jumpForce;
+    }
+  }
+
+  update() {
+    this.vy += gravity * (deltaTime / (1000 / 60)); // Apply gravity (adjust for framerate)
+    this.y += this.vy * (deltaTime / (1000 / 60)); // Update position (adjust for framerate)
+
+    // Prevent falling through the ground
+    if (this.y >= this.baseY) {
+      this.y = this.baseY;
+      this.vy = 0;
+    }
+  }
+
+  isOnGround() {
+    return this.y >= this.baseY - 1;
+  }
+
+  show() {
+    // Simple 2-frame animation
+    frameCounter++;
+    if (frameCounter > 8) {
+      // Change frame every 8 draw cycles
+      currentFrame = (currentFrame + 1) % dinoFrames.length;
+      frameCounter = 0;
+    }
+
+    // Use the correct frame unless jumping/falling
+    let frameToShow = this.isOnGround()
+      ? dinoFrames[currentFrame]
+      : dinoFrames[0]; // Show static frame mid-air
+
+    // Draw the pixel art frame scaled up, disable smoothing
+    push(); // Isolate image mode setting
+    noSmooth(); // Keep it pixelated!
+    image(frameToShow, this.x, this.y, dinoWidth, dinoHeight);
+    pop();
+
+    // Optional: Draw collision box for debugging
+    // noFill();
+    // stroke(255, 0, 0);
+    // rect(this.x + 5, this.y, dinoWidth - 10, dinoHeight - 5); // Adjusted box
+  }
+}
+
+class Obstacle {
+  constructor() {
+    this.w = random(obstacleMinWidth, obstacleMaxWidth);
+    this.h = random(obstacleMinHeight, obstacleMaxHeight);
+    this.x = width + this.w; // Start off-screen to the right
+    this.y = groundY - this.h;
+  }
+
+  update(speed) {
+    this.x -= speed;
+  }
+
+  isOffscreen() {
+    return this.x + this.w < 0;
+  }
+
+  hits(player) {
+    // Simple AABB collision detection
+    // Define player collision box (adjust as needed for visual fit)
+    let playerBufferX = 5;
+    let playerBufferBottom = 5;
+    let playerX = player.x + playerBufferX;
+    let playerY = player.y;
+    let playerW = dinoWidth - playerBufferX * 2;
+    let playerH = dinoHeight - playerBufferBottom;
+
+    // Define obstacle collision box (can be same as visual or slightly adjusted)
+    let obsX = this.x;
+    let obsY = this.y;
+    let obsW = this.w;
+    let obsH = this.h;
+
+    // Check for overlap
+    if (
+      playerX + playerW > obsX && // Player right edge > Obstacle left edge
+      playerX < obsX + obsW && // Player left edge < Obstacle right edge
+      playerY + playerH > obsY && // Player bottom edge > Obstacle top edge
+      playerY < obsY + obsH
+    ) {
+      // Player top edge < Obstacle bottom edge
+      return true;
+    }
+    return false;
+  }
+
+  show() {
+    fill(0, 100, 0); // Dark green for cactus-like obstacle
+    noStroke();
+    // Simple cactus shape
+    rect(this.x, this.y, this.w, this.h);
+    // Add small "arms" maybe
+    if (this.w > obstacleMinWidth + 5) {
+      // Only on wider cacti
+      let armW = this.w * 0.3;
+      let armH = this.h * 0.5;
+      rect(this.x - armW, this.y + this.h * 0.2, armW, armH); // Left arm
+      rect(this.x + this.w, this.y + this.h * 0.3, armW, armH * 0.8); // Right arm
+    }
+
+    // Optional: Draw collision box for debugging
+    // noFill();
+    // stroke(0, 0, 255);
+    // rect(this.x, this.y, this.w, this.h);
+  }
+}
+
+// Adjust canvas size if window is resized
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  groundY = height - 50; // Recalculate ground
+  dino.baseY = groundY - dinoHeight; // Update player's base Y
+
+  // Reposition background elements potentially? Or just let them scroll off.
+  // For simplicity, we'll let them scroll off and respawn naturally.
+}
+```
+
+{{< /details >}}
+
+## Example
+
+## Conclusion
+
+[Fullscreen](/text/gemini25.html) example.
+
+Just unexpectedly great job! Benchmark: https://lmarena.ai/leaderboard.

@@ -1,8 +1,13 @@
-baseURL = "https://bogomolov.work/blog/"
+baseURL = "https://bogomolov.work/"
 languageCode = "en"
 title = "The Archive"
 theme = "hugo-theme-nostyleplease"
 summaryLength = 32
+disableKinds = ["taxonomy", "term"]
+
+[outputs]
+home = ["HTML", "RSS"]
+section = ["HTML"]
 
 [module]
   [module.hugoVersion]
@@ -42,6 +47,7 @@ summaryLength = 32
 
 [params]
   # metaPixel = 2627430184120255 // disabled forever, due to pagespeed.web.dev
+  # ---
   adSense = "ca-pub-5202129729848909"
   googleAnalytics = "G-950H2PH48S"
   yandexMetrika = 100343675
@@ -55,3 +61,4 @@ summaryLength = 32
     date_format       = "2006-01-02"
     isListGroupByDate = false
     show_description  = true
+    back_home_url = "/blog/"

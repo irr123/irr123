@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ $.Site.LanguageCode }}">
+    {{- partial "head.html" . -}}
+    <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
+        <main class="page-content" aria-label="Content">
+            <div class="w">
+                <div class="post-meta">
+                    <p>{{ partial "back_link.html" .}}</p>
+                    <p>
+                        <time datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+                            {{ .Date | time.Format site.Params.theme_config.date_format }}
+                        </time>
+                    </p>
+                </div>
+                {{- block "main" . }}{{- end }}
+            </div>
+        </main>
+        {{ partial "footer.html" }}
+        {{- partial "google_analytics.html" -}}
+        {{- partial "yandex_metrika.html" -}}
+        {{- partial "meta_pixel.html" -}}
+        {{- if .Params.custom_js -}}
+            {{- range .Params.custom_js -}}
+                {{ $js := resources.Get (print "js/" . ".js") }}
+                <script src="{{ $js.RelPermalink }}"></script>
+            {{- end -}}
+        {{- end -}}
+    </body>
+</html>

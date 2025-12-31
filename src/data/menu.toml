@@ -5,7 +5,7 @@ title = "Index"
   limit = 8
   show_more = true
   show_more_text = "More"
-  show_more_url = "posts"
+  show_more_url = "/blog/posts/"
 
 [[entries]]
 title = "Search"
