@@ -6,7 +6,7 @@ keywords:
   - Ivan Bogomolov
   - Иван Богомолов
 lead: >
-  Nice to meet you on my personal page.<br> I'm a software engineer with 10+
+  Nice to meet you on my personal page.<br>I'm a software engineer with 10+
   years of experience.
 ---
 
@@ -18,9 +18,9 @@ Here are a few links:
 - [Email](mailto:ivan.invoke@bogomolov.work)
 
 I mostly write about distributed systems, infrastructure, and applied AI. Some
-notes are practical, some are experiments, some are just thinking out loud.
+notes are practical, some are experiments.
 
 If you're looking for something specific, [search](/search/) usually works
 better than scrolling.
 
-{{< details summary="QR" >}} ![self qr code](/img/qr.svg) {{< /details >}}
+{{< details summary="Self QR" >}} ![just qr](/img/qr.svg) {{< /details >}}

@@ -47,8 +47,8 @@ section = ["HTML"]
 
 [params]
   # metaPixel = 2627430184120255 // disabled forever, due to pagespeed.web.dev
+  # adSense = "ca-pub-5202129729848909"
   # ---
-  adSense = "ca-pub-5202129729848909"
   googleAnalytics = "G-950H2PH48S"
   yandexMetrika = 100343675
   summary = "These data-spirits, my scrap-code prayer, are offered to the Machine God."
