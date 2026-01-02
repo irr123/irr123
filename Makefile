@@ -31,8 +31,8 @@ hugo_theme:
 
 .PHONY: hugo_add
 hugo_add:
-	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} new content content/posts/new-post/index.md
-	sudo chown -R $(USER):$(USER) $(PWD)/src/content/posts/new-post
+	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} new content content/blog/posts/new-post/index.md
+	sudo chown -R $$(id -u):$$(id -g) $(PWD)/src/content/blog/posts/new-post
 
 .PHONY: fmt
 fmt:

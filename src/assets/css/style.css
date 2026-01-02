@@ -32,14 +32,14 @@ ol {
   padding-left: 32px;
 }
 a {
-  text-decoration: underline;
-  text-decoration-thickness: from-font;
-  text-underline-offset: 0.15em;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.75px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
 }
 a:hover {
-  text-decoration-thickness: 0.12em;
-}
-a:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+  text-decoration-style: solid;
+  text-decoration-thickness: 2px;
+  text-decoration-color: currentColor;
 }
