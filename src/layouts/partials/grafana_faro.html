@@ -1,0 +1,33 @@
+{{- if and site.Params.grafanaFaro (ne site.Params.grafanaFaro "") -}}
+<script>
+  (function () {
+    var webSdkScript = document.createElement("script");
+    webSdkScript.src = "https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+    webSdkScript.onload = () => {
+      window.GrafanaFaroWebSdk.initializeFaro({
+        url: {{ site.Params.grafanaFaro }},
+        app: {
+          name: "blog",
+          version: "1.0.0",
+          environment: "production",
+        },
+        sessionTracking: {
+          samplingRate: 1,
+          persistent: true,
+        },
+      });
+      var webTracingScript = document.createElement("script");
+      webTracingScript.src = "https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js";
+      webTracingScript.onload = () => {
+        window.GrafanaFaroWebSdk.faro.instrumentations.add(
+          new window.GrafanaFaroWebTracing.TracingInstrumentation()
+        );
+      };
+
+      document.head.appendChild(webTracingScript);
+    };
+
+    document.head.appendChild(webSdkScript);
+  })();
+</script>
+{{- end -}}
