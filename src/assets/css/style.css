@@ -43,3 +43,23 @@ a:hover {
   text-decoration-thickness: 2px;
   text-decoration-color: currentColor;
 }
+@media (prefers-color-scheme: dark) {
+  body[a="auto"] .pagefind-ui,
+  body[a="auto"] .pagefind-ui--reset {
+    --pagefind-ui-background: #000 !important;
+    --pagefind-ui-text: #fff !important;
+    --pagefind-ui-primary: #79a8ff !important;
+    --pagefind-ui-border: #fff !important;
+    --pagefind-ui-tag: color-mix(in srgb, #fff 12%, transparent) !important;
+  }
+}
+@media (prefers-color-scheme: light) {
+  body[a="auto"] .pagefind-ui,
+  body[a="auto"] .pagefind-ui--reset {
+    --pagefind-ui-background: #fff !important;
+    --pagefind-ui-text: #000 !important;
+    --pagefind-ui-primary: #3548cf !important;
+    --pagefind-ui-border: #000 !important;
+    --pagefind-ui-tag: color-mix(in srgb, #000 10%, transparent) !important;
+  }
+}
