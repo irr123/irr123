@@ -4,7 +4,6 @@ title = "Index"
   [entries.post_list]
   limit = 8
   show_more = true
-  show_more_text = "More"
   show_more_url = "/blog/posts/"
 
 [[entries]]
