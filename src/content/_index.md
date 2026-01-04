@@ -1,6 +1,7 @@
 ---
 title: The Archive
 pagefind: false
+excludeFromPostList: true
 keywords:
   - blog
   - personal landing

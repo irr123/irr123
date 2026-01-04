@@ -1,5 +1,4 @@
 {{ define "main" }}
-
 <div class="post-meta">
   <p>{{ partial "back_link.html" .}}</p>
   <p>
@@ -13,17 +12,6 @@
 
 {{ .Content }}
 
-{{ if  .Site.Params.theme_config.isListGroupByDate  }}
-    {{ range .Pages.GroupByDate "2006 Year" }}
-    <p>{{ .Key }}</p>
-    <ul>
-        {{ range .Pages }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-    </ul>
-    {{ end }}
-{{ else }}
-    {{ partial "post_list.html" (dict "context" . "section" .Section)}}
-{{ end }}
+{{ partial "post_list.html" (dict "context" . "section" .Section)}}
 
 {{ end }}

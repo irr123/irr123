@@ -1,8 +1,9 @@
 ---
+date: 2026-01-03T08:47:42Z
 back_ref: /_index.md
 url: "/about/"
 title: "/about"
-draft: false
+excludeFromPostList: true
 keywords:
   - blog
   - about

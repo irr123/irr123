@@ -53,5 +53,4 @@ section = ["HTML"]
 
   [params.theme_config]
     date_format       = "2006-01-02"
-    isListGroupByDate = false
     back_home_text    = "← Back"
