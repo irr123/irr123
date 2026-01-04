@@ -1,21 +1,16 @@
 ---
-title: "Ivan Bogomolov"
+title: The Archive
 keywords:
   - blog
-  - personal page
-  - Ivan Bogomolov
-  - Иван Богомолов
-lead: >
-  This is an archive of notes on infrastructure and code, failures and
-  tradeoffs.
+  - personal landing
 ---
 
-Don't hesitate to ping me if you have an interesting project or idea.
+If you’re looking for something specific, [search]({{< relref "search" >}})
+beats scrolling, but:
 
-- [The Archive](/blog/)
-- [Email](mailto:ivan.invoke@bogomolov.work)
+- [/blog]({{< relref "blog" >}})
+- [/uses]({{< relref "uses" >}})
+- [/about]({{< relref "about" >}})
 
-If you're looking for something specific, [search](/search/) usually works
-better than scrolling.
-
-{{< details summary="Self QR" >}} ![just qr](/img/qr.svg) {{< /details >}}
+{{< details summary="QR code for this site" >}}
+![QR code linking to bogomolov.work](/img/qr.svg) {{< /details >}}

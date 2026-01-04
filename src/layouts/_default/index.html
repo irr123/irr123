@@ -1,9 +1,6 @@
 {{ define "main" }}
 <header>
-  <h1>{{ .Title }}</h1>
-  {{ with .Params.lead }}
-    <p>{{ . | safeHTML }}</p>
-  {{ end }}
+    <h1>/</h1>
 </header>
 
 {{ .Content }}
@@ -13,10 +10,10 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ivan Bogomolov",
-  "jobTitle": "SWE",
+  "jobTitle":"Software Engineer",
   "url": "https://bogomolov.work",
   "email": "mailto:ivan.invoke@bogomolov.work",
-  "description": "This is an archive of notes on infrastructure and code, failures and tradeoffs",
+  "description": "This is an archive of notes on infrastructure and code, failures and trade-offs",
   "sameAs": [
     "https://t.me/irr123",
     "https://github.com/irr123",

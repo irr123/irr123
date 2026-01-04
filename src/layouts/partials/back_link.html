@@ -1,1 +1,10 @@
-<a href="{{ site.Params.theme_config.back_home_url | relURL }}" aria-label="Back to Index" title="Back to Index">{{ $.Site.Params.theme_config.back_home_text }}</a>
+<button
+  type="button"
+  class="back-button"
+  aria-label="Go back"
+  title="Go back"
+  onclick="if (window.history.length > 2) { window.history.back(); } else { window.location.href='{{ $.Site.Params.theme_config.back_home_url | relURL }}'; }"
+  class="back-button"
+>
+  {{ $.Site.Params.theme_config.back_home_text }}
+</button>

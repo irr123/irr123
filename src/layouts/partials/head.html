@@ -1,8 +1,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  {{ $pageTitle := .Title -}}
-  {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape -}}
+  {{ $pageTitle := .Title | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
+  {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
   {{ $adjustedTitle := print $pageTitle " | " $pageSummary -}}
   {{ if gt (len $adjustedTitle) 64 -}}
     {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}

@@ -9,7 +9,3 @@ title = "Index"
 [[entries]]
 title = "Search"
 url = "/search/"
-
-[[entries]]
-title = "About"
-url = "/"

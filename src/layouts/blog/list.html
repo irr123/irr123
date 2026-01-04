@@ -1,12 +1,20 @@
 {{ define "main" }}
 
+<div class="post-meta">
+    <p>{{ partial "back_link.html" .}}</p>
+    <p>
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
+            {{ .Date | time.Format site.Params.theme_config.date_format }}
+        </time>
+    </p>
+</div>
+
 <header>
     <h1>{{ .Title }}</h1>
-    {{- if $.Site.Params.theme_config.show_description -}}
-        <p>{{ $.Site.Params.description }}</p>
-    {{- end -}}
 </header>
+
 {{ .Content }}
+
 {{ partial "menu_item.html" (dict "context" . "collection" $.Site.Data.menu.entries) }}
 
 {{ end }}

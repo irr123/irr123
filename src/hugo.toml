@@ -9,11 +9,6 @@ disableKinds = ["taxonomy", "term"]
 home = ["HTML", "RSS"]
 section = ["HTML"]
 
-[module]
-  [module.hugoVersion]
-    extended = true
-    min      = "0.41.0"
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -58,8 +53,7 @@ section = ["HTML"]
 
   [params.theme_config]
     appearance        = "auto"
-    back_home_text    = "← Back"
     date_format       = "2006-01-02"
     isListGroupByDate = false
-    show_description  = true
-    back_home_url = "/blog/"
+    back_home_text    = "← Back"
+    back_home_url     = "/blog/"

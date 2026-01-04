@@ -1,7 +1,7 @@
 ---
 date: 2025-05-24T08:47:42Z
 draft: false
-title: Free online qr code generator
+title: Free online QR code generator
 custom_js: [qr-code]
 image: "qrcode.png"
 keywords:
