@@ -7,11 +7,17 @@
                 {{- block "main" . }}{{- end }}
             </div>
         </main>
-        {{- partial "footer.html" }}
+        {{- partial "footer.html" . }}
         {{- partial "google_analytics.html" -}}
         {{- partial "adsense.html" -}}
         {{- partial "yandex_metrika.html" -}}
         {{- partial "meta_pixel.html" -}}
         {{- partial "grafana_faro.html" -}}
+        {{- if .Params.custom_js -}}
+            {{- range .Params.custom_js -}}
+                {{ $js := resources.Get (print "js/" . ".js") }}
+                <script src="{{ $js.RelPermalink }}"></script>
+            {{- end -}}
+        {{- end -}}
     </body>
 </html>

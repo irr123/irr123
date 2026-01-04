@@ -1,5 +1,4 @@
 {{ define "main" }}
-
 <div class="post-meta">
   <p>{{ partial "back_link.html" .}}</p>
   <p>
@@ -11,8 +10,12 @@
 
 <header><h1>{{ .Title }}</h1></header>
 
-{{ .Content }}
-
-{{ partial "menu_item.html" (dict "context" . "collection" $.Site.Data.menu.entries) }}
-
+<article>
+  {{ if .Params.toc }}
+  <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
+    {{ .TableOfContents }}
+  </aside>
+  {{ end }}
+  {{ .Content }}
+</article>
 {{ end }}

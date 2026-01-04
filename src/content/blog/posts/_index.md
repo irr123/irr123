@@ -1,6 +1,6 @@
 ---
 back_ref: /blog/_index.md
-title: Posts
+title: The Archive
 pagefind: false
 keywords:
   - bogomolov

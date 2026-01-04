@@ -3,7 +3,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   {{ $pageTitle := .Title | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
   {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
-  {{ $adjustedTitle := print $pageTitle " | " $pageSummary -}}
+  {{ $parts := slice -}}
+  {{ if ne $pageTitle "" }}{{ $parts = $parts | append $pageTitle }}{{ end -}}
+  {{ if ne $pageSummary "" }}{{ $parts = $parts | append $pageSummary }}{{ end -}}
+  {{ $adjustedTitle := delimit $parts " | " -}}
   {{ if gt (len $adjustedTitle) 64 -}}
     {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}
   {{ end -}}

@@ -11,6 +11,7 @@ beats scrolling, but:
 
 - [/blog]({{< relref "blog" >}})
 - [/uses]({{< relref "uses" >}})
+- [/blank]({{< relref "blank" >}})
 - [/about]({{< relref "about" >}})
 
 {{< details summary="QR code for this site" >}}

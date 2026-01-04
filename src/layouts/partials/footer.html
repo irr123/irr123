@@ -1,7 +1,8 @@
+{{ $p := . }}
+{{ with .Page }}{{ $p = . }}{{ end }}
+
+{{ if ne ($p.Params.footer) false }}
 <footer class="site-footer">
-  <a
-    target="_blank"
-    rel="noopener noreferrer external"
-    href="https://newsletter.bogomolov.work"
-    >Newsletter</a> | <a target="_blank" href="/index.xml">RSS</a>
+  <a target="_blank" rel="noopener noreferrer external" href="https://newsletter.bogomolov.work">Newsletter</a> | <a target="_blank" href="/index.xml">RSS</a>
 </footer>
+{{ end }}
