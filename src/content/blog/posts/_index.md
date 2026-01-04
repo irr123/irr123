@@ -1,4 +1,5 @@
 ---
+back_ref: /blog/_index.md
 title: Posts
 keywords:
   - bogomolov

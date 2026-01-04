@@ -1,5 +1,6 @@
 ---
 date: 2025-10-02T09:12:38Z
+back_ref: /blog/_index.md
 draft: false
 title: Querying documents with LLMs instead of reading them
 image: "img.png"

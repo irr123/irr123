@@ -1,5 +1,6 @@
 ---
 date: 2025-04-14T19:42:48Z
+back_ref: /blog/_index.md
 draft: false
 title: Hugo static site generator + Prettier code formatter = ❤️
 image: "hugo-code-formatting.png"

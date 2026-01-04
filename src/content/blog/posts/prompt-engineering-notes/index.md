@@ -1,5 +1,6 @@
 ---
 date: 2025-03-20T08:00:14Z
+back_ref: /blog/_index.md
 draft: false
 title: Prompt engineering notes
 image: ai-refuses.jpg

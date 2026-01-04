@@ -1,5 +1,6 @@
 ---
 date: 2025-03-25T19:18:59Z
+back_ref: /blog/_index.md
 draft: false
 title: Gemini 2.5 Pro
 custom_js: [gemini25]

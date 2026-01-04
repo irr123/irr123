@@ -1,5 +1,6 @@
 ---
 date: 2025-03-24T19:09:56Z
+back_ref: /blog/_index.md
 draft: false
 title: PlayStation statistics
 custom_js: [psn-stat]

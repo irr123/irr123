@@ -1,10 +1,6 @@
-<button
-  type="button"
-  class="back-button"
-  aria-label="Go back"
-  title="Go back"
-  onclick="if (window.history.length > 2) { window.history.back(); } else { window.location.href='{{ $.Site.Params.theme_config.back_home_url | relURL }}'; }"
-  class="back-button"
->
-  {{ $.Site.Params.theme_config.back_home_text }}
-</button>
+{{ with .Params.back_ref }}
+  {{ $href := $.RelRef (dict "path" .) }}
+  <a href="{{ $href }}" aria-label="Go back" title="Go back">
+    {{ $.Site.Params.theme_config.back_home_text | default "Back"}}
+  </a>
+{{ end }}

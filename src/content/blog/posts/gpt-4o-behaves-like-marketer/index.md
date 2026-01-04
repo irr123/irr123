@@ -1,5 +1,6 @@
 ---
 date: 2025-04-27T15:40:27Z
+back_ref: /blog/_index.md
 draft: false
 title: GPT-4o behaves like a marketer
 image: "seller.png"

@@ -1,5 +1,6 @@
 ---
 date: 2025-02-18T12:39:42Z
+back_ref: /blog/_index.md
 draft: false
 title: Python3 Dockerfile with uv
 keywords:

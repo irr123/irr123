@@ -1,5 +1,6 @@
 ---
 date: 2025-05-28T16:25:43Z
+back_ref: /blog/_index.md
 draft: false
 title: "Shadowsocks to Tor: Why it failed as a VPN alternative"
 image: "pic.png"

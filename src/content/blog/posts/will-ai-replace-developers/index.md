@@ -1,5 +1,6 @@
 ---
 date: 2025-03-12T18:22:35Z
+back_ref: /blog/_index.md
 draft: false
 title: Will AI replace developers?
 keywords:

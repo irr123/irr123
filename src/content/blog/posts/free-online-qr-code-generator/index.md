@@ -1,5 +1,6 @@
 ---
 date: 2025-05-24T08:47:42Z
+back_ref: /blog/_index.md
 draft: false
 title: Free online QR code generator
 custom_js: [qr-code]

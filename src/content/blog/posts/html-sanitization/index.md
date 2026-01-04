@@ -1,5 +1,6 @@
 ---
 date: 2025-09-05T08:13:44Z
+back_ref: /blog/_index.md
 draft: false
 title: "HTML sanitization: Avoiding the double-encoding issue"
 image: "sanitization.png"

@@ -1,5 +1,6 @@
 ---
 date: 2025-03-16T10:25:54Z
+back_ref: /blog/_index.md
 draft: false
 title: "Search engine indexing: A case study with Google, Bing and Yandex"
 keywords:

@@ -1,5 +1,6 @@
 ---
 date: 2025-02-21T06:31:02Z
+back_ref: /blog/_index.md
 draft: false
 title: DI container vs. service template (generator)
 keywords:

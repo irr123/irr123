@@ -238,22 +238,3 @@ blockquote p {
   text-align: right;
   padding-top: 8px;
 }
-
-button.back-button {
-  all: unset;
-  color: var(--visited);
-  cursor: pointer;
-  text-decoration: underline dotted;
-  text-decoration-thickness: 0.75px;
-  text-underline-offset: 0.2em;
-}
-
-button.back-button:hover {
-  text-decoration-style: solid;
-  text-decoration-thickness: 2px;
-}
-
-button.back-button:focus-visible {
-  outline: 2px solid var(--border);
-  outline-offset: 2px;
-}
