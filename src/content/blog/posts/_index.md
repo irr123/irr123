@@ -1,6 +1,7 @@
 ---
 back_ref: /blog/_index.md
 title: Posts
+pagefind: false
 keywords:
   - bogomolov
   - glitches

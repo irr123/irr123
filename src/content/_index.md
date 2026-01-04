@@ -1,5 +1,6 @@
 ---
 title: The Archive
+pagefind: false
 keywords:
   - blog
   - personal landing

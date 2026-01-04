@@ -3,7 +3,7 @@
     {{- partial "head.html" . -}}
     <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
         <main class="page-content" aria-label="Content">
-            <div class="w">
+            <div class="w" {{ if eq .Params.pagefind false }}data-pagefind-ignore="all"{{ end }}>
                 <div class="post-meta">
                     <p>{{ partial "back_link.html" .}}</p>
                     <p>

@@ -52,8 +52,6 @@ section = ["HTML"]
   showFullTextinRSS = false
 
   [params.theme_config]
-    appearance        = "auto"
     date_format       = "2006-01-02"
     isListGroupByDate = false
     back_home_text    = "← Back"
-    back_home_url     = "/blog/"

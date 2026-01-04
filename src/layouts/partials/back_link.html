@@ -1,6 +1,6 @@
 {{ with .Params.back_ref }}
   {{ $href := $.RelRef (dict "path" .) }}
   <a href="{{ $href }}" aria-label="Go back" title="Go back">
-    {{ $.Site.Params.theme_config.back_home_text | default "Back"}}
+    {{ $.Site.Params.theme_config.back_home_text }}
   </a>
 {{ end }}
