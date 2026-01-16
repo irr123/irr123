@@ -27,5 +27,9 @@ I prefer simplicity and pragmatism over hype and marketing. Boring, on purpose.
 If you have a concrete technical problem or system to untangle, email works
 best.
 
-- [Email](mailto:ivan.invoke@bogomolov.work)
-- [LinkedIn](https://www.linkedin.com/in/bogomolov-ivan/)
+- <a href="mailto:ivan.invoke@bogomolov.work" target=_blank rel="noopener noreferrer" rel="me">Email</a>
+- <a href="https://www.linkedin.com/in/bogomolov-ivan/" target=_blank rel="noopener noreferrer" rel="me">LinkedIn</a>
+
+<link href="https://github.com/irr123" rel="me">
+<link href="https://t.me/irr123" rel="me">
+<link href="https://www.facebook.com/irr123" rel="me">

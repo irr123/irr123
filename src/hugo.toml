@@ -4,6 +4,7 @@ title = "The Archive"
 theme = "hugo-theme-nostyleplease"
 summaryLength = 32
 disableKinds = ["taxonomy", "term"]
+disableHugoGeneratorInject = true
 
 [outputs]
 home = ["HTML", "RSS"]

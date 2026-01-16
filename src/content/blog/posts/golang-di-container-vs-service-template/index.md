@@ -159,8 +159,6 @@ consistency).
 In conclusion good to know that these two approaches are not mutually exclusive
 and this article aims to explore the available options.
 
----
-
 {data-content="footnotes"}
 
 [^1]:
