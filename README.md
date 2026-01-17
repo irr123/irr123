@@ -1,1 +1,1 @@
-[![boot](docs/blog/img/boot.svg)](https://bogomolov.work/blog/)
+[![boot](docs/img/boot.svg)](https://bogomolov.work/blog/)
