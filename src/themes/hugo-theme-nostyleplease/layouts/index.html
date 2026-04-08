@@ -7,6 +7,6 @@
     {{- end -}}
 </header>
 {{ .Content }}
-{{ partial "menu_item.html" (dict "context" . "collection" $.Site.Data.menu.entries) }}
+{{ partial "menu_item.html" (dict "context" . "collection" hugo.Data.menu.entries) }}
 
 {{ end }}

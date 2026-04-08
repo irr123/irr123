@@ -1,5 +1,5 @@
-HUGO ?= hugomods/hugo:ci-non-root-0.154.5  # https://hub.docker.com/r/hugomods/hugo/tags
-PAGEFIND ?= pagefind@v1.4.0                # https://www.npmjs.com/package/pagefind
+HUGO ?= ghcr.io/gohugoio/hugo:v0.160.1 # https://hub.docker.com/r/hugomods/hugo/tags
+PAGEFIND ?= pagefind@v1.5.0            # https://www.npmjs.com/package/pagefind
 
 .PHONY: srv
 srv:
@@ -8,8 +8,8 @@ srv:
 
 .PHONY: build
 build:
-	# docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} build --buildDrafts
-	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} --minify --gc --cleanDestinationDir build
+	# docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/project ${HUGO} build --buildDrafts
+	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/project ${HUGO} build --minify --gc --cleanDestinationDir
 	sudo chown -R $$(id -u):$$(id -g) $(PWD)/src/public $(PWD)/src/resources/_gen
 	sudo rm -rf $(PWD)/docs $(PWD)/src/resources/_gen
 	mv $(PWD)/src/public $(PWD)/docs
@@ -31,7 +31,7 @@ hugo_theme:
 
 .PHONY: hugo_add
 hugo_add:
-	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/src ${HUGO} new content content/blog/posts/new-post/index.md
+	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/src:/project ${HUGO} new content content/blog/posts/new-post/index.md
 	sudo chown -R $$(id -u):$$(id -g) $(PWD)/src/content/blog/posts/new-post
 
 .PHONY: fmt

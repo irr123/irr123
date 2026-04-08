@@ -10,6 +10,13 @@
     {{- $image = . -}}
   {{- end -}}
 {{- end -}}
+{{- $isStatic := false -}}
+{{- if not $image -}}
+  {{- $staticCheck := printf "static%s" $src -}}
+  {{- if fileExists $staticCheck -}}
+    {{- $isStatic = true -}}
+  {{- end -}}
+{{- end -}}
 {{- if $image -}}
   {{- $originalPermalink := $image.RelPermalink -}}
   {{- if eq $image.MediaType.SubType "svg" -}}
@@ -50,7 +57,9 @@
     </figure>
   {{- end -}}
 {{- else -}}
-  {{- warnf "[render-image WARNING] Image resource not found for '%s' on page '%s'. Using fallback for external images or images not found in resources." $src .Page.Path -}}
+  {{- if not $isStatic -}}
+    {{- warnf "[render-image WARNING] Image resource not found for '%s' on page '%s'. Using fallback for external images or images not found in resources." $src .Page.Path -}}
+  {{- end -}}
   <figure>
     {{/* For external/fallback images, $src is the original URL */}}
     <a href="{{ $src | safeURL }}" target="_blank">

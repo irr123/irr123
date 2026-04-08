@@ -29,12 +29,22 @@ body {
   background: var(--bg);
   color: var(--fg);
 
-  --pagefind-ui-text: var(--fg);
-  --pagefind-ui-primary: var(--link);
-  --pagefind-ui-background: var(--bg);
-  --pagefind-ui-border: var(--border);
-  --pagefind-ui-border-radius: 0;
-  --pagefind-ui-tag: var(--fg);
+  --pf-text: var(--fg);
+  --pf-text-secondary: var(--fg);
+  --pf-text-muted: var(--fg);
+  --pf-background: var(--bg);
+  --pf-border: var(--border);
+  --pf-border-focus: var(--fg);
+  --pf-hover: var(--bg);
+  --pf-mark: var(--fg);
+  --pf-outline-focus: var(--fg);
+  --pf-border-radius: 0;
+  --pf-font: monospace;
+  --pf-skeleton: var(--bg);
+  --pf-skeleton-shine: var(--bg);
+  --pf-shadow-sm: none;
+  --pf-shadow-md: none;
+  --pf-shadow-lg: none;
 }
 
 body[a="dark"] {
@@ -212,4 +222,12 @@ blockquote p {
 .site-footer {
   text-align: right;
   padding-top: 0.5rem;
+}
+
+pagefind-input {
+  margin-bottom: 0.5rem !important;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) .pf-heading-chip {
+  border-radius: 0 !important;
 }
