@@ -548,6 +548,11 @@ HealthRetries=5
 
 [Service]
 Restart=always
+RestartSec=3
+# MemoryMax=768M
+# MemorySwapMax=768M
+# CPUQuota=85%
+# TasksMax=128
 
 [Install]
 WantedBy=default.target
@@ -576,6 +581,11 @@ HealthRetries=5
 
 [Service]
 Restart=always
+RestartSec=3
+# MemoryMax=768M
+# MemorySwapMax=768M
+# CPUQuota=85%
+# TasksMax=128
 
 [Install]
 WantedBy=default.target
