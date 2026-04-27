@@ -1,5 +1,5 @@
 HUGO ?= ghcr.io/gohugoio/hugo:v0.160.1 # https://hub.docker.com/r/hugomods/hugo/tags
-PAGEFIND ?= pagefind@v1.5.0            # https://www.npmjs.com/package/pagefind
+PAGEFIND ?= pagefind@v1.5.2            # https://www.npmjs.com/package/pagefind
 
 .PHONY: serve
 serve:

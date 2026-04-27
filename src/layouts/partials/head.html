@@ -47,13 +47,7 @@
   <meta name="theme-color" content="#000000">
   {{- $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{- $mainScss := resources.Get "css/main.scss" -}}
-  {{- $mainStylesProcessed := $mainScss | css.Sass $options -}}
-  {{- $customStyles := resources.Get "css/style.css" -}}
-  {{- $cssToBundle := slice -}}
-  {{- $cssToBundle = $cssToBundle | append $mainStylesProcessed -}}
-  {{- $cssToBundle = $cssToBundle | append $customStyles -}}
-  {{- $bundle := $cssToBundle | resources.Concat "css/styles.bundle.css" -}}
-  {{- $style := $bundle | resources.Minify | resources.Fingerprint "sha512" -}}
+  {{- $style := $mainScss | css.Sass $options | resources.Minify | resources.Fingerprint "sha512" -}}
   <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}">
   {{- if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
   {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}

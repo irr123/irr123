@@ -62,5 +62,5 @@ I get no value from _tmux_; on remote hosts I use the built-in
 [screen](https://github.com/irr123/my-configs/blob/master/screenrc).
 
 The rest of the software doesn't matter much. The exception is Notion (more
-service than app), which I use heavily as a (one more) calendar, knowledge base,
-and planning tool.
+service than app), which I use heavily as a calendar (yet another), knowledge
+base, and planning tool.
