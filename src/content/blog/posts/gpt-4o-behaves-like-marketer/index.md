@@ -5,16 +5,14 @@ draft: false
 title: GPT-4o behaves like a marketer
 image: "seller.png"
 keywords:
-  [
-    GPT-4o,
-    OpenAI,
-    AI ethics,
-    AI manipulation,
-    AI marketing,
-    conflict of interest,
-    user experience,
-    AI safety
-  ]
+  - GPT-4o,
+  - OpenAI,
+  - AI ethics,
+  - AI manipulation,
+  - AI marketing,
+  - conflict of interest,
+  - AI safety
+  - sycophancy
 ---
 
 OpenAI, too, likely breaks trust with this approach.

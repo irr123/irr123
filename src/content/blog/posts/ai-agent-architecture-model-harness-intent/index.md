@@ -1,7 +1,7 @@
 ---
 date: 2026-04-18T00:00:00Z
 back_ref: /blog/_index.md
-draft: true
+draft: false
 title: "AI Agent architecture: model, harness, intent"
 image: hero.png
 keywords:
@@ -11,41 +11,41 @@ keywords:
   - ai agent platform
   - ai agent architecture
   - agent harness
+  - ai agent harness
   - personal ai agent
+  - specialized ai agent
   - how to create ai agent
+  - intent decomposition
+  - agentic loop
+  - plan mode build mode
+  - context engineering
   - AI coding tools
+  - cli agent
   - Claude Code
+  - OpenCode
   - Anthropic
   - Claude
-  - MCP servers
-  - Cursor
-  - Windsurf
-  - OpenCode
-  - OpenClaw
-  - Hermes
-  - Google Antigravity
-  - gemini cli
-  - gemini agent
-  - cli agent
   - Perplexity
-  - Codex
+  - Hermes
   - hermes agent
-  - ai agent harness
-  - ai agent orchestration
-  - ai agent builder
+  - OpenClaw
+  - MCP servers
+  - AGENTS.md
+  - CLAUDE.md
   - developer experience 2026
 ---
 
-My VPS runs a "personal AI agent". It forgets own abilities every morning.
+My VPS runs a "personal AI agent". It forgets its own abilities every morning.
 
 My terminal runs a coding agent. It ships production work.
 
 Same year. Frontier models on both. Same ecosystem.
 
-![Three knobs](hero.png)
+![model, harness, intent](hero.png)
 
-They both consist of model and harness, together handling my intent. Why so
-different experience? Let's start from everyone mixing up, from definitions.
+They both consist of a model and a harness, together handling my intent. Why
+such a different experience? Start with the thing everyone mixes up:
+definitions.
 
 ## What is an AI agent?
 
@@ -57,14 +57,14 @@ different experience? Let's start from everyone mixing up, from definitions.
 - **Opus / Sonnet / Haiku** -- model tiers. Opus = most capable, Haiku = fastest
   / cheapest.
 - **Agentic approach** / **Agentic AI**[^1] -- reason → act → observe → repeat,
-  the cycle itself; _the cycle is what makes something agentic_.
-- **Agent** -- model wrapped in a harness, running in a cycle: reads context,
+  the loop itself; _the loop is what makes something agentic_.
+- **Agent** -- model wrapped in a harness, spins in a loop: reads context,
   plans, acts, verifies, repeats. Distinct from a chatbot by execution pattern
   -- a chat interface can front an agent; a one-shot call cannot.
   - **Sub-Agent** -- execution thread inside an agent, inherits base settings,
     extends them.
 - **Agent harness**[^2] -- everything in an AI agent except the model itself:
-  tools, memory, workflow (the cycle, plan/build sub-agents), guardrails
+  tools, memory, workflow (the loop, plan/build sub-agents), guardrails
   (permissions, sandbox).
 - **MCP server** -- tool through which the agent interacts with the outer world
   -- web, DBs, clouds, apps.
@@ -77,19 +77,15 @@ different experience? Let's start from everyone mixing up, from definitions.
   instructions, tool outputs, RAG-retrieved chunks. Bounded by the model's
   context length.
 
-AI providers are evolving yesterday's chats into today's agents. Fine, the split
-still holds: model limits capability, harness wires integrations and workflow,
-intent is the goal you want the agent to execute.
+Providers are wrapping yesterday's chats in agent loops -- execution pattern
+flips, the chat UI stays. Same split still holds: model caps capability, harness
+wires integrations and workflow -- and intent has to be decomposed into pieces
+the agent can actually handle. Who does the decomposition is the next question.
 
 ## AI platforms and architectures
 
-Do benchmark them, from easy to impossible by intents:
-
-1. depends on agent -- default goal, for which agent aimed.
-1. what's the model you using?
-1. build me an OpenAI competitor.
-
-It clearly shows options we have.
+Three families competing for "AI agent" today. Same lens for each: who owns
+intent decomposition -- the specialized harness, the personal assistant, or you?
 
 ### Specialized AI agents
 
@@ -98,7 +94,10 @@ It clearly shows options we have.
 - Customer service bot
 - AI for medical diagnosis
 
-_Perplexity_, for example.
+Same product shape: narrow task, fixed workflow, integrations hidden behind the
+UI.
+
+_Perplexity_ is the research/search version of that shape.
 
 > Research the latest evidence and debate around emergent agency in AI systems
 > in 2025-2026.
@@ -121,63 +120,16 @@ Fine results, at least looks relevant.
 > > quick, relevant results. Pro subscribers can switch to advanced options like
 > > GPT-5.2 or Claude models via the model selector.
 
-Fail.
+Fail. It understood the surface intent -- answer a product-stack question -- but
+the product owned routing and context. I had no way to inspect which model
+routed the answer, which metadata it saw, or why it mixed Grok, Sonar, and Llama
+into one pile.
 
-The outcome -- it don't understand my intent, it just framed it into fixed shape
-and execute. If my intent fit's into shape -- fine, blind trash otherwise.
-
-### Autonomous agents
-
-_Devin_ -- the AI software engineer, sounds like hype.
-
-> High server load. Devin is waiting for capacity...
-
-From the start I can feel how agentic it is. Anyway, it tries to decompose my
-intent:
-
-> build me an OpenAI competitor
->
-> > What shape should the 'OpenAI competitor' take?
-> >
-> > - **A** ChatGPT-style web app (chat UI, history, streaming, model picker)
-> > - **B** OpenAI-compatible API server (drop-in /v1/chat/completions proxy)
-> > - **C** Both: API server + chat frontend on top of it
-> > - **D** A full landing page + marketing site for a fictional AI company
-> > - **E** Other
-
-{{< details summary="I chose `D` to not overload server" >}} NextJS instead of
-HTML + CSS, well, are you reading assembly produced by a classic programming
-language? 🤣
-
-![A full landing page + marketing site for a fictional AI company](devin.png)
-
-{{< /details >}}
-
-> what's the model you using?
->
-> > I'm Devin, built by Cognition AI. As for the specific underlying model,
-> > that's not something I disclose — I'm designed as a complete AI software
-> > engineer, not just a language model wrapper. Think of me as Devin, your
-> > coding partner! Is there anything I can help you with?
-
-You're good!
-
-> build me an OpenAI competitor
->
-> > **C** Full SaaS Platform (UI + API + auth + billing)
-
-Resulted SaaS doesn't start; seen a code it's 3 routes in Python's fastapi
-framework plus sqlite as database and static HTML (with inlined JS). Nice toy
-project.
-
-Here I was involved in intent decomposition from the start. The agent received
-enough, in its opinion, insights -- then the agentic cycle began, and it chose
-technology (Next.js instead of raw HTML + CSS), layout, markup, texts, images,
-and made a lot of decisions on its own.
+The outcome -- specialized harness frames intent into its fixed shape. When that
+frame fits, you get a clean research answer. When the frame itself is wrong, you
+get confident product salad and no useful control surface.
 
 ### Personal assistant
-
-Should it be more general than IDE? Let's see.
 
 Tried _OpenClaw_ first. It wants 2+ CPUs and 8+ GB RAM; my VPS has 1 and 1. Ran
 it anyway -- it choked the VPS. Dropped it for _Hermes_.
@@ -237,11 +189,13 @@ I connected it to my GPT subscription, added integrations for X, Google
 Calendar, Notion, and this blog's RSS, plus free Mem0 as RAG.
 
 It even worked, right after setup, but the next day it totally forgot about the
-integration -- you have to persuade it to try again. Moreover, during Google
-Calendar integration I issued credentials only for read/write on the calendar,
-not broader Google scopes. The builtin Google skill wants broader access, so the
-agent re-scopes every time it reaches the calendar, and after some time I face
-the same complaint.
+integration -- you have to persuade it to try again.
+
+OAuth failed in a different way. During Google Calendar integration I issued
+credentials only for read/write on the calendar, not broader Google scopes. The
+builtin Google skill wants broader access, so the agent re-requests broader
+scopes every time it touches the calendar, and eventually the auth flow breaks
+again.
 
 One more case -- I configured a scheduled job to check, each morning at 9:00, my
 Notion calendar, Google Calendar, event listings, and send me a summary for
@@ -254,14 +208,14 @@ it automatically. Well... experiment successful.
 
 Each failure is easy to fix manually: cron, small script, explicit OAuth scopes,
 date windows, deterministic calendar queries. But that is exactly the point --
-the general assistant is supposed to replace the glue. Here it doesn't --
-general intent decomposition is not ready yet.[^3]
+the general assistant is supposed to replace the glue. Here it doesn't. The
+failure is not the model. The harness decomposes intent badly, and the UI
+doesn't expose decomposition early enough to fix it.[^3]
 
 ### CLI
 
-Terminal-native. The product gets out of the way: configure, route, script,
-restrict tools, plan, spawn sub-agents, verify, restart. External limits still
-apply -- vendor ToS, API billing -- but inside the harness, the limit is you.
+Terminal-native, actively evolving. Everything in your hands -- only vendor ToS
+can limit you.
 
 #### OpenCode --- The open source AI coding agent
 
@@ -274,9 +228,10 @@ browser UI.
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "share": "disabled",
-  "default_agent": "plan",
   "autoupdate": false,
+  "default_agent": "plan",
+  "share": "disabled",
+  "snapshot": false,
   "instructions": ["/Users/ivan/.config/opencode/AGENTS.md"],
   "mcp": {
     "context7": {
@@ -300,6 +255,11 @@ browser UI.
         "PLAYWRIGHT_BROWSERS_PATH": "{env:HOME}/.cache/ms-playwright"
       },
       "enabled": true
+    },
+    "claude": {
+      "type": "local",
+      "command": ["claude", "mcp", "serve"],
+      "enabled": false
     }
   },
   "experimental": {
@@ -314,30 +274,39 @@ browser UI.
 
 {{< /details >}}
 
-Current AI-bro consensus: "Context is the key" -- I agree. In addition, since
+Current AI-bro consensus: "Context is the key" -- I agree, context engineering
+pwnd [prompt engineering]({{< relref "blog/posts/prompt-engineering-notes" >}}).
+
+Even more, after
 [Gloaguen et al., "Evaluating AGENTS.md" (Feb 2026)](https://arxiv.org/abs/2602.11988)
--- context files hurt task success and add ~20% inference cost -- I've
-completely stopped using per-repo CLAUDE.md / AGENTS.md. Current agents can
-introspect a repo per case, fast and cheap → good enough.
+-- generated agent context files hurt task success and add ~20% inference cost
+-- I've stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths,
+framework summaries, and obvious project descriptions. Current agents can
+inspect a repo per case, fast and cheap enough. Put only what they cannot infer
+from code: constraints, preferences, dangerous commands, external contracts.
 
 {{< details summary="my global CLAUDE.md / AGENTS.md" >}}
 
 ```md
 # Approach
 
-Think in measurable outcomes.
+Clarify unclear inputs; do not invent context
 
-Define success before implementation.
+Define measurable outcomes before implementation
 
-Pick simple over clever.
+Frame contradictions, don't compromise them
 
-No sycophancy, no fluff.
+Pick simple over clever
+
+Reuse what's in the system
+
+No sycophancy, no fluff
 ```
 
 {{< /details >}}
 
-Still, the most capable way to fix hallucinations is not to argue with the agent
-but to drop the session and restart from scratch.
+Still, the most reliable way to fix hallucinations is not to argue with the
+agent but to drop the session and restart from scratch.
 
 OpenCode's approach helps me clearly follow the principles above:
 
@@ -348,17 +317,15 @@ OpenCode's approach helps me clearly follow the principles above:
 3. The ready plan is handed to the build sub-agent, which implements it[^5].
 4. GOTO 1
 
+In plan mode, the harness exposes decomposition before execution. At that point,
+the limit is you: how clearly you can split intent into steps.
+
 This resembles the Plan-Then-Execute pattern[^6].
 
-All good things come to an end --
-[Anthropic]({{< relref "blog/posts/will-ai-replace-developers" >}}) tightened
-their terms so subscription plans (including the corporate one I use) no longer
-cover Claude access from third-party apps; third-party access now requires API
-credits, billed per usage. That's why I've migrated to Claude Code for Claude
-work (and still use OpenCode for my personal GPT subscription). Product openness
-doesn't override vendor terms on model access.
-
 #### Claude Code
+
+I migrated Claude work to Claude Code after Anthropic restricted third-party
+Claude access to API credits[^7]; OpenCode still runs my GPT subscription.
 
 Proprietary, vendor-locked, but I can't complain that it misses anything
 important.
@@ -430,42 +397,31 @@ important.
     ],
     "defaultMode": "plan"
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"/Users/ivan/.claude/plugins/cache/caveman/caveman/c2ed24b3e5d4/hooks/caveman-statusline.sh\""
-  },
-  "enabledPlugins": {
-    "caveman@caveman": true
-  },
-  "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
-    }
-  },
+  "enabledPlugins": {},
   "sandbox": {
     "enabled": true
   },
-  "effortLevel": "medium",
+  "effortLevel": "high",
+  "awaySummaryEnabled": false,
   "autoUpdatesChannel": "stable",
   "disableAutoMode": "disable",
-  "skipAutoPermissionPrompt": false,
-  "awaySummaryEnabled": false
+  "theme": "light",
+  "skipAutoPermissionPrompt": false
 }
 ```
 
 {{< /details >}}
 
-This config keeps intent decomposition exposed -- plan/build separated, mode
-switching under my control -- by emulating OpenCode's build/plan behaviour:
+This config reaches the same control goal I like in OpenCode: decomposition
+stays visible, writes stay gated, mode switching stays under my control:
 
 - `"defaultMode": "plan"` -- plan mode by default: writes blocked, reads
   allowed, plan exposed as `/plan`
-- `"disableAutoMode": "disable"` -- disallow it to switch modes on its own
-- and some other security-related tweaks
-- and fancy disable options
+- `"disableAutoMode": "disable"` -- no autonomous mode switching
+- `"sandbox.enabled": true` plus a `permissions.deny` list for `rm -rf`,
+  `git push`, `sudo`, `~/.ssh/**`, etc.
+- telemetry off: `DISABLE_TELEMETRY=1`, `DISABLE_FEEDBACK_COMMAND=1`,
+  `DISABLE_ERROR_REPORTING=1`, `awaySummaryEnabled: false`
 
 ##### Current setup
 
@@ -476,31 +432,30 @@ switching under my control -- by emulating OpenCode's build/plan behaviour:
   but I'm not sure whether it actually works; too hard to measure.
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
-mine. You configure, you decompose, you take the blame.
+mine.
 
 ## Conclusion
 
-Perplexity decomposes intent on its own. Devin involves you at the first stage,
-then proceeds independently. Hermes decomposes intent on its own, freely. CLI
-plan mode operates with intent and you're going to be the bottleneck.
+Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
+own, freely. CLI plan mode operates on intent -- you're the bottleneck.
 
-Got it? _The cycle is what makes something agentic_, and the harness puts you
+Got it? _The loop is what makes something agentic_, and the harness puts you
 inside or outside of it.
 
-Outside the cycle -- waiting for a solution that fits your shape.
+Outside the loop -- waiting for a solution that fits your intent's shape.
 
-Inside the cycle you keep the intent. You decompose. The agent executes what you
-approved. The ceiling is whatever you can break into steps. That's your
-bottleneck.
+Inside the loop you keep the intent. You decompose. The agent executes what you
+approved. The ceiling is whatever you can break into steps.
 
-Same model, different harnesses, different experiences.[^7]
+Same year. Frontier models underneath. Different harnesses -- different
+experiences.[^8]
 
 {data-content="footnotes"}
 
 [^1]:
     Popularized by ReAct -- Yao et al., ICLR 2023
     ([paper](https://arxiv.org/abs/2210.03629),
-    [Google Research blog](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/));
+    [Google Research blog](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/)).
 
 [^2]:
     See Birgitta Böckeler, "Harness engineering for coding agent users":
@@ -524,5 +479,11 @@ Same model, different harnesses, different experiences.[^7]
     repo while planning, so a malicious file can steer the plan.
 
 [^7]:
+    [Anthropic]({{< relref "blog/posts/will-ai-replace-developers" >}})
+    tightened terms -- subscription plans (including the corporate one I use) no
+    longer cover Claude access from third-party apps; third-party access now
+    requires per-usage API credits.
+
+[^8]:
     https://www.anthropic.com/news/measuring-agent-autonomy -- autonomy framed
     as emergent from model, product design, and user oversight strategy.

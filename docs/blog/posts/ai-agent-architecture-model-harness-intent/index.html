@@ -1,0 +1,256 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>AI Agent architecture: model, harness, intent | My VPS runs a...</title><meta name=description content="My VPS runs a “personal AI agent”. It forgets its own abilities every morning. My terminal runs a coding agent. It ships prod..."><meta name=keywords content="agentic ai,what is an ai agent,ai agent vs agentic ai,ai agent platform,ai agent architecture,agent harness,ai agent harness,personal ai agent,specialized ai agent,how to create ai agent,intent decomposition,agentic loop,plan mode build mode,context engineering,AI coding tools,cli agent,Claude Code,OpenCode,Anthropic,Claude,Perplexity,Hermes,hermes agent,OpenClaw,MCP servers,AGENTS.md,CLAUDE.md,developer experience 2026"><meta name=author content="Ivan Bogomolov"><meta name=robots content="index,follow"><link rel=canonical href=https://bogomolov.work/blog/posts/ai-agent-architecture-model-harness-intent/><link rel=alternate type=application/rss+xml href=/index.xml title="The Archive"><link rel=icon type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=192x192 href=/android-chrome-192x192.png><link rel=icon type=image/png sizes=512x512 href=/android-chrome-512x512.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><meta property="og:title" content="AI Agent architecture: model, harness, intent"><meta property="og:description" content="My VPS runs a “personal AI agent”. It forgets its own abilities every morning. My terminal runs a coding agent. It ships production work. Same year. Frontier models on both. Same ecosystem."><meta property="og:type" content="website"><meta property="og:url" content="https://bogomolov.work/blog/posts/ai-agent-architecture-model-harness-intent/"><meta property="og:logo" content="https://bogomolov.work/img/the-archive.png"><meta property="og:image" content="https://bogomolov.work/blog/posts/ai-agent-architecture-model-harness-intent/hero.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:creator content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/ai-agent-architecture-model-harness-intent/"><meta name=twitter:title content="AI Agent architecture: model, harness, intent"><meta name=twitter:description content="My VPS runs a “personal AI agent”. It forgets its own abilities every morning. My terminal runs a coding agent. It ships production work. Same year. Frontier models on both. Same ecosystem."><meta name=twitter:image content="https://bogomolov.work/blog/posts/ai-agent-architecture-model-harness-intent/hero.png"><meta name=theme-color content="#000000"><link rel=stylesheet href=/css/main.min.92829f37f1c308400a786fc2aff73f0be2753c2d8b3525d673c44d46e0c60c8905514f7f4e9551c4e65ddc95905f4b616c5be22819c578507f590079a609cf04.css integrity="sha512-koKfN/HDCEAKeG/Cr/c/C+J1PC2LNSXWc8RNRuDGDIkFUU9/TpVRxOZd3JWQX0thbFviKBnFeFB/WQB5pgnPBA=="></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><p><a href=/blog/ aria-label="Go back" title="Go back">← Back</a></p><p><time datetime=2026-04-18T00:00:00+00:00>2026-04-18</time></p></div><header><h1>AI Agent architecture: model, harness, intent</h1></header><article><p>My VPS runs a “personal AI agent”. It forgets its own abilities every morning.</p><p>My terminal runs a coding agent. It ships production work.</p><p>Same year. Frontier models on both. Same ecosystem.</p><figure><a href=/blog/posts/ai-agent-architecture-model-harness-intent/hero.png target=_blank><picture><source srcset=/blog/posts/ai-agent-architecture-model-harness-intent/hero_hu_d63db8f6f6b9a593.webp type=image/webp><source srcset=/blog/posts/ai-agent-architecture-model-harness-intent/hero_hu_8d8024483f4a8abb.jpg type=image/jpeg><img src=/blog/posts/ai-agent-architecture-model-harness-intent/hero_hu_8d8024483f4a8abb.jpg alt="model, harness, intent" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>They both consist of a model and a harness, together handling my intent. Why
+such a different experience? Start with the thing everyone mixes up:
+definitions.</p><h2 id=what-is-an-ai-agent><a href=#what-is-an-ai-agent>#</a> What is an AI agent?</h2><ul><li><strong>Anthropic</strong> – the company. Founded by ex-OpenAI researchers, … – you
+know</li><li><strong>Claude</strong> – the model family. When someone says “ask Claude,” they usually
+mean a single call to whichever model through a chatbot. Competes with GPT
+(OpenAI) and Gemini (Google).</li><li><strong>Opus / Sonnet / Haiku</strong> – model tiers. Opus = most capable, Haiku = fastest
+/ cheapest.</li><li><strong>Agentic approach</strong> / <strong>Agentic AI</strong><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> – reason → act → observe → repeat,
+the loop itself; <em>the loop is what makes something agentic</em>.</li><li><strong>Agent</strong> – model wrapped in a harness, spins in a loop: reads context,
+plans, acts, verifies, repeats. Distinct from a chatbot by execution pattern
+– a chat interface can front an agent; a one-shot call cannot.<ul><li><strong>Sub-Agent</strong> – execution thread inside an agent, inherits base settings,
+extends them.</li></ul></li><li><strong>Agent harness</strong><sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> – everything in an AI agent except the model itself:
+tools, memory, workflow (the loop, plan/build sub-agents), guardrails
+(permissions, sandbox).</li><li><strong>MCP server</strong> – tool through which the agent interacts with the outer world
+– web, DBs, clouds, apps.</li><li><strong>Skill</strong> – goal-aimed prompt plus optional scripts, packaged capability.</li><li><strong>RAG</strong> – memory, agent stores custom data and pulls relevant chunks into
+context.</li><li><strong>AGENTS.md</strong> / <strong>CLAUDE.md</strong> / <strong>SOUL.md</strong> – custom instructions loaded into
+the context.</li><li><strong>Context</strong> – text the agent handles at once: user input, custom
+instructions, tool outputs, RAG-retrieved chunks. Bounded by the model’s
+context length.</li></ul><p>Providers are wrapping yesterday’s chats in agent loops – execution pattern
+flips, the chat UI stays. Same split still holds: model caps capability, harness
+wires integrations and workflow – and intent has to be decomposed into pieces
+the agent can actually handle. Who does the decomposition is the next question.</p><h2 id=ai-platforms-and-architectures><a href=#ai-platforms-and-architectures>#</a> AI platforms and architectures</h2><p>Three families competing for “AI agent” today. Same lens for each: who owns
+intent decomposition – the specialized harness, the personal assistant, or you?</p><h3 id=specialized-ai-agents><a href=#specialized-ai-agents>#</a> Specialized AI agents</h3><ul><li>AI trading agent</li><li>AI legal assistant</li><li>Customer service bot</li><li>AI for medical diagnosis</li></ul><p>Same product shape: narrow task, fixed workflow, integrations hidden behind the
+UI.</p><p><em>Perplexity</em> is the research/search version of that shape.</p><blockquote><p>Research the latest evidence and debate around emergent agency in AI systems
+in 2025-2026.</p><blockquote><ul><li>Searching the web<ul><li>… some sources …</li></ul></li><li>Searching recent academic and policy sources on emergent agency in AI
+systems</li><li>Retrieving recent reports and policy documents on AI agent behavior and
+emergent agency</li></ul></blockquote></blockquote><p>Fine results, at least looks relevant.</p><blockquote><p>what’s the model you using?</p><blockquote><p>I’m Perplexity, powered by Grok 4.1. Perplexity’s default model is a
+custom-optimized version called Sonar, built on Llama 3.1 or later
+iterations like Llama 3.3 70B, fine-tuned for fast web search,
+summarization, and efficiency. It’s available to both free and Pro users for
+quick, relevant results. Pro subscribers can switch to advanced options like
+GPT-5.2 or Claude models via the model selector.</p></blockquote></blockquote><p>Fail. It understood the surface intent – answer a product-stack question – but
+the product owned routing and context. I had no way to inspect which model
+routed the answer, which metadata it saw, or why it mixed Grok, Sonar, and Llama
+into one pile.</p><p>The outcome – specialized harness frames intent into its fixed shape. When that
+frame fits, you get a clean research answer. When the frame itself is wrong, you
+get confident product salad and no useful control surface.</p><h3 id=personal-assistant><a href=#personal-assistant>#</a> Personal assistant</h3><p>Tried <em>OpenClaw</em> first. It wants 2+ CPUs and 8+ GB RAM; my VPS has 1 and 1. Ran
+it anyway – it choked the VPS. Dropped it for <em>Hermes</em>.</p><p>Rarely discussed, but experimental software with a lot of external integrations
+has too broad an attack surface, see <a href=https://days-since-openclaw-cve.com target=_blank rel="noopener noreferrer">https://days-since-openclaw-cve.com</a>. Keep
+it in mind.</p><h4 id=hermes--an-agent-that-grows-with-you><a href=#hermes--an-agent-that-grows-with-you>#</a> Hermes — An Agent That Grows With You</h4><p>Kind of strange that Nous Research doesn’t mention they have a Docker image –
+<code>docker.io/nousresearch/hermes-agent</code> – which I’ve successfully set up in
+<a href=/blog/posts/the-actual-state-of-self-hosting-on-a-vps/>podman</a>.</p><details><summary>/etc/containers/systemd/hermes-agent.container</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Unit]</span>
+</span></span><span style=display:flex><span>Description=<span style=color:#87ceeb>Hermes Agent</span>
+</span></span><span style=display:flex><span>Wants=<span style=color:#87ceeb>network-online.target</span>
+</span></span><span style=display:flex><span>After=<span style=color:#87ceeb>network-online.target</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Container]</span>
+</span></span><span style=display:flex><span>Image=<span style=color:#87ceeb>docker.io/nousresearch/hermes-agent:latest</span>
+</span></span><span style=display:flex><span>ContainerName=<span style=color:#87ceeb>hermes-agent</span>
+</span></span><span style=display:flex><span>Network=<span style=color:#87ceeb>selfhosted</span>
+</span></span><span style=display:flex><span>Volume=<span style=color:#87ceeb>/root/hermes:/opt/data</span>
+</span></span><span style=display:flex><span>Volume=<span style=color:#87ceeb>/root/hermes-root:/root</span>
+</span></span><span style=display:flex><span>Volume=<span style=color:#87ceeb>/tmp/hermes:/tmp</span>
+</span></span><span style=display:flex><span>Ulimit=<span style=color:#87ceeb>nofile=1024:1024</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Environment=<span style=color:#87ceeb>VIRTUAL_ENV=/root/.venv</span>
+</span></span><span style=display:flex><span>Environment=<span style=color:#87ceeb>PYTHONPATH=/root/.venv/lib/python3.13/site-packages</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Exec=<span style=color:#87ceeb>gateway run</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Service]</span>
+</span></span><span style=display:flex><span>Restart=<span style=color:#87ceeb>always</span>
+</span></span><span style=display:flex><span>RestartSec=<span style=color:#87ceeb>3</span>
+</span></span><span style=display:flex><span>MemoryMax=<span style=color:#87ceeb>768M</span>
+</span></span><span style=display:flex><span>MemorySwapMax=<span style=color:#87ceeb>768M</span>
+</span></span><span style=display:flex><span>CPUQuota=<span style=color:#87ceeb>85%</span>
+</span></span><span style=display:flex><span>TasksMax=<span style=color:#87ceeb>128</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:red>[Install]</span>
+</span></span><span style=display:flex><span>WantedBy=<span style=color:#87ceeb>multi-user.target</span>
+</span></span></code></pre></div></div></details><p>And it runs completely fine on a 1 CPU / 1 GB VPS.</p><details><summary>CPU/RAM consumption</summary><div class=details-content><figure><a href=/blog/posts/ai-agent-architecture-model-harness-intent/hermes-cpu-mem.png target=_blank><picture><source srcset=/blog/posts/ai-agent-architecture-model-harness-intent/hermes-cpu-mem_hu_ba4abd90b1651f77.webp type=image/webp><source srcset=/blog/posts/ai-agent-architecture-model-harness-intent/hermes-cpu-mem_hu_43054da169fc196c.jpg type=image/jpeg><img src=/blog/posts/ai-agent-architecture-model-harness-intent/hermes-cpu-mem_hu_43054da169fc196c.jpg alt="CPU/RAM consumption grafana screenshot" loading=eager fetchpriority=high decoding=sync></picture></a></figure></div></details><p>I connected it to my GPT subscription, added integrations for X, Google
+Calendar, Notion, and this blog’s RSS, plus free Mem0 as RAG.</p><p>It even worked, right after setup, but the next day it totally forgot about the
+integration – you have to persuade it to try again.</p><p>OAuth failed in a different way. During Google Calendar integration I issued
+credentials only for read/write on the calendar, not broader Google scopes. The
+builtin Google skill wants broader access, so the agent re-requests broader
+scopes every time it touches the calendar, and eventually the auth flow breaks
+again.</p><p>One more case – I configured a scheduled job to check, each morning at 9:00, my
+Notion calendar, Google Calendar, event listings, and send me a summary for
+today and tomorrow. How often does it work right? Almost never – it checks only
+one calendar, sends events for the next ~6 months instead of 2 days, sends
+events for the current month but from this and previous years, and so on.</p><p>Current state: the initial GPT auth token has expired, and the agent can’t renew
+it automatically. Well… experiment successful.</p><p>Each failure is easy to fix manually: cron, small script, explicit OAuth scopes,
+date windows, deterministic calendar queries. But that is exactly the point –
+the general assistant is supposed to replace the glue. Here it doesn’t. The
+failure is not the model. The harness decomposes intent badly, and the UI
+doesn’t expose decomposition early enough to fix it.<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p><h3 id=cli><a href=#cli>#</a> CLI</h3><p>Terminal-native, actively evolving. Everything in your hands – only vendor ToS
+can limit you.</p><h4 id=opencode--the-open-source-ai-coding-agent><a href=#opencode--the-open-source-ai-coding-agent>#</a> OpenCode — The open source AI coding agent</h4><p>My favorite one. Open source, standard <code>~/.config/opencode</code> path, strong
+build/plan sub-agent architecture. Also ships <code>opencode web</code> – same engine,
+browser UI.</p><details><summary>~/.config/opencode/config.json</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  &#34;$schema&#34;: <span style=color:#87ceeb>&#34;https://opencode.ai/config.json&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;autoupdate&#34;: <span style=color:red>false</span>,
+</span></span><span style=display:flex><span>  &#34;default_agent&#34;: <span style=color:#87ceeb>&#34;plan&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;share&#34;: <span style=color:#87ceeb>&#34;disabled&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;snapshot&#34;: <span style=color:red>false</span>,
+</span></span><span style=display:flex><span>  &#34;instructions&#34;: [<span style=color:#87ceeb>&#34;/Users/ivan/.config/opencode/AGENTS.md&#34;</span>],
+</span></span><span style=display:flex><span>  &#34;mcp&#34;: {
+</span></span><span style=display:flex><span>    &#34;context7&#34;: {
+</span></span><span style=display:flex><span>      &#34;type&#34;: <span style=color:#87ceeb>&#34;remote&#34;</span>,
+</span></span><span style=display:flex><span>      &#34;url&#34;: <span style=color:#87ceeb>&#34;https://mcp.context7.com/mcp&#34;</span>,
+</span></span><span style=display:flex><span>      &#34;headers&#34;: {
+</span></span><span style=display:flex><span>        &#34;CONTEXT7_API_KEY&#34;: <span style=color:#87ceeb>&#34;{env:CONTEXT7_API_KEY}&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      &#34;enabled&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    &#34;playwright&#34;: {
+</span></span><span style=display:flex><span>      &#34;type&#34;: <span style=color:#87ceeb>&#34;local&#34;</span>,
+</span></span><span style=display:flex><span>      &#34;command&#34;: [
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;npx&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;-y&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;@playwright/mcp@latest&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--browser=chromium&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      &#34;environment&#34;: {
+</span></span><span style=display:flex><span>        &#34;PLAYWRIGHT_BROWSERS_PATH&#34;: <span style=color:#87ceeb>&#34;{env:HOME}/.cache/ms-playwright&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      &#34;enabled&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    &#34;claude&#34;: {
+</span></span><span style=display:flex><span>      &#34;type&#34;: <span style=color:#87ceeb>&#34;local&#34;</span>,
+</span></span><span style=display:flex><span>      &#34;command&#34;: [<span style=color:#87ceeb>&#34;claude&#34;</span>, <span style=color:#87ceeb>&#34;mcp&#34;</span>, <span style=color:#87ceeb>&#34;serve&#34;</span>],
+</span></span><span style=display:flex><span>      &#34;enabled&#34;: <span style=color:red>false</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;experimental&#34;: {
+</span></span><span style=display:flex><span>    &#34;openTelemetry&#34;: <span style=color:red>false</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;server&#34;: {
+</span></span><span style=display:flex><span>    &#34;mdns&#34;: <span style=color:red>false</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;plugin&#34;: []
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></details><p>Current AI-bro consensus: “Context is the key” – I agree, context engineering
+pwnd <a href=/blog/posts/prompt-engineering-notes/>prompt engineering</a>.</p><p>Even more, after
+<a href=https://arxiv.org/abs/2602.11988 target=_blank rel="noopener noreferrer">Gloaguen et al., “Evaluating AGENTS.md” (Feb 2026)</a>
+– generated agent context files hurt task success and add ~20% inference cost
+– I’ve stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths,
+framework summaries, and obvious project descriptions. Current agents can
+inspect a repo per case, fast and cheap enough. Put only what they cannot infer
+from code: constraints, preferences, dangerous commands, external contracts.</p><details><summary>my global CLAUDE.md / AGENTS.md</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-md data-lang=md><span style=display:flex><span><span style=color:#ff0;font-weight:700># Approach
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Clarify unclear inputs; do not invent context
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Define measurable outcomes before implementation
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Frame contradictions, don&#39;t compromise them
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Pick simple over clever
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Reuse what&#39;s in the system
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>No sycophancy, no fluff
+</span></span></code></pre></div></div></details><p>Still, the most reliable way to fix hallucinations is not to argue with the
+agent but to drop the session and restart from scratch.</p><p>OpenCode’s approach helps me clearly follow the principles above:</p><ol><li>In plan mode I explain the goal and constraints, pointing to important files
+or docs as entry points.</li><li>The plan sub-agent collects requirements, explores the repo, clarifies
+intent, produces a plan<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup>.</li><li>The ready plan is handed to the build sub-agent, which implements it<sup id=fnref:5><a href=#fn:5 class=footnote-ref role=doc-noteref>5</a></sup>.</li><li>GOTO 1</li></ol><p>In plan mode, the harness exposes decomposition before execution. At that point,
+the limit is you: how clearly you can split intent into steps.</p><p>This resembles the Plan-Then-Execute pattern<sup id=fnref:6><a href=#fn:6 class=footnote-ref role=doc-noteref>6</a></sup>.</p><h4 id=claude-code><a href=#claude-code>#</a> Claude Code</h4><p>I migrated Claude work to Claude Code after Anthropic restricted third-party
+Claude access to API credits<sup id=fnref:7><a href=#fn:7 class=footnote-ref role=doc-noteref>7</a></sup>; OpenCode still runs my GPT subscription.</p><p>Proprietary, vendor-locked, but I can’t complain that it misses anything
+important.</p><details><summary>~/.claude/settings.json</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  &#34;$schema&#34;: <span style=color:#87ceeb>&#34;https://json.schemastore.org/claude-code-settings.json&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;env&#34;: {
+</span></span><span style=display:flex><span>    &#34;CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY&#34;: <span style=color:#87ceeb>&#34;1&#34;</span>,
+</span></span><span style=display:flex><span>    &#34;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&#34;: <span style=color:#87ceeb>&#34;1&#34;</span>,
+</span></span><span style=display:flex><span>    &#34;DISABLE_ERROR_REPORTING&#34;: <span style=color:#87ceeb>&#34;1&#34;</span>,
+</span></span><span style=display:flex><span>    &#34;DISABLE_FEEDBACK_COMMAND&#34;: <span style=color:#87ceeb>&#34;1&#34;</span>,
+</span></span><span style=display:flex><span>    &#34;DISABLE_TELEMETRY&#34;: <span style=color:#87ceeb>&#34;1&#34;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;permissions&#34;: {
+</span></span><span style=display:flex><span>    &#34;allow&#34;: [
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git diff *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git log *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git status)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(grep *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(ls *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rg *)&#34;</span>
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    &#34;deny&#34;: [
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(curl *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(docker push *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(find * -delete)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(find * -exec rm*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git branch -D *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git checkout -- *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git clean -f*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git push *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git reset --hard*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(nc *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rm -f *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rm -r *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rm -rf *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rsync *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(scp *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(ssh *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(sudo *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(wget *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(./.env*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(./.git/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(./secrets/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(~/.aws/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(~/.bashrc)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(~/.ssh/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(~/.zshrc)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(*.env)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./.env.*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./.git/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./secrets/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.aws/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.azure/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.config/gh/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.git-credentials)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.gnupg/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.kube/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.npmrc)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.ssh/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Write(./.env*)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Write(./.git/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Write(./secrets/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Write(~/.aws/**)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Write(~/.ssh/**)&#34;</span>
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    &#34;defaultMode&#34;: <span style=color:#87ceeb>&#34;plan&#34;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;enabledPlugins&#34;: {},
+</span></span><span style=display:flex><span>  &#34;sandbox&#34;: {
+</span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;effortLevel&#34;: <span style=color:#87ceeb>&#34;high&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,
+</span></span><span style=display:flex><span>  &#34;autoUpdatesChannel&#34;: <span style=color:#87ceeb>&#34;stable&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;disableAutoMode&#34;: <span style=color:#87ceeb>&#34;disable&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;theme&#34;: <span style=color:#87ceeb>&#34;light&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;skipAutoPermissionPrompt&#34;: <span style=color:red>false</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></details><p>This config reaches the same control goal I like in OpenCode: decomposition
+stays visible, writes stay gated, mode switching stays under my control:</p><ul><li><code>"defaultMode": "plan"</code> – plan mode by default: writes blocked, reads
+allowed, plan exposed as <code>/plan</code></li><li><code>"disableAutoMode": "disable"</code> – no autonomous mode switching</li><li><code>"sandbox.enabled": true</code> plus a <code>permissions.deny</code> list for <code>rm -rf</code>,
+<code>git push</code>, <code>sudo</code>, <code>~/.ssh/**</code>, etc.</li><li>telemetry off: <code>DISABLE_TELEMETRY=1</code>, <code>DISABLE_FEEDBACK_COMMAND=1</code>,
+<code>DISABLE_ERROR_REPORTING=1</code>, <code>awaySummaryEnabled: false</code></li></ul><h5 id=current-setup><a href=#current-setup>#</a> Current setup</h5><ul><li><strong>Context7 MCP</strong> – provides current library docs instead of the model’s stale
+or hallucinated snippets</li><li><strong>Playwright MCP</strong> – just browser, there is nothing to add</li><li><strong>Caveman plugin</strong> – its selling point is “Saves tokens, preserve accuracy”,
+but I’m not sure whether it actually works; too hard to measure.</li></ul><p>Each of these touches the harness only. Model stays the vendor’s, intent stays
+mine.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
+own, freely. CLI plan mode operates on intent – you’re the bottleneck.</p><p>Got it? <em>The loop is what makes something agentic</em>, and the harness puts you
+inside or outside of it.</p><p>Outside the loop – waiting for a solution that fits your intent’s shape.</p><p>Inside the loop you keep the intent. You decompose. The agent executes what you
+approved. The ceiling is whatever you can break into steps.</p><p>Same year. Frontier models underneath. Different harnesses – different
+experiences.<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Popularized by ReAct – Yao et al., ICLR 2023
+(<a href=https://arxiv.org/abs/2210.03629 target=_blank rel="noopener noreferrer">paper</a>,
+<a href=https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/ target=_blank rel="noopener noreferrer">Google Research blog</a>).&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>See Birgitta Böckeler, “Harness engineering for coding agent users”:
+<a href=https://martinfowler.com/articles/harness-engineering.html target=_blank rel="noopener noreferrer">https://martinfowler.com/articles/harness-engineering.html</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p><em>Personal assistants</em> look promising, I’ll wait for the next Hermes
+iteration, or maybe Notion’s agent becomes a proper alternative.&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>Yes-yes, I know about openspec.dev, but it’s quite important to maintain
+plan “observable”, not 5+ A4 neuro-generated pages of raw text.&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:5><p>To save some tokens I use stronger model for plan (Opus) and weaker for
+build (Sonnet).&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:6><p><a href=https://simonwillison.net/2025/Jun/13/prompt-injection-design-patterns/#the-plan-then-execute-pattern target=_blank rel="noopener noreferrer">https://simonwillison.net/2025/Jun/13/prompt-injection-design-patterns/#the-plan-then-execute-pattern</a>
+– caveat: the split is weaker here – plan sub-agent still reads untrusted
+repo while planning, so a malicious file can steer the plan.&#160;<a href=#fnref:6 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:7><p><a href=/blog/posts/will-ai-replace-developers/>Anthropic</a>
+tightened terms – subscription plans (including the corporate one I use) no
+longer cover Claude access from third-party apps; third-party access now
+requires per-usage API credits.&#160;<a href=#fnref:7 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:8><p><a href=https://www.anthropic.com/news/measuring-agent-autonomy target=_blank rel="noopener noreferrer">https://www.anthropic.com/news/measuring-agent-autonomy</a> – autonomy framed
+as emergent from model, product design, and user oversight strategy.&#160;<a href=#fnref:8 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>

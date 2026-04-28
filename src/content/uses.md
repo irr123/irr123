@@ -41,7 +41,7 @@ Inspired by [uses.tech](https://uses.tech/). For work context, see
 
 - macOS
   - [Ghostty](https://github.com/irr123/my-configs/blob/master/ghostty.config)
-    - Hack font
+    - DejaVu Sans Mono font
   - Default [zsh](https://github.com/irr123/my-configs/blob/master/zshrc)
   - Default calendar/Mail
   - QEMU
@@ -49,7 +49,6 @@ Inspired by [uses.tech](https://uses.tech/). For work context, see
   - WSL
     - Default [bash](https://github.com/irr123/my-configs/blob/master/bashrc)
   - [Windows Terminal](https://github.com/irr123/my-configs/blob/master/win-terminal.json)
-    - Historically JetBrains Mono font
   - Thunderbird
 - [Neovim](https://github.com/irr123/my-configs/tree/master/vimfiles); plugins
   are git submodules in `pack/`; I don’t use a plugin manager.
