@@ -4,32 +4,30 @@ back_ref: /blog/_index.md
 draft: false
 title: Will AI replace developers?
 keywords:
-  [
-    AI replacing developers,
-    Will AI replace programmers,
-    Future of software development,
-    AI vs human coders,
-    Anthropic AI hiring,
-    OpenAI vs Anthropic,
-    AI in software engineering,
-    No-code vs traditional coding,
-    AI job automation,
-    Anthropic CEO Dario Amodei,
-    AI and software developer jobs,
-    Future of programming jobs,
-    Will AI take over programming jobs,
-    How AI is changing software development,
-    Can AI replace software engineers,
-    Anthropic AI hiring trends 2025,
-    AI job market for developers,
-    AI in tech industry,
-    AI and programming future,
-    Anthropic AI team growth,
-    AI-driven development,
-    software engineer job market,
-    future of coders,
-    AI in tech workforce
-  ]
+  - AI replacing developers
+  - Will AI replace programmers
+  - Future of software development
+  - AI vs human coders
+  - Anthropic AI hiring
+  - OpenAI vs Anthropic
+  - AI in software engineering
+  - No-code vs traditional coding
+  - AI job automation
+  - Anthropic CEO Dario Amodei
+  - AI and software developer jobs
+  - Future of programming jobs
+  - Will AI take over programming jobs
+  - How AI is changing software development
+  - Can AI replace software engineers
+  - Anthropic AI hiring trends 2025
+  - AI job market for developers
+  - AI in tech industry
+  - AI and programming future
+  - Anthropic AI team growth
+  - AI-driven development
+  - software engineer job market
+  - future of coders
+  - AI in tech workforce
 image: robot.jpg
 ---
 

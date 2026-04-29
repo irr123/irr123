@@ -149,6 +149,12 @@ from code: constraints, preferences, dangerous commands, external contracts.</p>
 </span></span><span style=display:flex><span>Reuse what&#39;s in the system
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>No sycophancy, no fluff
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#87ceeb;font-weight:700>## Environment
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>There is no <span style=color:#87ceeb>`gh`</span> CLI command
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Use <span style=color:#87ceeb>`rg`</span> for grep
 </span></span></code></pre></div></div></details><p>Still, the most reliable way to fix hallucinations is not to argue with the
 agent but to drop the session and restart from scratch.</p><p>OpenCode’s approach helps me clearly follow the principles above:</p><ol><li>In plan mode I explain the goal and constraints, pointing to important files
 or docs as entry points.</li><li>The plan sub-agent collects requirements, explores the repo, clarifies
@@ -201,7 +207,6 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Edit(~/.zshrc)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(*.env)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./.env.*)&#34;</span>,
-</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./.git/**)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(./secrets/**)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.aws/**)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Read(~/.azure/**)&#34;</span>,
@@ -221,7 +226,8 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;enabledPlugins&#34;: {},
 </span></span><span style=display:flex><span>  &#34;sandbox&#34;: {
-</span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>    &#34;excludedCommands&#34;: [<span style=color:#87ceeb>&#34;git&#34;</span>]
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;effortLevel&#34;: <span style=color:#87ceeb>&#34;high&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,

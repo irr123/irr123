@@ -4,26 +4,24 @@ back_ref: /blog/_index.md
 draft: false
 title: Python3 Dockerfile with uv
 keywords:
-  [
-    python3,
-    docker,
-    dockerfile,
-    uv,
-    python uv,
-    uv package manager,
-    rust-based pip alternative,
-    fast python package manager,
-    python venv alternative,
-    uv vs pip,
-    uv docker integration,
-    python package management,
-    rust python tools,
-    how to use uv in docker,
-    best python package manager 2025,
-    uv vs pip performance comparison,
-    setting up uv in CI/CD,
-    running uv in docker containers
-  ]
+  - python3
+  - docker
+  - dockerfile
+  - uv
+  - python uv
+  - uv package manager
+  - rust-based pip alternative
+  - fast python package manager
+  - python venv alternative
+  - uv vs pip
+  - uv docker integration
+  - python package management
+  - rust python tools
+  - how to use uv in docker
+  - best python package manager 2025
+  - uv vs pip performance comparison
+  - setting up uv in CI/CD
+  - running uv in docker containers
 image: posts-docker-uv-1.jpg
 ---
 

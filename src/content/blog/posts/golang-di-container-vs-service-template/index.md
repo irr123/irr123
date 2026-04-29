@@ -4,33 +4,31 @@ back_ref: /blog/_index.md
 draft: false
 title: DI container vs. service template (generator)
 keywords:
-  [
-    golang,
-    architecture,
-    dependency injection,
-    DI container,
-    service template,
-    microservices,
-    software design patterns,
-    software architecture,
-    Golang dependency injection,
-    DI vs service template,
-    Golang microservices,
-    Golang DI container,
-    Go service generator,
-    Golang project structure,
-    Golang best practices,
-    software scalability,
-    Golang framework,
-    inversion of control,
-    Golang IoC,
-    Golang DI example,
-    Golang container pattern,
-    microservices best practices,
-    CI/CD for Golang,
-    software quality management,
-    Golang software templates
-  ]
+  - golang
+  - architecture
+  - dependency injection
+  - DI container
+  - service template
+  - microservices
+  - software design patterns
+  - software architecture
+  - Golang dependency injection
+  - DI vs service template
+  - Golang microservices
+  - Golang DI container
+  - Go service generator
+  - Golang project structure
+  - Golang best practices
+  - software scalability
+  - Golang framework
+  - inversion of control
+  - Golang IoC
+  - Golang DI example
+  - Golang container pattern
+  - microservices best practices
+  - CI/CD for Golang
+  - software quality management
+  - Golang software templates
 image: morpheus.jpg
 ---
 

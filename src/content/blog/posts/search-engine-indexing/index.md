@@ -4,16 +4,14 @@ back_ref: /blog/_index.md
 draft: false
 title: "Search engine indexing: A case study with Google, Bing and Yandex"
 keywords:
-  [
-    SEO,
-    search engines,
-    Google indexing,
-    Bing webmaster,
-    Yandex search,
-    website ranking,
-    sitemap,
-    search engine optimization
-  ]
+  - SEO
+  - search engines
+  - Google indexing
+  - Bing webmaster
+  - Yandex search
+  - website ranking
+  - sitemap
+  - search engine optimization
 image: robots.jpg
 ---
 

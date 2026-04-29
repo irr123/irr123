@@ -5,21 +5,19 @@ draft: false
 title: Hugo static site generator + Prettier code formatter = ❤️
 image: "hugo-code-formatting.png"
 keywords:
-  [
-    Hugo,
-    Prettier,
-    Code Formatting,
-    Docker,
-    Static Site Generator,
-    .prettierrc,
-    Hugo Code Formatting,
-    Format Hugo Templates,
-    Hugo Template Formatting,
-    Prettier Docker Setup,
-    prettier-plugin-go-template,
-    Hugo Prettier Integration,
-    Version Control
-  ]
+  - Hugo
+  - Prettier
+  - Code Formatting
+  - Docker
+  - Static Site Generator
+  - .prettierrc
+  - Hugo Code Formatting
+  - Format Hugo Templates
+  - Hugo Template Formatting
+  - Prettier Docker Setup
+  - prettier-plugin-go-template
+  - Hugo Prettier Integration
+  - Version Control
 ---
 
 I like my code nicely formatted, and since I'm using Hugo here 👇, I figured it

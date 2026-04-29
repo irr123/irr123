@@ -4,38 +4,36 @@ back_ref: /blog/_index.md
 draft: false
 title: (Almost) Free Google drive backup (part 1)
 keywords:
-  [
-    rclone,
-    google drive,
-    backup,
-    cron,
-    google drive backup,
-    automated backup,
-    rclone google drive,
-    google cloud console,
-    google drive API,
-    service account,
-    rclone service account,
-    cloud storage backup,
-    secure backups,
-    data recovery,
-    rclone automation,
-    google drive data protection,
-    backup with cron,
-    google drive service account,
-    rclone docker,
-    encrypted cloud backup,
-    google drive disaster recovery,
-    cloud storage automation,
-    scheduled backups,
-    rclone config example,
-    rclone tutorial,
-    data redundancy,
-    backup and restore google drive,
-    rclone setup,
-    google drive security,
-    backup best practices
-  ]
+  - rclone
+  - google drive
+  - backup
+  - cron
+  - google drive backup
+  - automated backup
+  - rclone google drive
+  - google cloud console
+  - google drive API
+  - service account
+  - rclone service account
+  - cloud storage backup
+  - secure backups
+  - data recovery
+  - rclone automation
+  - google drive data protection
+  - backup with cron
+  - google drive service account
+  - rclone docker
+  - encrypted cloud backup
+  - google drive disaster recovery
+  - cloud storage automation
+  - scheduled backups
+  - rclone config example
+  - rclone tutorial
+  - data redundancy
+  - backup and restore google drive
+  - rclone setup
+  - google drive security
+  - backup best practices
 image: suit.jpg
 ---
 

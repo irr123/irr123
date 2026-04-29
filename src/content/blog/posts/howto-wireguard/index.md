@@ -4,8 +4,15 @@ back_ref: /blog/_index.md
 draft: false
 title: "How-to: A private WireGuard VPN with selective Tor routing"
 image: "wireguard.png"
-keywords: ["wireguard", "vpn", "tor", "privacy", "networking", "ubuntu",
-"windows", "podman"]
+keywords:
+  - wireguard
+  - vpn
+  - tor
+  - privacy
+  - networking
+  - ubuntu
+  - windows
+  - podman
 ---
 
 When planning a VPN, _OpenVPN_ is often the default choice. However, in this

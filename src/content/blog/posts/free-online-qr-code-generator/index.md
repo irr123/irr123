@@ -6,18 +6,16 @@ title: Free online QR code generator
 custom_js: [qr-code]
 image: "qrcode.png"
 keywords:
-  [
-    "qr code",
-    "qr code generator",
-    "free qr code",
-    "svg qr code",
-    "png qr code",
-    "online qr code",
-    "no registration qr code",
-    "qr code maker",
-    "free qr code generator",
-    "qr code download"
-  ]
+  - qr code
+  - qr code generator
+  - free qr code
+  - svg qr code
+  - png qr code
+  - online qr code
+  - no registration qr code
+  - qr code maker
+  - free qr code generator
+  - qr code download
 ---
 
 What a shame -- nowadays, one quick request to GPT spits out a proper HTML page

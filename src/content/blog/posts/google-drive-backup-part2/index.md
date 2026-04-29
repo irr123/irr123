@@ -4,35 +4,33 @@ back_ref: /blog/_index.md
 draft: false
 title: Google drive backup (part 2)
 keywords:
-  [
-    rclone,
-    dropbox,
-    google drive,
-    encryption,
-    backup,
-    cloud backup,
-    encrypted cloud storage,
-    rclone backup,
-    google drive encryption,
-    dropbox encryption,
-    secure cloud storage,
-    rclone google drive,
-    rclone dropbox setup,
-    encrypted backups with rclone,
-    data redundancy,
-    cloud data security,
-    offsite backup,
-    automated backups,
-    rclone crypt,
-    secure file transfer,
-    cloud data protection,
-    backup encryption best practices,
-    restoring encrypted backups,
-    google drive to dropbox backup,
-    rclone docker,
-    backup automation,
-    rclone config example
-  ]
+  - rclone
+  - dropbox
+  - google drive
+  - encryption
+  - backup
+  - cloud backup
+  - encrypted cloud storage
+  - rclone backup
+  - google drive encryption
+  - dropbox encryption
+  - secure cloud storage
+  - rclone google drive
+  - rclone dropbox setup
+  - encrypted backups with rclone
+  - data redundancy
+  - cloud data security
+  - offsite backup
+  - automated backups
+  - rclone crypt
+  - secure file transfer
+  - cloud data protection
+  - backup encryption best practices
+  - restoring encrypted backups
+  - google drive to dropbox backup
+  - rclone docker
+  - backup automation
+  - rclone config example
 image: suit-2.jpg
 ---
 

@@ -301,6 +301,12 @@ Pick simple over clever
 Reuse what's in the system
 
 No sycophancy, no fluff
+
+## Environment
+
+There is no `gh` CLI command
+
+Use `rg` for grep
 ```
 
 {{< /details >}}
@@ -379,7 +385,6 @@ important.
       "Edit(~/.zshrc)",
       "Read(*.env)",
       "Read(./.env.*)",
-      "Read(./.git/**)",
       "Read(./secrets/**)",
       "Read(~/.aws/**)",
       "Read(~/.azure/**)",
@@ -399,7 +404,8 @@ important.
   },
   "enabledPlugins": {},
   "sandbox": {
-    "enabled": true
+    "enabled": true,
+    "excludedCommands": ["git"]
   },
   "effortLevel": "high",
   "awaySummaryEnabled": false,

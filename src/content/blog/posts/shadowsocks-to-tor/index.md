@@ -5,21 +5,19 @@ draft: false
 title: "Shadowsocks to Tor: Why it failed as a VPN alternative"
 image: "pic.png"
 keywords:
-  [
-    "shadowsocks",
-    "tor",
-    "vpn",
-    "ansible",
-    "privacy",
-    "networking",
-    "vps",
-    "self-hosting",
-    "iptables",
-    "wireguard",
-    "censorship circumvention",
-    "TUN mode",
-    "SOCKS5 proxy"
-  ]
+  - shadowsocks
+  - tor
+  - vpn
+  - ansible
+  - privacy
+  - networking
+  - vps
+  - self-hosting
+  - iptables
+  - wireguard
+  - censorship circumvention
+  - TUN mode
+  - SOCKS5 proxy
 ---
 
 Well, the time has come, and I've decided to update, clean up, and generally

@@ -5,21 +5,19 @@ draft: false
 title: Prompt engineering notes
 image: ai-refuses.jpg
 keywords:
-  [
-    prompt engineering,
-    AI prompts,
-    AI prompt generation,
-    Cursor prompts leak,
-    prompt engineering best practices,
-    AI image generation prompts,
-    OpenAI prompt engineering,
-    Gemini prompt engineering,
-    Anthropic Claude prompts,
-    AI prompt design,
-    AI workflow optimization,
-    how to improve AI prompts,
-    alternatives to prompt engineers
-  ]
+  - prompt engineering
+  - AI prompts
+  - AI prompt generation
+  - Cursor prompts leak
+  - prompt engineering best practices
+  - AI image generation prompts
+  - OpenAI prompt engineering
+  - Gemini prompt engineering
+  - Anthropic Claude prompts
+  - AI prompt design
+  - AI workflow optimization
+  - how to improve AI prompts
+  - alternatives to prompt engineers
 ---
 
 If you weren't aware, there was a leak of Cursor and some other

@@ -10,12 +10,7 @@ keywords:
   - Ivan Bogomolov
   - Иван Богомолов
   - software engineer
-  - architecture
-  - operations
-  - systems design
   - self-hosting
-  - pragmatism
-  - infrastructure
   - networking
 ---
 

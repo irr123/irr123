@@ -6,22 +6,20 @@ title: PlayStation statistics
 custom_js: [psn-stat]
 image: "astro-bot.png"
 keywords:
-  [
-    PlayStation statistics,
-    PSN stats,
-    gaming hours,
-    PlayStation script,
-    open-source,
-    gaming time,
-    unplayed games,
-    game library,
-    gaming data,
-    PSN API,
-    contribute code,
-    how to check PlayStation gaming hours,
-    open-source PSN stats tool,
-    find unplayed games on PS5
-  ]
+  - PlayStation statistics
+  - PSN stats
+  - gaming hours
+  - PlayStation script
+  - open-source
+  - gaming time
+  - unplayed games
+  - game library
+  - gaming data
+  - PSN API
+  - contribute code
+  - how to check PlayStation gaming hours
+  - open-source PSN stats tool
+  - find unplayed games on PS5
 ---
 
 <!-- ![test](astro-bot.png) -->
