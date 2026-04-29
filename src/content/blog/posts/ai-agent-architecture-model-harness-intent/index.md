@@ -6,18 +6,21 @@ title: "AI Agent architecture: model, harness, intent"
 image: hero.png
 keywords:
   - agentic ai
+  - emergent autonomy
   - what is an ai agent
-  - ai agent vs agentic ai
-  - ai agent platform
   - ai agent architecture
+  - model harness intent
   - agent harness
   - ai agent harness
+  - harness engineering
   - personal ai agent
   - specialized ai agent
-  - how to create ai agent
   - intent decomposition
   - agentic loop
-  - plan mode build mode
+  - ReAct pattern
+  - Plan-Then-Execute
+  - plan mode
+  - sub-agent
   - context engineering
   - AI coding tools
   - cli agent
@@ -28,11 +31,17 @@ keywords:
   - Perplexity
   - Hermes
   - hermes agent
+  - Nous Research
   - OpenClaw
   - MCP servers
+  - Context7 MCP
+  - Playwright MCP
   - AGENTS.md
   - CLAUDE.md
-  - developer experience 2026
+  - Skill
+  - RAG
+  - Mem0
+  - Podman
 ---
 
 My VPS runs a "personal AI agent". It forgets its own abilities every morning.
@@ -443,18 +452,18 @@ mine.
 ## Conclusion
 
 Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
-own, freely. CLI plan mode operates on intent -- you're the bottleneck.
+own, without you. CLI plan mode operates on intent -- you're the bottleneck.
 
-Got it? _The loop is what makes something agentic_, and the harness puts you
-inside or outside of it.
+_The loop is what makes something agentic_, and the harness puts you inside or
+outside of it.
 
-Outside the loop -- waiting for a solution that fits your intent's shape.
+Outside the loop: wait for a solution that fits your intent's shape.
 
-Inside the loop you keep the intent. You decompose. The agent executes what you
-approved. The ceiling is whatever you can break into steps.
+Inside the loop: keep the intent, decompose it, approve execution. The ceiling
+is whatever you can break into steps.
 
-Same year. Same frontier models. Autonomy is not in the model alone; the harness
-decides where it lands.[^8]
+Same year. Same frontier models. Humans still hold the loop. That is the
+autonomy that emerges today.[^8]
 
 {data-content="footnotes"}
 
