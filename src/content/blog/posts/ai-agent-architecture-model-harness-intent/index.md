@@ -306,7 +306,7 @@ No sycophancy, no fluff
 
 There is no `gh` CLI command
 
-Use `rg` for grep
+Use `rg` instead of grep
 ```
 
 {{< /details >}}
@@ -453,8 +453,8 @@ Outside the loop -- waiting for a solution that fits your intent's shape.
 Inside the loop you keep the intent. You decompose. The agent executes what you
 approved. The ceiling is whatever you can break into steps.
 
-Same year. Frontier models underneath. Different harnesses -- different
-experiences.[^8]
+Same year. Same frontier models. Autonomy is not in the model alone; the harness
+decides where it lands.[^8]
 
 {data-content="footnotes"}
 
@@ -491,5 +491,7 @@ experiences.[^8]
     requires per-usage API credits.
 
 [^8]:
-    https://www.anthropic.com/news/measuring-agent-autonomy -- autonomy framed
-    as emergent from model, product design, and user oversight strategy.
+    Anthropic on
+    [agent autonomy](https://www.anthropic.com/news/measuring-agent-autonomy) --
+    autonomy framed as emergent from model behavior, product design, and user
+    oversight strategy.
