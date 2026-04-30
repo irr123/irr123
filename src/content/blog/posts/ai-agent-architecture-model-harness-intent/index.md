@@ -299,17 +299,15 @@ from code: constraints, preferences, dangerous commands, external contracts.
 ```md
 # Approach
 
-Clarify unclear inputs; do not invent context
-
-Define measurable outcomes before implementation
+Validate inputs; assert assumptions
 
 Frame contradictions, don't compromise them
 
-Pick simple over clever
+Define measurable outcomes before implementation
 
-Reuse what's in the system
+Prefer simple over clever
 
-Be brief, no sycophancy, no fluff
+Be brief
 
 ## Environment
 
@@ -441,10 +439,10 @@ stays visible, writes stay gated, mode switching stays under my control:
 ##### Current setup
 
 - **Context7 MCP** -- provides actual library docs instead of the model's stale
-  or hallucinated snippets
-- **Playwright MCP** -- just browser, there is nothing to add
-- **Caveman plugin** -- its selling point is "Saves tokens, preserve accuracy",
-  but I'm not sure whether it actually works; needs to measure.[^8]
+  or hallucinated snippets.
+- **Playwright MCP** -- just browser, there is nothing to add.[^8]
+- ~**Caveman plugin** -- its selling point is "Saves tokens, preserve accuracy",
+  but I'm not sure whether it actually works; needs to measure.~[^9]
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
@@ -463,7 +461,7 @@ Inside the loop: keep the intent, decompose it, approve execution. The ceiling
 is whatever you can break into steps.
 
 Same year. Same frontier models. Humans still hold the loop. That is the
-autonomy that emerges today.[^9]
+autonomy that emerges today.[^10]
 
 {data-content="footnotes"}
 
@@ -500,10 +498,14 @@ autonomy that emerges today.[^9]
     requires per-usage API credits.
 
 [^8]:
+    CLI is more token effective than MCP,
+    https://github.com/microsoft/playwright-cli#playwright-cli-vs-playwright-mcp.
+
+[^9]:
     Caveman vs "be brief",
     https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words.
 
-[^9]:
+[^10]:
     [Agent autonomy](https://www.anthropic.com/news/measuring-agent-autonomy)
     framed as emergent from model behavior, product design, and user oversight
     strategy.

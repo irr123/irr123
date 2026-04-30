@@ -138,17 +138,15 @@ framework summaries, and obvious project descriptions. Current agents can
 inspect a repo per case, fast and cheap enough. Put only what they cannot infer
 from code: constraints, preferences, dangerous commands, external contracts.</p><details><summary>my global CLAUDE.md / AGENTS.md</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-md data-lang=md><span style=display:flex><span><span style=color:#ff0;font-weight:700># Approach
 </span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Clarify unclear inputs; do not invent context
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Define measurable outcomes before implementation
+</span></span><span style=display:flex><span>Validate inputs; assert assumptions
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>Frame contradictions, don&#39;t compromise them
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Pick simple over clever
+</span></span><span style=display:flex><span>Define measurable outcomes before implementation
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Reuse what&#39;s in the system
+</span></span><span style=display:flex><span>Prefer simple over clever
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Be brief, no sycophancy, no fluff
+</span></span><span style=display:flex><span>Be brief
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#87ceeb;font-weight:700>## Environment
 </span></span></span><span style=display:flex><span>
@@ -241,13 +239,13 @@ stays visible, writes stay gated, mode switching stays under my control:</p><ul>
 allowed, plan exposed as <code>/plan</code></li><li><code>"disableAutoMode": "disable"</code> – no autonomous mode switching</li><li><code>"sandbox.enabled": true</code> plus a <code>permissions.deny</code> list for <code>rm -rf</code>,
 <code>git push</code>, <code>sudo</code>, <code>~/.ssh/**</code>, etc.</li><li>telemetry off: <code>DISABLE_TELEMETRY=1</code>, <code>DISABLE_FEEDBACK_COMMAND=1</code>,
 <code>DISABLE_ERROR_REPORTING=1</code>, <code>awaySummaryEnabled: false</code></li></ul><h5 id=current-setup><a href=#current-setup>#</a> Current setup</h5><ul><li><strong>Context7 MCP</strong> – provides actual library docs instead of the model’s stale
-or hallucinated snippets</li><li><strong>Playwright MCP</strong> – just browser, there is nothing to add</li><li><strong>Caveman plugin</strong> – its selling point is “Saves tokens, preserve accuracy”,
-but I’m not sure whether it actually works; needs to measure.<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></li></ul><p>Each of these touches the harness only. Model stays the vendor’s, intent stays
+or hallucinated snippets.</li><li><strong>Playwright MCP</strong> – just browser, there is nothing to add.<sup id=fnref:8><a href=#fn:8 class=footnote-ref role=doc-noteref>8</a></sup></li><li><del><strong>Caveman plugin</strong> – its selling point is “Saves tokens, preserve accuracy”,
+but I’m not sure whether it actually works; needs to measure.</del><sup id=fnref:9><a href=#fn:9 class=footnote-ref role=doc-noteref>9</a></sup></li></ul><p>Each of these touches the harness only. Model stays the vendor’s, intent stays
 mine.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
 own, without you. CLI plan mode operates on intent – you’re the bottleneck.</p><p><em>The loop is what makes something agentic</em>, and the harness puts you inside or
 outside of it.</p><p>Outside the loop: wait for a solution that fits your intent’s shape.</p><p>Inside the loop: keep the intent, decompose it, approve execution. The ceiling
 is whatever you can break into steps.</p><p>Same year. Same frontier models. Humans still hold the loop. That is the
-autonomy that emerges today.<sup id=fnref:9><a href=#fn:9 class=footnote-ref role=doc-noteref>9</a></sup></p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Popularized by ReAct – Yao et al., ICLR 2023
+autonomy that emerges today.<sup id=fnref:10><a href=#fn:10 class=footnote-ref role=doc-noteref>10</a></sup></p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Popularized by ReAct – Yao et al., ICLR 2023
 (<a href=https://arxiv.org/abs/2210.03629 target=_blank rel="noopener noreferrer">paper</a>,
 <a href=https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/ target=_blank rel="noopener noreferrer">Google Research blog</a>).&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>See Birgitta Böckeler, “Harness engineering for coding agent users”:
 <a href=https://martinfowler.com/articles/harness-engineering.html target=_blank rel="noopener noreferrer">https://martinfowler.com/articles/harness-engineering.html</a>.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p><em>Personal assistants</em> look promising, I’ll wait for the next Hermes
@@ -258,7 +256,8 @@ build (Sonnet).&#160;<a href=#fnref:5 class=footnote-backref role=doc-backlink>&
 repo while planning, so a malicious file can steer the plan.&#160;<a href=#fnref:6 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:7><p><a href=/blog/posts/will-ai-replace-developers/>Anthropic</a>
 tightened terms – subscription plans (including the corporate one I use) no
 longer cover Claude access from third-party apps; third-party access now
-requires per-usage API credits.&#160;<a href=#fnref:7 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:8><p>Caveman vs “be brief”,
-<a href=https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words target=_blank rel="noopener noreferrer">https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words</a>.&#160;<a href=#fnref:8 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:9><p><a href=https://www.anthropic.com/news/measuring-agent-autonomy target=_blank rel="noopener noreferrer">Agent autonomy</a>
+requires per-usage API credits.&#160;<a href=#fnref:7 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:8><p>CLI is more token effective than MCP,
+<a href=https://github.com/microsoft/playwright-cli#playwright-cli-vs-playwright-mcp target=_blank rel="noopener noreferrer">https://github.com/microsoft/playwright-cli#playwright-cli-vs-playwright-mcp</a>.&#160;<a href=#fnref:8 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:9><p>Caveman vs “be brief”,
+<a href=https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words target=_blank rel="noopener noreferrer">https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words</a>.&#160;<a href=#fnref:9 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:10><p><a href=https://www.anthropic.com/news/measuring-agent-autonomy target=_blank rel="noopener noreferrer">Agent autonomy</a>
 framed as emergent from model behavior, product design, and user oversight
-strategy.&#160;<a href=#fnref:9 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>
+strategy.&#160;<a href=#fnref:10 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>
