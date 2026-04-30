@@ -309,7 +309,7 @@ Pick simple over clever
 
 Reuse what's in the system
 
-No sycophancy, no fluff
+Be brief, no sycophancy, no fluff
 
 ## Environment
 
@@ -440,11 +440,11 @@ stays visible, writes stay gated, mode switching stays under my control:
 
 ##### Current setup
 
-- **Context7 MCP** -- provides current library docs instead of the model's stale
+- **Context7 MCP** -- provides actual library docs instead of the model's stale
   or hallucinated snippets
 - **Playwright MCP** -- just browser, there is nothing to add
 - **Caveman plugin** -- its selling point is "Saves tokens, preserve accuracy",
-  but I'm not sure whether it actually works; too hard to measure.
+  but I'm not sure whether it actually works; needs to measure.[^8]
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
@@ -463,7 +463,7 @@ Inside the loop: keep the intent, decompose it, approve execution. The ceiling
 is whatever you can break into steps.
 
 Same year. Same frontier models. Humans still hold the loop. That is the
-autonomy that emerges today.[^8]
+autonomy that emerges today.[^9]
 
 {data-content="footnotes"}
 
@@ -474,7 +474,7 @@ autonomy that emerges today.[^8]
 
 [^2]:
     See Birgitta Böckeler, "Harness engineering for coding agent users":
-    https://martinfowler.com/articles/harness-engineering.html
+    https://martinfowler.com/articles/harness-engineering.html.
 
 [^3]:
     _Personal assistants_ look promising, I'll wait for the next Hermes
@@ -500,7 +500,10 @@ autonomy that emerges today.[^8]
     requires per-usage API credits.
 
 [^8]:
-    Anthropic on
-    [agent autonomy](https://www.anthropic.com/news/measuring-agent-autonomy) --
-    autonomy framed as emergent from model behavior, product design, and user
-    oversight strategy.
+    Caveman vs "be brief",
+    https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words.
+
+[^9]:
+    [Agent autonomy](https://www.anthropic.com/news/measuring-agent-autonomy)
+    framed as emergent from model behavior, product design, and user oversight
+    strategy.
