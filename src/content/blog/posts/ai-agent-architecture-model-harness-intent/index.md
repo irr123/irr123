@@ -455,10 +455,11 @@ own, without you. CLI plan mode operates on intent -- you're the bottleneck.
 _The loop is what makes something agentic_, and the harness puts you inside or
 outside of it.
 
-Outside the loop: wait for a solution that fits your intent's shape.
-
-Inside the loop: keep the intent, decompose it, approve execution. The ceiling
-is whatever you can break into steps.
+- Outside the loop: wait for a solution that fits your intent's shape. When it
+  doesn't, the agent won't say "no" -- it attempts the task anyway, drifts, and
+  hands something back.
+- Inside the loop: keep the intent, decompose it, approve execution. The ceiling
+  is whatever you can break into steps.
 
 Same year. Same frontier models. Humans still hold the loop. That is the
 autonomy that emerges today.[^10]
