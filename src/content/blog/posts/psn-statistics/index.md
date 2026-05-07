@@ -24,8 +24,8 @@ keywords:
 
 <!-- ![test](astro-bot.png) -->
 
-Here's a tool to peek at your PlayStation life-hours played, games beaten, the
-works. It's open-source, so feel free to mess with it and add your own spin.
+Here's a tool to peek at my PlayStation life -- hours played, games beaten, the
+works. It's open-source; patches welcome.
 
 https://github.com/irr123/psn-games-stats/tree/argparse
 
@@ -36,5 +36,5 @@ Steam hours, I'm almost afraid to add those up 🙈
 
 ## Conclusion
 
-It's a neat way to see where your time's gone. Give it a try, at least you'll
-find unplayed or forgotten games in your library 🎮
+It's a neat way to see where my time went. At least it finds unplayed or
+forgotten games in the library 🎮

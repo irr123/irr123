@@ -20,10 +20,10 @@ keywords:
   - alternatives to prompt engineers
 ---
 
-If you weren't aware, there was a leak of Cursor and some other
-[prompts](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools). I'm
-not here to evaluate the quality of prompts, but let's consider it as a state of
-the art from experienced guys.
+Cursor and some other
+[prompts](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
+leaked. I'm not evaluating prompt quality here. I treat it as state of the art
+from experienced guys.
 
 ![generate anime style image where AI fed up of prompt](ai-refuses.jpg)
 
@@ -45,10 +45,10 @@ controversial sources.
 
 ## Real life examples
 
-But for now let's try to separate two goals:
+I separate two goals:
 
-1. Build production-ready prompt which will be executed by some software
-2. Using AI in everyday life (for example all images here are AI-generated)
+1. Build production-ready prompt executed by software
+2. Use AI in everyday life (for example all images here are AI-generated)
 
 And focus on **2**. In my personal workflow, I typically ask something like:
 
@@ -68,13 +68,13 @@ How to improve it? Following OpenAI best practices:
 > - avoid smth
 > - do additional
 
-If we are talking about text result, probably you'll want to add:
+For text results, I add:
 
 > provide result in markdown(?) format
 >
 > example output: ...
 
-A few iterations of clarifications, and you're great.
+A few clarification rounds, and the result is usable.
 
 ## AI prompts in production software
 
@@ -112,7 +112,7 @@ The resulted prompt:
 > state. The style should be reminiscent of modern anime with a touch of
 > cyberpunk aesthetic.
 
-Execute the prompt and see resulted image on header.
+Execute the prompt. Result is in the header.
 
 ## Conclusion
 

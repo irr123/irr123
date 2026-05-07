@@ -28,8 +28,8 @@ my 1Gb VPS.
 
 At the same time, `docker-compose.py` is effectively deprecated, with Compose
 now shipped as a built-in `docker compose` command. That alone is not a problem,
-but it raised a reasonable question: has the role of Docker Compose actually
-changed, or is this just noise from the Kubernetes church?
+but it raised a reasonable question: has the role of Docker Compose changed, or
+is this noise from the Kubernetes church?
 
 <video autoplay loop muted playsinline preload="metadata" style="width:100%; height:auto;">
   <source src="cursed_Kubernetes_cathedral.mp4" type="video/mp4">
@@ -199,7 +199,7 @@ journald. Broad permissions, a rootful daemon, and a continuous CPU/RAM tax.
 
 Health checks are mostly informational and don't automatically trigger restarts.
 
-It's just a fine baseline for a single VPS.
+It's a fine baseline for a single VPS.
 
 ## K3s
 
@@ -209,8 +209,8 @@ A few words from the official sites:
 >
 > Easy to install, half the memory, all in a binary of less than 100 MB.
 
-Setup is basically `curl -sfL https://get.k3s.io | sh -`. I already like it -
-just run, as root, trust me 😈
+Setup is `curl -sfL https://get.k3s.io | sh -`. I already like it -- run as
+root, trust me 😈
 
 {{< details summary="Cluster overview" >}}
 
@@ -477,7 +477,7 @@ podman save --format docker-archive local/python-app:dev | sudo k3s ctr images i
 
 {{< /details >}}
 
-All of this recreates what Docker Compose already gives you:
+All of this recreates what Docker Compose already gives me:
 
 ```bash
 kubectl -n selfhosted get pods -o wide
@@ -492,13 +492,13 @@ On a single VPS.
 
 Pros: it provides `/usr/local/bin/k3s-uninstall.sh`.
 
-Jokes aside: on the one hand it gives you the full Kubernetes experience, even
-with built-in ingress controller, so you could simply reuse existing manifests
-to full-fledged cluster and _scale_ things up (actually no, but needs to
-believe, see non-clusterized `deployment-valkey.yaml`).
+Jokes aside: on the one hand it gives me the full Kubernetes experience, even
+with built-in ingress controller, so I could reuse existing manifests for a
+full-fledged cluster and _scale_ things up (no, but belief helps, see
+non-clusterized `deployment-valkey.yaml`).
 
-On the other hand, you pay high operational costs and high CPU/RAM overhead.
-Will you ever recoup that investment?
+On the other hand, I pay high operational costs and high CPU/RAM overhead. Will
+I ever recoup that investment?
 
 ## Podman + Quadlet
 
@@ -525,7 +525,7 @@ key and repo).
 4. `podman network create selfhosted` (it's quite strange but in default podman
    network DNS disabled)
 
-Preparation is done. Add the units and you're ok.
+Preparation is done. Add the units and I'm ok.
 
 {{< details summary="~/.config/containers/systemd/redis.container" >}}
 
@@ -654,8 +654,8 @@ Hint: Some lines were ellipsized, use -l to show in full.
 
 The result: container isolation without the overhead and complexity. It runs as
 a regular user. Updates are predictable via
-`systemctl --user restart python.service`. Health checks actually restart the
-service, and logs rotate out of the box.
+`systemctl --user restart python.service`. Health checks restart the service,
+and logs rotate out of the box.
 
 ## Conclusion
 

@@ -29,8 +29,7 @@ trade-offs discovered firsthand.
 
 I prefer simplicity and pragmatism over hype and marketing. Boring, on purpose.
 
-If you have a concrete technical problem or system to untangle, email works
-best.
+For a concrete technical problem or system to untangle, email works best.
 
 - <a href="mailto:ivan.invoke@bogomolov.work" target=_blank rel="noopener noreferrer" rel="me">Email</a>
 - <a href="https://www.linkedin.com/in/bogomolov-ivan/" target=_blank rel="noopener noreferrer" rel="me">LinkedIn</a>

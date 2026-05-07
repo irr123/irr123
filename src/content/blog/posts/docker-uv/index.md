@@ -25,22 +25,23 @@ keywords:
 image: posts-docker-uv-1.jpg
 ---
 
-I've been noticed that my simple
+I noticed that my simple
 [python3 docker image](https://hub.docker.com/repository/docker/c1rno/python)
-with uv has unexpected amount of downloads, so, I descided to steal some traffic
-from original https://docs.astral.sh/uv/guides/integration/docker/ to it page.
+with uv has an unexpected number of downloads, so I decided to steal some
+traffic from the original https://docs.astral.sh/uv/guides/integration/docker/
+page.
 
 ## What is it [uv](https://github.com/astral-sh/uv)?
 
 ![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust)](posts-docker-uv-1.jpg)
 
-Long story short - it's fast-Rust python's pip alternative. And
-`python3 -m  venv ./venv` too and maybe more at time when you're reading it.
+Long story short -- uv is a fast Rust-based Python pip alternative. It also
+replaces `python3 -m  venv ./venv`, and probably more by the time I reread this.
 
 ## So what?
 
-So, don't use none of one and [two](https://github.com/irr123/python-docker) and
-instead of it just do properly:
+So, don't use old one and [two](https://github.com/irr123/python-docker). Do it
+properly:
 
 ```bash
 ARG BASE_IMAGE=python:3.13.2-slim-bookworm
@@ -70,5 +71,5 @@ WORKDIR /opt/app
 
 ## Conclusion
 
-Personally I don't see any reason to spent time to setup uv locally, but on CI
-it safe a lot of time, don't waste it!
+Personally I don't see any reason to spend time setting up uv locally, but on CI
+it saves a lot of time. Don't waste it!

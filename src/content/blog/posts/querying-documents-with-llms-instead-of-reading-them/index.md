@@ -16,7 +16,7 @@ keywords:
 ---
 
 Reading a technical doc cover-to-cover is like running a full table scan. A
-64-page guide might only have five pages of signal, but you grind through all 64
+64-page guide might only have five pages of signal, but I grind through all 64
 anyway.
 
 I tried something different on Google’s
@@ -93,11 +93,11 @@ Now pull a thread:
 > "disciplined" and "engineering-driven" mean in this document.
 
 This pins the model to the source and shows if the doc has substance. After a
-few rounds, you know if it’s worth a real read.
+few rounds, I know if it’s worth a real read.
 
 ## Limitations
 
-This works as a filter. It breaks if you trust it blindly.
+This works as a filter. It breaks if I trust it blindly.
 
 - **Hallucinations happen.** I once asked about a new database’s WAL protocol.
   The model said ARIES. Wrong -- the paper invented a new one. It only
@@ -109,5 +109,5 @@ This works as a filter. It breaks if you trust it blindly.
 
 ## Conclusion
 
-This isn’t reading. It’s interrogation. Use it to slash through the pile of PDFs
-and whitepapers. Then only read the ones that deserve your hours.
+This isn’t reading. It’s interrogation. I use it to slash through the pile of
+PDFs and whitepapers. Then I read the ones that deserve my hours.

@@ -52,14 +52,12 @@ Same year. Frontier models on both. Same ecosystem.
 
 ![model, harness, intent](hero.png)
 
-They both consist of a model and a harness, together handling my intent. Why
-such a different experience? Start with the thing everyone mixes up:
-definitions.
+Both are model + harness, trying to handle the same thing: my intent. Why such a
+different experience? Start with the thing everyone mixes up: definitions.
 
 ## What is an AI agent?
 
-- **Anthropic** -- the company. Founded by ex-OpenAI researchers, ... -- you
-  know
+- **Anthropic** -- the company. Founded by ex-OpenAI researchers. Usual story.
 - **Claude** -- the model family. When someone says "ask Claude," they usually
   mean a single call to whichever model through a chatbot. Competes with GPT
   (OpenAI) and Gemini (Google).
@@ -89,12 +87,33 @@ definitions.
 Providers are wrapping yesterday's chats in agent loops -- execution pattern
 flips, the chat UI stays. Same split still holds: model caps capability, harness
 wires integrations and workflow -- and intent has to be decomposed into pieces
-the agent can actually handle. Who does the decomposition is the next question.
+the agent can handle. Who does the decomposition is the next question.
 
 ## AI platforms and architectures
 
+First, split common LLM application architectures by workflow -- the execution
+pattern around model calls.
+
+At tiers 0-3 this is mostly application code: fixed calls, branching, one-off
+tool use. At tiers 4-5 it becomes an agent harness: loop, state, permissions,
+memory, orchestration.
+
+Six tiers, in order of escalating cost/complexity:
+
+| Tier | Pattern                    | When                                        | Cost shape                                    |
+| ---- | -------------------------- | ------------------------------------------- | --------------------------------------------- |
+| 0    | Single prompt              | Text in, text out                           | 1 LLM call                                    |
+| 1    | Prompt chain               | Multi-step but predictable pipeline         | N LLM calls                                   |
+| 2    | Routing                    | Input-type dispatch into one of K branches  | Router call + selected branch                 |
+| 3    | Tool-use, single round     | Need external data, one tool round suffices | Tool schema tokens + tool call + synthesis    |
+| 4    | Agent, ReAct loop          | Iterative, unknown depth, state-dependent   | Unbounded: loop iterations × model/tool calls |
+| 5    | Multi-agent / orchestrator | Long-horizon, decomposable, large context   | Orchestrator + workers + replans + synthesis  |
+
+This post is about tiers 4 and 5: agent loops, orchestrators, and who owns
+intent decomposition.
+
 Three families competing for "AI agent" today. Same lens for each: who owns
-intent decomposition -- the specialized harness, the personal assistant, or you?
+intent decomposition -- the specialized harness, the personal assistant, or me?
 
 ### Specialized AI agents
 
@@ -135,8 +154,8 @@ routed the answer, which metadata it saw, or why it mixed Grok, Sonar, and Llama
 into one pile.
 
 The outcome -- specialized harness frames intent into its fixed shape. When that
-frame fits, you get a clean research answer. When the frame itself is wrong, you
-get confident product salad and no useful control surface.
+frame fits, I get a clean research answer. When the frame itself is wrong, I get
+confident product salad and no useful control surface.
 
 ### Personal assistant
 
@@ -198,7 +217,7 @@ I connected it to my GPT subscription, added integrations for X, Google
 Calendar, Notion, and this blog's RSS, plus free Mem0 as RAG.
 
 It even worked, right after setup, but the next day it totally forgot about the
-integration -- you have to persuade it to try again.
+integration -- I have to persuade it to try again.
 
 OAuth failed in a different way. During Google Calendar integration I issued
 credentials only for read/write on the calendar, not broader Google scopes. The
@@ -223,8 +242,8 @@ doesn't expose decomposition early enough to fix it.[^3]
 
 ### CLI
 
-Terminal-native, actively evolving. Everything in your hands -- only vendor ToS
-can limit you.
+Terminal-native, actively evolving. Everything in my hands -- only vendor ToS
+can limit me.
 
 #### OpenCode --- The open source AI coding agent
 
@@ -324,14 +343,15 @@ agent but to drop the session and restart from scratch.
 OpenCode's approach helps me clearly follow the principles above:
 
 1. In plan mode I explain the goal and constraints, pointing to important files
-   or docs as entry points.
-2. The plan sub-agent collects requirements, explores the repo, clarifies
-   intent, produces a plan[^4].
-3. The ready plan is handed to the build sub-agent, which implements it[^5].
-4. GOTO 1
+   or docs as entry points;
+1. The plan sub-agent collects requirements, explores the repo, clarifies
+   intent, produces a plan[^4];
+1. I review the plan; if decomposition is wrong, GOTO 1;
+1. The approved plan is handed to the build sub-agent, which implements it[^5];
+1. GOTO 1.
 
 In plan mode, the harness exposes decomposition before execution. At that point,
-the limit is you: how clearly you can split intent into steps.
+the limit is me: how clearly I can split intent into steps.
 
 This resembles the Plan-Then-Execute pattern[^6].
 
@@ -440,9 +460,9 @@ stays visible, writes stay gated, mode switching stays under my control:
 
 - **Context7 MCP** -- provides actual library docs instead of the model's stale
   or hallucinated snippets.
-- **Playwright MCP** -- just browser, there is nothing to add.[^8]
+- **Playwright MCP** -- browser control. Nothing else to add.[^8]
 - ~**Caveman plugin** -- its selling point is "Saves tokens, preserve accuracy",
-  but I'm not sure whether it actually works; needs to measure.~[^9]
+  but I haven't measured it.~[^9]
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
@@ -450,16 +470,17 @@ mine.
 ## Conclusion
 
 Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
-own, without you. CLI plan mode operates on intent -- you're the bottleneck.
+own, without me. CLI plan mode keeps decomposition visible -- I'm the
+bottleneck.
 
-_The loop is what makes something agentic_, and the harness puts you inside or
+_The loop is what makes something agentic_, and the harness puts me inside or
 outside of it.
 
-- Outside the loop: wait for a solution that fits your intent's shape. When it
+- Outside the loop: I wait for a solution that fits my intent's shape. When it
   doesn't, the agent won't say "no" -- it attempts the task anyway, drifts, and
   hands something back.
-- Inside the loop: keep the intent, decompose it, approve execution. The ceiling
-  is whatever you can break into steps.
+- Inside the loop: I keep intent, decompose it, approve execution. The ceiling
+  is whatever I can break into steps.
 
 Same year. Same frontier models. Humans still hold the loop. That is the
 autonomy that emerges today.[^10]
@@ -476,12 +497,12 @@ autonomy that emerges today.[^10]
     https://martinfowler.com/articles/harness-engineering.html.
 
 [^3]:
-    _Personal assistants_ look promising, I'll wait for the next Hermes
-    iteration, or maybe Notion's agent becomes a proper alternative.
+    _Personal assistants_ still look worth watching. I'll wait for the next
+    Hermes iteration. Notion's agent may become the boring alternative.
 
 [^4]:
-    Yes-yes, I know about openspec.dev, but it's quite important to maintain
-    plan "observable", not 5+ A4 neuro-generated pages of raw text.
+    Yes-yes, I know about openspec.dev, but the plan has to stay observable, not
+    5+ A4 neuro-generated pages of raw text.
 
 [^5]:
     To save some tokens I use stronger model for plan (Opus) and weaker for

@@ -43,8 +43,7 @@ As a result, security auditing team presented us with demands:
 
 1. Sanitize all data coming from client to server on server side;
    - _Sanitize on Ingest_: A "defense in depth" strategy. Never trust user input
-     and clean it before it even touches your database. Classic security
-     requirement.
+     and clean it before it touches the database. Classic security requirement.
 
 2. Sanitize all data coming from server to client on client side;
    - _Sanitize on Output_: The modern web development approach --- sanitize data
@@ -71,7 +70,7 @@ Every online guide and AI assistant suggested the same thing: "Only sanitize on
 output"! But I couldn't do that; the security team's requirement to sanitize on
 ingest was non-negotiable.
 
-And the interesting idea landed in my head: Why, in **2025**, we are still using
+And the interesting idea landed in my head: Why, in **2025**, am I still using
 [character entities](https://grokipedia.com/page/Character_encodings_in_HTML#character-references)
 instead of _raw Unicode characters_?
 
@@ -94,15 +93,15 @@ used):
 | `&gt;`           | `＞`           |        ✅         |
 
 The goal was reached --- the database now contained only _safe_ symbols, and the
-UI represented them nicely. But at what price, you may ask?
+UI represented them nicely. But at what price? I asked.
 
 **Fun fact**: Single UTF symbol requires less space compared with 3+ ASCII
 symbols in utf encoding.
 
 ## Trade-offs and Considerations
 
-- First, legacy systems: If you're still using KOI8-R and similar, this isn't
-  for you (legacy email clients, for example). Resign yourself to it.
+- First, legacy systems: If a system still uses KOI8-R and similar, this isn't
+  for it (legacy email clients, for example). Legacy fate.
 - This approach has to work consistently across the entire backend.
   - Any tech decision has to work consistently, isn't it?
 - Database content isn't pure user input, but is it a real problem?
@@ -113,8 +112,8 @@ symbols in utf encoding.
     - Anyway, I'll set up a custom tokenizer in Typesense/Elasticsearch.
   - But it's already prepared to be exported into CSV without additional
     escaping (as a joke).
-- I'm not a mobile dev, and we don't have mobile apps yet --- we'll see (just
-  use proper encoding and modern fonts, not from the dinosaur era 🤷).
+- I'm not a mobile dev, and I don't have mobile apps yet --- I'll see (use
+  proper encoding and modern fonts, not from the dinosaur era 🤷).
 - Probably the most underrated point: This process is more like _data
   transformation_ than _sanitization_.
 
@@ -122,6 +121,6 @@ symbols in utf encoding.
 
 So, is this an ugly hack or an elegant solution?
 
-I would count it as an elegant trade-off. In a perfect world, we would only
-sanitize on output. But we don't operate in a perfect world; (un)fortunately we
-operate with real-world constraints.
+I count it as an elegant trade-off. In a perfect world, I would only sanitize on
+output. But I don't operate in a perfect world; (un)fortunately I operate with
+real-world constraints.

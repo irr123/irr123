@@ -72,7 +72,7 @@ more. Or consider an outsourcing company developing services for external
 clients and aiming to increase its customer base. In both scenarios, efficiency
 is paramount, and directly related to the problems highlighted earlier.
 
-When examining individual services, we often find that, regardless of the
+When examining individual services, I often find that, regardless of the
 specific
 [layered architecture](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html)
 employed (e.g.,
@@ -110,7 +110,7 @@ Cons:
 
 #### DI container to the Rescue
 
-Instead of relying on templates, we can retain the shared library approach and
+Instead of relying on templates, I can retain the shared library approach and
 encapsulate all pre-built components within a container. This allows developers
 to focus solely on adding the business logic, adhering to the chosen layered
 architecture:
@@ -172,5 +172,5 @@ and this article aims to explore the available options.
     [hosting](https://alistair.cockburn.us)?
 
 [^4]:
-    It's important point, imagine opposite way if you're sharing business logic
-    between services, what's a purpose of separation than?
+    Important point: if business logic is shared between services, what's the
+    purpose of separation then?

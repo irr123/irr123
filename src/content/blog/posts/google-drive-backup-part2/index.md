@@ -35,15 +35,15 @@ image: suit-2.jpg
 ---
 
 This is a continuation of the first
-[part]({{< relref "blog/posts/google-drive-backup" >}}), where we built a basic
-backup solution using local storage. Now, let's elevate our approach by
-integrating another cloud provider and adding robust encryption.
+[part]({{< relref "blog/posts/google-drive-backup" >}}), where I built a basic
+backup solution using local storage. Now I add another cloud provider and
+encryption.
 
 ![generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey](suit-2.jpg)
 
 ## Dropbox: Setting Up an Additional Cloud Provider
 
-To obtain an access token, you'll need to configure
+To obtain an access token, I need to configure
 [rclone](https://rclone.org/remote_setup/) locally (because of web browser).
 Here's how I did it using Docker:
 
@@ -55,7 +55,7 @@ docker run --rm -it \
     rclone/rclone authorize "dropbox"
 ```
 
-After you've obtained the token, simply add new sections to your `rclone.conf`:
+After obtaining the token, add new sections to `rclone.conf`:
 
 ```toml
 [dropbox]
@@ -75,7 +75,7 @@ rclone [helps with it](https://rclone.org/crypt/#configuration).
 
 ### rclone: Executing the Encrypted Backup
 
-Now, let's use our encrypted Dropbox remote to back up our Google Drive data:
+Now use the encrypted Dropbox remote to back up Google Drive data:
 
 ```bash
 docker run --rm -it \
@@ -87,8 +87,8 @@ docker run --rm -it \
 
 ### rclone: Recovering the Encrypted Backup
 
-To restore your encrypted backup, simply reverse the source and destination in
-your `rclone copy` command:
+To restore the encrypted backup, reverse the source and destination in the
+`rclone copy` command:
 
 ```bash
 docker run --rm -it \
@@ -98,20 +98,15 @@ docker run --rm -it \
     copy dropbox-crypt: google-drive:<SHARED FOLDER>
 ```
 
-This will decrypt and copy your files back to your Google Drive.
+This decrypts and copies files back to Google Drive.
 
 **Note:** Only properly encrypted files will be recovered.
 
 ## Conclusion
 
-By adding Dropbox as a secondary backup destination and encrypting our data,
-we've significantly improved the security and redundancy of our Google Drive
-backup solution. This approach provides an extra layer of protection against
-data loss or unauthorized access. While this setup is more secure than our
-initial local storage-based solution, remember that the strength of your
-encryption hinges on the security of your password. Always use strong, unique
-passwords and store them securely.
+By adding Dropbox as a secondary backup destination and encrypting data, this
+setup improves redundancy for my Google Drive backup. Extra layer against data
+loss or unauthorized access. The weak point stays boring: password quality.
+Strong, unique password. Stored properly.
 
-Additionally, consider implementing regular backup testing to ensure your
-recovery process works as expected. Future enhancements could include automated
-health checks, notifications, and more sophisticated encryption strategies.
+Next boring task: regular restore tests. Then health checks and notifications.

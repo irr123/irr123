@@ -13,14 +13,13 @@ create a VPN-like routed network. A main selling point of Shadowsocks is its
 ability to circumvent censorship, which aligns with my requirements. So, here’s
 the story (as there isn’t much information available about Shadowsocks in this
 particular action).</p><p>For those in a hurry, here are the prepared Ansible playbooks:
-<a href=https://github.com/irr123/shadowsocks-to-tor target=_blank rel="noopener noreferrer">https://github.com/irr123/shadowsocks-to-tor</a></p><h2 id=tor><a href=#tor>#</a> Tor</h2><p>I started with the simplest part – setting up Tor. I trust you’ve likely already
-heard about Tor, at least the Tor Browser; if not, then take a look. In my case,
-I only needed to set up the daemon (without the browser) and route the VPN’s
-external traffic through it. (Spoiler: this part works almost
+<a href=https://github.com/irr123/shadowsocks-to-tor target=_blank rel="noopener noreferrer">https://github.com/irr123/shadowsocks-to-tor</a></p><h2 id=tor><a href=#tor>#</a> Tor</h2><p>I started with the simplest part – setting up Tor. Tor needs no long intro; at
+least the Tor Browser is familiar enough. In my case, I only needed to set up
+the daemon (without the browser) and route the VPN’s external traffic through
+it. (Spoiler: this part works almost
 <a href=#some-limitations-and-why-i-count-it-as-a-failed-setup>perfectly</a>).</p><h3 id=configuration><a href=#configuration>#</a> Configuration</h3><p>According to
 <a href=https://support.torproject.org/apt/tor-deb-repo/ target=_blank rel="noopener noreferrer">https://support.torproject.org/apt/tor-deb-repo/</a>,
-you have to install the necessary packages, and the daemon will start
-automatically.</p><p>Before installation, let’s write the config to <code>/etc/tor/torrc</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-txt data-lang=txt><span style=display:flex><span>AutomapHostsOnResolve 1
+after installing the necessary packages, the daemon starts automatically.</p><p>Before installation, I write the config to <code>/etc/tor/torrc</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-txt data-lang=txt><span style=display:flex><span>AutomapHostsOnResolve 1
 </span></span><span style=display:flex><span>AutomapHostsSuffixes .onion,.exit
 </span></span><span style=display:flex><span>AvoidDiskWrites 1
 </span></span><span style=display:flex><span>DNSPort 127.0.0.1:9053
@@ -43,8 +42,8 @@ and easily applied on a mobile phone, for example.</li></ul><h3 id=configuration
 <a href=https://github.com/shadowsocks/shadowsocks-rust#build--install target=_blank rel="noopener noreferrer">installation options</a>,
 from regular Linux repos and snaps to Docker images and self-built binaries. I
 decided to use pre-built binaries from github releases page. The same applies to
-managing the service lifecycle – systemd, supervisord, self-managed, Docker/k8s;
-systemd is my choice. Here’s the systemd unit file at
+managing the service lifecycle – systemd, supervisord, self-managed,
+Docker/k8s; systemd is my choice. Here’s the systemd unit file at
 <code>/etc/systemd/system/shadowsocks-server.service</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Unit]</span>
 </span></span><span style=display:flex><span>Description=<span style=color:#87ceeb>Shadowsocks-rust Server Service</span>
 </span></span><span style=display:flex><span>Documentation=<span style=color:#87ceeb>https://github.com/shadowsocks/shadowsocks-rust</span>
@@ -66,8 +65,8 @@ systemd is my choice. Here’s the systemd unit file at
 </span></span></code></pre></div><p>An important part here is the dedicated user. Create it manually, as this user
 will be referenced in the iptables rules implemented
 <a href=#connecting-shadowsocks-with-tor>later</a>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>useradd --system --shell /usr/sbin/nologin --no-create-home ssuser
-</span></span></code></pre></div><p>Additionally, you will need <code>/opt/shadowsocks/v1.23.4/config.json</code> (the exact
-locations are up to you):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span></code></pre></div><p>Additionally, I need <code>/opt/shadowsocks/v1.23.4/config.json</code> (exact locations are
+my choice):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
 </span></span><span style=display:flex><span>  &#34;server&#34;: <span style=color:#87ceeb>&#34;0.0.0.0&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;server_port&#34;: <span style=color:#f60>8388</span>,
 </span></span><span style=display:flex><span>  &#34;local_port&#34;: <span style=color:#f60>1080</span>,
@@ -79,11 +78,11 @@ locations are up to you):</p><div class=highlight><pre tabindex=0 style=color:#f
 binaries):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ssservice genkey --encrypt-method chacha20-ietf-poly1305
 </span></span></code></pre></div><p>Then, copy the output and paste it as the value for the “password” field above.</p><p>Enable and start the service; that’s almost all:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>systemctl enable shadowsocks-server.service
 </span></span><span style=display:flex><span>systemctl start shadowsocks-server.service
-</span></span></code></pre></div><p>After this, you could configure any client, like the Windows one I mentioned
-<a href=#shadowsocks>previously</a>. It will pass your traffic through the set-up VPS.
-Configure a local/global/PAC SOCKS5 proxy and try <a href=https://myip.wtf target=_blank rel="noopener noreferrer">myip.wtf</a>.
-With the server set up like this, the next step is to route its outgoing traffic
-through Tor.</p><p>Don’t forget, all these parts are already automated by the Ansible playbook.</p><h2 id=connecting-shadowsocks-with-tor><a href=#connecting-shadowsocks-with-tor>#</a> Connecting Shadowsocks with Tor</h2><p>Now let’s complete our setup by applying these iptables rules on the VPS running
+</span></span></code></pre></div><p>After this, I can configure any client, like the Windows one I mentioned
+<a href=#shadowsocks>previously</a>. It passes traffic through the set-up VPS. Configure
+a local/global/PAC SOCKS5 proxy and try <a href=https://myip.wtf target=_blank rel="noopener noreferrer">myip.wtf</a>. With the
+server set up like this, the next step is to route its outgoing traffic through
+Tor.</p><p>Don’t forget, all these parts are already automated by the Ansible playbook.</p><h2 id=connecting-shadowsocks-with-tor><a href=#connecting-shadowsocks-with-tor>#</a> Connecting Shadowsocks with Tor</h2><p>Now I complete the setup by applying these iptables rules on the VPS running
 ssserver and Tor:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#0f0># Create a new chain for Tor output</span>
 </span></span><span style=display:flex><span>iptables -t nat -N TOR_OUTPUT || /bin/true
 </span></span><span style=display:flex><span>
@@ -106,12 +105,12 @@ ssserver and Tor:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;ba
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#0f0># Persist the rules</span>
 </span></span><span style=display:flex><span>netfilter-persistent save
-</span></span></code></pre></div><p>Now try to recheck <a href=https://myip.wtf target=_blank rel="noopener noreferrer">https://myip.wtf</a> through your Shadowsocks client, and you
-should see an IP address from the Tor network.</p><h2 id=some-limitations-and-why-i-count-it-as-a-failed-setup><a href=#some-limitations-and-why-i-count-it-as-a-failed-setup>#</a> Some Limitations (and why I count it as a failed setup)</h2><p>In general, this might be a good enough setup for particular cases. For example,
+</span></span></code></pre></div><p>Now I recheck <a href=https://myip.wtf target=_blank rel="noopener noreferrer">https://myip.wtf</a> through the Shadowsocks client and should see an
+IP address from the Tor network.</p><h2 id=some-limitations-and-why-i-count-it-as-a-failed-setup><a href=#some-limitations-and-why-i-count-it-as-a-failed-setup>#</a> Some Limitations (and why I count it as a failed setup)</h2><p>In general, this might be a good enough setup for particular cases. For example,
 when checking <a href=https://dnsleaktest.com target=_blank rel="noopener noreferrer">https://dnsleaktest.com</a>, DNS requests are not leaking through the
-Shadowsocks-Tor setup. WebRTC, on the other hand, could expose your real
-address; potential solutions might involve aggressive measures like blocking all
-UDP traffic, which I wasn’t prepared to do.</p><p>Another disadvantage – this setup doesn’t reliably resolve <code>.onion</code> addresses
+Shadowsocks-Tor setup. WebRTC, on the other hand, could expose my real address;
+potential solutions might involve aggressive measures like blocking all UDP
+traffic, which I wasn’t prepared to do.</p><p>Another disadvantage – this setup doesn’t reliably resolve <code>.onion</code> addresses
 for the end client, while on the VPS it works. On the client, it somehow fails.
 (I didn’t dig too deeply into this because of a more significant issue for me).</p><p>Fun and less important, but confusing - the Shadowsocks icon for some clients is
 too similar to the Telegram icon. Gets me every time.</p><p>And the most important issues for me:</p><ol><li><strong>Inter-Client Connectivity</strong>: The server provides problematic connectivity
@@ -123,14 +122,14 @@ trying to reach another VPS also connected via sslocal) to another. TCP
 connections would appear to establish on the initiating client’s TUN
 interface, but no actual data would reach the destination client.</li><li><strong>Client Limitations</strong>: The standard Windows client (and many others) doesn’t
 provide a system-wide VPN service; it’s only a SOCKS5/HTTP proxy. This means
-that you can only access the internet through applications configured to use
+that I can only access the internet through applications configured to use
 the proxy. There’s no direct access to other devices in a private network
-(e.g., 192.168.7.x) if you’re trying to build one, nor does it tunnel all
-system traffic.</li></ol><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>As I mentioned at the start, while the Shadowsocks protocol itself is likely
+(e.g., 192.168.7.x) if I’m trying to build one, nor does it tunnel all system
+traffic.</li></ol><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>As I mentioned at the start, while the Shadowsocks protocol itself is likely
 great for its core purpose (circumventing DPI and proxying traffic), the
 standard <strong>ssserver</strong> tool isn’t designed to build a fully-featured, routed
 private network between all connected clients. It excels as a secure proxy, but
 for creating a VPN where all devices can seamlessly communicate as if on a local
-network, it falls short.</p><p>Or at least, I didn’t find a solution using just Shadowsocks to achieve all my
+network, it falls short.</p><p>Or at least, I didn’t find a solution using Shadowsocks alone to achieve all my
 networking goals for this internal infrastructure. Reverting
 <a href=/blog/posts/howto-wireguard/>WireGuard</a> 😌</p></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>

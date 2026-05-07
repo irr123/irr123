@@ -37,8 +37,7 @@ considerations, and that AI will replace programmers soon.
 
 ![AI vs. Human Coder](robot.jpg)
 
-Check out this talk from the CEO of Anthropic, which occurred just one day
-before this article:
+Here is a talk from the CEO of Anthropic, published one day before this article:
 
 {{< youtube id=esCSpbDPJik start="976" >}}
 
@@ -52,7 +51,7 @@ With around _150_ open positions and a team of about
 [1000](https://grokipedia.com/page/Anthropic), looks like Anthropic is gearing
 up for some serious growth, huh?
 
-Draw your own conclusions 😉
+I draw mine 😉
 
 P.S. Pay close attention to Dario Amodei's final answer regarding what it means
 to be human. It's quite encouraging.

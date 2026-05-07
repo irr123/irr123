@@ -7,8 +7,8 @@ keywords:
   - personal landing
 ---
 
-If you’re looking for something specific, [search]({{< relref "search" >}})
-beats scrolling, but:
+Looking for something specific? [Search]({{< relref "search" >}}) beats
+scrolling, but:
 
 - [/blog]({{< relref "blog" >}})
 - [/uses]({{< relref "uses" >}})

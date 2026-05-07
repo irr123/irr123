@@ -30,7 +30,7 @@ https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-mar
 
 ## Prompt
 
-And it's really works, in one shot:
+And it works, in one shot:
 
 ```
 Okay, here's a p5.js sketch for a captivating endless

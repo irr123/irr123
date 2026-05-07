@@ -47,20 +47,19 @@ https://github.com/irr123/shadowsocks-to-tor
 
 ## Tor
 
-I started with the simplest part – setting up Tor. I trust you've likely already
-heard about Tor, at least the Tor Browser; if not, then take a look. In my case,
-I only needed to set up the daemon (without the browser) and route the VPN's
-external traffic through it. (Spoiler: this part works almost
+I started with the simplest part -- setting up Tor. Tor needs no long intro; at
+least the Tor Browser is familiar enough. In my case, I only needed to set up
+the daemon (without the browser) and route the VPN's external traffic through
+it. (Spoiler: this part works almost
 [perfectly](#some-limitations-and-why-i-count-it-as-a-failed-setup)).
 
 ### Configuration
 
 According to
 [https://support.torproject.org/apt/tor-deb-repo/](https://support.torproject.org/apt/tor-deb-repo/),
-you have to install the necessary packages, and the daemon will start
-automatically.
+after installing the necessary packages, the daemon starts automatically.
 
-Before installation, let's write the config to `/etc/tor/torrc`:
+Before installation, I write the config to `/etc/tor/torrc`:
 
 ```txt
 AutomapHostsOnResolve 1
@@ -107,8 +106,8 @@ The docs provide many different
 [installation options](https://github.com/shadowsocks/shadowsocks-rust#build--install),
 from regular Linux repos and snaps to Docker images and self-built binaries. I
 decided to use pre-built binaries from github releases page. The same applies to
-managing the service lifecycle – systemd, supervisord, self-managed, Docker/k8s;
-systemd is my choice. Here's the systemd unit file at
+managing the service lifecycle -- systemd, supervisord, self-managed,
+Docker/k8s; systemd is my choice. Here's the systemd unit file at
 `/etc/systemd/system/shadowsocks-server.service`:
 
 ```ini
@@ -140,8 +139,8 @@ will be referenced in the iptables rules implemented
 useradd --system --shell /usr/sbin/nologin --no-create-home ssuser
 ```
 
-Additionally, you will need `/opt/shadowsocks/v1.23.4/config.json` (the exact
-locations are up to you):
+Additionally, I need `/opt/shadowsocks/v1.23.4/config.json` (exact locations are
+my choice):
 
 ```json
 {
@@ -170,17 +169,17 @@ systemctl enable shadowsocks-server.service
 systemctl start shadowsocks-server.service
 ```
 
-After this, you could configure any client, like the Windows one I mentioned
-[previously](#shadowsocks). It will pass your traffic through the set-up VPS.
-Configure a local/global/PAC SOCKS5 proxy and try [myip.wtf](https://myip.wtf).
-With the server set up like this, the next step is to route its outgoing traffic
-through Tor.
+After this, I can configure any client, like the Windows one I mentioned
+[previously](#shadowsocks). It passes traffic through the set-up VPS. Configure
+a local/global/PAC SOCKS5 proxy and try [myip.wtf](https://myip.wtf). With the
+server set up like this, the next step is to route its outgoing traffic through
+Tor.
 
 Don't forget, all these parts are already automated by the Ansible playbook.
 
 ## Connecting Shadowsocks with Tor
 
-Now let's complete our setup by applying these iptables rules on the VPS running
+Now I complete the setup by applying these iptables rules on the VPS running
 ssserver and Tor:
 
 ```bash
@@ -208,18 +207,18 @@ iptables -t nat -A TOR_OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 9053
 netfilter-persistent save
 ```
 
-Now try to recheck https://myip.wtf through your Shadowsocks client, and you
-should see an IP address from the Tor network.
+Now I recheck https://myip.wtf through the Shadowsocks client and should see an
+IP address from the Tor network.
 
 ## Some Limitations (and why I count it as a failed setup)
 
 In general, this might be a good enough setup for particular cases. For example,
 when checking https://dnsleaktest.com, DNS requests are not leaking through the
-Shadowsocks-Tor setup. WebRTC, on the other hand, could expose your real
-address; potential solutions might involve aggressive measures like blocking all
-UDP traffic, which I wasn't prepared to do.
+Shadowsocks-Tor setup. WebRTC, on the other hand, could expose my real address;
+potential solutions might involve aggressive measures like blocking all UDP
+traffic, which I wasn't prepared to do.
 
-Another disadvantage – this setup doesn't reliably resolve `.onion` addresses
+Another disadvantage -- this setup doesn't reliably resolve `.onion` addresses
 for the end client, while on the VPS it works. On the client, it somehow fails.
 (I didn't dig too deeply into this because of a more significant issue for me).
 
@@ -238,10 +237,10 @@ And the most important issues for me:
    interface, but no actual data would reach the destination client.
 2. **Client Limitations**: The standard Windows client (and many others) doesn't
    provide a system-wide VPN service; it's only a SOCKS5/HTTP proxy. This means
-   that you can only access the internet through applications configured to use
+   that I can only access the internet through applications configured to use
    the proxy. There's no direct access to other devices in a private network
-   (e.g., 192.168.7.x) if you're trying to build one, nor does it tunnel all
-   system traffic.
+   (e.g., 192.168.7.x) if I'm trying to build one, nor does it tunnel all system
+   traffic.
 
 ## Conclusion
 
@@ -252,6 +251,6 @@ private network between all connected clients. It excels as a secure proxy, but
 for creating a VPN where all devices can seamlessly communicate as if on a local
 network, it falls short.
 
-Or at least, I didn't find a solution using just Shadowsocks to achieve all my
+Or at least, I didn't find a solution using Shadowsocks alone to achieve all my
 networking goals for this internal infrastructure. Reverting
 [WireGuard]({{< relref "blog/posts/howto-wireguard" >}}) 😌

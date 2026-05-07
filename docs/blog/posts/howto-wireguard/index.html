@@ -28,8 +28,8 @@ add the following to <code>/etc/sysctl.conf</code>:</p><div class=highlight><pre
 </span></span><span style=display:flex><span>net.ipv4.tcp_syncookies=<span style=color:#87ceeb>1</span>
 </span></span><span style=display:flex><span>net.ipv4.tcp_tw_reuse=<span style=color:#87ceeb>1</span>
 </span></span><span style=display:flex><span>net.ipv4.tcp_wmem=<span style=color:#87ceeb>4096 65536 67108864</span>
-</span></span></code></pre></div><p>At a minimum, you will need <code>net.ipv4.ip_forward=1</code> to allow the server to route
-traffic. The other settings are performance optimizations. Apply them with
+</span></span></code></pre></div><p>At a minimum, <code>net.ipv4.ip_forward=1</code> is required to allow the server to route
+traffic. The other settings are performance optimizations. I apply them with
 <code>sudo sysctl -p</code>.</p><h3 id=wireguard-installation><a href=#wireguard-installation>#</a> WireGuard Installation</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt install wireguard wireguard-tools
 </span></span><span style=display:flex><span>mkdir -p /etc/wireguard/ &amp;&amp; cd /etc/wireguard/
 </span></span><span style=display:flex><span>wg genkey | tee server-privatekey | wg pubkey &gt; server-publickey
@@ -39,8 +39,7 @@ traffic. The other settings are performance optimizations. Apply them with
 </span></span><span style=display:flex><span>ListenPort = <span style=color:#87ceeb>51820</span>
 </span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste content of server-privatekey here&gt;</span>
 </span></span></code></pre></div><p>Start the WireGuard service and enable it to launch on boot
-<code>sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0</code>.</p><p>You can check its status with <code>sudo journalctl -eu wg-quick@wg0.service</code>.</p><h3 id=generating-peer-configurations><a href=#generating-peer-configurations>#</a> Generating Peer Configurations</h3><p>With the server running, let’s generate keys for our clients and add them as
-peers:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>wg genkey | tee client1-privatekey | wg pubkey &gt; client1-publickey
+<code>sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0</code>.</p><p>I check its status with <code>sudo journalctl -eu wg-quick@wg0.service</code>.</p><h3 id=generating-peer-configurations><a href=#generating-peer-configurations>#</a> Generating Peer Configurations</h3><p>With the server running, I generate keys for clients and add them as peers:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>wg genkey | tee client1-privatekey | wg pubkey &gt; client1-publickey
 </span></span><span style=display:flex><span>wg genkey | tee raspberrypi-privatekey | wg pubkey &gt; raspberrypi-publickey
 </span></span><span style=display:flex><span>wg genkey | tee myphone-privatekey | wg pubkey &gt; myphone-publickey
 </span></span><span style=display:flex><span>wg genkey | tee mypc-privatekey | wg pubkey &gt; mypc-publickey
@@ -124,10 +123,9 @@ and route traffic thru it.</p><div class=highlight><pre tabindex=0 style=color:#
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>...
 </span></span><span style=display:flex><span>Nov <span style=color:#f60>17</span> 18:04:07.000 [notice] Bootstrapped 100% (<span style=color:red>done</span>): Done
-</span></span></code></pre></div><blockquote><p><strong>Security Note</strong>: No one except yourself could audit the stuff you’re using;
-I’ve checked exact <code>docker.io/dockurr/tor:0.4.8.21</code>, but only you are
-responsible for you security.</p></blockquote><p>The noticeable part here – <code>--network host</code>, that’s why there is no difference
-in routing, comparing it with local daemon. Now, we will update
+</span></span></code></pre></div><blockquote><p><strong>Security Note</strong>: Nobody audits this for me. I checked exact
+<code>docker.io/dockurr/tor:0.4.8.21</code>; responsibility stays mine.</p></blockquote><p>The noticeable part here – <code>--network host</code>, that’s why there is no difference
+in routing, comparing it with local daemon. Now I update
 <code>/etc/wireguard/wg0.conf</code> with robust iptables rules to route client traffic to
 Tor and secure the server:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
 </span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.1/24</span>
@@ -165,7 +163,7 @@ Tor and secure the server:</p><div class=highlight><pre tabindex=0 style=color:#
 </span></span><span style=display:flex><span><span style=color:red>[Peer]</span>
 </span></span><span style=display:flex><span>PublicKey = <span style=color:#87ceeb>&lt;paste content of mypc-publickey&gt;</span>
 </span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>192.168.42.5/32</span>
-</span></span></code></pre></div><p><strong>Note</strong>: Replace <em>ens3</em> with your server’s public-facing network interface
+</span></span></code></pre></div><p><strong>Note</strong>: Replace <em>ens3</em> with the server’s public-facing network interface
 (e.g., <em>eth0</em>).</p><p>Finally, apply all the changes by restarting the services
 <code>sudo systemctl restart tor && sudo systemctl restart wg-quick@wg0</code>.</p><h2 id=part-2-client-configurations><a href=#part-2-client-configurations>#</a> Part 2: Client Configurations</h2><h3 id=client-type-a-split-tunnel-ubunturaspberry-pi><a href=#client-type-a-split-tunnel-ubunturaspberry-pi>#</a> Client Type A: Split-Tunnel (Ubuntu/Raspberry Pi)</h3><p>These clients will only use the VPN to access other devices on the
 <em>192.168.42.0/24</em> network. Their regular internet traffic will not go through
@@ -183,7 +181,7 @@ the VPN.</p><p>Install WireGuard, <code>sudo apt install wireguard wireguard-too
 to only route traffic for the VPN subnet through the tunnel.
 <em>PersistentKeepalive</em> helps maintain the connection through NAT firewalls.</p><p>Don’t forget to start and enable the service:
 <code>sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0</code>.</p><h3 id=client-type-b-full-tunnel-over-tor-windowsgrapheneos><a href=#client-type-b-full-tunnel-over-tor-windowsgrapheneos>#</a> Client Type B: Full-Tunnel over Tor (Windows/GrapheneOS)</h3><p>These clients will route all their internet traffic through the VPN, which then
-gets funneled through the Tor network by the server.</p><p>Create the configuration file and import it into your WireGuard app:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
+gets funneled through the Tor network by the server.</p><p>Create the configuration file and import it into the WireGuard app:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-ini data-lang=ini><span style=display:flex><span><span style=color:red>[Interface]</span>
 </span></span><span style=display:flex><span>PrivateKey = <span style=color:#87ceeb>&lt;paste private key for mypc or myphone&gt;</span>
 </span></span><span style=display:flex><span>Address = <span style=color:#87ceeb>192.168.42.5/24</span>
 </span></span><span style=display:flex><span>DNS = <span style=color:#87ceeb>192.168.42.1</span>
@@ -194,18 +192,18 @@ gets funneled through the Tor network by the server.</p><p>Create the configurat
 </span></span><span style=display:flex><span>AllowedIPs = <span style=color:#87ceeb>0.0.0.0/0</span>
 </span></span></code></pre></div><p><em>AllowedIPs = 0.0.0.0/0</em>, this is the standard “full-tunnel” setting that
 directs all IPv4 traffic through the VPN. <em>DNS = 192.168.42.1</em> is <strong>critical</strong>.
-It forces the client to use our server for all DNS requests, which are then
+It forces the client to use my server for all DNS requests, which are then
 resolved securely by Tor. This prevents “DNS leaks” where requests might bypass
 the VPN.</p><h4 id=note-for-windows-users><a href=#note-for-windows-users>#</a> Note for Windows Users</h4><p>While <em>AllowedIPs = 0.0.0.0/0</em> is the most secure setting, some Windows users
 prefer <em>AllowedIPs = 0.0.0.0/1, 128.0.0.0/1</em> to avoid certain issues with local
-network access. If you use this alternative, setting the DNS directive as shown
-above is absolutely essential to prevent DNS leaks.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>To verify everything is working as expected, you can perform two checks:</p><ol><li><p>Check Internal VPN Connectivity, from one client (e.g., your PC at
-192.168.42.5), ping another client (e.g., your phone at 192.168.42.4):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ping 192.168.42.4
+network access. With this alternative, setting the DNS directive as shown above
+is absolutely essential to prevent DNS leaks.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>To verify everything is working as expected, I perform two checks:</p><ol><li><p>Check Internal VPN Connectivity, from one client (e.g., my PC at
+192.168.42.5), ping another client (e.g., my phone at 192.168.42.4):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ping 192.168.42.4
 </span></span><span style=display:flex><span>PING 192.168.42.4 (192.168.42.4) 56(84) bytes of data.
 </span></span><span style=display:flex><span><span style=color:#f60>64</span> bytes from 192.168.42.4: <span style=color:#eedd82>icmp_seq</span>=<span style=color:#f60>1</span> <span style=color:#eedd82>ttl</span>=<span style=color:#f60>64</span> <span style=color:#eedd82>time</span>=40.6 ms
 </span></span><span style=display:flex><span>...
-</span></span></code></pre></div><p>A successful reply means your private network is up!</p></li><li><p>Check Tor Routing on a Full-Tunnel Client, on your PC or phone, open a
-terminal or browser and check your public IP:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl https://wtfismyip.com/json
+</span></span></code></pre></div><p>A successful reply means my private network is up!</p></li><li><p>Check Tor Routing on a Full-Tunnel Client, on my PC or phone, open a terminal
+or browser and check my public IP:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>curl https://wtfismyip.com/json
 </span></span></code></pre></div><p>The output should show an IP address belonging to a Tor exit node:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
 </span></span><span style=display:flex><span>  &#34;YourFuckingIPAddress&#34;: <span style=color:#87ceeb>&#34;185.34.33.2&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;YourFuckingLocation&#34;: <span style=color:#87ceeb>&#34;France&#34;</span>,
@@ -216,6 +214,5 @@ terminal or browser and check your public IP:</p><div class=highlight><pre tabin
 </span></span><span style=display:flex><span>  &#34;YourFuckingCountry&#34;: <span style=color:#87ceeb>&#34;France&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;YourFuckingCountryCode&#34;: <span style=color:#87ceeb>&#34;FR&#34;</span>
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>If <code>YourFuckingTorExit</code> is <code>true</code>, your setup is a success.</p></li></ol><p>Once you have securely transferred all private keys to their respective client
-devices, be sure to remove them from the server,
-<code>rm -rf client1* mypc-* myphone-* raspberrypi-* server-*</code>.</p></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>
+</span></span></code></pre></div><p>If <code>YourFuckingTorExit</code> is <code>true</code>, the setup works.</p></li></ol><p>Once private keys are transferred to their respective client devices, remove
+them from the server, <code>rm -rf client1* mypc-* myphone-* raspberrypi-* server-*</code>.</p></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>

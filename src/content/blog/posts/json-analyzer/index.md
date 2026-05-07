@@ -28,9 +28,9 @@ keywords:
   - free online JSON optimizer
 ---
 
-A free, client-side tool to analyze large JSON data. Paste your JSON to
-instantly find the heaviest fields, see a breakdown by key name, and optimize
-your payload size. No data is ever uploaded.
+A free, client-side tool to analyze large JSON data. Paste JSON to find the
+heaviest fields, see a breakdown by key name, and cut payload size. No data is
+uploaded.
 
 ## Live Tool
 

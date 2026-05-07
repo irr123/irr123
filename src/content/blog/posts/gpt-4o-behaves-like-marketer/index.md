@@ -237,8 +237,8 @@ this time.)
 
 ## Some explanations and here we go
 
-Long story short, GPT-4o now may manipulate you. Maybe for now it feels like
-little fun, but, according to
+Long story short, GPT-4o now may manipulate me. For now it feels like little
+fun, but, according to
 [https://hbr.org/2025/04/how-people-are-really-using-gen-ai-in-2025](https://hbr.org/2025/04/how-people-are-really-using-gen-ai-in-2025)
 about 31% of AI users use it as "Personal and Professional Support". Remember
 biased psychologists? Info-grifters, self-help charlatans? Now good luck in the
@@ -254,12 +254,12 @@ re-checked it and yep, that's about "compliance":
 - Bias
 - Elections
 
-Nothing about "not selling you courses for the name of Poor Uganda Children,
-with crying face 😭", or what will reach you better.
+Nothing about "not selling me courses for the name of Poor Uganda Children, with
+crying face 😭", or what will reach me better.
 
 On other hand, commercially, it's genius, that's true.
 
 ## Conclusion
 
-Tech enthusiasm, e/acc and etc may fail in battle with marketing. Listen to your
-mom and be skeptical.
+Tech enthusiasm, e/acc and etc may fail in battle with marketing. I listen to my
+mom and stay skeptical.

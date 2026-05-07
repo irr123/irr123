@@ -58,8 +58,8 @@ net.ipv4.tcp_tw_reuse=1
 net.ipv4.tcp_wmem=4096 65536 67108864
 ```
 
-At a minimum, you will need `net.ipv4.ip_forward=1` to allow the server to route
-traffic. The other settings are performance optimizations. Apply them with
+At a minimum, `net.ipv4.ip_forward=1` is required to allow the server to route
+traffic. The other settings are performance optimizations. I apply them with
 `sudo sysctl -p`.
 
 ### WireGuard Installation
@@ -83,12 +83,11 @@ PrivateKey = <paste content of server-privatekey here>
 Start the WireGuard service and enable it to launch on boot
 `sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0`.
 
-You can check its status with `sudo journalctl -eu wg-quick@wg0.service`.
+I check its status with `sudo journalctl -eu wg-quick@wg0.service`.
 
 ### Generating Peer Configurations
 
-With the server running, let's generate keys for our clients and add them as
-peers:
+With the server running, I generate keys for clients and add them as peers:
 
 ```bash
 wg genkey | tee client1-privatekey | wg pubkey > client1-publickey
@@ -200,12 +199,11 @@ journalctl -u tor.service -f
 Nov 17 18:04:07.000 [notice] Bootstrapped 100% (done): Done
 ```
 
-> **Security Note**: No one except yourself could audit the stuff you're using;
-> I've checked exact `docker.io/dockurr/tor:0.4.8.21`, but only you are
-> responsible for you security.
+> **Security Note**: Nobody audits this for me. I checked exact
+> `docker.io/dockurr/tor:0.4.8.21`; responsibility stays mine.
 
 The noticeable part here -- `--network host`, that's why there is no difference
-in routing, comparing it with local daemon. Now, we will update
+in routing, comparing it with local daemon. Now I update
 `/etc/wireguard/wg0.conf` with robust iptables rules to route client traffic to
 Tor and secure the server:
 
@@ -248,7 +246,7 @@ PublicKey = <paste content of mypc-publickey>
 AllowedIPs = 192.168.42.5/32
 ```
 
-**Note**: Replace _ens3_ with your server's public-facing network interface
+**Note**: Replace _ens3_ with the server's public-facing network interface
 (e.g., _eth0_).
 
 Finally, apply all the changes by restarting the services
@@ -289,7 +287,7 @@ Don't forget to start and enable the service:
 These clients will route all their internet traffic through the VPN, which then
 gets funneled through the Tor network by the server.
 
-Create the configuration file and import it into your WireGuard app:
+Create the configuration file and import it into the WireGuard app:
 
 ```ini
 [Interface]
@@ -305,7 +303,7 @@ AllowedIPs = 0.0.0.0/0
 
 _AllowedIPs = 0.0.0.0/0_, this is the standard "full-tunnel" setting that
 directs all IPv4 traffic through the VPN. _DNS = 192.168.42.1_ is **critical**.
-It forces the client to use our server for all DNS requests, which are then
+It forces the client to use my server for all DNS requests, which are then
 resolved securely by Tor. This prevents "DNS leaks" where requests might bypass
 the VPN.
 
@@ -313,15 +311,15 @@ the VPN.
 
 While _AllowedIPs = 0.0.0.0/0_ is the most secure setting, some Windows users
 prefer _AllowedIPs = 0.0.0.0/1, 128.0.0.0/1_ to avoid certain issues with local
-network access. If you use this alternative, setting the DNS directive as shown
-above is absolutely essential to prevent DNS leaks.
+network access. With this alternative, setting the DNS directive as shown above
+is absolutely essential to prevent DNS leaks.
 
 ## Conclusion
 
-To verify everything is working as expected, you can perform two checks:
+To verify everything is working as expected, I perform two checks:
 
-1. Check Internal VPN Connectivity, from one client (e.g., your PC at
-   192.168.42.5), ping another client (e.g., your phone at 192.168.42.4):
+1. Check Internal VPN Connectivity, from one client (e.g., my PC at
+   192.168.42.5), ping another client (e.g., my phone at 192.168.42.4):
 
    ```bash
    ping 192.168.42.4
@@ -330,10 +328,10 @@ To verify everything is working as expected, you can perform two checks:
    ...
    ```
 
-   A successful reply means your private network is up!
+   A successful reply means my private network is up!
 
-1. Check Tor Routing on a Full-Tunnel Client, on your PC or phone, open a
-   terminal or browser and check your public IP:
+1. Check Tor Routing on a Full-Tunnel Client, on my PC or phone, open a terminal
+   or browser and check my public IP:
 
    ```bash
    curl https://wtfismyip.com/json
@@ -354,8 +352,7 @@ To verify everything is working as expected, you can perform two checks:
    }
    ```
 
-   If `YourFuckingTorExit` is `true`, your setup is a success.
+   If `YourFuckingTorExit` is `true`, the setup works.
 
-Once you have securely transferred all private keys to their respective client
-devices, be sure to remove them from the server,
-`rm -rf client1* mypc-* myphone-* raspberrypi-* server-*`.
+Once private keys are transferred to their respective client devices, remove
+them from the server, `rm -rf client1* mypc-* myphone-* raspberrypi-* server-*`.
