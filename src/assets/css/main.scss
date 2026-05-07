@@ -149,9 +149,14 @@ code.has-jax {
   font-size: 100%;
 }
 
-:where(details, blockquote, .toc) {
+:where(details, .toc) {
   border: thin solid var(--border);
-  padding: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+:where(blockquote) {
+  border-left: thin solid var(--border);
+  padding: 0 0 0 1rem;
 }
 
 details summary {
