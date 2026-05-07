@@ -461,8 +461,8 @@ stays visible, writes stay gated, mode switching stays under my control:
 - **Context7 MCP** -- provides actual library docs instead of the model's stale
   or hallucinated snippets.
 - **Playwright MCP** -- browser control. Nothing else to add.[^8]
-- ~**Caveman plugin** -- its selling point is "Saves tokens, preserve accuracy",
-  but I haven't measured it.~[^9]
+- ~**Caveman plugin** -- its selling point is "Saves tokens, preserve
+  accuracy".~[^9]
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
@@ -526,6 +526,9 @@ autonomy that emerges today.[^10]
 [^9]:
     Caveman vs "be brief",
     https://www.maxtaylor.me/articles/i-benchmarked-caveman-against-two-words.
+    Agent tools move too fast; without a fresh benchmark after model or harness
+    updates, a third-party skill can quietly make results worse than the
+    baseline. Benchmark it continuously or keep it off.
 
 [^10]:
     [Agent autonomy](https://www.anthropic.com/news/measuring-agent-autonomy)

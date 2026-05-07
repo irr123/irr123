@@ -40,6 +40,10 @@ body {
   --pf-outline-focus: var(--fg);
   --pf-border-radius: 0;
   --pf-font: monospace;
+  --pf-input-font-size: 18px;
+  --pf-summary-font-size: 18px;
+  --pf-result-title-font-size: 18px;
+  --pf-result-excerpt-font-size: 18px;
   --pf-skeleton: var(--bg);
   --pf-skeleton-shine: var(--bg);
   --pf-shadow-sm: none;
@@ -150,12 +154,12 @@ code.has-jax {
 }
 
 :where(details, .toc) {
-  border: thin solid var(--border);
+  border: 1px solid var(--border);
   padding: 0.5rem 1rem;
 }
 
 :where(blockquote) {
-  border-left: thin solid var(--border);
+  border-left: 1px solid var(--border);
   padding: 0 0 0 1rem;
 }
 
@@ -169,7 +173,7 @@ details summary {
 }
 
 details[open] summary {
-  border-bottom: thin solid var(--border);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -183,7 +187,7 @@ table {
 }
 
 :where(th, td) {
-  border: thin solid var(--border);
+  border: 1px solid var(--border);
   padding: 0.5rem;
 }
 
@@ -194,7 +198,8 @@ blockquote p {
 :where(input, textarea, select, button) {
   color: var(--fg);
   background: var(--bg);
-  border: 1px solid var(--border);
+  border: 0;
+  border-bottom: 1px solid var(--border);
   border-radius: 0;
   font: inherit;
 }
@@ -204,8 +209,8 @@ blockquote p {
 }
 
 :where(input, textarea, select, button):focus-visible {
-  outline: 1px solid var(--focus);
-  outline-offset: 1px;
+  outline: 0;
+  border-bottom-width: 2px;
 }
 
 :where(input, textarea)::placeholder {
@@ -234,8 +239,23 @@ blockquote p {
   padding-top: 0.5rem;
 }
 
-pagefind-input {
-  margin-bottom: 0.5rem !important;
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) pagefind-input .pf-input {
+  margin-bottom: 0.8rem !important;
+  border-width: 0 0 1px 0;
+  box-shadow: none;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#)
+  pagefind-input
+  .pf-input:focus-visible {
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) .pf-summary,
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) .pf-result-title,
+:is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) .pf-result-excerpt {
+  line-height: 1.7;
 }
 
 :is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) .pf-heading-chip {
