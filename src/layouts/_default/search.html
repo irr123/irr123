@@ -8,6 +8,11 @@
 </header>
 <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
-<pagefind-input autofocus></pagefind-input>
+<pagefind-input></pagefind-input>
 <pagefind-results></pagefind-results>
+<script>
+  addEventListener("DOMContentLoaded", function () {
+    document.querySelector("pagefind-input input")?.focus();
+  });
+</script>
 {{ end }}
