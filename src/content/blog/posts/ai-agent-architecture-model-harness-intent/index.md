@@ -2,46 +2,25 @@
 date: 2026-04-18T00:00:00Z
 back_ref: /blog/_index.md
 draft: false
-title: "AI Agent architecture: model, harness, intent"
+title: "AI agent architecture: model, harness, intent"
+description:
+  "Where AI agents break: hidden intent. Plan-mode loops keep humans in control;
+  opaque harnesses bury the failures. A frame for model, harness, intent."
 image: hero.png
 keywords:
-  - agentic ai
-  - emergent autonomy
-  - what is an ai agent
-  - ai agent architecture
+  - AI agent architecture
   - model harness intent
   - agent harness
-  - ai agent harness
-  - harness engineering
-  - personal ai agent
-  - specialized ai agent
-  - intent decomposition
   - agentic loop
   - ReAct pattern
   - Plan-Then-Execute
-  - plan mode
-  - sub-agent
   - context engineering
-  - AI coding tools
-  - cli agent
+  - sub-agent
   - Claude Code
   - OpenCode
-  - Anthropic
-  - Claude
-  - Perplexity
-  - Hermes
-  - hermes agent
-  - Nous Research
-  - OpenClaw
-  - MCP servers
-  - Context7 MCP
-  - Playwright MCP
-  - AGENTS.md
-  - CLAUDE.md
-  - Skill
-  - RAG
-  - Mem0
-  - Podman
+  - what is an AI agent
+  - intent decomposition
+  - AI coding tools
 ---
 
 My VPS runs a "personal AI agent". It forgets its own abilities every morning.
@@ -166,7 +145,7 @@ Rarely discussed, but experimental software with a lot of external integrations
 has too broad an attack surface, see https://days-since-openclaw-cve.com. Keep
 it in mind.
 
-#### Hermes --- An Agent That Grows With You
+#### Hermes --- an agent that grows with you
 
 Kind of strange that Nous Research doesn't mention they have a Docker image --
 `docker.io/nousresearch/hermes-agent` -- which I've successfully set up in
@@ -240,12 +219,12 @@ the general assistant is supposed to replace the glue. Here it doesn't. The
 failure is not the model. The harness decomposes intent badly, and the UI
 doesn't expose decomposition early enough to fix it.[^3]
 
-### CLI
+### CLI coding agents
 
 Terminal-native, actively evolving. Everything in my hands -- only vendor ToS
 can limit me.
 
-#### OpenCode --- The open source AI coding agent
+#### OpenCode --- the open source AI coding agent
 
 My favorite one. Open source, standard `~/.config/opencode` path, strong
 build/plan sub-agent architecture. Also ships `opencode web` -- same engine,
@@ -328,7 +307,7 @@ Prefer simple over clever
 
 Be brief
 
-## Environment
+## Agent environment: tools, memory, permissions
 
 There is no `gh` CLI command
 
@@ -467,7 +446,7 @@ stays visible, writes stay gated, mode switching stays under my control:
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
 
-## Conclusion
+## Intent is the failure point
 
 Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
 own, without me. CLI plan mode keeps decomposition visible -- I'm the

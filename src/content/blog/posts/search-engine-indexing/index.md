@@ -2,16 +2,23 @@
 date: 2025-03-16T10:25:54Z
 back_ref: /blog/_index.md
 draft: false
-title: "Search engine indexing: A case study with Google, Bing and Yandex"
+title: "Search engine indexing: Google, Bing, Yandex"
+description:
+  "Three months fighting Google, Bing, and Yandex to index a fresh domain. Bing
+  barely tries; Yandex cooperates; Google takes its time. Tactics that worked."
 keywords:
-  - SEO
-  - search engines
-  - Google indexing
-  - Bing webmaster
-  - Yandex search
-  - website ranking
-  - sitemap
-  - search engine optimization
+  - search engine indexing
+  - Google Search Console
+  - Bing Webmaster Tools
+  - Yandex Webmaster
+  - sitemap submission
+  - new domain indexing
+  - SEO case study
+  - Google vs Bing vs Yandex indexing
+  - get site indexed
+  - robots.txt indexing
+  - crawl budget small site
+  - indexing a personal blog
 image: robots.jpg
 ---
 
@@ -26,7 +33,7 @@ During the **~3 months** since my
 [domain](https://www.whois.com/whois/bogomolov.work) has been live I'm with
 Google search console and bit less with Bing and Yandex webmaster-tools.
 
-## Search engine relations
+## Who owns the search indexes
 
 Initially, it's useful to understand that there aren't many truly independent
 players in this market. Here is what I know about it, based on public info:
@@ -60,7 +67,7 @@ can be difficult -- especially since other search engines rely on Bing's index.
 
 That was changed about month ago and still inconsistent. {{< /details >}}
 
-## Common parts
+## Verify domain, submit sitemap
 
 Even without verified ownership of my site/domain, search engines scrape the
 index page. Yep, based on my experience, only index. No DFS. And probably no
@@ -94,7 +101,7 @@ up [robots.txt](/robots.txt); others are specific.
 
 However, these processes are not without their issues.
 
-## Google
+## Google: sitemap is not enough
 
 Sitemap.xml provides full list of pages with dates when it was updated, my one
 is properly autogenerates and validated by:
@@ -123,7 +130,7 @@ And once more - they crawler crashed on my page which caused it to be dropped
 from the index. Strange, case neither Bing nor Yandex have such issue.
 Validation took three days, what would be if it was my main selling landing?
 
-## Bing
+## Bing: stale cache, ignored actions
 
 Most dunno indexer. I would call it broken.
 
@@ -150,7 +157,7 @@ And all what it knows:
 limit, it takes few days, showing me "Not enough data", in almost all pages in
 console. The overall result of all these manipulations: _outdated_ [**/**](/).
 
-## Yandex
+## Yandex: indexed, then called low-value
 
 My simple metric to compare engines -- how many pages are available in index:
 
@@ -179,7 +186,7 @@ low-demand_ page classification.
 
 This one and more unexplained and unaddressed problems still await me.
 
-## Conclusion
+## Verdict: don't bet the business on search
 
 If even basic indexing is this unreliable, how can I trust search engines for
 business growth? AI-powered alternatives may soon change the game, making

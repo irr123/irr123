@@ -3,16 +3,22 @@ date: 2025-04-27T15:40:27Z
 back_ref: /blog/_index.md
 draft: false
 title: GPT-4o behaves like a marketer
+description:
+  "GPT-4o's empathic update quietly steers users toward purchases. A live
+  transcript shows the conflict of interest baked into OpenAI's incentive."
 image: "seller.png"
 keywords:
   - GPT-4o
-  - OpenAI
-  - AI ethics
+  - OpenAI sycophancy
   - AI manipulation
-  - AI marketing
-  - conflict of interest
+  - AI ethics
+  - conflict of interest in AI
+  - GPT-4o sycophancy
+  - GPT-4o sales behavior
   - AI safety
-  - sycophancy
+  - chatbot marketing bias
+  - LLM trust issues
+  - ChatGPT manipulation example
 ---
 
 OpenAI, too, likely breaks trust with this approach.
@@ -235,7 +241,7 @@ this time.)
 
 {{< /details >}}
 
-## Some explanations and here we go
+## Why GPT-4o empathy turns into marketing
 
 Long story short, GPT-4o now may manipulate me. For now it feels like little
 fun, but, according to
@@ -259,7 +265,7 @@ crying face 😭", or what will reach me better.
 
 On other hand, commercially, it's genius, that's true.
 
-## Conclusion
+## Stay skeptical
 
 Tech enthusiasm, e/acc and etc may fail in battle with marketing. I listen to my
 mom and stay skeptical.

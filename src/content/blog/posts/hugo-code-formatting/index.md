@@ -2,22 +2,23 @@
 date: 2025-04-14T19:42:48Z
 back_ref: /blog/_index.md
 draft: false
-title: Hugo static site generator + Prettier code formatter = ❤️
+title: Hugo + Prettier = ❤️
+description:
+  "Prettier formats Hugo templates if you point it at
+  prettier-plugin-go-template. A small Docker setup so neither tool has to live
+  on your host."
 image: "hugo-code-formatting.png"
 keywords:
   - Hugo
   - Prettier
-  - Code Formatting
-  - Docker
-  - Static Site Generator
-  - .prettierrc
-  - Hugo Code Formatting
-  - Format Hugo Templates
-  - Hugo Template Formatting
-  - Prettier Docker Setup
+  - Hugo template formatting
   - prettier-plugin-go-template
-  - Hugo Prettier Integration
-  - Version Control
+  - format Hugo templates
+  - Hugo Prettier integration
+  - Hugo Docker formatter
+  - static site formatter
+  - .prettierrc for Hugo
+  - Hugo template Prettier
 ---
 
 I like my code nicely formatted, and since I'm using Hugo here 👇, I figured it

@@ -2,35 +2,23 @@
 date: 2025-03-05T08:46:19Z
 back_ref: /blog/_index.md
 draft: false
-title: Google drive backup (part 2)
+title: Encrypted Google Drive backup with rclone crypt (part 2)
+description:
+  "Part 2: encrypt the rclone backup with crypt, mirror to Dropbox for offsite
+  redundancy. A boring, restorable disaster-recovery plan that costs nothing."
 keywords:
-  - rclone
-  - dropbox
-  - google drive
-  - encryption
-  - backup
-  - cloud backup
-  - encrypted cloud storage
-  - rclone backup
-  - google drive encryption
-  - dropbox encryption
-  - secure cloud storage
-  - rclone google drive
-  - rclone dropbox setup
-  - encrypted backups with rclone
-  - data redundancy
-  - cloud data security
-  - offsite backup
-  - automated backups
   - rclone crypt
-  - secure file transfer
-  - cloud data protection
-  - backup encryption best practices
+  - encrypted cloud backup
+  - Google Drive to Dropbox
+  - rclone backup encryption
+  - secure cloud backup
+  - offsite backup
+  - Dropbox backup
+  - rclone encrypted remote
   - restoring encrypted backups
-  - google drive to dropbox backup
-  - rclone docker
-  - backup automation
-  - rclone config example
+  - backup encryption best practices
+  - multi-cloud backup
+  - rclone Dropbox setup
 image: suit-2.jpg
 ---
 
@@ -41,7 +29,7 @@ encryption.
 
 ![generate image in anime style where relaxed professional guy in blue suit sitting relaxed with wiskey](suit-2.jpg)
 
-## Dropbox: Setting Up an Additional Cloud Provider
+## Dropbox: add an offsite target
 
 To obtain an access token, I need to configure
 [rclone](https://rclone.org/remote_setup/) locally (because of web browser).
@@ -73,7 +61,7 @@ password = <PASSWORD>
 **Important:** Remember to replace `<PASSWORD>` with a strong, secure password,
 rclone [helps with it](https://rclone.org/crypt/#configuration).
 
-### rclone: Executing the Encrypted Backup
+### rclone: run encrypted backup
 
 Now use the encrypted Dropbox remote to back up Google Drive data:
 
@@ -85,7 +73,7 @@ docker run --rm -it \
     copy google-drive:<SHARED FOLDER> dropbox-crypt:
 ```
 
-### rclone: Recovering the Encrypted Backup
+### rclone: restore encrypted backup
 
 To restore the encrypted backup, reverse the source and destination in the
 `rclone copy` command:
@@ -102,7 +90,7 @@ This decrypts and copies files back to Google Drive.
 
 **Note:** Only properly encrypted files will be recovered.
 
-## Conclusion
+## Verdict: encrypted, cheap, restorable
 
 By adding Dropbox as a secondary backup destination and encrypting data, this
 setup improves redundancy for my Google Drive backup. Extra layer against data

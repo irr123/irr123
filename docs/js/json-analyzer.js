@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const targetHeading = document.getElementById("live-tool");
+  const targetHeading = document.getElementById("analyze-json-in-the-browser");
 
   if (targetHeading) {
     const iframe = document.createElement("iframe");

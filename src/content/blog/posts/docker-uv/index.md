@@ -2,26 +2,22 @@
 date: 2025-02-18T12:39:42Z
 back_ref: /blog/_index.md
 draft: false
-title: Python3 Dockerfile with uv
+title: A minimal Python3 Dockerfile with uv
+description:
+  "uv collapses Python image build time in CI compared to pip. A minimal
+  multi-stage Dockerfile, the lockfile dance, and what to skip locally."
 keywords:
-  - python3
-  - docker
-  - dockerfile
   - uv
-  - python uv
+  - Dockerfile
+  - Python Docker image
   - uv package manager
-  - rust-based pip alternative
-  - fast python package manager
-  - python venv alternative
   - uv vs pip
-  - uv docker integration
-  - python package management
-  - rust python tools
-  - how to use uv in docker
-  - best python package manager 2025
-  - uv vs pip performance comparison
-  - setting up uv in CI/CD
-  - running uv in docker containers
+  - uv in Docker
+  - fast Python package manager
+  - Rust-based pip alternative
+  - multi-stage Dockerfile uv
+  - minimal Python container
+  - uv lockfile in Docker
 image: posts-docker-uv-1.jpg
 ---
 
@@ -31,14 +27,15 @@ with uv has an unexpected number of downloads, so I decided to steal some
 traffic from the original https://docs.astral.sh/uv/guides/integration/docker/
 page.
 
-## What is it [uv](https://github.com/astral-sh/uv)?
+## What is uv?
 
 ![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust)](posts-docker-uv-1.jpg)
 
-Long story short -- uv is a fast Rust-based Python pip alternative. It also
-replaces `python3 -m  venv ./venv`, and probably more by the time I reread this.
+Long story short -- [uv](https://github.com/astral-sh/uv) is a fast Rust-based
+Python pip alternative. It also replaces `python3 -m  venv ./venv`, and probably
+more by the time I reread this.
 
-## So what?
+## Minimal uv Dockerfile
 
 So, don't use old one and [two](https://github.com/irr123/python-docker). Do it
 properly:
@@ -69,7 +66,7 @@ COPY . /opt/app
 WORKDIR /opt/app
 ```
 
-## Conclusion
+## CI verdict: use uv where it saves time
 
 Personally I don't see any reason to spend time setting up uv locally, but on CI
 it saves a lot of time. Don't waste it!

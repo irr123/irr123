@@ -5,17 +5,18 @@ url: "/uses/"
 title: "/uses"
 excludeFromPostList: true
 keywords:
-  - uses
-  - blog
-  - hardware
-  - software
+  - /uses
+  - uses page
+  - developer setup
+  - daily driver tools
+  - macOS developer setup
+  - Neovim setup
+  - Ghostty terminal
+  - Windows Terminal
+  - WSL setup
   - dotfiles
-  - cli
-  - vim
-  - neovim
-  - ghostty
-  - windows terminal
-  - screen
+  - screen instead of tmux
+  - Flow84 keyboard
 ---
 
 Inspired by [uses.tech](https://uses.tech/). For work context, see

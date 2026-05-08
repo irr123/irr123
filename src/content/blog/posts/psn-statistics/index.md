@@ -2,24 +2,23 @@
 date: 2025-03-24T19:09:56Z
 back_ref: /blog/_index.md
 draft: false
-title: PlayStation statistics
+title: "PlayStation statistics: an open-source PSN tool"
+description:
+  "An open-source script that pulls PlayStation playtime, completion, and the
+  games gathering dust. Patches welcome — and the data is humbling."
 custom_js: [psn-stat]
 image: "astro-bot.png"
 keywords:
   - PlayStation statistics
   - PSN stats
-  - gaming hours
-  - PlayStation script
-  - open-source
-  - gaming time
-  - unplayed games
-  - game library
-  - gaming data
   - PSN API
-  - contribute code
-  - how to check PlayStation gaming hours
-  - open-source PSN stats tool
-  - find unplayed games on PS5
+  - PlayStation play time tracker
+  - unplayed PS5 games
+  - PSN gaming hours
+  - open-source PSN tool
+  - PlayStation library stats
+  - check PS5 hours played
+  - PSN stats CLI
 ---
 
 <!-- ![test](astro-bot.png) -->

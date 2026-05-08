@@ -2,7 +2,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   {{ $pageTitle := .Title | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
-  {{ $pageSummary := plainify (cond .IsPage .Summary site.Params.summary) | htmlUnescape | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
+  {{ $rawSummary := "" -}}
+  {{ if .Description -}}
+    {{ $rawSummary = .Description -}}
+  {{ else if .IsPage -}}
+    {{ $rawSummary = .Summary -}}
+  {{ else -}}
+    {{ $rawSummary = site.Params.summary -}}
+  {{ end -}}
+  {{ $pageSummary := plainify $rawSummary | htmlUnescape | replaceRE "[\r\n]+" " " | replaceRE "\\s{2,}" " " | strings.TrimSpace -}}
   {{ $parts := slice -}}
   {{ if ne $pageTitle "" }}{{ $parts = $parts | append $pageTitle }}{{ end -}}
   {{ if ne $pageSummary "" }}{{ $parts = $parts | append $pageSummary }}{{ end -}}
@@ -11,8 +19,8 @@
     {{ $adjustedTitle = print (substr $adjustedTitle 0 61) "..." -}}
   {{ end -}}
   {{ $adjustedSummary := $pageSummary -}}
-  {{ if gt (len $adjustedSummary) 128 -}}
-    {{ $adjustedSummary = print (substr $adjustedSummary 0 125) "..." -}}
+  {{ if gt (len $adjustedSummary) 173 -}}
+    {{ $adjustedSummary = print (substr $adjustedSummary 0 170) "..." -}}
   {{ end -}}
   <title>{{ $adjustedTitle }}</title>
   <meta name="description" content="{{ $adjustedSummary }}">

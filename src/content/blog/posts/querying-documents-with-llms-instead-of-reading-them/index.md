@@ -3,16 +3,23 @@ date: 2025-10-02T09:12:38Z
 back_ref: /blog/_index.md
 draft: false
 title: Querying documents with LLMs instead of reading them
+description:
+  "Treat a 60-page PDF like a database: structure first, then targeted
+  follow-ups. Triage what's worth deep-reading in minutes — and watch the
+  hallucinations."
 image: "img.png"
 keywords:
-  - AI-Assisted Learning
-  - Non-Linear Reading
-  - LLM
-  - Document Analysis
-  - Knowledge Extraction
-  - Prompt Engineering
-  - Future of Reading
-  - Technical Documentation
+  - querying documents with LLMs
+  - LLM document analysis
+  - AI-assisted reading
+  - non-linear reading
+  - knowledge extraction with LLM
+  - prompt-based document review
+  - triage technical docs with AI
+  - read PDF with LLM
+  - AI for technical documentation
+  - document Q&A with LLM
+  - LLM as search over docs
 ---
 
 Reading a technical doc cover-to-cover is like running a full table scan. A
@@ -27,12 +34,12 @@ This isn’t deep reading. It’s triage.
 
 ![LLM → concise insights](img.png)
 
-## The Workflow
+## Workflow: index first, query second
 
 _The point_: figure out in minutes if a doc is worth hours. _Two steps_: broad
 “indexing” → targeted follow-ups.
 
-### 1. The Indexing Query
+### 1. Index the document structure
 
 Ask the LLM to map the doc. Thesis, sub-arguments, audience, frameworks. Smarter
 than a TOC:
@@ -47,7 +54,7 @@ A raw output might look like:
 
 Based on an analysis of the document, here is a structured summary.
 
-#### Primary Thesis
+#### Primary thesis
 
 The central argument of this guide is that for startups to succeed with AI, they
 must move beyond simple prototyping to a disciplined, engineering-driven
@@ -56,15 +63,15 @@ This systematic approach, centered on the Google Cloud ecosystem, enables the
 creation of reliable, scalable, and responsible agentic systems, which provides
 a significant competitive advantage.
 
-#### Secondary Arguments
+#### Secondary arguments
 
 ...
 
-#### Intended Audience
+#### Intended audience
 
 ...
 
-#### Technical Frameworks and Code
+#### Technical frameworks and code
 
 - Primary Development Framework: The Agent Development Kit (ADK)
 - Operational Implementation: The Agent Starter Pack
@@ -83,7 +90,7 @@ ADK Samples repository for working code examples.
 _Already clear_: this is high-level, conceptual. No code here. That alone saves
 time.
 
-### 2. The Targeted Query
+### 2. Pull one thread
 
 Now pull a thread:
 

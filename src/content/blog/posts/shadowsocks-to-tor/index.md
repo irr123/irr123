@@ -2,22 +2,24 @@
 date: 2025-05-28T16:25:43Z
 back_ref: /blog/_index.md
 draft: false
-title: "Shadowsocks to Tor: Why it failed as a VPN alternative"
+title: "Shadowsocks to Tor: why it failed as a VPN alternative"
+description:
+  "Shadowsocks in TUN mode falls apart as a VPN replacement: broken inter-client
+  routing, no system-wide tunnel on Windows. WireGuard ended up doing the job."
 image: "pic.png"
 keywords:
-  - shadowsocks
-  - tor
-  - vpn
-  - ansible
-  - privacy
-  - networking
-  - vps
-  - self-hosting
-  - iptables
-  - wireguard
-  - censorship circumvention
-  - TUN mode
+  - Shadowsocks
+  - Shadowsocks to Tor
   - SOCKS5 proxy
+  - Tor TUN mode
+  - Shadowsocks Ansible
+  - censorship circumvention
+  - Shadowsocks vs WireGuard
+  - self-hosted proxy on VPS
+  - iptables Tor routing
+  - Tor exit through VPS
+  - failed VPN alternative
+  - privacy networking on VPS
 ---
 
 Well, the time has come, and I've decided to update, clean up, and generally
@@ -45,15 +47,15 @@ particular action).
 For those in a hurry, here are the prepared Ansible playbooks:
 https://github.com/irr123/shadowsocks-to-tor
 
-## Tor
+## Tor daemon
 
 I started with the simplest part -- setting up Tor. Tor needs no long intro; at
 least the Tor Browser is familiar enough. In my case, I only needed to set up
 the daemon (without the browser) and route the VPN's external traffic through
 it. (Spoiler: this part works almost
-[perfectly](#some-limitations-and-why-i-count-it-as-a-failed-setup)).
+[perfectly](#where-shadowsocks-failed-as-a-vpn)).
 
-### Configuration
+### Tor config
 
 According to
 [https://support.torproject.org/apt/tor-deb-repo/](https://support.torproject.org/apt/tor-deb-repo/),
@@ -100,7 +102,7 @@ for, based on their docs):
   into a [QR-code]({{< relref "blog/posts/free-online-qr-code-generator" >}})
   and easily applied on a mobile phone, for example.
 
-### Configuration
+### Shadowsocks server config
 
 The docs provide many different
 [installation options](https://github.com/shadowsocks/shadowsocks-rust#build--install),
@@ -210,7 +212,7 @@ netfilter-persistent save
 Now I recheck https://myip.wtf through the Shadowsocks client and should see an
 IP address from the Tor network.
 
-## Some Limitations (and why I count it as a failed setup)
+## Where Shadowsocks failed as a VPN
 
 In general, this might be a good enough setup for particular cases. For example,
 when checking https://dnsleaktest.com, DNS requests are not leaking through the
@@ -242,7 +244,7 @@ And the most important issues for me:
    (e.g., 192.168.7.x) if I'm trying to build one, nor does it tunnel all system
    traffic.
 
-## Conclusion
+## Verdict: proxy works, VPN doesn't
 
 As I mentioned at the start, while the Shadowsocks protocol itself is likely
 great for its core purpose (circumventing DPI and proxying traffic), the

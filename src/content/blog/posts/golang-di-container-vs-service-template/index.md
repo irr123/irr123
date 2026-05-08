@@ -2,33 +2,24 @@
 date: 2025-02-21T06:31:02Z
 back_ref: /blog/_index.md
 draft: false
-title: DI container vs. service template (generator)
+title: Go DI container vs. service template generator
+description:
+  "DI containers beat service-template generators in Go on the long arc: typed,
+  consistent, and immune to the slow drift template-spawned services suffer."
 keywords:
-  - golang
-  - architecture
-  - dependency injection
+  - Go dependency injection
   - DI container
   - service template
-  - microservices
-  - software design patterns
-  - software architecture
-  - Golang dependency injection
+  - Go microservices
+  - Go project structure
+  - inversion of control Go
+  - Go IoC
   - DI vs service template
-  - Golang microservices
-  - Golang DI container
   - Go service generator
-  - Golang project structure
-  - Golang best practices
-  - software scalability
-  - Golang framework
-  - inversion of control
-  - Golang IoC
-  - Golang DI example
-  - Golang container pattern
   - microservices best practices
-  - CI/CD for Golang
-  - software quality management
-  - Golang software templates
+  - Go architecture patterns
+  - Go DI example
+  - Go boilerplate generator
 image: morpheus.jpg
 ---
 
@@ -52,7 +43,7 @@ explore two approaches:
     injection process. While not the most common approach for bootstrapping new
     services, it offers several advantages, which I will outline.
 
-## The problem
+## The problem: service drift
 
 The challenge is a timeless one: accelerating the delivery of value to
 production. From a technical perspective, this translates to several key
@@ -65,7 +56,7 @@ requirements:
 - **Unified interaction interfaces:** Standardized configuration, logging, and
   metrics save significant time for operation guys.
 
-### Examples
+### Where templates start to drift
 
 Imagine a company with a few internal services looking to expand and release
 more. Or consider an outsourcing company developing services for external
@@ -108,7 +99,7 @@ Cons:
 - The "templating" nature of this approach makes the template itself difficult
   to test and analyze with static analysis tools.
 
-#### DI container to the Rescue
+#### DI container: typed shared bootstrapping
 
 Instead of relying on templates, I can retain the shared library approach and
 encapsulate all pre-built components within a container. This allows developers
@@ -144,7 +135,7 @@ code (without templating complexities) that can be effectively covered by
 quality checks. Furthermore, backward compatibility is maintained by following
 standard coding practices.
 
-## Finishing Uncovered Parts
+## What templates still cover
 
 Continuing the comparison between containers and templates, it's worth noting
 that templates can offer a more comprehensive initial setup. This might include

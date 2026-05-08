@@ -3,24 +3,24 @@ date: 2025-12-18T12:44:19Z
 back_ref: /blog/_index.md
 draft: false
 title: The actual state of self-hosting on a VPS
+description:
+  "K3s loses to Docker Compose on a 1GB VPS — and Podman with Quadlet beats
+  both. Rootless, systemd-native, near-zero idle memory. Numbers, not vibes."
 image: cursed_Kubernetes_cathedral.png
 keywords:
-  - self-hosting
-  - VPS
-  - docker-compose
-  - docker
-  - kubernetes
-  - k3s
-  - podman
-  - quadlet
-  - systemd
-  - rootless-containers
-  - container-orchestration
-  - boring-infrastructure
-  - price-sensitive-infra
-  - devops-pragmatism
-  - anti-hype
-  - container-runtime
+  - self-hosting on a VPS
+  - Docker Compose vs K3s
+  - K3s on a small VPS
+  - rootless Podman
+  - Podman Quadlet
+  - systemd containers
+  - container orchestration on small VPS
+  - boring infrastructure
+  - 1GB VPS self-hosting
+  - Docker Compose deprecation
+  - DevOps pragmatism
+  - price-sensitive infra
+  - container runtime comparison
 ---
 
 I recently ran into a claim: Docker Compose is outdated and K3s is the king for
@@ -54,7 +54,7 @@ Within that landscape, I'm overviewing:
 
 No need to explain, here's the `docker-compose.yaml`.
 
-### Deployment entity example
+### Compose baseline: app + Valkey
 
 ```yaml
 services:
@@ -285,7 +285,7 @@ job.batch/helm-install-traefik-crd   Complete   1/1           33s        4m51s
 
 {{< /details >}}
 
-### Deployment
+### K3s deployment manifests
 
 Here's the same Valkey & Python app with the same Dockerfile. Let's deploy it.
 Helm isn't included by default, so I'll use raw YAML manifests.
@@ -488,7 +488,7 @@ redis-68764c78c5-xjplm    1/1     Running   0          30m     10.42.0.9    qemu
 
 On a single VPS.
 
-### Pros & Cons
+### K3s verdict: full cluster tax
 
 Pros: it provides `/usr/local/bin/k3s-uninstall.sh`.
 
@@ -511,7 +511,7 @@ privileged daemon. It uses OCI runtimes, rootless by design, Docker-compatible.
 Second, _Quadlet_ generates systemd units, so containers integrate cleanly with
 systemd and journald.
 
-### Deployment
+### Quadlet deployment units
 
 Podman itself already exists in Ubuntu repos (no need to add Docker's signing
 key and repo).
@@ -657,7 +657,7 @@ a regular user. Updates are predictable via
 `systemctl --user restart python.service`. Health checks restart the service,
 and logs rotate out of the box.
 
-## Conclusion
+## Verdict: Podman + Quadlet wins on a 1GB VPS
 
 | Metric            |  Docker Compose   |       K3s        |  Podman + Quadlet  |
 | :---------------- | :---------------: | :--------------: | :----------------: |

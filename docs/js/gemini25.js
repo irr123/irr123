@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const targetHeading = document.getElementById("example");
+  const targetHeading = document.getElementById("playable-p5js-result");
 
   if (targetHeading) {
     const iframe = document.createElement("iframe");

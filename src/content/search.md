@@ -5,10 +5,10 @@ url: "/search/"
 title: "Search"
 excludeFromPostList: true
 keywords:
-  - search
-  - blog
-  - distributed systems
-  - ai infrastructure
+  - site search
+  - blog search
+  - bogomolov.work search
+  - search the archive
 ---
 
 {{< sitesummary >}}

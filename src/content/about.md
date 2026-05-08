@@ -5,24 +5,25 @@ url: "/about/"
 title: "/about"
 excludeFromPostList: true
 keywords:
-  - blog
-  - about
   - Ivan Bogomolov
   - Иван Богомолов
   - software engineer
+  - backend architecture
   - self-hosting
   - networking
+  - pragmatic engineering
+  - about Ivan Bogomolov
 ---
 
 I'm Ivan Bogomolov, a software engineer. I enjoy working with
 [technologies]({{< relref "uses" >}}); this blog is where that interest lands.
 
-My first paid project was in Delphi and Borland Builder. My first coding job
-started with Python 2.6 and Perl. For the record.
-
 Most of my work now lives between architecture and operations: choosing simple
 designs, knowing when _not_ to add microservices, and fixing systems that
 already exist. Coding is still the best part; I make room for it here.
+
+My first paid project was in Delphi and Borland Builder. My first coding job
+started with Python 2.6 and Perl. For the record.
 
 [Here]({{< relref "blog" >}}) I write about self-hosting, networking, AI, and
 trade-offs discovered firsthand.

@@ -2,20 +2,23 @@
 date: 2025-05-24T08:47:42Z
 back_ref: /blog/_index.md
 draft: false
-title: Free online QR code generator
+title: Free online QR code generator (no signup, SVG + PNG)
+description:
+  "A free QR code generator that gives you SVG and PNG without registration,
+  OAuth, or paywalls. Runs client-side; only pageviews get tracked."
 custom_js: [qr-code]
 image: "qrcode.png"
 keywords:
-  - qr code
-  - qr code generator
-  - free qr code
-  - svg qr code
-  - png qr code
-  - online qr code
-  - no registration qr code
-  - qr code maker
-  - free qr code generator
-  - qr code download
+  - QR code generator
+  - free QR code generator
+  - online QR code
+  - SVG QR code
+  - PNG QR code
+  - QR code without registration
+  - QR code maker
+  - download QR code SVG
+  - QR code generator no signup
+  - client-side QR code
 ---
 
 What a shame -- nowadays, one quick request to GPT spits out a proper HTML page
@@ -31,9 +34,9 @@ pageviews, so chill.
 
 (And yep, I gotta throw in some text here to make search engines happy 🙃)
 
-## Live Tool
+## Generate a QR code
 
-## Get Started
+## Paste text, download SVG or PNG
 
 Wanna skip straight to it? Here’s the
 [direct link](/text/qr-code-generator.html).

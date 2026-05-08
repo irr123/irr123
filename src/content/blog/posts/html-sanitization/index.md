@@ -2,25 +2,24 @@
 date: 2025-09-05T08:13:44Z
 back_ref: /blog/_index.md
 draft: false
-title: "HTML sanitization: Avoiding the double-encoding issue"
+title: "HTML sanitization: the double-encoding trap"
+description:
+  "Sanitizing HTML on both ingest and output renders literal `&amp;` in the UI.
+  Fix: store raw Unicode, sanitize once. Pattern for React, Next.js, NestJS."
 image: "sanitization.png"
 keywords:
-  - HTML Sanitization
-  - XSS
-  - Cross-Site Scripting
-  - Double Encoding
-  - Double Escaping
-  - React
-  - Next.js
-  - NestJS
-  - Web Security
-  - Sanitize on Ingest
-  - Sanitize on Output
-  - Unicode
-  - Character Entities
-  - Data Transformation
-  - System Architecture
-  - Security Audit
+  - HTML sanitization
+  - double encoding
+  - double escaping
+  - XSS prevention
+  - sanitize on ingest
+  - sanitize on output
+  - React XSS
+  - Next.js sanitization
+  - NestJS sanitization
+  - character entity double-escape
+  - web security audit
+  - DOMPurify
 ---
 
 Once upon a time, I went through another security audit on a project that wasn't
@@ -37,7 +36,7 @@ With proof. Quite disappointing.
 > understand the security implications and are facing the exact double-encoding
 > problem described here.
 
-## Related Internals
+## Constraint: sanitize on ingest and output
 
 As a result, security auditing team presented us with demands:
 
@@ -57,7 +56,7 @@ practice in React (which powers Next.js); it already protects against HTML
 injection by default by sanitizing all rendered output. Disabling this is a
 major anti-pattern.
 
-## The Issue
+## The double-encoding issue
 
 It wasn't a big deal to implement sanitization on the server side, so I did it
 and started storing strings with `&amp;` instead of the literal character `&` in
@@ -98,7 +97,7 @@ UI represented them nicely. But at what price? I asked.
 **Fun fact**: Single UTF symbol requires less space compared with 3+ ASCII
 symbols in utf encoding.
 
-## Trade-offs and Considerations
+## Trade-offs of Unicode substitution
 
 - First, legacy systems: If a system still uses KOI8-R and similar, this isn't
   for it (legacy email clients, for example). Legacy fate.
@@ -117,7 +116,7 @@ symbols in utf encoding.
 - Probably the most underrated point: This process is more like _data
   transformation_ than _sanitization_.
 
-## Conclusion
+## Verdict: elegant under real constraints
 
 So, is this an ugly hack or an elegant solution?
 

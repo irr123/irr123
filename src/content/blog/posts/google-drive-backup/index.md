@@ -2,38 +2,24 @@
 date: 2025-02-27T20:12:31Z
 back_ref: /blog/_index.md
 draft: false
-title: (Almost) Free Google drive backup (part 1)
+title: (Almost) Free Google Drive backup (part 1)
+description:
+  "An almost-free Google Drive backup with rclone, a Cloud Console service
+  account, Docker, and cron. The service account owns the data if your account
+  dies."
 keywords:
-  - rclone
-  - google drive
-  - backup
-  - cron
-  - google drive backup
-  - automated backup
-  - rclone google drive
-  - google cloud console
-  - google drive API
-  - service account
-  - rclone service account
-  - cloud storage backup
-  - secure backups
-  - data recovery
-  - rclone automation
-  - google drive data protection
-  - backup with cron
-  - google drive service account
-  - rclone docker
-  - encrypted cloud backup
-  - google drive disaster recovery
-  - cloud storage automation
-  - scheduled backups
+  - rclone Google Drive
+  - Google Drive backup
+  - service account backup
+  - automated backup with cron
+  - rclone Docker
+  - Google Drive API backup
+  - free cloud backup
+  - scheduled rclone backup
   - rclone config example
-  - rclone tutorial
-  - data redundancy
-  - backup and restore google drive
-  - rclone setup
-  - google drive security
-  - backup best practices
+  - Google Cloud Console service account
+  - offsite backup automation
+  - self-hosted backup
 image: suit.jpg
 ---
 
@@ -45,7 +31,7 @@ disappears?
 I searched for a reliable, out-of-the-box solution. Google's suggestions didn't
 land, so I built my own. Lego backup: assemble the necessary components.
 
-## What building blocks do I need?
+## Backup building blocks
 
 - Access to
   [Google Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts)
@@ -53,7 +39,7 @@ land, so I built my own. Lego backup: assemble the necessary components.
   managing filesystems and cloud storage. It's well-documented; I focus on the
   short path
 
-### Google Cloud Console: Setting Up the Service Account
+### Google Cloud Console: create the service account
 
 I started with the most crucial step: credentials to interact with the Google
 API. (Remember to enable the
@@ -81,7 +67,7 @@ Here's an example of what it looks like:
 }
 ```
 
-### rclone: Configuring and Executing the Backup
+### rclone: copy Drive to local storage
 
 Almost there. The next step is to set up rclone for automated execution using
 Cron on a host. I'll skip the details of acquiring a hosting environment.
@@ -104,7 +90,7 @@ docker run --rm -it \
     copy google-drive:<SHARED FOLDER> /data/$(date +"%Y-%m-%d")
 ```
 
-### rclone: Recovering the Backup
+### rclone: restore the backup
 
 To restore the backup, reverse the source and destination paths in the
 `rclone copy` command:
@@ -120,13 +106,13 @@ docker run --rm -it \
 If I recover data, the original permissions will be lost, and the _Service
 Account_ will become the owner of all recovered data.
 
-#### Important Note
+#### Service-account ownership trap
 
 A _Service Account_ is an account with its own folder and permissions within
 Google Drive. I have to share the desired folders with it. The `<SHARED FOLDER>`
 in the bash command refers to the exact name of the shared folder.
 
-## Conclusion
+## Next: encryption and offsite storage
 
 This provides a solid foundation for Google Drive backup. Next step: add
 [encryption](https://rclone.org/crypt/) and robust, cost-effective

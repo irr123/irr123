@@ -2,17 +2,25 @@
 date: 2025-07-12T11:04:35Z
 back_ref: /blog/_index.md
 draft: false
-title: "How-to: A private WireGuard VPN with selective Tor routing"
+title: Private WireGuard VPN with selective Tor routing
+description:
+  "A private WireGuard VPN connecting laptop, phone, and servers, with selective
+  Tor routing for browser traffic only. Configs for Ubuntu, Windows, and Podman."
 image: "wireguard.png"
 keywords:
-  - wireguard
-  - vpn
-  - tor
-  - privacy
-  - networking
-  - ubuntu
-  - windows
-  - podman
+  - WireGuard
+  - WireGuard VPN
+  - selective Tor routing
+  - WireGuard with Tor
+  - private VPN setup
+  - Ubuntu WireGuard server
+  - WireGuard Windows client
+  - Podman Tor container
+  - VPN with Tor exit
+  - WireGuard sysctl tuning
+  - self-hosted VPN
+  - split tunneling Tor
+  - WireGuard mobile client
 ---
 
 When planning a VPN, _OpenVPN_ is often the default choice. However, in this
@@ -22,12 +30,12 @@ network. Additionally, I will selectively route all internet traffic from my
 notebook and phone through the Tor network, while allowing other servers on the
 VPN to communicate normally without being routed through Tor.
 
-## The WireGuard Server (Ubuntu)
+## The WireGuard server (Ubuntu)
 
 This central server will act as the WireGuard endpoint, terminating connections
 from all clients and routing traffic.
 
-### System Optimization (sysctl)
+### System optimization (sysctl)
 
 First, it's a good practice to optimize the server's network settings for better
 performance. Many of these settings are from my previous article about
@@ -62,7 +70,7 @@ At a minimum, `net.ipv4.ip_forward=1` is required to allow the server to route
 traffic. The other settings are performance optimizations. I apply them with
 `sudo sysctl -p`.
 
-### WireGuard Installation
+### WireGuard installation
 
 ```bash
 sudo apt install wireguard wireguard-tools
@@ -85,7 +93,7 @@ Start the WireGuard service and enable it to launch on boot
 
 I check its status with `sudo journalctl -eu wg-quick@wg0.service`.
 
-### Generating Peer Configurations
+### Generating peer configurations
 
 With the server running, I generate keys for clients and add them as peers:
 
@@ -96,13 +104,13 @@ wg genkey | tee myphone-privatekey | wg pubkey > myphone-publickey
 wg genkey | tee mypc-privatekey | wg pubkey > mypc-publickey
 ```
 
-### Integrating Tor and Firewall Rules
+### Integrating Tor and firewall rules
 
 {{< details summary="Previous-previous version with local TOR daemon" >}}
 
 My Tor installation was already described
-[here]({{< relref "blog/posts/shadowsocks-to-tor" >}}#tor). The crucial step is
-to ensure Tor's listeners are bound to the WireGuard interface IP,
+[here]({{< relref "blog/posts/shadowsocks-to-tor" >}}#tor-daemon). The crucial
+step is to ensure Tor's listeners are bound to the WireGuard interface IP,
 `/etc/tor/torrc`:
 
 ```ini
@@ -252,9 +260,9 @@ AllowedIPs = 192.168.42.5/32
 Finally, apply all the changes by restarting the services
 `sudo systemctl restart tor && sudo systemctl restart wg-quick@wg0`.
 
-## Part 2: Client Configurations
+## Client configs: split tunnel vs Tor full tunnel
 
-### Client Type A: Split-Tunnel (Ubuntu/Raspberry Pi)
+### Client type A: split-tunnel (Ubuntu/Raspberry Pi)
 
 These clients will only use the VPN to access other devices on the
 _192.168.42.0/24_ network. Their regular internet traffic will not go through
@@ -282,7 +290,7 @@ _PersistentKeepalive_ helps maintain the connection through NAT firewalls.
 Don't forget to start and enable the service:
 `sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0`.
 
-### Client Type B: Full-Tunnel over Tor (Windows/GrapheneOS)
+### Client type B: full-tunnel over Tor (Windows/GrapheneOS)
 
 These clients will route all their internet traffic through the VPN, which then
 gets funneled through the Tor network by the server.
@@ -307,14 +315,14 @@ It forces the client to use my server for all DNS requests, which are then
 resolved securely by Tor. This prevents "DNS leaks" where requests might bypass
 the VPN.
 
-#### Note for Windows Users
+#### Windows AllowedIPs note
 
 While _AllowedIPs = 0.0.0.0/0_ is the most secure setting, some Windows users
 prefer _AllowedIPs = 0.0.0.0/1, 128.0.0.0/1_ to avoid certain issues with local
 network access. With this alternative, setting the DNS directive as shown above
 is absolutely essential to prevent DNS leaks.
 
-## Conclusion
+## Verify VPN connectivity and Tor exit
 
 To verify everything is working as expected, I perform two checks:
 

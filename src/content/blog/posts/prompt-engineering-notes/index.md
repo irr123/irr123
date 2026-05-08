@@ -2,22 +2,23 @@
 date: 2025-03-20T08:00:14Z
 back_ref: /blog/_index.md
 draft: false
-title: Prompt engineering notes
+title: Prompt engineering notes, after the Cursor leak
+description:
+  'Notes after the Cursor system-prompt leak: most "prompt engineer" tooling is
+  dead weight — modern LLMs auto-generate better prompts from raw context.'
 image: ai-refuses.jpg
 keywords:
   - prompt engineering
-  - AI prompts
-  - AI prompt generation
-  - Cursor prompts leak
-  - prompt engineering best practices
-  - AI image generation prompts
+  - system prompt design
+  - Cursor system prompt
+  - leaked system prompts
+  - AI prompt patterns
   - OpenAI prompt engineering
-  - Gemini prompt engineering
   - Anthropic Claude prompts
-  - AI prompt design
-  - AI workflow optimization
-  - how to improve AI prompts
-  - alternatives to prompt engineers
+  - Gemini prompt engineering
+  - prompt engineering best practices
+  - LLM prompt structure
+  - AI image prompt design
 ---
 
 Cursor and some other
@@ -27,7 +28,7 @@ from experienced guys.
 
 ![generate anime style image where AI fed up of prompt](ai-refuses.jpg)
 
-## First things first
+## Start with official prompting docs
 
 It's always valuable to check official docs, such as:
 
@@ -43,7 +44,7 @@ controversial sources.
 ![some outdated principles](prompt-principle.jpeg)
 ![prompt anatomy](anatomy-of-o1-prompt.jpg) {{< /details >}}
 
-## Real life examples
+## Personal prompts: raw context wins
 
 I separate two goals:
 
@@ -81,7 +82,7 @@ A few clarification rounds, and the result is usable.
 Take a look at leaked prompts from the header and imagine how much time and
 energy was spent into it, having context from the OpenAI cookbook 🤯
 
-## Lifehack
+## Generate the prompt from raw context
 
 Anthropic, claude.ai author,
 [provides](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-generator)
@@ -114,7 +115,7 @@ The resulted prompt:
 
 Execute the prompt. Result is in the header.
 
-## Conclusion
+## Prompt-wrapper fate
 
 AI has already evolved enough to replace third-party apps/services for prompt
 building, such as prompt engineers, a profession that emerged during the hype.

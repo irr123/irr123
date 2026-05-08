@@ -2,38 +2,34 @@
 date: 2025-09-10T03:43:41Z
 back_ref: /blog/_index.md
 draft: false
-title: JSON analyzer
+title: "JSON analyzer: find which keys bloat your payload"
+description:
+  "A free, client-side JSON analyzer that breaks down payload size by key — find
+  which fields bloat your slow API response. No upload; runs in the browser."
 custom_js: [json-analyzer]
 image: "main.png"
 keywords:
   - JSON analyzer
-  - JSON profiler
-  - JSON weight analysis
   - JSON size analyzer
-  - JSON performance tool
-  - optimize JSON payload
-  - reduce JSON size
+  - JSON profiler
   - analyze large JSON
   - find heavy JSON fields
-  - slow API response JSON
-  - debug JSON performance
-  - JSON key weight
-  - JSON data distribution
+  - reduce JSON payload size
+  - optimize JSON response
   - client-side JSON tool
-  - browser-based JSON analyzer
+  - browser JSON analyzer
   - private JSON analysis
   - visualize JSON weight
-  - how to find largest element in JSON
-  - tool to check JSON size
-  - free online JSON optimizer
+  - slow API JSON debug
+  - JSON key size breakdown
 ---
 
 A free, client-side tool to analyze large JSON data. Paste JSON to find the
 heaviest fields, see a breakdown by key name, and cut payload size. No data is
 uploaded.
 
-## Live Tool
+## Analyze JSON in the browser
 
-## Get Started
+## Paste JSON, find heavy keys
 
 Ready to analyze? [Open fullscreen](/text/json-analyzer.html)

@@ -3,13 +3,11 @@ back_ref: /blog/_index.md
 title: The Archive
 pagefind: false
 keywords:
-  - bogomolov
-  - glitches
-  - personal
-  - cyberpunk
-  - blog
-  - opensource
-  - tech porn
-  - brutalism
-  - warhammer 40k aesthetic
+  - Ivan Bogomolov blog
+  - the archive
+  - self-hosting notes
+  - AI infrastructure
+  - networking and privacy
+  - developer notes
+  - pragmatic engineering blog
 ---
