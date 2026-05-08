@@ -15,8 +15,8 @@
         {{- partial "grafana_faro.html" -}}
         {{- if .Params.custom_js -}}
             {{- range .Params.custom_js -}}
-                {{ $js := resources.Get (print "js/" . ".js") }}
-                <script src="{{ $js.RelPermalink }}"></script>
+                {{- $js := resources.Get (print "js/" . ".js") | resources.Minify | resources.Fingerprint "sha512" -}}
+                <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
             {{- end -}}
         {{- end -}}
     </body>

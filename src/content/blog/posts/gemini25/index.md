@@ -32,7 +32,7 @@ https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-mar
 
 And it works, in one shot:
 
-```
+```txt
 Okay, here's a p5.js sketch for a captivating endless
 runner featuring a pixelated dinosaur and an interesting
 parallax background.

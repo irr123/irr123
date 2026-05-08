@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("playable-p5js-result");if(e){const t=document.createElement("iframe");t.src="/text/gemini25.html",t.style.width="100%",t.style.border="none",t.style.height="480px",e.parentNode.insertBefore(t,e.nextSibling)}})
