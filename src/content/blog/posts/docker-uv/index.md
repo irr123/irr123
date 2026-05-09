@@ -41,28 +41,28 @@ So, don't use old one and [two](https://github.com/irr123/python-docker). Do it
 properly:
 
 ```bash
-ARG BASE_IMAGE=python:3.13.2-slim-bookworm
-ARG UV_VERSION=0.6.1
+ARG BASE_IMAGE=python:3.14-slim-trixie
+ARG UV_VERSION=0.10.4-python3.14-trixie-slim
 
 FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv_carrier
 FROM $BASE_IMAGE AS builder
 
-COPY --from=uv_carrier /uv /uvx /bin/
+COPY --from=uv_carrier /usr/local/bin/uv /usr/local/bin/
 RUN uv venv /opt/venv
-ENV PATH=/opt/venv/bin:$PATH \
-    UV_COMPILE_BYTECODE=1  # optional optimization
+ENV PATH=/opt/venv/bin:$PATH
 
 COPY ./requirements.txt requirements.txt
 RUN uv pip install -r requirements.txt
 
 FROM $BASE_IMAGE
 
-ENV PATH=/opt/venv/bin:$PATH \
-    PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \
+    PATH=/opt/venv/bin:$PATH
 
 COPY --from=builder /opt/venv /opt/venv
 
 COPY . /opt/app
+RUN python -m compileall -q -j 0 /opt/app
 WORKDIR /opt/app
 ```
 

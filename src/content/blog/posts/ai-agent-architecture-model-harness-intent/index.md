@@ -297,21 +297,25 @@ from code: constraints, preferences, dangerous commands, external contracts.
 ```md
 # Approach
 
-Validate inputs; assert assumptions
+Validate inputs; assert assumptions.
 
-Frame contradictions, don't compromise them
+Frame contradictions, don't compromise them.
 
-Define measurable outcomes before implementation
+Define measurable outcomes before implementation.
 
-Prefer simple over clever
+Prefer simple over clever.
 
-Be brief
+Be brief: 1024 characters by default.
 
-## Agent environment: tools, memory, permissions
+Enforce these on me; surface violations, don't smooth them.
 
-There is no `gh` CLI command
+## Environment
 
-Use `rg` instead of grep
+There is no `gh` CLI command.
+
+Use `rg` instead of grep.
+
+...
 ```
 
 {{< /details >}}
