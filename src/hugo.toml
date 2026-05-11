@@ -10,6 +10,7 @@ disableKinds = ["taxonomy", "term"]
     render = "never"
   [cascade.target]
     path = "/posts/**"
+
 disableHugoGeneratorInject = true
 
 [outputs]

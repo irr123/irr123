@@ -1,0 +1,4 @@
+Contact: mailto:ivan.invoke@bogomolov.work
+Expires: 2027-05-11T00:00:00.000Z
+Canonical: https://bogomolov.work/.well-known/security.txt
+Preferred-Languages: en
