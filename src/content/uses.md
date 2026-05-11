@@ -2,7 +2,7 @@
 date: 2026-01-04T08:47:42Z
 back_ref: /_index.md
 url: "/uses/"
-title: "/uses"
+title: "∕uses"
 excludeFromPostList: true
 keywords:
   - /uses
@@ -20,7 +20,7 @@ keywords:
 ---
 
 Inspired by [uses.tech](https://uses.tech/). For work context, see
-[/about]({{< relref "about" >}}).
+[∕about]({{< relref "about" >}}).
 
 ## Hardware
 

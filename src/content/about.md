@@ -2,7 +2,7 @@
 date: 2026-04-22T08:47:42Z
 back_ref: /_index.md
 url: "/about/"
-title: "/about"
+title: "∕about"
 excludeFromPostList: true
 keywords:
   - Ivan Bogomolov
