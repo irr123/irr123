@@ -18,11 +18,11 @@ keywords:
 Looking for something specific? [Search]({{< relref "search" >}}) beats
 scrolling, but:
 
-- [∕blog]({{< relref "blog" >}})
-- [∕uses]({{< relref "uses" >}})
-- [∕blank]({{< relref "blank" >}})
-- [∕about]({{< relref "about" >}})
-- [∕stats](https://stats.uptimerobot.com/9UL6x8vt8O "Public uptime monitor for bogomolov.work")
+- [/blog]({{< relref "blog" >}})
+- [/uses]({{< relref "uses" >}})
+- [/blank]({{< relref "blank" >}})
+- [/about]({{< relref "about" >}})
+- [/stats](https://stats.uptimerobot.com/9UL6x8vt8O "Public uptime monitor for bogomolov.work")
 
 {{< details summary="QR code for this site" >}}
 ![QR code linking to bogomolov.work](/img/qr.svg) {{< /details >}}
