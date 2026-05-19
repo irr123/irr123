@@ -8,6 +8,8 @@ description:
   unit economics of programming languages."
 image: hero.png
 keywords:
+  - Hetzner
+  - AWS
   - AI coding
   - runtime cost
   - cloud cost
@@ -37,7 +39,7 @@ Most of that bill is provisioned runtime headroom. Node makes that headroom
 harder to shrink. V8, dynamic dispatch, garbage collection, startup time, memory
 spikes. The runtime pays rent on Fargate while I'm paying for it.
 
-## One rewrite, run the math
+### One rewrite, run the math
 
 Say _$100_ in Claude Code tokens to produce a first port to Go or Rust. Not to
 ship it blindly -- review, tests, and rollout still cost human time. But the
@@ -48,7 +50,7 @@ task size: 0.25 vCPU / 0.5 GB, about _$9/month_. A compiled service with a Mongo
 driver and a couple of HTTP clients belongs at that floor. No V8. No managed
 runtime heap sitting around waiting for traffic.
 
-New bill for that service: 3 x $9 = _$27/month_; 2x savings.
+New bill for that service: 3 x $9 = _$27/month_; **2x savings**.
 
 Payback on _$100_ of AI: under four months; for one service in minimal setup.
 
@@ -56,7 +58,7 @@ That is the toy version. My real setup has dev, prod, workload replicas,
 autotests, and the usual operational mess. Around ten replicas. Payback lands
 near one month.
 
-## The cluster framing
+### The cluster framing
 
 The language map changes:
 
@@ -70,6 +72,10 @@ The language map changes:
 The runtime tax used to hide inside developer productivity. AI lowers the cost
 of moving code. Cloud exposes the cost of keeping code running. That makes
 runtime choice visible again.
+
+## Plan B
+
+Or move off AWS to Hetzner and cut the bill by ~10x.
 
 {data-content="footnotes"}
 
