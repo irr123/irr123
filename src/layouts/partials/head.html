@@ -53,7 +53,7 @@
   <meta name="twitter:title" content="{{ $pageTitle }}">
   <meta name="twitter:description" content="{{ $pageSummary }}">
   <meta name="twitter:image" content="{{ $img }}">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#2a2b2c">
   {{- $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{- $mainScss := resources.Get "css/main.scss" -}}
   {{- $style := $mainScss | css.Sass $options | resources.Minify | resources.Fingerprint "sha512" -}}
