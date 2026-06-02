@@ -412,12 +412,14 @@ important.
     ],
     "defaultMode": "plan"
   },
-  "enabledPlugins": {},
+  "enabledPlugins": {
+    "security-guidance@claude-plugins-official": true
+  },
   "sandbox": {
     "enabled": true,
     "excludedCommands": ["git"]
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "autoUpdatesChannel": "stable",
   "disableAutoMode": "disable",
@@ -446,6 +448,7 @@ stays visible, writes stay gated, mode switching stays under my control:
 - **Playwright MCP** -- browser control. Nothing else to add.[^8]
 - ~**Caveman plugin** -- its selling point is "Saves tokens, preserve
   accuracy".~[^9]
+- **security-guidance@claude-plugins-official** -- it's not me, it's life
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.

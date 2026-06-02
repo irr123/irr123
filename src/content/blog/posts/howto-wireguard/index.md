@@ -6,7 +6,7 @@ title: Private WireGuard VPN with selective Tor routing
 description:
   "A private WireGuard VPN connecting laptop, phone, and servers, with selective
   Tor routing for browser traffic only. Configs for Ubuntu, Windows, and Podman."
-image: "wireguard.png"
+image: hero.jpg
 keywords:
   - WireGuard
   - WireGuard VPN
@@ -29,6 +29,8 @@ unite different devices (servers, a notebook, and a phone) into a single, secure
 network. Additionally, I will selectively route all internet traffic from my
 notebook and phone through the Tor network, while allowing other servers on the
 VPN to communicate normally without being routed through Tor.
+
+![model, harness, intent](hero.jpg)
 
 ## The WireGuard server (Ubuntu)
 

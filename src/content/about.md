@@ -28,7 +28,8 @@ started with Python 2.6 and Perl. For the record.
 [Here]({{< relref "blog" >}}) I write about self-hosting, networking, AI, and
 trade-offs discovered firsthand.
 
-I prefer simplicity and pragmatism over hype and marketing. Boring, on purpose.
+I prefer simplicity and pragmatism over hype and marketing. Boring, on purpose
+-- an aestheticized anti-aesthetic, and yes, that’s still an aesthetic.
 
 For a concrete technical problem or system to untangle, email works best.
 
