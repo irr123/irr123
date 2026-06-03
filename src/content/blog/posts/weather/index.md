@@ -5,22 +5,23 @@ draft: false
 title: Real-time local weather forecast
 description:
   "Real-time local weather forecast as a day-by-hour grid -- yesterday through
-  next week. Open-Meteo weather data, browser location, city search, no ads."
+  next week, plus nearby hazard alerts. Open-Meteo data, browser location, city
+  search, no ads."
 image: ""
 keywords:
   - real-time local weather forecast
   - local weather forecast
   - hourly weather forecast
   - weather forecast grid
+  - weather alerts
+  - hazard alerts
   - open-meteo weather forecast
   - browser location weather
   - no ads weather
 ---
 
-<link rel="preconnect" href="https://wtfismyip.com" crossorigin />
-<link rel="preconnect" href="https://geocoding-api.open-meteo.com" crossorigin />
 <link rel="preconnect" href="https://api.open-meteo.com" crossorigin />
-<link rel="preconnect" href="https://api.bigdatacloud.net" crossorigin />
+<link rel="preconnect" href="https://geocoding-api.open-meteo.com" crossorigin />
 
 <style>
   #wx {
@@ -60,19 +61,35 @@ My weather forecast as a day-by-hour grid: yesterday, today, and the next week.
 I use it because normal weather sites bury the useful shape under cards, maps,
 cookie banners, and forecast theater.
 
-Every number and colour is _feels-like_ (apparent) temperature -- wind and
-humidity folded in -- not the raw air reading. One metric across the grid, the
-heading, and the what-to-wear scale; hover a cell for the air temp.
+Every number and colour is the raw air temperature -- the standard 2 m reading,
+not feels-like. One metric across the grid, the heading, and the what-to-wear
+scale. Hover a cell for its hour, conditions, and clothing note.
 
-Weather data comes from Open-Meteo[^1]. Location starts with IP lookup, then I
-can search a city or tap `◎` for browser geolocation.
+A strip under the search box flags active hazards near the shown spot --
+earthquakes, storms, floods, wildfires -- sorted by severity and distance.
 
-No ads. No affiliate boxes. Only Grafana Faro telemetry for basic page/runtime
-visibility.
+Forecast and city search come from Open-Meteo[^1]; IP/GPS location,
+reverse-geocoding, and the hazard feeds from other keyless services[^2]. The URL
+holds the coordinates -- copy it to share a spot.
+
+No ads. No affiliate boxes. No cookie banner. Grafana Faro handles basic runtime
+telemetry; coordinates go only to the weather and hazard APIs above.
 
 {data-content="footnotes"}
 
 [^1]:
-    Weather data by [Open-Meteo.com](https://open-meteo.com/), used under
-    [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This page
-    transforms the API response into a local day-by-hour grid.
+    Weather data and geocoding by [Open-Meteo.com](https://open-meteo.com/),
+    used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This
+    page transforms the API response into a local day-by-hour grid.
+
+[^2]:
+    All keyless, used as-is: IP location from
+    [wtfismyip](https://wtfismyip.com/), GPS reverse-geocoding from
+    [BigDataCloud](https://www.bigdatacloud.com/); hazard alerts from
+    [USGS](https://earthquake.usgs.gov/) (quakes),
+    [GDACS](https://www.gdacs.org/) (disasters),
+    [NASA EONET](https://eonet.gsfc.nasa.gov/) (wildfires, storms), the
+    [US NWS](https://www.weather.gov/) (US warnings), and
+    [LibreWXR](https://librewxr.net/) (worldwide met warnings, proxying WMO and
+    national services' CAP feeds). US-government and NASA data is public domain;
+    GDACS is open EC/JRC data.

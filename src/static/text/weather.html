@@ -35,9 +35,23 @@
         margin: auto;
         padding: 0 0.75rem 0.75rem 0.75rem;
       }
-      #search { display: flex; gap: 0.3rem; }
+      #search { display: flex; gap: 0.3rem; position: relative; }
       #q { flex: 1 1 auto; min-width: 0; width: 0; }
       #search button { flex: 0 0 auto; }
+      #suggest {
+        position: absolute; top: 100%; left: 0; right: 0; z-index: 5;
+        margin: 0; padding: 0; list-style: none;
+        background: var(--bg); border: 1px solid var(--border); border-top: 0;
+        max-height: 16rem; overflow-y: auto;
+      }
+      #suggest:empty { display: none; }
+      #suggest li {
+        padding: 0.3rem 0.5rem; cursor: pointer;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      #suggest li.active, #suggest li:hover { background: var(--fg); color: var(--bg); }
+      #suggest .reg { color: var(--muted); }
+      #suggest li.active .reg, #suggest li:hover .reg { color: inherit; }
 
       #legend {
         max-width: 720px;
@@ -65,6 +79,25 @@
 
       #status { padding: 1.5rem 0.6rem; color: var(--muted); text-align: center; font-size: 1.7em; }
       #status:empty { display: none; }
+
+      #alerts {
+        max-width: 720px;
+        margin: 0.75rem auto;
+        padding: 0 0.75rem;
+        font-size: 0.9em;
+      }
+      #alerts:empty { display: none; }
+      #alerts a {
+        display: flex; align-items: baseline; gap: 0.5rem;
+        padding: 0.3rem 0; color: inherit; text-decoration: none;
+        border-bottom: 1px solid var(--muted);
+      }
+      #alerts a:last-child { border-bottom: 0; }
+      #alerts a:hover .title { text-decoration: underline; }
+      #alerts .em { flex: 0 0 auto; }
+      #alerts .title { flex: 1 1 auto; }
+      #alerts .meta { flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      #alerts .note { color: var(--muted); padding: 0.3rem 0; }
 
       table { border-collapse: collapse; table-layout: fixed; width: 100%; }
       th, td {
@@ -103,9 +136,11 @@
         <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" />
         <button type="submit">go</button>
         <button id="geo" type="button" title="Use my precise location">◎</button>
+        <ul id="suggest" role="listbox" aria-label="city suggestions"></ul>
       </form>
     </header>
     <div id="status"></div>
+    <div id="alerts" aria-label="active hazard alerts"></div>
     <div id="scroll"></div>
     <div id="legend" aria-label="what to wear by temperature"></div>
 
@@ -113,112 +148,108 @@
       const qEl = document.getElementById("q");
       const statusEl = document.getElementById("status");
       const scrollEl = document.getElementById("scroll");
-
-      let lastH = 0;
-      function sizeSelf() {
-        try {
+      const sizeSelf = (() => {
+        let lastH = 0;
+        return () => {
           const fe = window.frameElement;
           if (!fe) return;
           const h = document.body.scrollHeight;
           if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
-        } catch (e) {}
-      }
-
+        }
+      })();
       const setStatus = (m) => { statusEl.textContent = m || ""; sizeSelf(); };
       const placeName = (...p) => p.filter(Boolean).join(", ");
       const tempText = (t) => Number(t).toFixed(1);
-
-      const WMO = {
-        0: ["☀️", "Clear"],
-        1: ["🌤️", "Mainly clear"],
-        2: ["⛅", "Partly cloudy"],
-        3: ["☁️", "Overcast"],
-        45: ["🌫️", "Fog"], 48: ["🌫️", "Rime fog"],
-        51: ["🌦️", "Light drizzle"], 53: ["🌦️", "Drizzle"], 55: ["🌦️", "Dense drizzle"],
-        56: ["🌧️", "Freezing drizzle"], 57: ["🌧️", "Freezing drizzle"],
-        61: ["🌧️", "Light rain"], 63: ["🌧️", "Rain"], 65: ["🌧️", "Heavy rain"],
-        66: ["🌧️", "Freezing rain"], 67: ["🌧️", "Freezing rain"],
-        71: ["🌨️", "Light snow"], 73: ["🌨️", "Snow"], 75: ["🌨️", "Heavy snow"], 77: ["🌨️", "Snow grains"],
-        80: ["🌦️", "Light showers"], 81: ["🌦️", "Showers"], 82: ["🌦️", "Violent showers"],
-        85: ["🌨️", "Snow showers"], 86: ["🌨️", "Snow showers"],
-        95: ["⛈️", "Thunderstorm"], 96: ["⛈️", "Thunderstorm + hail"], 99: ["⛈️", "Thunderstorm + hail"],
+      const getJson = async (url, label) => {
+        const r = await fetch(url);
+        if (!r.ok) throw new Error(label + " " + r.status + ": " + (await r.text()));
+        return r.json();
       };
-      const WMO_NIGHT = { 0: "🌙", 1: "🌙", 2: "☁️" };
-      function wmo(code, hour) {
-        const v = WMO[code] || ["·", "—"];
-        const night = hour < 6 || hour >= 21;
-        return { e: (night && WMO_NIGHT[code]) || v[0], l: v[1] };
-      }
-
-      const TEMP_STOPS = [
-        [-Infinity, [0xff, 0x5f, 0xd0], "danger cold -- avoid exposed skin"],
-        [-35,       [0xd0, 0x1f, 0xb0], "extreme cold -- down, cover face & hands"],
-        [-25,       [0x9b, 0x2f, 0xe0], "heavy down jacket"],
-        [-12,       [0x5b, 0x43, 0xe6], "down jacket"],
-        [-2,        [0x2f, 0x6e, 0xf0], "winter coat"],
-        [7,         [0x12, 0xa5, 0xe8], "medium jacket"],
-        [14,        [0x0c, 0xc0, 0xa0], "light jacket"],
-        [20,        [0x36, 0xc1, 0x2e], "t-shirt / light layer"],
-        [27,        [0xf5, 0xa6, 0x00], "shorts & t-shirt"],
-        [34,        [0xf0, 0x52, 0x10], "hot -- shade, water"],
-        [40,        [0xdc, 0x14, 0x2e], "danger heat -- stay inside if possible"],
-      ];
-      function tempBand(t) {
-        let band = TEMP_STOPS[0];
-        for (const s of TEMP_STOPS) {
-          if (t < s[0]) break;
-          band = s;
+      const swin = () => { try { return window.parent !== window ? window.parent : window; } catch (e) { return window; } };
+      const writeUrl = (lat, lon) => {
+        try { swin().history.replaceState(null, "", "?lat=" + lat + "&lon=" + lon); } catch (e) {}
+      };
+      const wmo = (() => {
+        const WMO = {
+          0: ["☀️", "Clear"],
+          1: ["🌤️", "Mainly clear"],
+          2: ["⛅", "Partly cloudy"],
+          3: ["☁️", "Overcast"],
+          45: ["🌫️", "Fog"], 48: ["🌫️", "Rime fog"],
+          51: ["🌦️", "Light drizzle"], 53: ["🌦️", "Drizzle"], 55: ["🌦️", "Dense drizzle"],
+          56: ["🌧️", "Freezing drizzle"], 57: ["🌧️", "Freezing drizzle"],
+          61: ["🌧️", "Light rain"], 63: ["🌧️", "Rain"], 65: ["🌧️", "Heavy rain"],
+          66: ["🌧️", "Freezing rain"], 67: ["🌧️", "Freezing rain"],
+          71: ["🌨️", "Light snow"], 73: ["🌨️", "Snow"], 75: ["🌨️", "Heavy snow"], 77: ["🌨️", "Snow grains"],
+          80: ["🌦️", "Light showers"], 81: ["🌦️", "Showers"], 82: ["🌦️", "Violent showers"],
+          85: ["🌨️", "Snow showers"], 86: ["🌨️", "Snow showers"],
+          95: ["⛈️", "Thunderstorm"], 96: ["⛈️", "Thunderstorm + hail"], 99: ["⛈️", "Thunderstorm + hail"],
+        };
+        const WMO_NIGHT = { 0: "🌙", 1: "🌙", 2: "☁️" };
+        return (code, hour) => {
+          const v = WMO[code] || ["·", "—"];
+          const night = hour < 6 || hour >= 21;
+          return { e: (night && WMO_NIGHT[code]) || v[0], l: v[1] };
         }
-        return band; // [min, rgb, label]
-      }
-      function readable(rgb) {
+      })();
+      const readable = (rgb) => {
         const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
         return lum > 0.6 ? "#2a2b2c" : "#fefff0";
       }
-
-      function buildLegend() {
-        const el = document.getElementById("legend");
-        const fmt = (n) => (n > 0 ? "+" : "") + n + "°";
-        TEMP_STOPS.forEach(([min, rgb, label], i) => {
-          const next = TEMP_STOPS[i + 1];
-          const range = min === -Infinity ? "below " + fmt(next[0])
-            : !next ? fmt(min) + " and up"
-            : fmt(min) + " to " + fmt(next[0]);
-          const row = document.createElement("div");
-          const sw = document.createElement("i");
-          sw.style.background = "rgb(" + rgb.join(",") + ")";
-          const r = document.createElement("b");
-          r.textContent = range;
-          const adv = document.createElement("span");
-          adv.textContent = label;
-          row.appendChild(sw);
-          row.appendChild(r);
-          row.appendChild(adv);
-          el.appendChild(row);
-        });
-      }
-
-      async function fetchWeather(lat, lon) {
+      const [tempBand, buildLegend] = (() => {
+        const TEMP_STOPS = [
+          [-Infinity, [0xff, 0x5f, 0xd0], "danger cold -- avoid exposed skin"],
+          [-35,       [0xd0, 0x1f, 0xb0], "extreme cold -- down, cover face & hands"],
+          [-25,       [0x9b, 0x2f, 0xe0], "heavy down jacket"],
+          [-12,       [0x5b, 0x43, 0xe6], "down jacket"],
+          [-2,        [0x2f, 0x6e, 0xf0], "winter coat"],
+          [7,         [0x12, 0xa5, 0xe8], "medium jacket"],
+          [14,        [0x0c, 0xc0, 0xa0], "light jacket"],
+          [20,        [0x36, 0xc1, 0x2e], "t-shirt / light layer"],
+          [27,        [0xf5, 0xa6, 0x00], "shorts & t-shirt"],
+          [34,        [0xf0, 0x52, 0x10], "hot -- shade, water"],
+          [40,        [0xdc, 0x14, 0x2e], "danger heat -- stay inside if possible"],
+        ];
+        const tempBand = (t) => TEMP_STOPS.findLast((s) => t >= s[0]) || TEMP_STOPS[0];
+        const buildLegend = () => {
+          const el = document.getElementById("legend");
+          const fmt = (n) => (n > 0 ? "+" : "") + n + "°";
+          TEMP_STOPS.forEach(([min, rgb, label], i) => {
+            const next = TEMP_STOPS[i + 1];
+            const range = min === -Infinity ? "below " + fmt(next[0])
+              : !next ? fmt(min) + " and up"
+              : fmt(min) + " to " + fmt(next[0]);
+            const row = document.createElement("div");
+            const sw = document.createElement("i");
+            sw.style.background = "rgb(" + rgb.join(",") + ")";
+            const r = document.createElement("b");
+            r.textContent = range;
+            const adv = document.createElement("span");
+            adv.textContent = label;
+            row.appendChild(sw);
+            row.appendChild(r);
+            row.appendChild(adv);
+            el.appendChild(row);
+          });
+        }
+        return [tempBand, buildLegend];
+      })();
+      const fetchWeather = async (lat, lon) => {
         const u =
           "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
           "&timezone=auto&past_days=1&forecast_days=7" +
-          "&current=temperature_2m,apparent_temperature,weather_code" +
-          "&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m,apparent_temperature";
-        const r = await fetch(u);
-        if (!r.ok) throw new Error("weather API " + r.status + ": " + r.message);
-        return r.json();
+          "&hourly=weather_code,temperature_2m";
+        return getJson(u, "weather API");
       }
-      async function geocodeCity(name) {
-        const u = "https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&format=json&name=" +
+      const searchCities = async (name, count = 3) => {
+        const u = "https://geocoding-api.open-meteo.com/v1/search?count=" + count + "&language=en&format=json&name=" +
           encodeURIComponent(name);
-        const r = await fetch(u);
-        if (!r.ok) throw new Error("geocode " + r.status);
-        const j = await r.json();
-        if (!j.results || !j.results.length) throw new Error("No match for “" + name + "”");
-        const g = j.results[0];
-        return { lat: g.latitude, lon: g.longitude, name: placeName(g.name, g.admin1, g.country) };
+        const j = await getJson(u, "geocode");
+        return (j.results || [])
+          .sort((a, b) => (b.population || 0) - (a.population || 0))
+          .map((g) => ({ lat: g.latitude, lon: g.longitude, short: g.name, label: placeName(g.name, g.admin1, g.country), cc: g.country_code }));
       }
-      async function reverseName(lat, lon) {
+      const reverseName = async (lat, lon) => {
         try {
           const r = await fetch(
             "https://api.bigdatacloud.net/data/reverse-geocode-client?localityLanguage=en&latitude=" +
@@ -236,10 +267,21 @@
           return lat.toFixed(2) + ", " + lon.toFixed(2);
         }
       }
-
-      function render(data) {
-        const { date: nowDate, hour: nowHour, key } = computeNow();
-        lastNowKey = key;
+      const computeNow = (() => {
+        let prevKey = "";
+        const pad = (n) => String(n).padStart(2, "0");
+        return (offsetSeconds) => {
+          const d = new Date(Date.now() + offsetSeconds * 1000);
+          const date = d.getUTCFullYear() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
+          const hour = d.getUTCHours();
+          const key = date + ":" + hour;
+          const changed = key !== prevKey;
+          prevKey = key;
+          return { date, hour, changed };
+        };
+      })();
+      const render = (data, curr) => {
+        if (!data) return;
 
         const H = data.hourly;
         const days = new Map();
@@ -248,11 +290,8 @@
           const hr = +t.slice(11, 13);
           if (!days.has(d)) days.set(d, new Array(24).fill(null));
           days.get(d)[hr] = {
-            temp: H.temperature_2m[i],
             code: H.weather_code[i],
-            pp: H.precipitation_probability[i],
-            wind: H.wind_speed_10m[i],
-            appt: H.apparent_temperature[i],
+            temp: H.temperature_2m[i],
           };
         });
 
@@ -260,15 +299,15 @@
           if (window.parent !== window) {
             const pdoc = window.parent.document;
             const ph1 = pdoc.querySelector("h1");
-            const now = days.get(nowDate)?.[nowHour];
-            if (ph1 && now) ph1.textContent = tempText(now.appt ?? now.temp) + "°C";
+            const now = days.get(curr.date)?.[curr.hour];
+            if (ph1 && now) ph1.textContent = tempText(now.temp) + "°C";
             const ptime = pdoc.querySelector(".post-meta time");
-            if (ptime) { ptime.textContent = nowDate; ptime.setAttribute("datetime", nowDate); }
+            if (ptime) { ptime.textContent = curr.date; ptime.setAttribute("datetime", curr.date); }
           }
         } catch (e) {}
 
         const keys = [...days.keys()];
-        const todayIdx = keys.indexOf(nowDate);
+        const todayIdx = keys.indexOf(curr.date);
         const table = document.createElement("table");
         const thead = document.createElement("thead");
         const htr = document.createElement("tr");
@@ -298,7 +337,7 @@
           const tr = document.createElement("tr");
           const hl = document.createElement("th");
           hl.textContent = String(h).padStart(2, "0");
-          if (todayIdx >= 0 && h === nowHour) hl.className = "now";
+          if (todayIdx >= 0 && h === curr.hour) hl.className = "now";
           tr.appendChild(hl);
 
           keys.forEach((d, di) => {
@@ -311,20 +350,18 @@
               return;
             }
             const isToday = di === todayIdx;
-            const past = di < todayIdx || (isToday && h < nowHour);
-            const isNow = isToday && h === nowHour;
+            const past = di < todayIdx || (isToday && h < curr.hour);
+            const isNow = isToday && h === curr.hour;
             const w = wmo(c.code, h);
-            const band = tempBand(c.appt), rgb = band[1];
+            const band = tempBand(c.temp), rgb = band[1];
             td.className = [isToday && "today", past && "past", isNow && "now"].filter(Boolean).join(" ");
             td.style.background = isNow ? "var(--fg)" : "rgb(" + rgb.join(",") + ")";
             td.style.color = isNow ? "var(--bg)" : readable(rgb);
-            const pp = c.pp == null ? "–" : c.pp;
             td.title = d + " " + String(h).padStart(2, "0") + ":00 · " + w.l +
-              " · feels " + c.appt + "°C (air " + c.temp + "°C) · " + band[2] +
-              " · wind " + c.wind + " km/h · precip " + pp + "%";
+              " · " + c.temp + "°C · " + band[2];
             const ts = document.createElement("span");
             ts.className = "t";
-            ts.textContent = tempText(c.appt ?? c.temp);
+            ts.textContent = tempText(c.temp);
             const es = document.createElement("span");
             es.className = "e";
             es.textContent = w.e;
@@ -340,23 +377,185 @@
         sizeSelf();
       }
 
+      const alertsEl = document.getElementById("alerts");
+      const haversine = (aLat, aLon, bLat, bLon) => {
+        const R = 6371, rad = Math.PI / 180;
+        const dLat = (bLat - aLat) * rad, dLon = (bLon - aLon) * rad;
+        const s = Math.sin(dLat / 2) ** 2 +
+          Math.cos(aLat * rad) * Math.cos(bLat * rad) * Math.sin(dLon / 2) ** 2;
+        return Math.round(2 * R * Math.asin(Math.sqrt(s)));
+      };
+      const bearing8 = (aLat, aLon, bLat, bLon) => {
+        const rad = Math.PI / 180;
+        const y = Math.sin((bLon - aLon) * rad) * Math.cos(bLat * rad);
+        const x = Math.cos(aLat * rad) * Math.sin(bLat * rad) -
+          Math.sin(aLat * rad) * Math.cos(bLat * rad) * Math.cos((bLon - aLon) * rad);
+        const deg = (Math.atan2(y, x) / rad + 360) % 360;
+        return ["N", "NE", "E", "SE", "S", "SW", "W", "NW"][Math.round(deg / 45) % 8];
+      };
+      const LEVELS = { red: 0, orange: 1, green: 2, info: 3 };
+      const fetchAlerts = (() => {
+        const QUAKE_RADIUS_KM = 300, QUAKE_MIN_MAG = 4, QUAKE_DAYS = 1;
+        const GDACS_RADIUS_KM = 300;
+        const EONET_RADIUS_KM = 300, EONET_MAX_AGE_DAYS = 1;
+        const ALERTS_MAX = 12;
+        const FILE_RE = /\.(tcw|txt|csv|dat|kml|kmz|zip|xml|json|nc|grib2?)(\?|#|$)/i;
+        const GDACS_EMOJI = { FL: "🌊", TC: "🌀", VO: "🌋", DR: "🏜️", WF: "🔥", TS: "🌊" };
+        const EONET_EMOJI = { Wildfires: "🔥", "Severe Storms": "🌪️", "Sea and Lake Ice": "🧊" };
+        const CAP_LEVEL = { Extreme: "red", Severe: "red", Moderate: "orange", Minor: "green" };
+        const NWS_BBOX = [17, 72, -180, -64];
+
+        const usgs = async (lat, lon) => {
+          const since = new Date(Date.now() - QUAKE_DAYS * 864e5).toISOString().slice(0, 10);
+          const j = await getJson("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson" +
+            "&starttime=" + since + "&latitude=" + lat + "&longitude=" + lon +
+            "&maxradiuskm=" + QUAKE_RADIUS_KM + "&minmagnitude=" + QUAKE_MIN_MAG, "USGS");
+          return (j.features || []).map((f) => {
+            const [elon, elat] = f.geometry.coordinates;
+            const m = f.properties.mag;
+            return {
+              src: "USGS", kind: "earthquake", emoji: "〰️",
+              level: m >= 6 ? "red" : m >= 4.5 ? "orange" : "green",
+              title: "M" + m.toFixed(1) + " · " + f.properties.place,
+              area: f.properties.place, from: f.properties.time, to: null,
+              distKm: haversine(lat, lon, elat, elon),
+              bearing: bearing8(lat, lon, elat, elon),
+              url: f.properties.url,
+            };
+          });
+        };
+        const gdacs = async (lat, lon) => {
+          const j = await getJson("https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP", "GDACS");
+          const now = Date.now();
+          const byEvent = new Map();
+          for (const f of j.features || []) {
+            const p = f.properties;
+            if (p.eventtype === "EQ") continue;
+            const lvl = (p.alertlevel || "").toLowerCase();
+            const active = p.iscurrent === "true" || p.iscurrent === true ||
+              (p.todate && Date.parse(p.todate) >= now);
+            if (!active) continue;
+            if (!f.geometry || f.geometry.type !== "Point") continue;
+            const [elon, elat] = f.geometry.coordinates;
+            const distKm = haversine(lat, lon, elat, elon);
+            if (!(distKm <= GDACS_RADIUS_KM)) continue;
+            const key = p.eventtype + ":" + p.eventid;
+            const prev = byEvent.get(key);
+            if (prev && prev.distKm <= distKm) continue;
+            byEvent.set(key, {
+              src: "GDACS", kind: p.eventtype, emoji: GDACS_EMOJI[p.eventtype] || "⚠️",
+              level: lvl, title: p.name || p.eventname || p.description,
+              area: p.country, from: Date.parse(p.fromdate) || null, to: Date.parse(p.todate) || null,
+              distKm, bearing: bearing8(lat, lon, elat, elon),
+              url: (p.url && p.url.report) || "https://www.gdacs.org/",
+            });
+          }
+          return [...byEvent.values()];
+        };
+        const eonet = async (lat, lon) => {
+          const latPad = EONET_RADIUS_KM / 111;
+          const lonPad = EONET_RADIUS_KM / (111 * Math.cos(lat * Math.PI / 180));
+          const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+          const bbox = clamp(lon - lonPad, -180, 180) + "," + clamp(lat + latPad, -90, 90) +
+            "," + clamp(lon + lonPad, -180, 180) + "," + clamp(lat - latPad, -90, 90);
+          const j = await getJson("https://eonet.gsfc.nasa.gov/api/v3/events?status=open" +
+            "&days=" + EONET_MAX_AGE_DAYS + "&bbox=" + bbox, "EONET");
+          const minDate = Date.now() - EONET_MAX_AGE_DAYS * 864e5;
+          const out = [];
+          for (const ev of j.events || []) {
+            const cat = ev.categories && ev.categories[0] && ev.categories[0].title;
+            if (!EONET_EMOJI[cat]) continue;
+            if (/prescribed|\bRX\b/i.test(ev.title)) continue;
+            const g = ev.geometry && ev.geometry[ev.geometry.length - 1];
+            if (!g || g.type !== "Point") continue;
+            if (g.date && Date.parse(g.date) < minDate) continue;
+            const [elon, elat] = g.coordinates;
+            const distKm = haversine(lat, lon, elat, elon);
+            if (distKm > EONET_RADIUS_KM) continue;
+            const srcUrl = (ev.sources || []).map((s) => s.url).find((u) => u && !FILE_RE.test(u));
+            out.push({
+              src: "EONET", kind: cat, emoji: EONET_EMOJI[cat], level: "info",
+              title: ev.title, area: cat, from: g.date ? Date.parse(g.date) : null, to: null,
+              distKm, bearing: bearing8(lat, lon, elat, elon),
+              url: srcUrl || ("https://www.openstreetmap.org/?mlat=" + elat + "&mlon=" + elon + "#map=6/" + elat + "/" + elon),
+            });
+          }
+          return out;
+        };
+        const nws = async (lat, lon) => {
+          if (lat < NWS_BBOX[0] || lat > NWS_BBOX[1] || lon < NWS_BBOX[2] || lon > NWS_BBOX[3]) return [];
+          const j = await getJson("https://api.weather.gov/alerts/active?point=" + lat + "," + lon, "NWS");
+          return (j.features || []).map((f) => {
+            const p = f.properties;
+            return {
+              src: "NWS", kind: p.event, emoji: "⚠️", level: CAP_LEVEL[p.severity] || "info",
+              title: p.event, area: p.areaDesc,
+              from: Date.parse(p.onset || p.effective) || null, to: Date.parse(p.ends || p.expires) || null,
+              distKm: 0, bearing: "",
+              url: "https://forecast.weather.gov/MapClick.php?lat=" + lat + "&lon=" + lon,
+            };
+          });
+        };
+        const librewxr = async (lat, lon) => {
+          const j = await getJson("https://api.librewxr.net/v2/alerts?lat=" + lat + "&lon=" + lon, "LibreWxR");
+          return (j.features || []).map((f) => {
+            const p = f.properties;
+            return {
+              src: "LibreWxR", kind: "warning", emoji: "⚠️", level: CAP_LEVEL[p.severity] || "info",
+              title: p.title || p.description,
+              area: p.description || (p.regions || []).join(", "),
+              from: p.time ? p.time * 1000 : null, to: p.expires ? p.expires * 1000 : null,
+              distKm: 0, bearing: "",
+              url: p.uri || ("https://www.openstreetmap.org/?mlat=" + lat + "&mlon=" + lon + "#map=8/" + lat + "/" + lon),
+            };
+          });
+        };
+
+        return async (lat, lon) => {
+          const names = ["USGS", "GDACS", "EONET", "NWS", "LibreWxR"];
+          const settled = await Promise.allSettled([usgs(lat, lon), gdacs(lat, lon), eonet(lat, lon), nws(lat, lon), librewxr(lat, lon)]);
+          const alerts = [], failed = [];
+          settled.forEach((s, i) => {
+            if (s.status === "fulfilled") alerts.push(...s.value);
+            else { failed.push(names[i]); console.warn("alerts: " + names[i] + " failed —", s.reason); }
+          });
+          alerts.sort((a, b) => ((LEVELS[a.level] ?? 9) - (LEVELS[b.level] ?? 9)) || (a.distKm - b.distKm));
+          return { alerts: alerts.slice(0, ALERTS_MAX), failed };
+        };
+      })();
+      const renderAlerts = ({ alerts, failed }) => {
+        const day = (ms) => (ms ? new Date(ms).toISOString().slice(0, 10) : "");
+        const span = (cls, txt) => { const s = document.createElement("span"); s.className = cls; s.textContent = txt; return s; };
+        const frag = document.createDocumentFragment();
+        alerts.forEach((a) => {
+          const row = document.createElement("a");
+          row.href = a.url; row.target = "_blank"; row.rel = "noopener";
+          row.appendChild(span("em", a.emoji));
+          row.appendChild(span("title", a.title));
+          row.appendChild(span("meta", a.distKm ? "~" + a.distKm + " km " + a.bearing : ""));
+          const when = a.to ? day(a.from) + "→" + day(a.to) : day(a.from);
+          row.title = [a.src, a.kind, a.area, when].filter(Boolean).join(" · ");
+          frag.appendChild(row);
+        });
+        if (failed.length) {
+          const n = document.createElement("div");
+          n.className = "note";
+          n.textContent = "alerts: " + failed.join(", ") + " unavailable";
+          frag.appendChild(n);
+        }
+        alertsEl.replaceChildren(frag);
+        sizeSelf();
+      };
+
       let latestData = null;
-      let lastNowKey = "";
-      let baseEpoch = 0;
-      let baseUTC = 0;
-
-      function computeNow() {
-        const elapsed = Math.floor((Date.now() - baseEpoch) / 3600000);
-        const d = new Date(baseUTC + elapsed * 3600000);
-        const p = (n) => String(n).padStart(2, "0");
-        const date = d.getUTCFullYear() + "-" + p(d.getUTCMonth() + 1) + "-" + p(d.getUTCDate());
-        const hour = d.getUTCHours();
-        return { date, hour, key: date + ":" + hour };
-      }
-
       let reqId = 0;
-      async function load(token, lat, lon, name) {
+
+      const load = async (token, lat, lon, name) => {
         setStatus("Loading…");
+        const alertsP = fetchAlerts(lat, lon).catch((e) => {
+          console.warn("alerts: fetch failed —", e);
+          return { alerts: [], failed: ["all sources"] };
+        });
         try {
           const [data, place] = await Promise.all([
             fetchWeather(lat, lon),
@@ -365,44 +564,38 @@
           if (token !== reqId) return;
           qEl.value = place.split(",")[0];
           latestData = data;
-          baseEpoch = Date.now();
-          baseUTC = Date.parse(data.current.time.slice(0, 13) + ":00:00Z");
-          render(data);
+          render(data, computeNow(data.utc_offset_seconds));
           setStatus("");
+          writeUrl(lat, lon);
+          const note = document.createElement("div");
+          note.className = "note";
+          note.textContent = "checking alerts…";
+          alertsEl.replaceChildren(note);
+          sizeSelf();
         } catch (e) {
           if (token === reqId) setStatus("Error: " + e.message);
+          return;
         }
+        alertsP.then((a) => { if (token === reqId) renderAlerts(a); });
       }
-
-      async function ipLocate() {
+      const ipLocate = async () => {
         const token = ++reqId;
         setStatus("Locating…");
         try {
-          const r = await fetch("https://wtfismyip.com/json");
-          if (!r.ok) throw new Error("ip " + r.status);
-          const j = await r.json();
+          const j = await getJson("https://wtfismyip.com/json", "ip");
           const city = j.YourFuckingCity || (j.YourFuckingLocation || "").split(",")[0].trim();
           if (!city) throw new Error("no city");
-          const g = await geocodeCity(city);
+          const cc = (j.YourFuckingCountryCode || "").toUpperCase();
+          const cands = await searchCities(city, 10);
           if (token !== reqId) return;
-          load(token, g.lat, g.lon, g.name);
+          if (!cands.length) throw new Error("No match for “" + city + "”");
+          const g = cands.find((c) => (c.cc || "").toUpperCase() === cc) || cands[0];
+          load(token, g.lat, g.lon, g.label);
         } catch (e) {
-          try {
-            const r2 = await fetch("https://ipwho.is/");
-            const j2 = await r2.json();
-            if (token !== reqId) return;
-            if (j2 && j2.success !== false && j2.latitude != null) {
-              load(token, j2.latitude, j2.longitude, placeName(j2.city, j2.region, j2.country));
-              return;
-            }
-            throw new Error("ip fallback");
-          } catch (e2) {
-            if (token === reqId) setStatus("Couldn't detect location. Search a city, or tap ◎.");
-          }
+          if (token === reqId) setStatus("Couldn't detect location. Search a city, or tap ◎.");
         }
       }
-
-      function gpsLocate() {
+      const gpsLocate = () => {
         if (!navigator.geolocation) {
           setStatus("No geolocation here. Search a city.");
           return;
@@ -423,34 +616,90 @@
           { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
       }
-
-      document.getElementById("search").addEventListener("submit", async (ev) => {
-        ev.preventDefault();
-        const q = qEl.value.trim();
-        if (!q) return;
-        const token = ++reqId;
-        setStatus("Searching…");
-        try {
-          const g = await geocodeCity(q);
-          if (token !== reqId) return;
-          load(token, g.lat, g.lon, g.name);
-        } catch (e) {
-          if (token === reqId) setStatus(e.message);
-        }
-      });
       document.getElementById("geo").addEventListener("click", gpsLocate);
-
-      function tick() {
-        if (!latestData) return;
-        if (computeNow().key === lastNowKey) return;
-        render(latestData);
-      }
-
+      (() => {
+        const suggestEl = document.getElementById("suggest");
+        let items = [], active = -1, acToken = 0, timer = 0;
+        const close = () => { items = []; active = -1; suggestEl.replaceChildren(); };
+        const draw = () => {
+          const frag = document.createDocumentFragment();
+          items.forEach((it, i) => {
+            const li = document.createElement("li");
+            li.setAttribute("role", "option");
+            if (i === active) li.className = "active";
+            const b = document.createElement("b");
+            b.textContent = it.short;
+            li.appendChild(b);
+            const rest = it.label.split(", ").slice(1).join(", ");
+            if (rest) {
+              const s = document.createElement("span");
+              s.className = "reg";
+              s.textContent = " " + rest;
+              li.appendChild(s);
+            }
+            li.addEventListener("mousedown", (e) => { e.preventDefault(); choose(it); });
+            frag.appendChild(li);
+          });
+          suggestEl.replaceChildren(frag);
+        };
+        const choose = (it) => {
+          if (!it) return;
+          close();
+          qEl.value = it.short;
+          const token = ++reqId;
+          setStatus("Loading…");
+          load(token, it.lat, it.lon, it.label);
+        };
+        const query = async () => {
+          const q = qEl.value.trim();
+          if (q.length < 2) { close(); return; }
+          const token = ++acToken;
+          try {
+            const res = await searchCities(q);
+            if (token !== acToken) return;
+            items = res; active = -1; draw();
+          } catch (e) { close(); }
+        };
+        qEl.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(query, 250); });
+        qEl.addEventListener("keydown", (e) => {
+          if (!items.length) return;
+          if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % items.length; draw(); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + items.length) % items.length; draw(); }
+          else if (e.key === "Escape") { close(); }
+        });
+        qEl.addEventListener("blur", () => setTimeout(close, 150));
+        document.getElementById("search").addEventListener("submit", async (ev) => {
+          ev.preventDefault();
+          if (items.length) { choose(active >= 0 ? items[active] : items[0]); return; }
+          const q = qEl.value.trim();
+          if (!q) return;
+          const token = ++reqId;
+          setStatus("Searching…");
+          try {
+            const res = await searchCities(q);
+            if (token !== reqId) return;
+            if (!res.length) throw new Error("No match for “" + q + "”");
+            choose(res[0]);
+          } catch (e) {
+            if (token === reqId) setStatus(e.message);
+          }
+        });
+      })();
       buildLegend();
       sizeSelf();
       addEventListener("resize", sizeSelf);
-      setInterval(tick, 60 * 1000);
-      ipLocate();
+      setInterval(() => {
+        if (!latestData) return;
+        const curr = computeNow(latestData.utc_offset_seconds);
+        if (!curr.changed) return;
+        render(latestData, curr);
+      }, 60 * 1000);
+      (() => {
+        const p = new URLSearchParams(swin().location.search);
+        const lat = parseFloat(p.get("lat")), lon = parseFloat(p.get("lon"));
+        if (Number.isFinite(lat) && Number.isFinite(lon)) load(++reqId, lat, lon);
+        else ipLocate();
+      })();
     </script>
   </body>
 </html>
