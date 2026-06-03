@@ -39,7 +39,6 @@
       #q { flex: 1 1 auto; min-width: 0; width: 0; }
       #search button { flex: 0 0 auto; }
 
-      /* what-to-wear scale below the grid: colour marker + range + advice */
       #legend {
         max-width: 720px;
         margin: 1rem auto 0;
@@ -67,8 +66,6 @@
       #status { padding: 1.5rem 0.6rem; color: var(--muted); text-align: center; font-size: 1.7em; }
       #status:empty { display: none; }
 
-      /* --- grid: days = columns (fill width), hours = rows.
-             The iframe takes the grid's full height and the page scrolls. --- */
       table { border-collapse: collapse; table-layout: fixed; width: 100%; }
       th, td {
         text-align: center;
@@ -76,16 +73,13 @@
         font-weight: normal;
         padding: 4px 2px;
       }
-      /* sticky weekday header row */
       thead th { background: var(--bg); color: var(--muted); }
       thead th.today { color: var(--fg); font-weight: bold; }
       thead th .dow { display: block; }
       thead th .dom { display: block; font-size: 0.72em; opacity: 0.7; }
       thead th:first-child, tbody th { width: 2.4rem; }
-      /* hour labels */
       tbody th { color: var(--muted); white-space: nowrap; }
       tbody th.now { color: var(--fg); font-weight: bold; }
-      /* cells */
       td { color: #111; }
       td .t { display: block; font-size: clamp(13px, 2.6vw, 22px); white-space: nowrap; }
       td .e { display: none; }
@@ -93,13 +87,10 @@
       td.past { opacity: 0.4; }
       td.today { font-weight: bold; }
       td.now { outline: 3px solid var(--fg); outline-offset: -3px; font-weight: bold; }
-
-      /* roomier screens: show the weather icon, grow text + rows a touch */
       @media (min-width: 600px) {
         th, td { padding: 3px 4px; }
         td .t { display: inline; }
         td .e { display: inline; font-size: clamp(18px, 1.8vw, 28px); margin-left: 0.35em; }
-        /* weekday + date on one line when there's room */
         thead th .dow, thead th .dom { display: inline; }
         thead th .dom { margin-left: 0.3em; font-size: 0.85em; }
       }
@@ -123,14 +114,11 @@
       const statusEl = document.getElementById("status");
       const scrollEl = document.getElementById("scroll");
 
-      // same-origin: size our own iframe to fit content, called whenever content
-      // changes. No parent script, ResizeObserver, or poll — so it survives slow 3G,
-      // where the grid renders long after load.
       let lastH = 0;
       function sizeSelf() {
         try {
           const fe = window.frameElement;
-          if (!fe) return; // opened standalone, or cross-origin embed
+          if (!fe) return;
           const h = document.body.scrollHeight;
           if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
         } catch (e) {}
@@ -140,7 +128,6 @@
       const placeName = (...p) => p.filter(Boolean).join(", ");
       const tempText = (t) => Number(t).toFixed(1);
 
-      // --- WMO weather code -> emoji + label (static map; hour swaps day/night glyph) ---
       const WMO = {
         0: ["☀️", "Clear"],
         1: ["🌤️", "Mainly clear"],
@@ -163,8 +150,6 @@
         return { e: (night && WMO_NIGHT[code]) || v[0], l: v[1] };
       }
 
-      // --- temperature -> colour + what to wear. Lower-bound bands, no muddy
-      //     interpolation; the legend is built from this list, so they can't drift.
       const TEMP_STOPS = [
         [-Infinity, [0xff, 0x5f, 0xd0], "danger cold -- avoid exposed skin"],
         [-35,       [0xd0, 0x1f, 0xb0], "extreme cold -- down, cover face & hands"],
@@ -191,8 +176,6 @@
         return lum > 0.6 ? "#2a2b2c" : "#fefff0";
       }
 
-      // what-to-wear scale below the grid: colour marker + range + advice,
-      // built straight from TEMP_STOPS so it can't drift from the grid colours
       function buildLegend() {
         const el = document.getElementById("legend");
         const fmt = (n) => (n > 0 ? "+" : "") + n + "°";
@@ -215,7 +198,6 @@
         });
       }
 
-      // --- data sources (all keyless) ---
       async function fetchWeather(lat, lon) {
         const u =
           "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
@@ -223,7 +205,7 @@
           "&current=temperature_2m,apparent_temperature,weather_code" +
           "&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m,apparent_temperature";
         const r = await fetch(u);
-        if (!r.ok) throw new Error("weather API " + r.status);
+        if (!r.ok) throw new Error("weather API " + r.status + ": " + r.message);
         return r.json();
       }
       async function geocodeCity(name) {
@@ -243,8 +225,6 @@
             lat + "&longitude=" + lon
           );
           const j = await r.json();
-          // bigdatacloud's "city" is often the municipality (Palilula, not Belgrade);
-          // prefer the broadest admin entry actually described as a city
           const city = (((j.localityInfo || {}).administrative) || [])
             .filter((a) => /\bcity\b/i.test(a.description || "") && !/municipalit/i.test(a.description || ""))
             .sort((a, b) => a.adminLevel - b.adminLevel)
@@ -257,21 +237,10 @@
         }
       }
 
-      // --- render: days across the top (columns), hours down the side (rows) ---
       function render(data) {
         const cur = data.current;
         const nowDate = cur.time.slice(0, 10);
         const nowHour = +cur.time.slice(11, 13);
-        // surface live values to the embedding page (same-origin): temp -> heading, date -> post meta
-        try {
-          if (window.parent !== window) {
-            const pdoc = window.parent.document;
-            const ph1 = pdoc.querySelector("h1");
-            if (ph1) ph1.textContent = tempText(cur.apparent_temperature ?? cur.temperature_2m) + "°C";
-            const ptime = pdoc.querySelector(".post-meta time");
-            if (ptime) { ptime.textContent = nowDate; ptime.setAttribute("datetime", nowDate); }
-          }
-        } catch (e) {}
 
         const H = data.hourly;
         const days = new Map();
@@ -287,12 +256,21 @@
             appt: H.apparent_temperature[i],
           };
         });
+
+        try {
+          if (window.parent !== window) {
+            const pdoc = window.parent.document;
+            const ph1 = pdoc.querySelector("h1");
+            const now = days.get(nowDate)?.[nowHour];
+            if (ph1 && now) ph1.textContent = tempText(now.appt ?? now.temp) + "°C";
+            const ptime = pdoc.querySelector(".post-meta time");
+            if (ptime) { ptime.textContent = nowDate; ptime.setAttribute("datetime", nowDate); }
+          }
+        } catch (e) {}
+
         const keys = [...days.keys()];
         const todayIdx = keys.indexOf(nowDate);
-
         const table = document.createElement("table");
-
-        // header row: corner + one column per day (weekday + date), today bold
         const thead = document.createElement("thead");
         const htr = document.createElement("tr");
         const corner = document.createElement("th");
@@ -316,7 +294,6 @@
         thead.appendChild(htr);
         table.appendChild(thead);
 
-        // 24 hour rows
         const tbody = document.createElement("tbody");
         for (let h = 0; h < 24; h++) {
           const tr = document.createElement("tr");
@@ -364,7 +341,6 @@
         sizeSelf();
       }
 
-      // monotonic token: the latest-initiated request wins; older ones bail on resume
       let reqId = 0;
       async function load(token, lat, lon, name) {
         setStatus("Loading…");
@@ -374,7 +350,7 @@
             name ? Promise.resolve(name) : reverseName(lat, lon),
           ]);
           if (token !== reqId) return;
-          qEl.value = place.split(",")[0]; // prefill the search box with the current city
+          qEl.value = place.split(",")[0];
           render(data);
           setStatus("");
         } catch (e) {
@@ -382,7 +358,6 @@
         }
       }
 
-      // default: IP geolocation (no permission prompt)
       async function ipLocate() {
         const token = ++reqId;
         setStatus("Locating…");
@@ -396,7 +371,6 @@
           if (token !== reqId) return;
           load(token, g.lat, g.lon, g.name);
         } catch (e) {
-          // fallback: a CORS-friendly IP API that returns coordinates directly
           try {
             const r2 = await fetch("https://ipwho.is/");
             const j2 = await r2.json();
@@ -412,7 +386,6 @@
         }
       }
 
-      // explicit: precise browser geolocation (asks permission)
       function gpsLocate() {
         if (!navigator.geolocation) {
           setStatus("No geolocation here. Search a city.");
@@ -422,7 +395,15 @@
         setStatus("Requesting location…");
         navigator.geolocation.getCurrentPosition(
           (p) => load(token, p.coords.latitude, p.coords.longitude),
-          (e) => { if (token === reqId) setStatus("Location unavailable (" + e.message + "). Search a city."); },
+          (e) => {
+            if (token !== reqId) return;
+            setStatus(
+              e.code === 1 ? "Location blocked. Allow it for this site (and enable Location Services), then tap ◎ again — or search a city."
+              : e.code === 2 ? "No location fix. Turn on Location Services / GPS, then tap ◎ again — or search a city."
+              : e.code === 3 ? "Location timed out. Tap ◎ to retry, or search a city."
+              : "Location unavailable. Search a city."
+            );
+          },
           { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
         );
       }
@@ -445,7 +426,7 @@
 
       buildLegend();
       sizeSelf();
-      addEventListener("resize", sizeSelf); // reflow on width change (e.g. crossing 600px)
+      addEventListener("resize", sizeSelf);
       ipLocate();
     </script>
   </body>
