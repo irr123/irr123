@@ -12,6 +12,8 @@
         --fg: #fefff0;
         --border: var(--fg);
         --muted: rgba(254, 255, 240, 0.5);
+        --link: #79a8ff;
+        --visited: #f78fe7;
       }
       @media (prefers-color-scheme: light) {
         :root {
@@ -19,6 +21,8 @@
           --fg: #2a2b2c;
           --border: #2a2b2c;
           --muted: rgba(42, 43, 44, 0.5);
+          --link: #3548cf;
+          --visited: #8f0075;
         }
       }
 
@@ -53,6 +57,17 @@
       #suggest .reg { color: var(--muted); }
       #suggest li.active .reg, #suggest li:hover .reg { color: inherit; }
 
+      #tip {
+        position: absolute; z-index: 20;
+        max-width: min(26rem, 92vw);
+        padding: 0.6rem 0.85rem;
+        font: 1.2rem/1.5 monospace;
+        background: var(--bg); color: var(--fg);
+        border: 1px solid var(--border);
+        white-space: normal; pointer-events: none;
+      }
+      #tip:not(.show) { display: none; }
+
       #legend {
         max-width: 720px;
         margin: 1rem auto 0;
@@ -67,15 +82,21 @@
         font: inherit;
         color: var(--fg);
         background: var(--bg);
-        border: 1px solid var(--border);
         border-radius: 0;
-        padding: 0.2rem 0.4rem;
       }
-      button { cursor: pointer; }
-      button:hover, input:focus-visible, button:focus-visible {
-        outline: 2px solid var(--fg);
-        outline-offset: -1px;
+      input {
+        border: 0;
+        border-bottom: 1px solid var(--border);
       }
+      input::placeholder { color: var(--fg); }
+      input:focus-visible { outline: 0; box-shadow: 0 1px 0 0 var(--fg); }
+      button {
+        cursor: pointer;
+        border: 1px solid var(--border);
+        padding: 0.2rem 0.5rem;
+      }
+      button:hover { background: var(--fg); color: var(--bg); }
+      button:focus-visible { outline: 2px solid var(--fg); outline-offset: -1px; }
 
       #status { padding: 1.5rem 0.6rem; color: var(--muted); text-align: center; font-size: 1.7em; }
       #status:empty { display: none; }
@@ -90,12 +111,17 @@
       #alerts a {
         display: flex; align-items: baseline; gap: 0.5rem;
         padding: 0.3rem 0; color: inherit; text-decoration: none;
-        border-bottom: 1px solid var(--muted);
       }
-      #alerts a:last-child { border-bottom: 0; }
-      #alerts a:hover .title { text-decoration: underline; }
       #alerts .em { flex: 0 0 auto; }
-      #alerts .title { flex: 1 1 auto; }
+      #alerts .title {
+        flex: 1 1 auto;
+        color: var(--link);
+        text-decoration: underline dotted;
+        text-decoration-thickness: 0.5px;
+        text-underline-offset: 0.2em;
+      }
+      #alerts a:visited .title { color: var(--visited); }
+      #alerts a:hover .title { text-decoration-style: solid; text-decoration-thickness: 2px; }
       #alerts .meta { flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
       #alerts .note { color: var(--muted); padding: 0.3rem 0; }
 
@@ -135,7 +161,7 @@
       <form id="search">
         <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" />
         <button type="submit">go</button>
-        <button id="geo" type="button" title="Use my precise location">◎</button>
+        <button id="geo" type="button" data-tip="Use my precise location" aria-label="Use my precise location">◎</button>
         <ul id="suggest" role="listbox" aria-label="city suggestions"></ul>
       </form>
     </header>
@@ -143,6 +169,7 @@
     <div id="alerts" aria-label="active hazard alerts"></div>
     <div id="scroll"></div>
     <div id="legend" aria-label="what to wear by temperature"></div>
+    <div id="tip" aria-hidden="true"></div>
 
     <script>
       const qEl = document.getElementById("q");
@@ -313,7 +340,8 @@
         const htr = document.createElement("tr");
         const corner = document.createElement("th");
         corner.textContent = "🕐";
-        corner.title = "hour of day";
+        corner.dataset.tip = "hour of day";
+        corner.setAttribute("aria-label", "hour of day");
         htr.appendChild(corner);
         keys.forEach((d, di) => {
           const th = document.createElement("th");
@@ -357,8 +385,10 @@
             td.className = [isToday && "today", past && "past", isNow && "now"].filter(Boolean).join(" ");
             td.style.background = isNow ? "var(--fg)" : "rgb(" + rgb.join(",") + ")";
             td.style.color = isNow ? "var(--bg)" : readable(rgb);
-            td.title = d + " " + String(h).padStart(2, "0") + ":00 · " + w.l +
+            const tipText = d + " " + String(h).padStart(2, "0") + ":00 · " + w.l +
               " · " + c.temp + "°C · " + band[2];
+            td.dataset.tip = tipText;
+            td.setAttribute("aria-label", tipText);
             const ts = document.createElement("span");
             ts.className = "t";
             ts.textContent = tempText(c.temp);
@@ -534,7 +564,7 @@
           row.appendChild(span("title", a.title));
           row.appendChild(span("meta", a.distKm ? "~" + a.distKm + " km " + a.bearing : ""));
           const when = a.to ? day(a.from) + "→" + day(a.to) : day(a.from);
-          row.title = [a.src, a.kind, a.area, when].filter(Boolean).join(" · ");
+          row.dataset.tip = [a.src, a.kind, a.area, when].filter(Boolean).join(" · ");
           frag.appendChild(row);
         });
         if (failed.length) {
@@ -684,6 +714,43 @@
             if (token === reqId) setStatus(e.message);
           }
         });
+      })();
+      (() => {
+        const tip = document.getElementById("tip");
+        let activeEl = null;
+        const hide = () => { tip.classList.remove("show"); activeEl = null; };
+        const show = (el) => {
+          if (!el.dataset.tip) return;
+          tip.textContent = el.dataset.tip;
+          tip.classList.add("show");
+          activeEl = el;
+          const r = el.getBoundingClientRect();
+          const M = 6, tw = tip.offsetWidth;
+          let left = r.left + window.scrollX + r.width / 2 - tw / 2;
+          left = Math.max(M, Math.min(left, document.documentElement.clientWidth - tw - M));
+          tip.style.left = left + "px";
+          tip.style.top = (r.bottom + window.scrollY + M) + "px";
+        };
+        const target = (e) => e.target.closest("[data-tip]");
+        document.addEventListener("pointerover", (e) => {
+          if (e.pointerType !== "mouse") return;
+          const el = target(e);
+          if (el && el !== activeEl) show(el);
+        });
+        document.addEventListener("pointerout", (e) => {
+          if (e.pointerType !== "mouse") return;
+          if (activeEl && !e.relatedTarget?.closest?.("[data-tip]")) hide();
+        });
+        document.addEventListener("click", (e) => {
+          const el = target(e);
+          if (!el) { hide(); return; }
+          const isLink = el.tagName === "A";
+          if (el === activeEl) { if (!isLink) hide(); return; }
+          if (isLink) e.preventDefault();
+          show(el);
+        }, true);
+        window.addEventListener("resize", hide);
+        scrollEl.addEventListener("scroll", hide, true);
       })();
       buildLegend();
       sizeSelf();
