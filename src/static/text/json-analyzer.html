@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JSON Analyzer</title>
     <meta name="robots" content="noindex,follow" />
-    <script>
-      function sendHeight() {
-        const height =
-          document.documentElement.scrollHeight || document.body.scrollHeight;
-        window.parent.postMessage({height: height}, "*");
-      }
-      window.onload = sendHeight;
-    </script>
     <style>
       body {
         font-family:
@@ -21,8 +13,8 @@
         line-height: 1.6;
         color: #333;
         max-width: 1200px;
-        margin: 20px auto;
-        padding: 0 15px;
+        margin: 0 auto;
+        padding: 20px 15px;
         background-color: #f9f9f9;
       }
       h1 {
@@ -137,11 +129,22 @@
     </p>
 
     <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
-    <button onclick="analyzeJson()">Analyze JSON Weight</button>
+    <button onclick="analyzeJson(); sizeSelf()">Analyze JSON Weight</button>
 
     <div id="results"></div>
 
     <script>
+      // same-origin: size our own iframe to fit content (no parent script/observer/poll)
+      let lastH = 0;
+      function sizeSelf() {
+        try {
+          const fe = window.frameElement;
+          if (!fe) return;
+          const h = document.body.scrollHeight;
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
+        } catch (e) {}
+      }
+
       function analyzeJson() {
         const jsonString = document.getElementById("jsonInput").value;
         const resultsDiv = document.getElementById("results");
@@ -275,6 +278,8 @@
         tableHTML += `</tbody></table>`;
         resultsDiv.innerHTML = summaryHTML + tableHTML;
       }
+      sizeSelf();
+      addEventListener("resize", sizeSelf);
     </script>
   </body>
 </html>

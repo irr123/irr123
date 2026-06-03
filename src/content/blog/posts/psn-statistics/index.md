@@ -6,7 +6,6 @@ title: "PlayStation statistics: an open-source PSN tool"
 description:
   "An open-source script that pulls PlayStation playtime, completion, and the
   games gathering dust. Patches welcome — and the data is humbling."
-custom_js: [psn-stat]
 image: "astro-bot.png"
 keywords:
   - PlayStation statistics
@@ -29,6 +28,8 @@ works. It's open-source; patches welcome.
 https://github.com/irr123/psn-games-stats/tree/argparse
 
 ## My stats
+
+<iframe src="/text/psn-stat.html" title="PSN stats" style="width:100%;border:0"></iframe>
 
 A third of a year lost (or gained?) to gaming! This doesn't even include my
 Steam hours, I'm almost afraid to add those up 🙈

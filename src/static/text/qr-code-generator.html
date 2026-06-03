@@ -1552,14 +1552,6 @@
         QRCode.CorrectLevel = QRErrorCorrectLevel;
       })();
     </script>
-    <script>
-      function sendHeight() {
-        const height =
-          document.documentElement.scrollHeight || document.body.scrollHeight;
-        window.parent.postMessage({height: height}, "*");
-      }
-      window.onload = sendHeight;
-    </script>
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -1657,6 +1649,17 @@
       </p>
     </footer>
     <script>
+      // same-origin: size our own iframe to fit content (no parent script/observer/poll)
+      let lastH = 0;
+      function sizeSelf() {
+        try {
+          const fe = window.frameElement;
+          if (!fe) return;
+          const h = document.body.scrollHeight;
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
+        } catch (e) {}
+      }
+
       const qrDataInput = document.getElementById("qrData");
       const generatePngBtn = document.getElementById("generatePngBtn");
       const generateSvgBtn = document.getElementById("generateSvgBtn");
@@ -1680,6 +1683,7 @@
       function validateInput() {
         if (qrDataInput.value.trim() === "") {
           inputError.classList.remove("hidden");
+          sizeSelf();
           return false;
         }
         inputError.classList.add("hidden");
@@ -1722,6 +1726,7 @@
               qrcodeOutputDiv.innerHTML =
                 '<p class="error-message">Could not generate PNG. Try to reload page.</p>';
             }
+            sizeSelf();
           }, 100);
         } catch (error) {
           console.error("Error generating PNG QR Code:", error);
@@ -1764,6 +1769,7 @@
               qrcodeOutputDiv.innerHTML =
                 '<p class="error-message">Could not generate SVG. Try to reload page.</p>';
             }
+            sizeSelf();
           }, 50);
         } catch (error) {
           console.error("Error generating SVG QR Code:", error);
@@ -1771,6 +1777,10 @@
             '<p class="error-message">Error generating QR Code for SVG. Check console.</p>';
         }
       });
+
+      sizeSelf();
+      addEventListener("load", sizeSelf); // Tailwind applies styles after this script runs
+      addEventListener("resize", sizeSelf);
     </script>
     <script>
       // "https://cdn.tailwindcss.com/3.4.16"

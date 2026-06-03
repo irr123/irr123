@@ -73,4 +73,9 @@
   {{- if and site.Params.metaPixel (ne site.Params.metaPixel "") -}}
   <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   {{- end -}}
+  {{- if and site.Params.grafanaFaro (ne site.Params.grafanaFaro "") -}}
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  {{- $c := urls.Parse site.Params.grafanaFaro }}
+  <link rel="preconnect" href="{{ $c.Scheme }}://{{ $c.Host }}" crossorigin>
+  {{- end -}}
 </head>

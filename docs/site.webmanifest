@@ -1,6 +1,9 @@
 {
   "name": "The Archive",
-  "short_name": "The Archive",
+  "short_name": "Archive",
+  "description": "These data-spirits, my scrap-code prayer, are offered to the Machine God.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +16,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#2a2b2c",
+  "background_color": "#2a2b2c",
+  "display": "browser"
 }

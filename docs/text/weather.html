@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Weather grid</title>
+
+    <style>
+      :root {
+        --bg: #2a2b2c;
+        --fg: #fefff0;
+        --border: var(--fg);
+        --muted: rgba(254, 255, 240, 0.5);
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f8f8ff;
+          --fg: #2a2b2c;
+          --border: #2a2b2c;
+          --muted: rgba(42, 43, 44, 0.5);
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font: 18px/1.7 monospace;
+      }
+
+      #bar {
+        max-width: 720px;
+        margin: auto;
+        padding: 0 0.75rem 0.75rem 0.75rem;
+      }
+      #search { display: flex; gap: 0.3rem; }
+      #q { flex: 1 1 auto; min-width: 0; width: 0; }
+      #search button { flex: 0 0 auto; }
+
+      /* what-to-wear scale below the grid: colour marker + range + advice */
+      #legend {
+        max-width: 720px;
+        margin: 1rem auto 0;
+        padding: 0 0.75rem;
+        font-size: 0.85em;
+      }
+      #legend > div { display: flex; align-items: center; gap: 0.5rem; padding: 1px 0; }
+      #legend i { flex: 0 0 1.6rem; height: 1.1em; }
+      #legend b { flex: 0 0 7rem; font-weight: normal; font-variant-numeric: tabular-nums; }
+      #legend span { color: var(--muted); }
+      input, button {
+        font: inherit;
+        color: var(--fg);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 0;
+        padding: 0.2rem 0.4rem;
+      }
+      button { cursor: pointer; }
+      button:hover, input:focus-visible, button:focus-visible {
+        outline: 2px solid var(--fg);
+        outline-offset: -1px;
+      }
+
+      #status { padding: 1.5rem 0.6rem; color: var(--muted); text-align: center; font-size: 1.7em; }
+      #status:empty { display: none; }
+
+      /* --- grid: days = columns (fill width), hours = rows.
+             The iframe takes the grid's full height and the page scrolls. --- */
+      table { border-collapse: collapse; table-layout: fixed; width: 100%; }
+      th, td {
+        text-align: center;
+        font-variant-numeric: tabular-nums;
+        font-weight: normal;
+        padding: 4px 2px;
+      }
+      /* sticky weekday header row */
+      thead th { background: var(--bg); color: var(--muted); }
+      thead th.today { color: var(--fg); font-weight: bold; }
+      thead th .dow { display: block; }
+      thead th .dom { display: block; font-size: 0.72em; opacity: 0.7; }
+      thead th:first-child, tbody th { width: 2.4rem; }
+      /* hour labels */
+      tbody th { color: var(--muted); white-space: nowrap; }
+      tbody th.now { color: var(--fg); font-weight: bold; }
+      /* cells */
+      td { color: #111; }
+      td .t { display: block; font-size: clamp(13px, 2.6vw, 22px); white-space: nowrap; }
+      td .e { display: none; }
+      td.empty { color: var(--muted); background: transparent; }
+      td.past { opacity: 0.4; }
+      td.today { font-weight: bold; }
+      td.now { outline: 3px solid var(--fg); outline-offset: -3px; font-weight: bold; }
+
+      /* roomier screens: show the weather icon, grow text + rows a touch */
+      @media (min-width: 600px) {
+        th, td { padding: 3px 4px; }
+        td .t { display: inline; }
+        td .e { display: inline; font-size: clamp(18px, 1.8vw, 28px); margin-left: 0.35em; }
+        /* weekday + date on one line when there's room */
+        thead th .dow, thead th .dom { display: inline; }
+        thead th .dom { margin-left: 0.3em; font-size: 0.85em; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="bar">
+      <form id="search">
+        <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" />
+        <button type="submit">go</button>
+        <button id="geo" type="button" title="Use my precise location">◎</button>
+      </form>
+    </header>
+    <div id="status"></div>
+    <div id="scroll"></div>
+    <div id="legend" aria-label="what to wear by temperature"></div>
+
+    <script>
+      const qEl = document.getElementById("q");
+      const statusEl = document.getElementById("status");
+      const scrollEl = document.getElementById("scroll");
+
+      // same-origin: size our own iframe to fit content, called whenever content
+      // changes. No parent script, ResizeObserver, or poll — so it survives slow 3G,
+      // where the grid renders long after load.
+      let lastH = 0;
+      function sizeSelf() {
+        try {
+          const fe = window.frameElement;
+          if (!fe) return; // opened standalone, or cross-origin embed
+          const h = document.body.scrollHeight;
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
+        } catch (e) {}
+      }
+
+      const setStatus = (m) => { statusEl.textContent = m || ""; sizeSelf(); };
+      const placeName = (...p) => p.filter(Boolean).join(", ");
+      const tempText = (t) => Number(t).toFixed(1);
+
+      // --- WMO weather code -> emoji + label (static map; hour swaps day/night glyph) ---
+      const WMO = {
+        0: ["☀️", "Clear"],
+        1: ["🌤️", "Mainly clear"],
+        2: ["⛅", "Partly cloudy"],
+        3: ["☁️", "Overcast"],
+        45: ["🌫️", "Fog"], 48: ["🌫️", "Rime fog"],
+        51: ["🌦️", "Light drizzle"], 53: ["🌦️", "Drizzle"], 55: ["🌦️", "Dense drizzle"],
+        56: ["🌧️", "Freezing drizzle"], 57: ["🌧️", "Freezing drizzle"],
+        61: ["🌧️", "Light rain"], 63: ["🌧️", "Rain"], 65: ["🌧️", "Heavy rain"],
+        66: ["🌧️", "Freezing rain"], 67: ["🌧️", "Freezing rain"],
+        71: ["🌨️", "Light snow"], 73: ["🌨️", "Snow"], 75: ["🌨️", "Heavy snow"], 77: ["🌨️", "Snow grains"],
+        80: ["🌦️", "Light showers"], 81: ["🌦️", "Showers"], 82: ["🌦️", "Violent showers"],
+        85: ["🌨️", "Snow showers"], 86: ["🌨️", "Snow showers"],
+        95: ["⛈️", "Thunderstorm"], 96: ["⛈️", "Thunderstorm + hail"], 99: ["⛈️", "Thunderstorm + hail"],
+      };
+      const WMO_NIGHT = { 0: "🌙", 1: "🌙", 2: "☁️" };
+      function wmo(code, hour) {
+        const v = WMO[code] || ["·", "—"];
+        const night = hour < 6 || hour >= 21;
+        return { e: (night && WMO_NIGHT[code]) || v[0], l: v[1] };
+      }
+
+      // --- temperature -> colour + what to wear. Lower-bound bands, no muddy
+      //     interpolation; the legend is built from this list, so they can't drift.
+      const TEMP_STOPS = [
+        [-Infinity, [0xff, 0x5f, 0xd0], "danger cold -- avoid exposed skin"],
+        [-35,       [0xd0, 0x1f, 0xb0], "extreme cold -- down, cover face & hands"],
+        [-25,       [0x9b, 0x2f, 0xe0], "heavy down jacket"],
+        [-12,       [0x5b, 0x43, 0xe6], "down jacket"],
+        [-2,        [0x2f, 0x6e, 0xf0], "winter coat"],
+        [7,         [0x12, 0xa5, 0xe8], "medium jacket"],
+        [14,        [0x0c, 0xc0, 0xa0], "light jacket"],
+        [20,        [0x36, 0xc1, 0x2e], "t-shirt / light layer"],
+        [27,        [0xf5, 0xa6, 0x00], "shorts & t-shirt"],
+        [34,        [0xf0, 0x52, 0x10], "hot -- shade, water"],
+        [40,        [0xdc, 0x14, 0x2e], "danger heat -- stay inside if possible"],
+      ];
+      function tempBand(t) {
+        let band = TEMP_STOPS[0];
+        for (const s of TEMP_STOPS) {
+          if (t < s[0]) break;
+          band = s;
+        }
+        return band; // [min, rgb, label]
+      }
+      function readable(rgb) {
+        const lum = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255;
+        return lum > 0.6 ? "#2a2b2c" : "#fefff0";
+      }
+
+      // what-to-wear scale below the grid: colour marker + range + advice,
+      // built straight from TEMP_STOPS so it can't drift from the grid colours
+      function buildLegend() {
+        const el = document.getElementById("legend");
+        const fmt = (n) => (n > 0 ? "+" : "") + n + "°";
+        TEMP_STOPS.forEach(([min, rgb, label], i) => {
+          const next = TEMP_STOPS[i + 1];
+          const range = min === -Infinity ? "below " + fmt(next[0])
+            : !next ? fmt(min) + " and up"
+            : fmt(min) + " to " + fmt(next[0]);
+          const row = document.createElement("div");
+          const sw = document.createElement("i");
+          sw.style.background = "rgb(" + rgb.join(",") + ")";
+          const r = document.createElement("b");
+          r.textContent = range;
+          const adv = document.createElement("span");
+          adv.textContent = label;
+          row.appendChild(sw);
+          row.appendChild(r);
+          row.appendChild(adv);
+          el.appendChild(row);
+        });
+      }
+
+      // --- data sources (all keyless) ---
+      async function fetchWeather(lat, lon) {
+        const u =
+          "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
+          "&timezone=auto&past_days=1&forecast_days=7" +
+          "&current=temperature_2m,apparent_temperature,weather_code" +
+          "&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m,apparent_temperature";
+        const r = await fetch(u);
+        if (!r.ok) throw new Error("weather API " + r.status);
+        return r.json();
+      }
+      async function geocodeCity(name) {
+        const u = "https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&format=json&name=" +
+          encodeURIComponent(name);
+        const r = await fetch(u);
+        if (!r.ok) throw new Error("geocode " + r.status);
+        const j = await r.json();
+        if (!j.results || !j.results.length) throw new Error("No match for “" + name + "”");
+        const g = j.results[0];
+        return { lat: g.latitude, lon: g.longitude, name: placeName(g.name, g.admin1, g.country) };
+      }
+      async function reverseName(lat, lon) {
+        try {
+          const r = await fetch(
+            "https://api.bigdatacloud.net/data/reverse-geocode-client?localityLanguage=en&latitude=" +
+            lat + "&longitude=" + lon
+          );
+          const j = await r.json();
+          // bigdatacloud's "city" is often the municipality (Palilula, not Belgrade);
+          // prefer the broadest admin entry actually described as a city
+          const city = (((j.localityInfo || {}).administrative) || [])
+            .filter((a) => /\bcity\b/i.test(a.description || "") && !/municipalit/i.test(a.description || ""))
+            .sort((a, b) => a.adminLevel - b.adminLevel)
+            .map((a) => a.name)[0] || j.city || j.locality;
+          const region = j.principalSubdivision === city ? null : j.principalSubdivision;
+          const n = placeName(city, region, j.countryName);
+          return n || lat.toFixed(2) + ", " + lon.toFixed(2);
+        } catch (e) {
+          return lat.toFixed(2) + ", " + lon.toFixed(2);
+        }
+      }
+
+      // --- render: days across the top (columns), hours down the side (rows) ---
+      function render(data) {
+        const cur = data.current;
+        const nowDate = cur.time.slice(0, 10);
+        const nowHour = +cur.time.slice(11, 13);
+        // surface live values to the embedding page (same-origin): temp -> heading, date -> post meta
+        try {
+          if (window.parent !== window) {
+            const pdoc = window.parent.document;
+            const ph1 = pdoc.querySelector("h1");
+            if (ph1) ph1.textContent = tempText(cur.apparent_temperature ?? cur.temperature_2m) + "°C";
+            const ptime = pdoc.querySelector(".post-meta time");
+            if (ptime) { ptime.textContent = nowDate; ptime.setAttribute("datetime", nowDate); }
+          }
+        } catch (e) {}
+
+        const H = data.hourly;
+        const days = new Map();
+        H.time.forEach((t, i) => {
+          const d = t.slice(0, 10);
+          const hr = +t.slice(11, 13);
+          if (!days.has(d)) days.set(d, new Array(24).fill(null));
+          days.get(d)[hr] = {
+            temp: H.temperature_2m[i],
+            code: H.weather_code[i],
+            pp: H.precipitation_probability[i],
+            wind: H.wind_speed_10m[i],
+            appt: H.apparent_temperature[i],
+          };
+        });
+        const keys = [...days.keys()];
+        const todayIdx = keys.indexOf(nowDate);
+
+        const table = document.createElement("table");
+
+        // header row: corner + one column per day (weekday + date), today bold
+        const thead = document.createElement("thead");
+        const htr = document.createElement("tr");
+        const corner = document.createElement("th");
+        corner.textContent = "🕐";
+        corner.title = "hour of day";
+        htr.appendChild(corner);
+        keys.forEach((d, di) => {
+          const th = document.createElement("th");
+          if (di === todayIdx) th.className = "today";
+          const dt = new Date(d + "T12:00:00");
+          const dow = document.createElement("span");
+          dow.className = "dow";
+          dow.textContent = dt.toLocaleDateString("en", { weekday: "short" });
+          const dom = document.createElement("span");
+          dom.className = "dom";
+          dom.textContent = d.slice(8, 10);
+          th.appendChild(dow);
+          th.appendChild(dom);
+          htr.appendChild(th);
+        });
+        thead.appendChild(htr);
+        table.appendChild(thead);
+
+        // 24 hour rows
+        const tbody = document.createElement("tbody");
+        for (let h = 0; h < 24; h++) {
+          const tr = document.createElement("tr");
+          const hl = document.createElement("th");
+          hl.textContent = String(h).padStart(2, "0");
+          if (todayIdx >= 0 && h === nowHour) hl.className = "now";
+          tr.appendChild(hl);
+
+          keys.forEach((d, di) => {
+            const td = document.createElement("td");
+            const c = days.get(d)[h];
+            if (!c || c.temp == null) {
+              td.className = "empty";
+              td.textContent = "·";
+              tr.appendChild(td);
+              return;
+            }
+            const isToday = di === todayIdx;
+            const past = di < todayIdx || (isToday && h < nowHour);
+            const isNow = isToday && h === nowHour;
+            const w = wmo(c.code, h);
+            const band = tempBand(c.appt), rgb = band[1];
+            td.className = [isToday && "today", past && "past", isNow && "now"].filter(Boolean).join(" ");
+            td.style.background = isNow ? "var(--fg)" : "rgb(" + rgb.join(",") + ")";
+            td.style.color = isNow ? "var(--bg)" : readable(rgb);
+            const pp = c.pp == null ? "–" : c.pp;
+            td.title = d + " " + String(h).padStart(2, "0") + ":00 · " + w.l +
+              " · feels " + c.appt + "°C (air " + c.temp + "°C) · " + band[2] +
+              " · wind " + c.wind + " km/h · precip " + pp + "%";
+            const ts = document.createElement("span");
+            ts.className = "t";
+            ts.textContent = tempText(c.appt ?? c.temp);
+            const es = document.createElement("span");
+            es.className = "e";
+            es.textContent = w.e;
+            td.appendChild(ts);
+            td.appendChild(es);
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+
+        scrollEl.replaceChildren(table);
+        sizeSelf();
+      }
+
+      // monotonic token: the latest-initiated request wins; older ones bail on resume
+      let reqId = 0;
+      async function load(token, lat, lon, name) {
+        setStatus("Loading…");
+        try {
+          const [data, place] = await Promise.all([
+            fetchWeather(lat, lon),
+            name ? Promise.resolve(name) : reverseName(lat, lon),
+          ]);
+          if (token !== reqId) return;
+          qEl.value = place.split(",")[0]; // prefill the search box with the current city
+          render(data);
+          setStatus("");
+        } catch (e) {
+          if (token === reqId) setStatus("Error: " + e.message);
+        }
+      }
+
+      // default: IP geolocation (no permission prompt)
+      async function ipLocate() {
+        const token = ++reqId;
+        setStatus("Locating…");
+        try {
+          const r = await fetch("https://wtfismyip.com/json");
+          if (!r.ok) throw new Error("ip " + r.status);
+          const j = await r.json();
+          const city = j.YourFuckingCity || (j.YourFuckingLocation || "").split(",")[0].trim();
+          if (!city) throw new Error("no city");
+          const g = await geocodeCity(city);
+          if (token !== reqId) return;
+          load(token, g.lat, g.lon, g.name);
+        } catch (e) {
+          // fallback: a CORS-friendly IP API that returns coordinates directly
+          try {
+            const r2 = await fetch("https://ipwho.is/");
+            const j2 = await r2.json();
+            if (token !== reqId) return;
+            if (j2 && j2.success !== false && j2.latitude != null) {
+              load(token, j2.latitude, j2.longitude, placeName(j2.city, j2.region, j2.country));
+              return;
+            }
+            throw new Error("ip fallback");
+          } catch (e2) {
+            if (token === reqId) setStatus("Couldn't detect location. Search a city, or tap ◎.");
+          }
+        }
+      }
+
+      // explicit: precise browser geolocation (asks permission)
+      function gpsLocate() {
+        if (!navigator.geolocation) {
+          setStatus("No geolocation here. Search a city.");
+          return;
+        }
+        const token = ++reqId;
+        setStatus("Requesting location…");
+        navigator.geolocation.getCurrentPosition(
+          (p) => load(token, p.coords.latitude, p.coords.longitude),
+          (e) => { if (token === reqId) setStatus("Location unavailable (" + e.message + "). Search a city."); },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      }
+
+      document.getElementById("search").addEventListener("submit", async (ev) => {
+        ev.preventDefault();
+        const q = qEl.value.trim();
+        if (!q) return;
+        const token = ++reqId;
+        setStatus("Searching…");
+        try {
+          const g = await geocodeCity(q);
+          if (token !== reqId) return;
+          load(token, g.lat, g.lon, g.name);
+        } catch (e) {
+          if (token === reqId) setStatus(e.message);
+        }
+      });
+      document.getElementById("geo").addEventListener("click", gpsLocate);
+
+      buildLegend();
+      sizeSelf();
+      addEventListener("resize", sizeSelf); // reflow on width change (e.g. crossing 600px)
+      ipLocate();
+    </script>
+  </body>
+</html>

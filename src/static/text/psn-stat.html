@@ -5,14 +5,6 @@
     <title>Top PlayStation Games</title>
     <meta name="robots" content="noindex,follow" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script>
-      function sendHeight() {
-        const height =
-          document.documentElement.scrollHeight || document.body.scrollHeight;
-        window.parent.postMessage({height: height}, "*");
-      }
-      window.onload = sendHeight;
-    </script>
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -57,6 +49,17 @@
     <h1>Top PlayStation Games by Play Duration — <i>138 days</i>, 4:21:40</h1>
     <div class="chart-container"><svg></svg></div>
     <script>
+      // same-origin: size our own iframe to fit content (no parent script/observer/poll)
+      let lastH = 0;
+      function sizeSelf() {
+        try {
+          const fe = window.frameElement;
+          if (!fe) return;
+          const h = document.body.scrollHeight;
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
+        } catch (e) {}
+      }
+
       let data = [
         {
           title: "The Binding of Isaac: Repentance",
@@ -178,6 +181,9 @@
         .attr("y", (d) => y(d.title) + y.bandwidth() / 2)
         .attr("dy", ".35em")
         .text((d) => `${d.duration.toFixed(1)}h (${d.count}×)`);
+
+      sizeSelf();
+      addEventListener("resize", sizeSelf);
     </script>
   </body>
 </html>

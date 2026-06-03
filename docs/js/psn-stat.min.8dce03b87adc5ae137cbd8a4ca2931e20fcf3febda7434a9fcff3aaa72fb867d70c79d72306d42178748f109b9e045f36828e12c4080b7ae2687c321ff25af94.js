@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("my-stats");if(e){const t=document.createElement("iframe");t.src="/text/psn-stat.html",t.style.width="100%",t.style.border="none",e.parentNode.insertBefore(t,e.nextSibling),window.addEventListener("message",function(e){e.data&&e.data.height&&(t.style.height=e.data.height+1+"px")})}})

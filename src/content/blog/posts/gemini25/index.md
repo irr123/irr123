@@ -6,7 +6,6 @@ title: Gemini 2.5 Pro one-shots a p5.js endless runner
 description:
   "Gemini 2.5 Pro one-shotting a p5.js endless runner from a single prompt. Full
   transcript and the playable result inline."
-custom_js: [gemini25]
 image: "t-rex.png"
 keywords:
   - Gemini 2.5 Pro
@@ -474,6 +473,8 @@ function windowResized() {
 {{< /details >}}
 
 ## Playable p5.js result
+
+<iframe src="/text/gemini25.html" title="p5.js endless runner" style="width:100%;height:480px;border:0"></iframe>
 
 ## Verdict: one-shot worked
 

@@ -6,7 +6,6 @@ title: Free online QR code generator (no signup, SVG + PNG)
 description:
   "A free QR code generator that gives you SVG and PNG without registration,
   OAuth, or paywalls. Runs client-side; only pageviews get tracked."
-custom_js: [qr-code]
 image: "qrcode.png"
 keywords:
   - QR code generator
@@ -35,6 +34,8 @@ pageviews, so chill.
 (And yep, I gotta throw in some text here to make search engines happy 🙃)
 
 ## Generate a QR code
+
+<iframe src="/text/qr-code-generator.html" title="QR code generator" style="width:100%;border:0"></iframe>
 
 ## Paste text, download SVG or PNG
 

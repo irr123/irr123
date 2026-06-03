@@ -2,7 +2,7 @@
 <script>
   (function () {
     var webSdkScript = document.createElement("script");
-    webSdkScript.src = "https://unpkg.com/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+    webSdkScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
     webSdkScript.onload = () => {
       window.GrafanaFaroWebSdk.initializeFaro({
         url: {{ site.Params.grafanaFaro }},
@@ -17,7 +17,7 @@
         },
       });
       var webTracingScript = document.createElement("script");
-      webTracingScript.src = "https://unpkg.com/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js";
+      webTracingScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js";
       webTracingScript.onload = () => {
         window.GrafanaFaroWebSdk.faro.instrumentations.add(
           new window.GrafanaFaroWebTracing.TracingInstrumentation()

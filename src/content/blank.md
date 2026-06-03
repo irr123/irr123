@@ -3,5 +3,6 @@ url: "/blank/"
 pagefind: false
 excludeFromPostList: true
 footer: false
-custom_js: [blank]
 ---
+
+<script>console.log("https://indieweb.org/blank");</script>

@@ -6,7 +6,6 @@ title: "JSON analyzer: find which keys bloat your payload"
 description:
   "A free, client-side JSON analyzer that breaks down payload size by key — find
   which fields bloat your slow API response. No upload; runs in the browser."
-custom_js: [json-analyzer]
 image: "main.png"
 keywords:
   - JSON analyzer
@@ -29,6 +28,8 @@ heaviest fields, see a breakdown by key name, and cut payload size. No data is
 uploaded.
 
 ## Analyze JSON in the browser
+
+<iframe src="/text/json-analyzer.html" title="JSON analyzer" style="width:100%;border:0"></iframe>
 
 ## Paste JSON, find heavy keys
 
