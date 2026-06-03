@@ -238,9 +238,8 @@
       }
 
       function render(data) {
-        const cur = data.current;
-        const nowDate = cur.time.slice(0, 10);
-        const nowHour = +cur.time.slice(11, 13);
+        const { date: nowDate, hour: nowHour, key } = computeNow();
+        lastNowKey = key;
 
         const H = data.hourly;
         const days = new Map();
@@ -341,6 +340,20 @@
         sizeSelf();
       }
 
+      let latestData = null;
+      let lastNowKey = "";
+      let baseEpoch = 0;
+      let baseUTC = 0;
+
+      function computeNow() {
+        const elapsed = Math.floor((Date.now() - baseEpoch) / 3600000);
+        const d = new Date(baseUTC + elapsed * 3600000);
+        const p = (n) => String(n).padStart(2, "0");
+        const date = d.getUTCFullYear() + "-" + p(d.getUTCMonth() + 1) + "-" + p(d.getUTCDate());
+        const hour = d.getUTCHours();
+        return { date, hour, key: date + ":" + hour };
+      }
+
       let reqId = 0;
       async function load(token, lat, lon, name) {
         setStatus("Loading…");
@@ -351,6 +364,9 @@
           ]);
           if (token !== reqId) return;
           qEl.value = place.split(",")[0];
+          latestData = data;
+          baseEpoch = Date.now();
+          baseUTC = Date.parse(data.current.time.slice(0, 13) + ":00:00Z");
           render(data);
           setStatus("");
         } catch (e) {
@@ -424,9 +440,16 @@
       });
       document.getElementById("geo").addEventListener("click", gpsLocate);
 
+      function tick() {
+        if (!latestData) return;
+        if (computeNow().key === lastNowKey) return;
+        render(latestData);
+      }
+
       buildLegend();
       sizeSelf();
       addEventListener("resize", sizeSelf);
+      setInterval(tick, 60 * 1000);
       ipLocate();
     </script>
   </body>
