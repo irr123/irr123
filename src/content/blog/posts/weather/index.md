@@ -2,7 +2,7 @@
 date: 2026-06-02T17:09:18Z
 back_ref: /blog/_index.md
 draft: false
-title: Real-time local weather forecast
+title: Real-time weather forecast
 description:
   "Real-time local weather forecast as a day-by-hour grid -- yesterday through
   next week, plus nearby hazard alerts. Open-Meteo data, browser location, city
@@ -44,9 +44,9 @@ keywords:
     align-items: center;
     justify-content: center;
   }
-  @media (min-width: 900px) {
+  @media (min-width: 720px) {
     #wx {
-      width: min(100vw - 2rem, 1280px);
+      width: min(100vw - 2rem, 720px);
       margin-left: 50%;
       transform: translateX(-50%);
       height: 1490px;

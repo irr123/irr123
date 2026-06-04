@@ -41,7 +41,7 @@
       }
       #search { display: flex; gap: 0.3rem; position: relative; }
       #q { flex: 1 1 auto; min-width: 0; width: 0; }
-      #search button { flex: 0 0 auto; }
+      #search button, #search select { flex: 0 0 auto; }
       #suggest {
         position: absolute; top: 100%; left: 0; right: 0; z-index: 5;
         margin: 0; padding: 0; list-style: none;
@@ -78,7 +78,7 @@
       #legend i { flex: 0 0 1.6rem; height: 1.1em; }
       #legend b { flex: 0 0 7rem; font-weight: normal; font-variant-numeric: tabular-nums; }
       #legend span { color: var(--muted); }
-      input, button {
+      input, button, select {
         font: inherit;
         color: var(--fg);
         background: var(--bg);
@@ -90,13 +90,13 @@
       }
       input::placeholder { color: var(--fg); }
       input:focus-visible { outline: 0; box-shadow: 0 1px 0 0 var(--fg); }
-      button {
+      button, select {
         cursor: pointer;
         border: 1px solid var(--border);
         padding: 0.2rem 0.5rem;
       }
       button:hover { background: var(--fg); color: var(--bg); }
-      button:focus-visible { outline: 2px solid var(--fg); outline-offset: -1px; }
+      button:focus-visible, select:focus-visible { outline: 2px solid var(--fg); outline-offset: -1px; }
 
       #status { padding: 1.5rem 0.6rem; color: var(--muted); text-align: center; font-size: 1.7em; }
       #status:empty { display: none; }
@@ -110,7 +110,8 @@
       #alerts:empty { display: none; }
       #alerts a {
         display: flex; align-items: baseline; gap: 0.5rem;
-        padding: 0.3rem 0; color: inherit; text-decoration: none;
+        padding: 0.3rem 0 0.3rem 0.5rem; color: inherit; text-decoration: none;
+        border-left: 4px solid var(--muted);
       }
       #alerts .em { flex: 0 0 auto; }
       #alerts .title {
@@ -145,8 +146,8 @@
       td.empty { color: var(--muted); background: transparent; }
       td.past { opacity: 0.4; }
       td.today { font-weight: bold; }
-      td.now { outline: 3px solid var(--fg); outline-offset: -3px; font-weight: bold; }
-      @media (min-width: 600px) {
+      td.now { box-shadow: inset 0 0 0 2px var(--bg), inset 0 0 0 5px var(--fg); font-weight: bold; }
+      @media (min-width: 480px) {
         th, td { padding: 3px 4px; }
         td .t { display: inline; }
         td .e { display: inline; font-size: clamp(18px, 1.8vw, 28px); margin-left: 0.35em; }
@@ -161,6 +162,10 @@
       <form id="search">
         <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" />
         <button type="submit">go</button>
+        <select id="unit" aria-label="Temperature unit">
+          <option value="c">°C</option>
+          <option value="f">°F</option>
+        </select>
         <button id="geo" type="button" data-tip="Use my precise location" aria-label="Use my precise location">◎</button>
         <ul id="suggest" role="listbox" aria-label="city suggestions"></ul>
       </form>
@@ -186,7 +191,10 @@
       })();
       const setStatus = (m) => { statusEl.textContent = m || ""; sizeSelf(); };
       const placeName = (...p) => p.filter(Boolean).join(", ");
-      const tempText = (t) => Number(t).toFixed(1);
+      // Temps are always fetched & banded in Celsius; `unit` only changes display.
+      let unit = (() => { try { return localStorage.getItem("wx-unit") === "f" ? "f" : "c"; } catch (e) { return "c"; } })();
+      const degSym = () => (unit === "f" ? "°F" : "°C");
+      const tempText = (c) => String(Math.round(unit === "f" ? c * 9 / 5 + 32 : c));   // display rounds; c stays precise for banding
       const getJson = async (url, label) => {
         const r = await fetch(url);
         if (!r.ok) throw new Error(label + " " + r.status + ": " + (await r.text()));
@@ -202,15 +210,15 @@
           1: ["🌤️", "Mainly clear"],
           2: ["⛅", "Partly cloudy"],
           3: ["☁️", "Overcast"],
-          45: ["🌫️", "Fog"], 48: ["🌫️", "Rime fog"],
-          51: ["🌦️", "Light drizzle"], 53: ["🌦️", "Drizzle"], 55: ["🌦️", "Dense drizzle"],
-          56: ["🌧️", "Freezing drizzle"], 57: ["🌧️", "Freezing drizzle"],
+          45: ["🌫️", "Fog"], 48: ["🌁", "Rime fog"],
+          51: ["💧", "Light drizzle"], 53: ["💧", "Drizzle"], 55: ["💧", "Dense drizzle"],
+          56: ["🧊", "Freezing drizzle"], 57: ["🧊", "Freezing drizzle"],
           61: ["🌧️", "Light rain"], 63: ["🌧️", "Rain"], 65: ["🌧️", "Heavy rain"],
-          66: ["🌧️", "Freezing rain"], 67: ["🌧️", "Freezing rain"],
-          71: ["🌨️", "Light snow"], 73: ["🌨️", "Snow"], 75: ["🌨️", "Heavy snow"], 77: ["🌨️", "Snow grains"],
+          66: ["🧊", "Freezing rain"], 67: ["🧊", "Freezing rain"],
+          71: ["🌨️", "Light snow"], 73: ["🌨️", "Snow"], 75: ["🌨️", "Heavy snow"], 77: ["❄️", "Snow grains"],
           80: ["🌦️", "Light showers"], 81: ["🌦️", "Showers"], 82: ["🌦️", "Violent showers"],
           85: ["🌨️", "Snow showers"], 86: ["🌨️", "Snow showers"],
-          95: ["⛈️", "Thunderstorm"], 96: ["⛈️", "Thunderstorm + hail"], 99: ["⛈️", "Thunderstorm + hail"],
+          95: ["🌩️", "Thunderstorm"], 96: ["⛈️", "Thunderstorm + hail"], 99: ["⛈️", "Thunderstorm + hail"],
         };
         const WMO_NIGHT = { 0: "🌙", 1: "🌙", 2: "☁️" };
         return (code, hour) => {
@@ -225,22 +233,23 @@
       }
       const [tempBand, buildLegend] = (() => {
         const TEMP_STOPS = [
-          [-Infinity, [0xff, 0x5f, 0xd0], "danger cold -- avoid exposed skin"],
-          [-35,       [0xd0, 0x1f, 0xb0], "extreme cold -- down, cover face & hands"],
-          [-25,       [0x9b, 0x2f, 0xe0], "heavy down jacket"],
-          [-12,       [0x5b, 0x43, 0xe6], "down jacket"],
-          [-2,        [0x2f, 0x6e, 0xf0], "winter coat"],
-          [7,         [0x12, 0xa5, 0xe8], "medium jacket"],
-          [14,        [0x0c, 0xc0, 0xa0], "light jacket"],
-          [20,        [0x36, 0xc1, 0x2e], "t-shirt / light layer"],
-          [27,        [0xf5, 0xa6, 0x00], "shorts & t-shirt"],
-          [34,        [0xf0, 0x52, 0x10], "hot -- shade, water"],
-          [40,        [0xdc, 0x14, 0x2e], "danger heat -- stay inside if possible"],
+          [-Infinity, [0xff, 0x00, 0xff], "danger cold -- avoid exposed skin"],
+          [-35,       [0xb1, 0x3f, 0xe0], "extreme cold -- down, cover face & hands"],
+          [-25,       [0x7c, 0x5c, 0xf0], "heavy down jacket"],
+          [-12,       [0x2f, 0x7f, 0xe6], "down jacket"],
+          [-2,        [0x12, 0xa5, 0xd8], "winter coat"],
+          [7,         [0x0e, 0xae, 0xa6], "medium jacket"],
+          [14,        [0x3a, 0xbf, 0x4f], "light jacket"],
+          [20,        [0x8f, 0xc7, 0x1f], "t-shirt / light layer"],
+          [27,        [0xef, 0xa6, 0x12], "shorts & t-shirt"],
+          [34,        [0xed, 0x5f, 0x1e], "hot -- shade, water"],
+          [40,        [0xc8, 0x1f, 0x4a], "danger heat -- stay inside if possible"],
         ];
         const tempBand = (t) => TEMP_STOPS.findLast((s) => t >= s[0]) || TEMP_STOPS[0];
         const buildLegend = () => {
           const el = document.getElementById("legend");
-          const fmt = (n) => (n > 0 ? "+" : "") + n + "°";
+          el.replaceChildren();
+          const fmt = (n) => { const v = unit === "f" ? Math.round(n * 9 / 5 + 32) : n; return (v > 0 ? "+" : "") + v + "°"; };
           TEMP_STOPS.forEach(([min, rgb, label], i) => {
             const next = TEMP_STOPS[i + 1];
             const range = min === -Infinity ? "below " + fmt(next[0])
@@ -327,7 +336,14 @@
             const pdoc = window.parent.document;
             const ph1 = pdoc.querySelector("h1");
             const now = days.get(curr.date)?.[curr.hour];
-            if (ph1 && now) ph1.textContent = tempText(now.temp) + "°C";
+            if (ph1 && now) {
+              ph1.textContent = tempText(now.temp) + degSym();
+              const es = pdoc.createElement("span");
+              es.textContent = wmo(now.code, curr.hour).e;
+              es.style.fontSize = "1.3em";
+              es.style.marginLeft = "0.4em";
+              ph1.appendChild(es);
+            }
             const ptime = pdoc.querySelector(".post-meta time");
             if (ptime) { ptime.textContent = curr.date; ptime.setAttribute("datetime", curr.date); }
           }
@@ -383,12 +399,12 @@
             const w = wmo(c.code, h);
             const band = tempBand(c.temp), rgb = band[1];
             td.className = [isToday && "today", past && "past", isNow && "now"].filter(Boolean).join(" ");
-            td.style.background = isNow ? "var(--fg)" : "rgb(" + rgb.join(",") + ")";
-            td.style.color = isNow ? "var(--bg)" : readable(rgb);
-            const tipText = d + " " + String(h).padStart(2, "0") + ":00 · " + w.l +
-              " · " + c.temp + "°C · " + band[2];
-            td.dataset.tip = tipText;
-            td.setAttribute("aria-label", tipText);
+            td.style.background = "rgb(" + rgb.join(",") + ")";
+            td.style.color = readable(rgb);
+            const when = d + " " + String(h).padStart(2, "0") + ":00 · ";
+            const rest = " · " + tempText(c.temp) + degSym() + " · " + band[2];
+            td.dataset.tip = when + w.l + " " + w.e + rest;
+            td.setAttribute("aria-label", when + w.l + rest);
             const ts = document.createElement("span");
             ts.className = "t";
             ts.textContent = tempText(c.temp);
@@ -424,6 +440,7 @@
         return ["N", "NE", "E", "SE", "S", "SW", "W", "NW"][Math.round(deg / 45) % 8];
       };
       const LEVELS = { red: 0, orange: 1, green: 2, info: 3 };
+      const LEVEL_COLOR = { red: "#c81f4a", orange: "#ed5f1e", green: "#3abf4f" };
       const fetchAlerts = (() => {
         const QUAKE_RADIUS_KM = 300, QUAKE_MIN_MAG = 4, QUAKE_DAYS = 1;
         const GDACS_RADIUS_KM = 300;
@@ -560,6 +577,8 @@
         alerts.forEach((a) => {
           const row = document.createElement("a");
           row.href = a.url; row.target = "_blank"; row.rel = "noopener";
+          const lc = LEVEL_COLOR[a.level];
+          if (lc) row.style.borderLeftColor = lc;
           row.appendChild(span("em", a.emoji));
           row.appendChild(span("title", a.title));
           row.appendChild(span("meta", a.distKm ? "~" + a.distKm + " km " + a.bearing : ""));
@@ -647,6 +666,17 @@
         );
       }
       document.getElementById("geo").addEventListener("click", gpsLocate);
+      (() => {
+        const unitSel = document.getElementById("unit");
+        unitSel.value = unit;   // reflect the persisted unit on load
+        unitSel.addEventListener("change", () => {
+          unit = unitSel.value === "f" ? "f" : "c";
+          try { localStorage.setItem("wx-unit", unit); } catch (e) {}
+          buildLegend();
+          if (latestData) render(latestData, computeNow(latestData.utc_offset_seconds));
+          sizeSelf();
+        });
+      })();
       (() => {
         const suggestEl = document.getElementById("suggest");
         let items = [], active = -1, acToken = 0, timer = 0;
