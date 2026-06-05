@@ -186,7 +186,7 @@
           const fe = window.frameElement;
           if (!fe) return;
           const h = document.body.scrollHeight;
-          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + 1 + "px"; }
         }
       })();
       const setStatus = (m) => { statusEl.textContent = m || ""; sizeSelf(); };

@@ -180,8 +180,11 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git log *)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git status)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(grep *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(echo *)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(ls *)&#34;</span>,
-</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rg *)&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(rg *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(npm run *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(npm test *)&#34;</span>
 </span></span><span style=display:flex><span>    ],
 </span></span><span style=display:flex><span>    &#34;deny&#34;: [
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(curl *)&#34;</span>,
@@ -229,7 +232,8 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>    &#34;defaultMode&#34;: <span style=color:#87ceeb>&#34;plan&#34;</span>
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;enabledPlugins&#34;: {
-</span></span><span style=display:flex><span>    &#34;security-guidance@claude-plugins-official&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>    &#34;security-guidance@claude-plugins-official&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>    &#34;frontend-design@claude-plugins-official&#34;: <span style=color:red>true</span>
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;sandbox&#34;: {
 </span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>,
@@ -238,6 +242,7 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>  &#34;effortLevel&#34;: <span style=color:#87ceeb>&#34;xhigh&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,
 </span></span><span style=display:flex><span>  &#34;autoUpdatesChannel&#34;: <span style=color:#87ceeb>&#34;stable&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;skipWorkflowUsageWarning&#34;: <span style=color:red>true</span>,
 </span></span><span style=display:flex><span>  &#34;disableAutoMode&#34;: <span style=color:#87ceeb>&#34;disable&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;theme&#34;: <span style=color:#87ceeb>&#34;light&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;skipAutoPermissionPrompt&#34;: <span style=color:red>false</span>
@@ -274,4 +279,4 @@ Agent tools move too fast; without a fresh benchmark after model or harness
 updates, a third-party skill can quietly make results worse than the
 baseline. Benchmark it continuously or keep it off.&#160;<a href=#fnref:9 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:10><p><a href=https://www.anthropic.com/news/measuring-agent-autonomy target=_blank rel="noopener noreferrer">Agent autonomy</a>
 framed as emergent from model behavior, product design, and user oversight
-strategy.&#160;<a href=#fnref:10 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}});var e=document.createElement("script");e.src="https://cdn.jsdelivr.net/npm/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js",e.onload=()=>{window.GrafanaFaroWebSdk.faro.instrumentations.add(new window.GrafanaFaroWebTracing.TracingInstrumentation)},document.head.appendChild(e)},document.head.appendChild(e)})()</script></body></html>
+strategy.&#160;<a href=#fnref:10 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></footer><script>(function(){var e=document.createElement("script");e.src="https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js",e.crossOrigin="anonymous",e.onload=()=>{window.GrafanaFaroWebSdk.initializeFaro({url:"https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",app:{name:"blog",version:"1.0.0",environment:"production"},sessionTracking:{samplingRate:1,persistent:!0}})},document.head.appendChild(e)})()</script></body></html>

@@ -364,8 +364,11 @@ important.
       "Bash(git log *)",
       "Bash(git status)",
       "Bash(grep *)",
+      "Bash(echo *)",
       "Bash(ls *)",
-      "Bash(rg *)"
+      "Bash(rg *)",
+      "Bash(npm run *)",
+      "Bash(npm test *)"
     ],
     "deny": [
       "Bash(curl *)",
@@ -413,7 +416,8 @@ important.
     "defaultMode": "plan"
   },
   "enabledPlugins": {
-    "security-guidance@claude-plugins-official": true
+    "security-guidance@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
   },
   "sandbox": {
     "enabled": true,
@@ -422,6 +426,7 @@ important.
   "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "autoUpdatesChannel": "stable",
+  "skipWorkflowUsageWarning": true,
   "disableAutoMode": "disable",
   "theme": "light",
   "skipAutoPermissionPrompt": false

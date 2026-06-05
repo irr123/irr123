@@ -3,6 +3,7 @@
   (function () {
     var webSdkScript = document.createElement("script");
     webSdkScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+    webSdkScript.crossOrigin = "anonymous";
     webSdkScript.onload = () => {
       window.GrafanaFaroWebSdk.initializeFaro({
         url: {{ site.Params.grafanaFaro }},
@@ -16,15 +17,6 @@
           persistent: true,
         },
       });
-      var webTracingScript = document.createElement("script");
-      webTracingScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-tracing@2/dist/bundle/faro-web-tracing.iife.js";
-      webTracingScript.onload = () => {
-        window.GrafanaFaroWebSdk.faro.instrumentations.add(
-          new window.GrafanaFaroWebTracing.TracingInstrumentation()
-        );
-      };
-
-      document.head.appendChild(webTracingScript);
     };
 
     document.head.appendChild(webSdkScript);
