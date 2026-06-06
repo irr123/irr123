@@ -18,6 +18,14 @@ build:
 hugo_add:
 	docker run --rm --user $$(id -u):$$(id -g) -v $(PWD)/src:/project ${HUGO} new content content/blog/posts/new-post/index.md
 
+.PHONY: icons
+icons:
+	swift gen-icons.swift
+	for f in apple-touch-icon icon-mask; do \
+		ffmpeg -y -loglevel error -i src/static/$$f.png -pred mixed -compression_level 100 src/static/$$f.opt.png; \
+		mv src/static/$$f.opt.png src/static/$$f.png; \
+	done
+
 .PHONY: format
 format:
 	docker run --rm -it -v $(PWD)/src:/work --user $$(id -u):$$(id -g) jauderho/prettier:latest --write \
