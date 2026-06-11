@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ $.Site.Language.Locale }}">
     {{- partial "head.html" . -}}
-    <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
+    <body a="auto">
         <main class="page-content" aria-label="Content">
             <div class="w" {{ if eq .Params.pagefind false }}data-pagefind-ignore="all"{{ end }}>
                 {{- block "main" . }}{{- end }}
@@ -13,11 +13,5 @@
         {{- partial "yandex_metrika.html" -}}
         {{- partial "meta_pixel.html" -}}
         {{- partial "grafana_faro.html" -}}
-        {{- if .Params.custom_js -}}
-            {{- range .Params.custom_js -}}
-                {{- $js := resources.Get (print "js/" . ".js") | resources.Minify | resources.Fingerprint "sha512" -}}
-                <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
-            {{- end -}}
-        {{- end -}}
     </body>
 </html>

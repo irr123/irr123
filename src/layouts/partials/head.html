@@ -35,10 +35,9 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta property="og:title" content="{{ $pageTitle }}">
   <meta property="og:description" content="{{ $pageSummary }}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{{ if and .IsPage (eq .Section "blog") }}article{{ else }}website{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
   {{- $img := urls.AbsURL site.Params.defaultImg }}
-  <meta property="og:logo" content="{{ $img }}">
   {{- if and .Params.Image (ne .Params.Image "") }}
     {{- $img = urls.JoinPath .Permalink .Params.Image }}
   {{- end }}

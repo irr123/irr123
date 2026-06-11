@@ -49,7 +49,7 @@ section = ["HTML"]
   # ---
   grafanaFaro = "https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf"
   summary = "These data-spirits, my scrap-code prayer, are offered to the Machine God."
-  defaultImg = "img/the-archive.png"
+  defaultImg = "img/the-archive.jpg"
   showFullTextinRSS = false
 
   [params.theme_config]

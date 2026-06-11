@@ -3,3 +3,4 @@ AGENTS.md
 CLAUDE.md
 .claude/
 .playwright-mcp/
+.optimize.stamp
