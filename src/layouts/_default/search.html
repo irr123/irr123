@@ -10,9 +10,7 @@
 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 <pagefind-input></pagefind-input>
 <pagefind-results></pagefind-results>
-<script>
-  addEventListener("DOMContentLoaded", function () {
-    document.querySelector("pagefind-input input")?.focus();
-  });
+<script type="module">
+  document.querySelector("pagefind-input input")?.focus();
 </script>
 {{ end }}

@@ -28,16 +28,8 @@ keywords:
     display: block;
     width: 100%;
     border: 0;
-    /* Reserve the grid's height. The iframe defaults to ~150px, then weather.html
-       sizes it to the full grid on load -- without a reserved height that jump
-       shoves the article down (CLS). The grid is a fixed 24 rows x 8 days +
-       legend, so its height is deterministic per width; the iframe's own JS sets
-       the exact px inline and overrides this value. Tune if it drifts: load the
-       page and read getElementById('wx').style.height. */
     height: 1360px;
   }
-  /* On load the heading is swapped to the live one-line temperature; reserve the
-     wrapped-title height and centre it so the swap doesn't shift the page. */
   header h1 {
     min-height: 9rem;
     display: flex;

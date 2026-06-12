@@ -5,4 +5,4 @@ excludeFromPostList: true
 footer: false
 ---
 
-<script>console.log("https://indieweb.org/blank");</script>
+<script type="module">console.log("https://indieweb.org/blank");</script>

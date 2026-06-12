@@ -6,120 +6,91 @@
     <title>JSON Analyzer</title>
     <meta name="robots" content="noindex,follow" />
     <style>
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px 15px;
-        background-color: #f9f9f9;
+      :root {
+        color-scheme: light dark;
+        --bg: #2a2b2c;
+        --fg: #fefff0;
+        --border: var(--fg);
+        --muted: rgba(254, 255, 240, 0.5);
+        --link: #79a8ff;
+        --visited: #f78fe7;
       }
-      h1 {
-        text-align: center;
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 10px;
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f8f8ff;
+          --fg: #2a2b2c;
+          --border: #2a2b2c;
+          --muted: rgba(42, 43, 44, 0.5);
+          --link: #3548cf;
+          --visited: #8f0075;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font: 18px/1.7 monospace;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0.75rem;
+      }
+      textarea, button {
+        font: inherit;
+        color: var(--fg);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        padding: 0.3rem 0.5rem;
       }
       textarea {
+        display: block;
         width: 100%;
         height: 250px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 14px;
-        box-sizing: border-box;
-        margin-bottom: 10px;
+        margin-bottom: 0.5rem;
       }
       button {
         display: block;
         width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #3498db;
-        border: none;
-        border-radius: 5px;
         cursor: pointer;
-        transition: background-color 0.3s;
       }
-      button:hover {
-        background-color: #2980b9;
-      }
-      #results {
-        margin-top: 20px;
-      }
+      button:hover { background: var(--fg); color: var(--bg); }
+      #results { margin-top: 0.75rem; }
       .error {
-        color: #e74c3c;
-        font-weight: bold;
-        border: 1px solid #e74c3c;
-        background-color: #fbeae5;
-        padding: 10px;
-        border-radius: 5px;
+        color: #e5484d;
+        border: 1px solid #e5484d;
+        padding: 0.3rem 0.5rem;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-top: 0.75rem;
       }
-      th,
-      td {
-        padding: 12px;
+      th, td {
+        padding: 0.3rem 0.5rem;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--muted);
       }
-      th {
-        background-color: #3498db;
-        color: white;
-        position: sticky;
-        top: 0;
-      }
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-      tr:hover {
-        background-color: #eaf5fc;
-      }
-      td:nth-child(1) {
-        font-family: "Courier New", Courier, monospace;
-        word-break: break-all;
-      }
+      th { border-bottom: 1px solid var(--border); }
+      tr:hover td { background: var(--fg); color: var(--bg); }
+      td:nth-child(1) { word-break: break-all; }
       .snippet-cell {
         max-width: 350px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        color: #555;
+        color: var(--muted);
         font-style: italic;
-        font-family: "Courier New", Courier, monospace;
       }
+      tr:hover .snippet-cell { color: inherit; }
       .summary {
-        background-color: #ecf0f1;
-        padding: 15px;
-        border-radius: 5px;
-        border: 1px solid #bdc3c7;
-        margin-top: 20px;
+        border: 1px solid var(--border);
+        padding: 0.75rem;
+        margin-top: 0.75rem;
       }
-      .summary details {
-        margin-top: 10px;
-      }
-      .summary summary {
-        cursor: pointer;
-        font-weight: bold;
-      }
-      .summary table {
-        margin-top: 10px;
-        box-shadow: none;
-        font-size: 0.9em;
-      }
-      .summary th {
-        background-color: #95a5a6;
-      }
+      .summary details { margin-top: 0.5rem; }
+      .summary summary { cursor: pointer; }
+      .summary table { margin-top: 0.5rem; font-size: 0.9em; }
     </style>
   </head>
   <body data-pagefind-ignore="all">
@@ -129,21 +100,20 @@
     </p>
 
     <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
-    <button onclick="analyzeJson(); sizeSelf()">Analyze JSON Weight</button>
+    <button id="analyzeBtn">Analyze JSON Weight</button>
 
     <div id="results"></div>
 
-    <script>
-      // same-origin: size our own iframe to fit content (no parent script/observer/poll)
-      let lastH = 0;
-      function sizeSelf() {
-        try {
+    <script type="module">
+      const sizeSelf = (() => {
+        let lastH = 0;
+        return () => {
           const fe = window.frameElement;
           if (!fe) return;
           const h = document.body.scrollHeight;
-          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
-        } catch (e) {}
-      }
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + 1 + "px"; }
+        }
+      })();
 
       function analyzeJson() {
         const jsonString = document.getElementById("jsonInput").value;
@@ -248,7 +218,7 @@
             <strong>Total JSON Size:</strong> ${totalSize.toLocaleString()} bytes<br>
             <strong>Unique Top-Level Keys:</strong> ${sortedKeys.length.toLocaleString()}<br>
             <strong>Total Fields Analyzed (nodes):</strong> ${data.length.toLocaleString()}
-            <hr style="border:0; border-top: 1px solid #ccc; margin: 10px 0;">
+            <hr style="border:0; border-top: 1px solid var(--muted); margin: 10px 0;">
             ${keyDistributionHTML}
         </div>`;
 
@@ -278,6 +248,10 @@
         tableHTML += `</tbody></table>`;
         resultsDiv.innerHTML = summaryHTML + tableHTML;
       }
+      document.getElementById("analyzeBtn").addEventListener("click", () => {
+        analyzeJson();
+        sizeSelf();
+      });
       sizeSelf();
       addEventListener("resize", sizeSelf);
     </script>

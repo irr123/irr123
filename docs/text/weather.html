@@ -8,6 +8,7 @@
 
     <style>
       :root {
+        color-scheme: light dark;
         --bg: #2a2b2c;
         --fg: #fefff0;
         --border: var(--fg);
@@ -176,7 +177,7 @@
     <div id="legend" aria-label="what to wear by temperature"></div>
     <div id="tip" aria-hidden="true"></div>
 
-    <script>
+    <script type="module">
       const qEl = document.getElementById("q");
       const statusEl = document.getElementById("status");
       const scrollEl = document.getElementById("scroll");
@@ -191,10 +192,9 @@
       })();
       const setStatus = (m) => { statusEl.textContent = m || ""; sizeSelf(); };
       const placeName = (...p) => p.filter(Boolean).join(", ");
-      // Temps are always fetched & banded in Celsius; `unit` only changes display.
       let unit = (() => { try { return localStorage.getItem("wx-unit") === "f" ? "f" : "c"; } catch (e) { return "c"; } })();
       const degSym = () => (unit === "f" ? "°F" : "°C");
-      const tempText = (c) => String(Math.round(unit === "f" ? c * 9 / 5 + 32 : c));   // display rounds; c stays precise for banding
+      const tempText = (c) => String(Math.round(unit === "f" ? c * 9 / 5 + 32 : c));
       const getJson = async (url, label) => {
         const r = await fetch(url);
         if (!r.ok) throw new Error(label + " " + r.status + ": " + (await r.text()));
@@ -668,7 +668,7 @@
       document.getElementById("geo").addEventListener("click", gpsLocate);
       (() => {
         const unitSel = document.getElementById("unit");
-        unitSel.value = unit;   // reflect the persisted unit on load
+        unitSel.value = unit;
         unitSel.addEventListener("change", () => {
           unit = unitSel.value === "f" ? "f" : "c";
           try { localStorage.setItem("wx-unit", unit); } catch (e) {}

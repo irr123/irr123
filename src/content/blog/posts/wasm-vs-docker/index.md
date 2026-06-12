@@ -36,10 +36,10 @@ WASD, Esc.
 
 ###### The thing that weighs less than a base image
 
-<div id="stanica-play" style="width:100%;height:540px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#111;color:#999;font-size:0.9rem;user-select:none;">▶ play in browser · 35 MB</div>
-<script>
+<div id="stanica-play" style="width:100%;height:540px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--fg);color:var(--bg);font-size:0.9rem;user-select:none;">▶ play in browser · 35 MB</div>
+<script type="module">
   document.getElementById("stanica-play").addEventListener("click", function () {
-    var f = document.createElement("iframe");
+    const f = document.createElement("iframe");
     f.src = "https://pub-cab470135ad64bbf9490e4c1ce5fa431.r2.dev/stanica/index.html";
     f.style.cssText = "width:100%;border:none;height:540px;display:block;";
     this.replaceWith(f);

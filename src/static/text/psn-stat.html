@@ -4,13 +4,35 @@
     <meta charset="UTF-8" />
     <title>Top PlayStation Games</title>
     <meta name="robots" content="noindex,follow" />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script defer src="https://d3js.org/d3.v7.min.js"></script>
     <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #2a2b2c;
+        --fg: #fefff0;
+        --border: var(--fg);
+        --muted: rgba(254, 255, 240, 0.5);
+        --link: #79a8ff;
+        --visited: #f78fe7;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f8f8ff;
+          --fg: #2a2b2c;
+          --border: #2a2b2c;
+          --muted: rgba(42, 43, 44, 0.5);
+          --link: #3548cf;
+          --visited: #8f0075;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; }
       body {
-        font-family: "Inter", sans-serif;
-        color: #333;
-        margin: 0;
-        padding: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 18px/1.7 monospace;
+        padding: 0.75rem;
       }
       h1 {
         margin: 0;
@@ -18,14 +40,8 @@
         font-size: 14px;
       }
       svg {
-        font:
-          11px "Inter",
-          sans-serif;
-      }
-      .bar {
-        rx: 5;
-        ry: 5;
-        transition: all 0.25s ease;
+        font: 11px monospace;
+        color: var(--fg);
       }
       .bar:hover {
         opacity: 0.8;
@@ -33,32 +49,24 @@
       }
       .label {
         font-size: 11px;
-        fill: #222;
-        font-weight: 600;
+        fill: var(--fg);
       }
-      .axis-label {
-        font-weight: 500;
-      }
-      .chart-container {
-        background: white;
-        margin: 0 auto;
-      }
+      .chart-container { margin: 0 auto; }
     </style>
   </head>
   <body data-pagefind-ignore="all">
     <h1>Top PlayStation Games by Play Duration — <i>138 days</i>, 4:21:40</h1>
     <div class="chart-container"><svg></svg></div>
-    <script>
-      // same-origin: size our own iframe to fit content (no parent script/observer/poll)
-      let lastH = 0;
-      function sizeSelf() {
-        try {
+    <script type="module">
+      const sizeSelf = (() => {
+        let lastH = 0;
+        return () => {
           const fe = window.frameElement;
           if (!fe) return;
           const h = document.body.scrollHeight;
-          if (h && h !== lastH) { lastH = h; fe.style.height = h + "px"; }
-        } catch (e) {}
-      }
+          if (h && h !== lastH) { lastH = h; fe.style.height = h + 1 + "px"; }
+        }
+      })();
 
       let data = [
         {
