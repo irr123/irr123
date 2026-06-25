@@ -3,6 +3,10 @@
 
 {{ if ne ($p.Params.footer) false }}
 <footer class="site-footer">
-  <a target="_blank" rel="noopener noreferrer external" href="https://newsletter.bogomolov.work">Newsletter</a> | <a target="_blank" rel="noopener noreferrer external" href="/index.xml">RSS</a>
+  {{ if and $p.IsPage (eq $p.Section "blog") }}
+  {{ $subject := replace (printf "Re: %s" $p.Title | urlquery) "+" "%20" }}
+  <span class="reply">Reply via <a href="{{ printf "mailto:ivan.invoke@bogomolov.work?subject=%s" $subject | safeURL }}">Email</a></span>
+  {{ end }}
+  <span class="links"><a href="/privacy/">Privacy</a> | <a target="_blank" rel="noopener noreferrer external" href="https://newsletter.bogomolov.work">Newsletter</a> | <a target="_blank" rel="noopener noreferrer external" href="/index.xml">RSS</a></span>
 </footer>
 {{ end }}

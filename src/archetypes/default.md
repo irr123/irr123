@@ -5,5 +5,4 @@ draft: false
 title: {{replace .File.ContentBaseName "-" " " | title}}
 description: ""
 image: ""
-keywords: []
 ---

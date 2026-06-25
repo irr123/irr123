@@ -6,19 +6,6 @@ title: Will AI replace developers? Anthropic is hiring
 description:
   "Anthropic's CEO says AI will replace developers — and the company has 150+
   open engineering roles, six months per senior hire. Actions vs. claims."
-keywords:
-  - will AI replace developers
-  - AI replacing programmers
-  - future of software development
-  - AI vs human coders
-  - Anthropic hiring
-  - Dario Amodei predictions
-  - AI software engineering jobs
-  - AI job automation
-  - programming jobs future
-  - AI in tech industry
-  - AI software developer market
-  - can AI replace software engineers
 image: robot.jpg
 ---
 

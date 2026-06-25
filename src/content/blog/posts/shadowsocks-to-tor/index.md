@@ -7,19 +7,6 @@ description:
   "Shadowsocks in TUN mode falls apart as a VPN replacement: broken inter-client
   routing, no system-wide tunnel on Windows. WireGuard ended up doing the job."
 image: "pic.png"
-keywords:
-  - Shadowsocks
-  - Shadowsocks to Tor
-  - SOCKS5 proxy
-  - Tor TUN mode
-  - Shadowsocks Ansible
-  - censorship circumvention
-  - Shadowsocks vs WireGuard
-  - self-hosted proxy on VPS
-  - iptables Tor routing
-  - Tor exit through VPS
-  - failed VPN alternative
-  - privacy networking on VPS
 ---
 
 Well, the time has come, and I've decided to update, clean up, and generally

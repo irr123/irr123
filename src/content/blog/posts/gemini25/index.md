@@ -7,19 +7,6 @@ description:
   "Gemini 2.5 Pro one-shotting a p5.js endless runner from a single prompt. Full
   transcript and the playable result inline."
 image: "t-rex.png"
-keywords:
-  - Gemini 2.5 Pro
-  - Google Gemini
-  - AI code generation
-  - prompt to code
-  - p5.js game
-  - endless runner game
-  - AI game development
-  - LLM coding capabilities
-  - creative coding with AI
-  - AI reasoning benchmarks
-  - one-shot game prompt
-  - pixel art game
 ---
 
 > 2.5 Pro can use its reasoning capabilities to create a video game by producing

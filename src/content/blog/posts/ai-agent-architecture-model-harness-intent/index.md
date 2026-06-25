@@ -7,20 +7,6 @@ description:
   "Where AI agents break: hidden intent. Plan-mode loops keep humans in control;
   opaque harnesses bury the failures. A frame for model, harness, intent."
 image: hero.png
-keywords:
-  - AI agent architecture
-  - model harness intent
-  - agent harness
-  - agentic loop
-  - ReAct pattern
-  - Plan-Then-Execute
-  - context engineering
-  - sub-agent
-  - Claude Code
-  - OpenCode
-  - what is an AI agent
-  - intent decomposition
-  - AI coding tools
 ---
 
 My VPS runs a "personal AI agent". It forgets its own abilities every morning.

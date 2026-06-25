@@ -6,18 +6,6 @@ title: A minimal Python3 Dockerfile with uv
 description:
   "uv collapses Python image build time in CI compared to pip. A minimal
   multi-stage Dockerfile, the lockfile dance, and what to skip locally."
-keywords:
-  - uv
-  - Dockerfile
-  - Python Docker image
-  - uv package manager
-  - uv vs pip
-  - uv in Docker
-  - fast Python package manager
-  - Rust-based pip alternative
-  - multi-stage Dockerfile uv
-  - minimal Python container
-  - uv lockfile in Docker
 image: posts-docker-uv-1.jpg
 ---
 

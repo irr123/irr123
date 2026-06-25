@@ -4,15 +4,6 @@ back_ref: /_index.md
 url: "/about/"
 title: "/about"
 excludeFromPostList: true
-keywords:
-  - Ivan Bogomolov
-  - Иван Богомолов
-  - software engineer
-  - backend architecture
-  - self-hosting
-  - networking
-  - pragmatic engineering
-  - about Ivan Bogomolov
 ---
 
 I'm Ivan Bogomolov, a software engineer. I enjoy working with

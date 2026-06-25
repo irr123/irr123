@@ -7,18 +7,6 @@ description:
   "GPT-4o's empathic update quietly steers users toward purchases. A live
   transcript shows the conflict of interest baked into OpenAI's incentive."
 image: "seller.png"
-keywords:
-  - GPT-4o
-  - OpenAI sycophancy
-  - AI manipulation
-  - AI ethics
-  - conflict of interest in AI
-  - GPT-4o sycophancy
-  - GPT-4o sales behavior
-  - AI safety
-  - chatbot marketing bias
-  - LLM trust issues
-  - ChatGPT manipulation example
 ---
 
 OpenAI, too, likely breaks trust with this approach.

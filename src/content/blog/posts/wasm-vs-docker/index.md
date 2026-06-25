@@ -9,17 +9,6 @@ description:
   WebAssembly is 35MB. The default Node.js Docker image is hundreds of MB,
   pulled 19 million times last week."
 image: hero.png
-keywords:
-  - WebAssembly
-  - WASM
-  - Docker
-  - container images
-  - WASI
-  - Godot
-  - Kubernetes
-  - Fargate
-  - runwasi
-  - server-side WASM
 ---
 
 I exported a game skeleton to WebAssembly a few hours ago and was surprised by

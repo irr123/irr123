@@ -6,19 +6,6 @@ title: "Search engine indexing: Google, Bing, Yandex"
 description:
   "Three months fighting Google, Bing, and Yandex to index a fresh domain. Bing
   barely tries; Yandex cooperates; Google takes its time. Tactics that worked."
-keywords:
-  - search engine indexing
-  - Google Search Console
-  - Bing Webmaster Tools
-  - Yandex Webmaster
-  - sitemap submission
-  - new domain indexing
-  - SEO case study
-  - Google vs Bing vs Yandex indexing
-  - get site indexed
-  - robots.txt indexing
-  - crawl budget small site
-  - indexing a personal blog
 image: robots.jpg
 ---
 

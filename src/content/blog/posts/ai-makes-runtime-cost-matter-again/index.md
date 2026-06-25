@@ -7,17 +7,6 @@ description:
   "Cloud exposes runtime cost. AI lowers code-production cost. That changes the
   unit economics of programming languages."
 image: hero.png
-keywords:
-  - Hetzner
-  - AWS
-  - AI coding
-  - runtime cost
-  - cloud cost
-  - Fargate pricing
-  - Node.js Fargate
-  - backend language economics
-  - Go backend
-  - Rust backend
 ---
 
 AI made me reopen a boring question: why am I still paying Fargate rent for V8?

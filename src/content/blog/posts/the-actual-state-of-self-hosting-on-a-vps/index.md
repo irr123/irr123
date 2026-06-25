@@ -7,20 +7,6 @@ description:
   "K3s loses to Docker Compose on a 1GB VPS — and Podman with Quadlet beats
   both. Rootless, systemd-native, near-zero idle memory. Numbers, not vibes."
 image: cursed_Kubernetes_cathedral.png
-keywords:
-  - self-hosting on a VPS
-  - Docker Compose vs K3s
-  - K3s on a small VPS
-  - rootless Podman
-  - Podman Quadlet
-  - systemd containers
-  - container orchestration on small VPS
-  - boring infrastructure
-  - 1GB VPS self-hosting
-  - Docker Compose deprecation
-  - DevOps pragmatism
-  - price-sensitive infra
-  - container runtime comparison
 ---
 
 I recently ran into a claim: Docker Compose is outdated and K3s is the king for

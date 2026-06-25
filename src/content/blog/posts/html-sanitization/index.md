@@ -7,19 +7,6 @@ description:
   "Sanitizing HTML on both ingest and output renders literal `&amp;` in the UI.
   Fix: store raw Unicode, sanitize once. Pattern for React, Next.js, NestJS."
 image: "sanitization.png"
-keywords:
-  - HTML sanitization
-  - double encoding
-  - double escaping
-  - XSS prevention
-  - sanitize on ingest
-  - sanitize on output
-  - React XSS
-  - Next.js sanitization
-  - NestJS sanitization
-  - character entity double-escape
-  - web security audit
-  - DOMPurify
 ---
 
 Once upon a time, I went through another security audit on a project that wasn't

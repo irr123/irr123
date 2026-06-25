@@ -8,18 +8,6 @@ description:
   follow-ups. Triage what's worth deep-reading in minutes — and watch the
   hallucinations."
 image: "img.png"
-keywords:
-  - querying documents with LLMs
-  - LLM document analysis
-  - AI-assisted reading
-  - non-linear reading
-  - knowledge extraction with LLM
-  - prompt-based document review
-  - triage technical docs with AI
-  - read PDF with LLM
-  - AI for technical documentation
-  - document Q&A with LLM
-  - LLM as search over docs
 ---
 
 Reading a technical doc cover-to-cover is like running a full table scan. A

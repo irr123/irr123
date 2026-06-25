@@ -7,17 +7,6 @@ description:
   "A free QR code generator that gives you SVG and PNG without registration,
   OAuth, or paywalls. Runs client-side; only pageviews get tracked."
 image: "qrcode.png"
-keywords:
-  - QR code generator
-  - free QR code generator
-  - online QR code
-  - SVG QR code
-  - PNG QR code
-  - QR code without registration
-  - QR code maker
-  - download QR code SVG
-  - QR code generator no signup
-  - client-side QR code
 ---
 
 What a shame -- nowadays, one quick request to GPT spits out a proper HTML page

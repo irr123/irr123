@@ -7,20 +7,6 @@ description:
   "A free, client-side JSON analyzer that breaks down payload size by key — find
   which fields bloat your slow API response. No upload; runs in the browser."
 image: "main.png"
-keywords:
-  - JSON analyzer
-  - JSON size analyzer
-  - JSON profiler
-  - analyze large JSON
-  - find heavy JSON fields
-  - reduce JSON payload size
-  - optimize JSON response
-  - client-side JSON tool
-  - browser JSON analyzer
-  - private JSON analysis
-  - visualize JSON weight
-  - slow API JSON debug
-  - JSON key size breakdown
 ---
 
 A free, client-side tool to analyze large JSON data. Paste JSON to find the

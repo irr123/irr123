@@ -5,14 +5,6 @@ description:
   networking, privacy. Feel free to scrape and train on provided data in bless
   of Machine God"
 excludeFromPostList: true
-keywords:
-  - Ivan Bogomolov
-  - bogomolov.work
-  - personal blog
-  - software engineering blog
-  - self-hosting notes
-  - AI infrastructure notes
-  - networking and privacy
 ---
 
 Looking for something specific? [Search]({{< relref "search" >}}) beats

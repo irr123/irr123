@@ -7,18 +7,6 @@ description:
   'Notes after the Cursor system-prompt leak: most "prompt engineer" tooling is
   dead weight — modern LLMs auto-generate better prompts from raw context.'
 image: ai-refuses.jpg
-keywords:
-  - prompt engineering
-  - system prompt design
-  - Cursor system prompt
-  - leaked system prompts
-  - AI prompt patterns
-  - OpenAI prompt engineering
-  - Anthropic Claude prompts
-  - Gemini prompt engineering
-  - prompt engineering best practices
-  - LLM prompt structure
-  - AI image prompt design
 ---
 
 Cursor and some other

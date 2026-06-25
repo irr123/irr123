@@ -8,17 +8,6 @@ description:
   prettier-plugin-go-template. A small Docker setup so neither tool has to live
   on your host."
 image: "hugo-code-formatting.png"
-keywords:
-  - Hugo
-  - Prettier
-  - Hugo template formatting
-  - prettier-plugin-go-template
-  - format Hugo templates
-  - Hugo Prettier integration
-  - Hugo Docker formatter
-  - static site formatter
-  - .prettierrc for Hugo
-  - Hugo template Prettier
 ---
 
 I like my code nicely formatted, and since I'm using Hugo here 👇, I figured it

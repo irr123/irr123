@@ -6,20 +6,6 @@ title: Go DI container vs. service template generator
 description:
   "DI containers beat service-template generators in Go on the long arc: typed,
   consistent, and immune to the slow drift template-spawned services suffer."
-keywords:
-  - Go dependency injection
-  - DI container
-  - service template
-  - Go microservices
-  - Go project structure
-  - inversion of control Go
-  - Go IoC
-  - DI vs service template
-  - Go service generator
-  - microservices best practices
-  - Go architecture patterns
-  - Go DI example
-  - Go boilerplate generator
 image: morpheus.jpg
 ---
 

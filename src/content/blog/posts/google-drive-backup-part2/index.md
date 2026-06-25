@@ -6,19 +6,6 @@ title: Encrypted Google Drive backup with rclone crypt (part 2)
 description:
   "Part 2: encrypt the rclone backup with crypt, mirror to Dropbox for offsite
   redundancy. A boring, restorable disaster-recovery plan that costs nothing."
-keywords:
-  - rclone crypt
-  - encrypted cloud backup
-  - Google Drive to Dropbox
-  - rclone backup encryption
-  - secure cloud backup
-  - offsite backup
-  - Dropbox backup
-  - rclone encrypted remote
-  - restoring encrypted backups
-  - backup encryption best practices
-  - multi-cloud backup
-  - rclone Dropbox setup
 image: suit-2.jpg
 ---
 

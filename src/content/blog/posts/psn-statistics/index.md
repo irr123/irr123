@@ -7,17 +7,6 @@ description:
   "An open-source script that pulls PlayStation playtime, completion, and the
   games gathering dust. Patches welcome — and the data is humbling."
 image: "astro-bot.png"
-keywords:
-  - PlayStation statistics
-  - PSN stats
-  - PSN API
-  - PlayStation play time tracker
-  - unplayed PS5 games
-  - PSN gaming hours
-  - open-source PSN tool
-  - PlayStation library stats
-  - check PS5 hours played
-  - PSN stats CLI
 ---
 
 <!-- ![test](astro-bot.png) -->

@@ -230,15 +230,20 @@ blockquote p {
   max-width: var(--content-w);
   margin: 0 auto;
 }
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-top: 0.5rem;
+}
+.site-footer .links {
+  margin-left: auto;
+}
 @media (max-width: 640px) {
   .w,
   .site-footer {
     padding: 0 var(--mobile-pad);
   }
-}
-.site-footer {
-  text-align: right;
-  padding-top: 0.5rem;
 }
 
 :is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) pagefind-input .pf-input {

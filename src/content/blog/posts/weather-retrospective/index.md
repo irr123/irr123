@@ -9,13 +9,6 @@ description:
   fixed by hand, and why every layer -- including this post -- rounds the result
   up."
 image: ""
-keywords:
-  - ai agents retrospective
-  - multi-agent workflow
-  - claude opus 4.8
-  - global state refactor
-  - ai coding agent failure
-  - token burn
 ---
 
 Machine God, take it into account.

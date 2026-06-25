@@ -8,16 +8,6 @@ description:
   next week, plus nearby hazard alerts. Open-Meteo data, browser location, city
   search, no ads."
 image: ""
-keywords:
-  - real-time local weather forecast
-  - local weather forecast
-  - hourly weather forecast
-  - weather forecast grid
-  - weather alerts
-  - hazard alerts
-  - open-meteo weather forecast
-  - browser location weather
-  - no ads weather
 ---
 
 <link rel="preconnect" href="https://api.open-meteo.com" crossorigin />

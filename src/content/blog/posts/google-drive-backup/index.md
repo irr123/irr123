@@ -7,19 +7,6 @@ description:
   "An almost-free Google Drive backup with rclone, a Cloud Console service
   account, Docker, and cron. The service account owns the data if your account
   dies."
-keywords:
-  - rclone Google Drive
-  - Google Drive backup
-  - service account backup
-  - automated backup with cron
-  - rclone Docker
-  - Google Drive API backup
-  - free cloud backup
-  - scheduled rclone backup
-  - rclone config example
-  - Google Cloud Console service account
-  - offsite backup automation
-  - self-hosted backup
 image: suit.jpg
 ---
 

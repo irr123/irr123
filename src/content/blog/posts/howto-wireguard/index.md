@@ -7,20 +7,6 @@ description:
   "A private WireGuard VPN connecting laptop, phone, and servers, with selective
   Tor routing for browser traffic only. Configs for Ubuntu, Windows, and Podman."
 image: hero.jpg
-keywords:
-  - WireGuard
-  - WireGuard VPN
-  - selective Tor routing
-  - WireGuard with Tor
-  - private VPN setup
-  - Ubuntu WireGuard server
-  - WireGuard Windows client
-  - Podman Tor container
-  - VPN with Tor exit
-  - WireGuard sysctl tuning
-  - self-hosted VPN
-  - split tunneling Tor
-  - WireGuard mobile client
 ---
 
 When planning a VPN, _OpenVPN_ is often the default choice. However, in this
