@@ -116,7 +116,7 @@ a {
 }
 
 :is(p, li, pre, video, details, figure, table, blockquote) {
-  margin: 0.8rem 0 0 0;
+  margin: var(--mobile-pad) 0 0 0;
 }
 
 ul {
@@ -233,8 +233,8 @@ blockquote p {
 .site-footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  padding-top: 0.5rem;
+  gap: var(--mobile-pad) 1rem;
+  margin: var(--mobile-pad) auto 0 auto;
 }
 .site-footer .links {
   margin-left: auto;
@@ -247,7 +247,7 @@ blockquote p {
 }
 
 :is(*, #\#):is(*, #\#):is(*, #\#):is(*, #\#) pagefind-input .pf-input {
-  margin-bottom: 0.8rem !important;
+  margin-bottom: var(--mobile-pad) !important;
   border-width: 0 0 1px 0;
   box-shadow: none;
 }
