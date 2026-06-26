@@ -9,4 +9,4 @@ excludeFromPostList: true
 Only https://grafana.com/oss/faro/ in use here, basic error reporting, no ads or
 so. Cloud collector in eu-west-2.
 
-The newsletter managed by/follows https://www.beehiiv.com/privacy goes there.
+The newsletter follows https://www.beehiiv.com/privacy.
