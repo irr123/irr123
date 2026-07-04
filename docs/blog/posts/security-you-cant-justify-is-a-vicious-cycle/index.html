@@ -1,0 +1,47 @@
+<!doctype html><html lang=en-US><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Security you can't justify is a vicious cycle | Dependabot is...</title><meta name=description content="Dependabot is on fire, the model yells, the meeting says add TLS. Fine. Is this stopping an attacker, or feeding a checklist?"><link rel=canonical href=https://bogomolov.work/blog/posts/security-you-cant-justify-is-a-vicious-cycle/><link rel=alternate type=application/rss+xml href=/index.xml title="The Archive"><link rel=icon href=/favicon.ico sizes=32x32><link rel=icon href=/icon.svg type=image/svg+xml><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><meta property="og:title" content="Security you can't justify is a vicious cycle"><meta property="og:description" content="Dependabot is on fire, the model yells, the meeting says add TLS. Fine. Is this stopping an attacker, or feeding a checklist?"><meta property="og:type" content="article"><meta property="og:url" content="https://bogomolov.work/blog/posts/security-you-cant-justify-is-a-vicious-cycle/"><meta property="og:image" content="https://bogomolov.work/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:creator content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/security-you-cant-justify-is-a-vicious-cycle/"><meta name=twitter:title content="Security you can't justify is a vicious cycle"><meta name=twitter:description content="Dependabot is on fire, the model yells, the meeting says add TLS. Fine. Is this stopping an attacker, or feeding a checklist?"><meta name=twitter:image content="https://bogomolov.work/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero.png"><meta name=theme-color content="#2a2b2c"><link rel=stylesheet href=/css/main.min.a46fa85d9c213931f321919f4500a25f3f321caf97c559127fcc1fb655604f8ca32ccd8c9e70e3930ac22865c5bcb8353a6af8b4de8ab03b251516fa73b9a2e1.css integrity="sha512-pG+oXZwhOTHzIZGfRQCiXz8yHK+XxVkSf8wftlVgT4yjLM2MnnDjkwrCKGXFvLg1Omr4tN6KsDslFRb6c7mi4Q=="><link rel=preconnect href=https://cdn.jsdelivr.net><link rel=preconnect href=https://faro-collector-prod-eu-west-2.grafana.net crossorigin></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><p><a href=/blog/ aria-label="Go back" title="Go back">← Back</a></p><p><time datetime=2026-07-02T15:03:27+00:00>2026-07-02</time></p></div><header><h1>Security you can't justify is a vicious cycle</h1></header><article><p>I’ve already written about <a href=/blog/posts/html-sanitization/>compliance
+security</a> – here’s the
+adversarial round.</p><p>Dependabot continuously DDoSes me with a wall of pull requests. <code>npm audit</code>
+always paints <code>X high-severity vulnerabilities</code>. And a devops engineer, now and
+then, starts arguing that our microservices – inside one locked-down AWS VPC –
+should really talk over TLS.</p><figure><a href=/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero.png target=_blank><picture><source srcset=/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero_hu_4c2e49ec23a63bbe.webp type=image/webp><source srcset=/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero_hu_66446e288fccca08.jpg type=image/jpeg><img src=/blog/posts/security-you-cant-justify-is-a-vicious-cycle/hero_hu_66446e288fccca08.jpg alt="a dim bureaucratic engineering review room rendered like a grim technical cathedral. Automated scanner alerts, dependency update cards, CVSS badges, and compliance checklists are stacked like holy relics. In the center is an empty evidence table: no exploit trace, no attacker path, no threat model. A small network diagram of microservices inside a locked-down VPC sits nearby, surrounded by red warning slips and unanswered question marks" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>Different mouths, one noise: <strong>add more security, now.</strong> Not one of them showed
+me an attacker. Not one showed me the threat.</p><p>That’s the tell. A vulnerability is worth acting on when you can show the code
+that exploits it. Everything else – the red banner, the CVSS score, the “we
+should really” – is a personal take. Mostly marketing. Adding security you
+can’t justify isn’t rigor – it’s security theater. And it’s a vicious cycle.</p><h2 id=talk-is-cheap-show-me-the-code><a href=#talk-is-cheap-show-me-the-code>#</a> Talk is cheap. Show me the code.<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></h2><p>A working proof of concept is proof. A severity score is a claim. A scanner
+label is a claim. Someone’s opinion is a claim. Claims are cheap – generate a
+thousand a day, no code required. The PoC is the tax that separates the real
+from the loud.</p><p>Watch a claim meet the tax. A hyped model scanned curl and reported five
+<em>confirmed</em> vulnerabilities; after the security team looked, one was
+real.<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup> The label said confirmed. The code said otherwise.</p><h2 id=never-update-dependencies-unless-it-breaks-for-your-users><a href=#never-update-dependencies-unless-it-breaks-for-your-users>#</a> Never update dependencies unless it breaks for your users.<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></h2><p>Brainlessly following automated-tool guidance is a security risk. Brainlessly
+adding a dependency to your code or infra is a security risk.</p><p>Supply chain: attackers force-pushed malicious commits to 75 of 76 tags of the
+<em>official</em> Trivy Action and turned it into a credential stealer.<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup> That
+proof never came from the red banner.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>None of this is anti-tooling; the enemy isn’t the scanner or the model. It’s
+treating a claim as a verdict – a UI/UX problem in the tools, and blind
+obedience to decade-old compliance checklists.</p><p>So I’ve started to understand the projects that refuse AI contributions.</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Linus Torvalds, linux-kernel mailing list, 25 August 2000.
+<a href=http://lkml.org/lkml/2000/8/25/132 target=_blank rel="noopener noreferrer">http://lkml.org/lkml/2000/8/25/132</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>Daniel Stenberg, “Mythos finds a curl vulnerability”, daniel.haxx.se,
+2026-05-11.
+<a href=https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/ target=_blank rel="noopener noreferrer">https://daniel.haxx.se/blog/2026/05/11/mythos-finds-a-curl-vulnerability/</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p>Mitchell Hashimoto: “Fork your dependencies, trim them to only your use
+case, never update unless it breaks for your users.”
+<a href=https://x.com/mitchellh/status/2057171518027887035 target=_blank rel="noopener noreferrer">https://x.com/mitchellh/status/2057171518027887035</a>.&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p>Stephen Thoemmes, “Trivy GitHub Actions Supply Chain Compromise”, Snyk.
+<a href=https://snyk.io/articles/trivy-github-actions-supply-chain-compromise/ target=_blank rel="noopener noreferrer">https://snyk.io/articles/trivy-github-actions-supply-chain-compromise/</a>&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><span class=reply>Reply via <a href="mailto:ivan.invoke@bogomolov.work?subject=Re%3A%20Security%20you%20can%27t%20justify%20is%20a%20vicious%20cycle">Email</a></span>
+<span class=links><a href=/privacy/>Privacy</a> | <a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></span></footer><script type=module>
+  const webSdkScript = document.createElement("script");
+  webSdkScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+  webSdkScript.crossOrigin = "anonymous";
+  webSdkScript.onload = () => {
+    window.GrafanaFaroWebSdk.initializeFaro({
+      url: "https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",
+      app: {
+        name: "blog",
+        version: "1.0.0",
+        environment: "production",
+      },
+      sessionTracking: {
+        samplingRate: 1,
+        persistent: true,
+      },
+    });
+  };
+
+  document.head.appendChild(webSdkScript);
+</script></body></html>
