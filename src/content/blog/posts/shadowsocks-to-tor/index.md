@@ -9,34 +9,28 @@ description:
 image: "pic.png"
 ---
 
-Well, the time has come, and I've decided to update, clean up, and generally
-re-think my "home" infrastructure. This part is only about a (mostly _failed_)
-networking setup.
+I started cleaning up my home infrastructure and tried to make Shadowsocks act
+like a VPN. It failed in the parts I needed most.
 
-What do I have and what do I want? I have a few virtual private servers (VPS)
-from different hosting providers, a Raspberry Pi, a PlayStation, some PCs at
-home, and mobile phones. The goal is to set up simple monitoring of the VPSs,
-build a dashboard on the Raspberry Pi, and have the ability to deploy services
-without constantly worrying about security. I also want to occasionally access
-the internet from third-party regions and IP addresses, with the ability to add
-more infrastructure without pain. Something similar to the scheme below:
+My pile: a few VPSs from different hosts, a Raspberry Pi, a PlayStation, some
+PCs, and phones. I want simple VPS monitoring, a Raspberry Pi dashboard, and a
+safe way to deploy services. I also want traffic exit points in other regions
+and IP ranges. Scheme below:
 
 ![Network topology diagram for Shadowsocks and Tor setup](pic.png)
 
-And because it's a truly multi-tenant setup involving many different internet
-service providers, I want to make it reliable and free from ISP spying. That's
-why I explored using Shadowsocks (specifically `sslocal` in _TUN mode_) to
-create a VPN-like routed network. A main selling point of Shadowsocks is its
-ability to circumvent censorship, which aligns with my requirements. So, here's
-the story (as there isn't much information available about Shadowsocks in this
-particular action).
+Because the setup crosses several ISPs, I want it reliable and private from each
+provider. That's why I tried Shadowsocks, specifically `sslocal` in _TUN mode_,
+as a VPN-like routed network. Shadowsocks is built for censorship resistance,
+which overlaps with my needs. There isn't much written about this exact use, so
+here is the failure log.
 
 For those in a hurry, here are the prepared Ansible playbooks:
 https://github.com/irr123/shadowsocks-to-tor
 
 ## Tor daemon
 
-I started with the simplest part -- setting up Tor. Tor needs no long intro; at
+I started with the simplest part: setting up Tor. Tor needs no long intro; at
 least the Tor Browser is familiar enough. In my case, I only needed to set up
 the daemon (without the browser) and route the VPN's external traffic through
 it. (Spoiler: this part works almost
@@ -67,14 +61,12 @@ torify curl https://check.torproject.org | grep "Congrat"
 Congratulations. This browser is configured to use Tor.
 ```
 
-Simple enough, Tor is too mature technology to introduce issues in default
-configuration.
+Simple enough. Tor is mature enough that the default path didn't fight me.
 
 ## Shadowsocks
 
-I'm using the Rust implementation, which consists of several components (and
-it's quite problematic to initially clarify what each of them is responsible
-for, based on their docs):
+I use the Rust implementation. It has several components, and the docs make the
+split harder to learn than it should be:
 
 - **ssserver**: Actually a service that accepts client connections and forwards
   traffic externally.
@@ -91,13 +83,12 @@ for, based on their docs):
 
 ### Shadowsocks server config
 
-The docs provide many different
+The docs provide many
 [installation options](https://github.com/shadowsocks/shadowsocks-rust#build--install),
 from regular Linux repos and snaps to Docker images and self-built binaries. I
-decided to use pre-built binaries from github releases page. The same applies to
-managing the service lifecycle -- systemd, supervisord, self-managed,
-Docker/k8s; systemd is my choice. Here's the systemd unit file at
-`/etc/systemd/system/shadowsocks-server.service`:
+use pre-built binaries from the GitHub releases page. Same for service
+lifecycle: systemd, supervisord, self-managed, Docker/k8s. I use systemd. Here
+is the unit file at `/etc/systemd/system/shadowsocks-server.service`:
 
 ```ini
 [Unit]
@@ -151,7 +142,7 @@ ssservice genkey --encrypt-method chacha20-ietf-poly1305
 
 Then, copy the output and paste it as the value for the "password" field above.
 
-Enable and start the service; that's almost all:
+Enable and start the service:
 
 ```bash
 systemctl enable shadowsocks-server.service
@@ -201,18 +192,16 @@ IP address from the Tor network.
 
 ## Where Shadowsocks failed as a VPN
 
-In general, this might be a good enough setup for particular cases. For example,
-when checking https://dnsleaktest.com, DNS requests are not leaking through the
-Shadowsocks-Tor setup. WebRTC, on the other hand, could expose my real address;
-potential solutions might involve aggressive measures like blocking all UDP
-traffic, which I wasn't prepared to do.
+This can work for narrow cases. https://dnsleaktest.com showed no DNS leaks
+through the Shadowsocks-Tor setup. WebRTC could still expose my real address.
+Blocking all UDP might help, but I wasn't ready to do that.
 
-Another disadvantage -- this setup doesn't reliably resolve `.onion` addresses
-for the end client, while on the VPS it works. On the client, it somehow fails.
-(I didn't dig too deeply into this because of a more significant issue for me).
+Another disadvantage: this setup doesn't reliably resolve `.onion` addresses for
+the end client, while on the VPS it works. On the client, it somehow fails. I
+didn't dig deeply because a bigger issue blocked the setup.
 
-Fun and less important, but confusing - the Shadowsocks icon for some clients is
-too similar to the Telegram icon. Gets me every time.
+Small, stupid papercut: the Shadowsocks icon for some clients looks too much
+like the Telegram icon. Gets me every time.
 
 And the most important issues for me:
 
@@ -233,12 +222,9 @@ And the most important issues for me:
 
 ## Verdict: proxy works, VPN doesn't
 
-As I mentioned at the start, while the Shadowsocks protocol itself is likely
-great for its core purpose (circumventing DPI and proxying traffic), the
-standard **ssserver** tool isn't designed to build a fully-featured, routed
-private network between all connected clients. It excels as a secure proxy, but
-for creating a VPN where all devices can seamlessly communicate as if on a local
-network, it falls short.
+Shadowsocks is good at its core job: bypassing DPI and proxying traffic. The
+standard **ssserver** tool isn't built for a routed private network between all
+clients. It's a secure proxy. I needed a VPN.
 
 Or at least, I didn't find a solution using Shadowsocks alone to achieve all my
 networking goals for this internal infrastructure. Reverting

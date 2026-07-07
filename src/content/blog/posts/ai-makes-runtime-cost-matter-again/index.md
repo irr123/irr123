@@ -11,7 +11,7 @@ image: hero.png
 
 AI made me reopen a boring question: why am I still paying Fargate rent for V8?
 
-Bun's Zig-to-Rust AI rewrite got me running the math -- 6 days, 960'000 lines,
+Bun's Zig-to-Rust AI rewrite got me running the math: 6 days, 960'000 lines,
 99.8% of Bun's existing tests passing, 9 days to merge ($10'000 total AI
 spent?)[^1].
 
@@ -20,7 +20,7 @@ What does that look like for 15'844 LOC of my own microservice on Fargate?
 ## My setup
 
 Node.js microservice, talks to MongoDB, calls a few neighbors, responds to
-others, does its small thing. A typical service sits at 0.5 vCPU / 1 GB RAM --
+others, does its small thing. A typical service sits at 0.5 vCPU / 1 GB RAM:
 _$18/month_ per task. Three replicas minimum for robustness, so _$54/month_ per
 service.
 
@@ -31,8 +31,8 @@ spikes. The runtime pays rent on Fargate while I'm paying for it.
 ### One rewrite, run the math
 
 Say _$100_ in Claude Code tokens to produce a first port to Go or Rust. Not to
-ship it blindly -- review, tests, and rollout still cost human time. But the
-first draft is no longer the expensive part.
+ship it blindly. Review, tests, and rollout still cost human time. But the first
+draft is no longer the expensive part.
 
 Fargate bills _$0.04048_ per vCPU-hour and _$0.004445_ per GB-hour[^2]. Minimum
 task size: 0.25 vCPU / 0.5 GB, about _$9/month_. A compiled service with a Mongo
@@ -51,11 +51,11 @@ near one month.
 
 The language map changes:
 
-- **Rust / C / C++** -- smallest runtime footprint. Highest migration friction.
+- **Rust / C / C++**: smallest runtime footprint. Highest migration friction.
   Ecosystem question still open for my services.
-- **Go** -- small runtime tax, boring deployment, strong backend ecosystem.
-  Looks like the new default from the cost side.[^3]
-- **Node / Python / PHP / Java / C#** -- still productive defaults, but their
+- **Go**: small runtime tax, boring deployment, strong backend ecosystem. Looks
+  like the new default from the cost side.[^3]
+- **Node / Python / PHP / Java / C#**: still productive defaults, but their
   runtime footprint is no longer free. Fargate turns it into a line item.
 
 The runtime tax used to hide inside developer productivity. AI lowers the cost
@@ -74,5 +74,5 @@ Or move off AWS to Hetzner and cut the bill by ~10x.
 [^2]: https://aws.amazon.com/fargate/pricing/
 
 [^3]:
-    I’ve personally never been a Rust fan. Go, though, I’ve used for _really_
+    I’ve personally never been a Rust fan. Go, though, I’ve used for heavily
     loaded things. C/C++ lives somewhere in old education.

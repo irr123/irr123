@@ -18,9 +18,9 @@ encryption.
 
 ## Dropbox: add an offsite target
 
-To obtain an access token, I need to configure
-[rclone](https://rclone.org/remote_setup/) locally (because of web browser).
-Here's how I did it using Docker:
+To get an access token, I need to configure
+[rclone](https://rclone.org/remote_setup/) locally because the flow needs a web
+browser. I did it with Docker:
 
 ```bash
 docker run --rm -it \
@@ -30,7 +30,7 @@ docker run --rm -it \
     rclone/rclone authorize "dropbox"
 ```
 
-After obtaining the token, add new sections to `rclone.conf`:
+After getting the token, add new sections to `rclone.conf`:
 
 ```toml
 [dropbox]
@@ -45,8 +45,8 @@ directory_name_encryption = false
 password = <PASSWORD>
 ```
 
-**Important:** Remember to replace `<PASSWORD>` with a strong, secure password,
-rclone [helps with it](https://rclone.org/crypt/#configuration).
+**Important:** Replace `<PASSWORD>` with a long unique password. rclone
+[helps with it](https://rclone.org/crypt/#configuration).
 
 ### rclone: run encrypted backup
 
@@ -79,9 +79,8 @@ This decrypts and copies files back to Google Drive.
 
 ## Verdict: encrypted, cheap, restorable
 
-By adding Dropbox as a secondary backup destination and encrypting data, this
-setup improves redundancy for my Google Drive backup. Extra layer against data
-loss or unauthorized access. The weak point stays boring: password quality.
-Strong, unique password. Stored properly.
+Dropbox gives the backup a second place to live. `crypt` keeps Dropbox from
+seeing the plain files. The weak point stays boring: password quality. Long,
+unique password. Stored properly.
 
 Next boring task: regular restore tests. Then health checks and notifications.

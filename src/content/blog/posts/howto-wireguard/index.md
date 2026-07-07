@@ -4,30 +4,25 @@ back_ref: /blog/_index.md
 draft: false
 title: Private WireGuard VPN with selective Tor routing
 description:
-  "A private WireGuard VPN connecting laptop, phone, and servers, with selective
-  Tor routing for browser traffic only. Configs for Ubuntu, Windows, and Podman."
+  "A private WireGuard VPN connecting laptop, phone, and servers. Laptop and
+  phone exit through Tor. Configs for Ubuntu, Windows, and Podman."
 image: hero.jpg
 ---
 
-When planning a VPN, _OpenVPN_ is often the default choice. However, in this
-post, I'll document the process of building a private VPN using **WireGuard** to
-unite different devices (servers, a notebook, and a phone) into a single, secure
-network. Additionally, I will selectively route all internet traffic from my
-notebook and phone through the Tor network, while allowing other servers on the
-VPN to communicate normally without being routed through Tor.
+I use WireGuard to join my servers, laptop, and phone into one private network.
+Laptop and phone traffic goes through Tor. Server-to-server traffic stays
+normal.
 
 ![model, harness, intent](hero.jpg)
 
 ## The WireGuard server (Ubuntu)
 
-This central server will act as the WireGuard endpoint, terminating connections
-from all clients and routing traffic.
+This server is the WireGuard endpoint. Clients connect to it. It routes traffic.
 
 ### System optimization (sysctl)
 
-First, it's a good practice to optimize the server's network settings for better
-performance. Many of these settings are from my previous article about
-[VPNs]({{< relref "blog/posts/shadowsocks-to-tor" >}})
+First, tune the server network settings. Many of these settings are from my
+previous article about [VPNs]({{< relref "blog/posts/shadowsocks-to-tor" >}})
 ([here](https://github.com/irr123/shadowsocks-to-tor/blob/main/server.yaml#L18-L37));
 add the following to `/etc/sysctl.conf`:
 
@@ -142,9 +137,9 @@ Nov 17 18:04:07.000 [notice] Bootstrapped 100% (done): Done
 
 {{< /details >}}
 
-This time I'll setup TOR in
+This time I set up Tor in
 [podman]({{< relref "blog/posts/the-actual-state-of-self-hosting-on-a-vps" >}})
-and route traffic thru it.
+and route traffic through it.
 
 ```bash
 mkdir -p /opt/tor/data
@@ -198,10 +193,9 @@ Nov 17 18:04:07.000 [notice] Bootstrapped 100% (done): Done
 > **Security Note**: Nobody audits this for me. I checked exact
 > `docker.io/dockurr/tor:0.4.8.21`; responsibility stays mine.
 
-The noticeable part here -- `--network host`, that's why there is no difference
-in routing, comparing it with local daemon. Now I update
-`/etc/wireguard/wg0.conf` with robust iptables rules to route client traffic to
-Tor and secure the server:
+The noticeable part here is `--network host`. Routing matches the local daemon
+case. Now I update `/etc/wireguard/wg0.conf` with iptables rules to route client
+traffic to Tor and lock down the server:
 
 ```ini
 [Interface]
@@ -252,9 +246,8 @@ Finally, apply all the changes by restarting the services
 
 ### Client type A: split-tunnel (Ubuntu/Raspberry Pi)
 
-These clients will only use the VPN to access other devices on the
-_192.168.42.0/24_ network. Their regular internet traffic will not go through
-the VPN.
+These clients only use the VPN to access other devices on the _192.168.42.0/24_
+network. Their regular internet traffic will not go through the VPN.
 
 Install WireGuard, `sudo apt install wireguard wireguard-tools`, create
 `/etc/wireguard/wg0.conf`:
@@ -280,8 +273,8 @@ Don't forget to start and enable the service:
 
 ### Client type B: full-tunnel over Tor (Windows/GrapheneOS)
 
-These clients will route all their internet traffic through the VPN, which then
-gets funneled through the Tor network by the server.
+These clients route all internet traffic through the VPN. The server then sends
+that traffic through Tor.
 
 Create the configuration file and import it into the WireGuard app:
 
@@ -312,7 +305,7 @@ is absolutely essential to prevent DNS leaks.
 
 ## Verify VPN connectivity and Tor exit
 
-To verify everything is working as expected, I perform two checks:
+I verify two things:
 
 1. Check Internal VPN Connectivity, from one client (e.g., my PC at
    192.168.42.5), ping another client (e.g., my phone at 192.168.42.4):
@@ -324,7 +317,7 @@ To verify everything is working as expected, I perform two checks:
    ...
    ```
 
-   A successful reply means my private network is up!
+   A successful reply means the private network is up.
 
 1. Check Tor Routing on a Full-Tunnel Client, on my PC or phone, open a terminal
    or browser and check my public IP:

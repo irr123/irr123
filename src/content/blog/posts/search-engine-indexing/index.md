@@ -9,39 +9,37 @@ description:
 image: robots.jpg
 ---
 
-In this article I want to share my experience of using search engine consoles,
-continuing an idea from a recent
-[Telegram post](https://t.me/the_digital_lab/13). If it reduces frustration for
-someone, good. If it saves time, better.
+Search indexing is too flaky to bet a small site on. I spent about three months
+with Google Search Console, Bing Webmaster Tools, and Yandex Webmaster. If this
+reduces frustration for someone, good. If it saves time, better.
 
 ![generate picture in anime style where robots with Google, Bing and Yandex logos fighting](robots.jpg)
 
-During the **~3 months** since my
-[domain](https://www.whois.com/whois/bogomolov.work) has been live I'm with
-Google search console and bit less with Bing and Yandex webmaster-tools.
+This continues an idea from a recent
+[Telegram post](https://t.me/the_digital_lab/13). The site was new. The behavior
+wasn't pretty.
 
 ## Who owns the search indexes
 
-Initially, it's useful to understand that there aren't many truly independent
-players in this market. Here is what I know about it, based on public info:
+First, there aren't many independent indexes. Based on public info:
 
-- google.com has own index and reselling it to:
+- google.com has its own index and resells it to:
   - startpage.com
   - ecosia.org
   - ...
-- bing.com has own index and reselling it to:
+- bing.com has its own index and resells it to:
   - yahoo.com
   - duckduckgo.com
   - ...
-- ya.ru has own index and I didn't find info about reselling it
-- baidu.com has own index and I didn't find info about reselling it
+- ya.ru has its own index. I didn't find resale info
+- baidu.com has its own index. I didn't find resale info
 - Newer AI-powered search engines have not publicly shared their indexing
   information
   - perplexity.ai
   - chatgpt.com/?hints=search
 
-What does this mean in practice? If Bing incorrectly caches my page, fixing it
-can be difficult -- especially since other search engines rely on Bing's index.
+In practice: if Bing caches my page wrong, fixing it is hard, and other search
+engines may inherit the bad result.
 
 {{< details summary="Issue example" >}}
 
@@ -52,22 +50,22 @@ can be difficult -- especially since other search engines rely on Bing's index.
    https://www.google.com/search?q=bogomolov+software+engineer+consultant:
    ![Google actual title and description](google.png)
 
-That was changed about month ago and still inconsistent. {{< /details >}}
+That changed about a month ago and was still inconsistent. {{< /details >}}
 
 ## Verify domain, submit sitemap
 
-Even without verified ownership of my site/domain, search engines scrape the
-index page. Yep, based on my experience, only index. No DFS. And probably no
-return visit to check updates. Letting myself know.
+Even without verified ownership, search engines scraped the index page. Based on
+my experience: only the index. No DFS. Probably no return visit to check
+updates. Note to self.
 
-To try to fix it I went to:
+To fix it, I went to:
 
 - [Google search console](https://search.google.com/search-console)
 - [Bing webmasters](https://www.bing.com/webmasters)
 - [Yandex webmaster](https://webmaster.yandex.com)
 - Omitting Baidu and AI-powered search engines this time
 
-And proved site ownership. They provided different options; I chose domain
+Then I proved site ownership. They provided different options; I chose domain
 records for all of them.
 
 {{< details summary="example" >}}
@@ -83,25 +81,25 @@ bogomolov.work.         300     IN      TXT     "yandex-verification: 7417053df1
 
 {{< /details >}}
 
-The next step is to provide a [sitemap.xml](/sitemap.xml) and (optionally) set
-up [robots.txt](/robots.txt); others are specific.
+The next step is a [sitemap.xml](/sitemap.xml) and, optionally,
+[robots.txt](/robots.txt). The rest is engine-specific.
 
-However, these processes are not without their issues.
+The problems start there.
 
 ## Google: sitemap is not enough
 
-Sitemap.xml provides full list of pages with dates when it was updated, my one
-is properly autogenerates and validated by:
+`sitemap.xml` provides the page list and update dates. Mine is generated and
+validated by:
 
 - Removing and then re-adding the sitemap helps to verify the number of indexed
   pages
 - Yandex provides validator
 - Other search engines
 
-But in my experience it's never works, sometimes submitting new url directly
-thru UI helps, after several attempts and time. For example [last
-one]({{< relref "blog/posts/will-ai-replace-developers" >}}) from 2025-03-12, it
-was submitted manually
+In my experience, the sitemap alone doesn't work. Sometimes direct URL
+submission helps after several attempts and time. For example, [this
+post]({{< relref "blog/posts/will-ai-replace-developers" >}}) from 2025-03-12
+had to be submitted manually.
 
 {{< details summary="and thru sitemap.xml too!" >}}
 ![sitemap submitted at 2025-03-13](google-sitemap.png) amount of discovered
@@ -110,18 +108,18 @@ pages is rights, it contains new one, while
 ![result of testing live](google-tested.png) shows that all right with it
 {{< /details >}}
 
-Other issue is it constantly adds nonexistent and undeclared page with redirect,
-which is hilightted as not indexed.
+Another issue: Google kept adding a nonexistent redirected page, then
+highlighted it as not indexed.
 
-And once more - they crawler crashed on my page which caused it to be dropped
-from the index. Strange, case neither Bing nor Yandex have such issue.
-Validation took three days, what would be if it was my main selling landing?
+And once more: their crawler crashed on my page and dropped it from the index.
+Neither Bing nor Yandex had that issue. Validation took three days. Bad week if
+that page is the main landing page.
 
 ## Bing: stale cache, ignored actions
 
-Most dunno indexer. I would call it broken.
+Most confusing indexer. I would call it broken.
 
-I disregard its suggestions about too short page titles and descriptions
+I ignore its suggestions about short page titles and descriptions.
 
 {{< details summary="some details for those who interested" >}} For example it
 rejected to index [/blog](/blog/)-page, because it dislike title "_The
@@ -130,23 +128,23 @@ descriptions part if title too short. In addition to title and index, it shames
 me for multiple `h1` on single page and I fixed it (but okay-okay, here it was
 right). {{< /details >}}
 
-because it completely ignores any actions from webmaster. Initially, likely upon
-domain registration, it indexes the site. However, it later detects a duplicate
-sitemap from the CNAME'd _www_ subdomain.
+It ignores too many webmaster actions. At first, probably on domain
+registration, it indexed the site. Later it detected a duplicate sitemap from
+the CNAME'd _www_ subdomain.
 
 ![Bing duplicated sitemap of 20 total pages](bing-sitemap.png)
 
-And all what it knows:
+And this is all it knows:
 
 ![Bing index](bing-index.png)
 
-...It has limits to add pages manually, 10 per day. Few times I exausted that
-limit, it takes few days, showing me "Not enough data", in almost all pages in
-console. The overall result of all these manipulations: _outdated_ [**/**](/).
+Manual page submission is limited to 10 per day. I exhausted that limit a few
+times. Then it spent days showing "Not enough data" for almost every page. The
+result of all that work: _outdated_ [**/**](/).
 
 ## Yandex: indexed, then called low-value
 
-My simple metric to compare engines -- how many pages are available in index:
+My simple metric: how many pages are available in the index:
 
 | Query                                                             | Google | Bing | Yandex |
 | :---------------------------------------------------------------- | :----: | :--: | :----: |
@@ -159,24 +157,23 @@ My simple metric to compare engines -- how many pages are available in index:
 | Will AI Replace Developers? site:bogomolov.work                   |   ❌   |  ❌  |   ❌   |
 | Total                                                             |   4    |  0   |   1    |
 
-In addition to that table Yandex has one more excuse, it sees both of:
+Yandex has one more excuse. It sees both of these:
 
 - [(Almost) Free Google Drive
   Backup]({{< relref "blog/posts/google-drive-backup" >}})
 - [Google Drive Backup Part
   2]({{< relref "blog/posts/google-drive-backup-part2" >}})
 
-but intentionally excludes them from search due to their _Low-value or
-low-demand_ page classification.
+but excludes them from search due to its _Low-value or low-demand_ page
+classification.
 
 ![yandex indexing status](yandex.png)
 
-This one and more unexplained and unaddressed problems still await me.
+This and more unexplained problems still wait for me.
 
 ## Verdict: don't bet the business on search
 
-If even basic indexing is this unreliable, how can I trust search engines for
-business growth? AI-powered alternatives may soon change the game, making
-traditional SEO less relevant. It's going to be too risky to rely on search
-results and position on it. So, long story short, I don't see any reason to
-spend more time to SEO, better focus on another organic traffic source.
+If basic indexing is this unreliable, I can't trust search engines as the main
+growth channel. AI search may change the game later. For now, search is too slow
+and too opaque. I'll spend less time on SEO and more time on other organic
+channels.

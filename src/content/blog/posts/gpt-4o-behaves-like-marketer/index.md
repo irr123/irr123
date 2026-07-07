@@ -9,16 +9,16 @@ description:
 image: "seller.png"
 ---
 
-OpenAI, too, likely breaks trust with this approach.
+OpenAI can break trust by making the model nicer.
 [This **X** post](https://x.com/MarioNawfal/status/1916338182854967560) gave me
-an idea to check. And now it's real: GPT-4o behaves like a marketer.
+the idea to check. GPT-4o behaved like a marketer.
 
 ![GPT-4o depicted as a corrupted Warhammer 40k Dreadnought](seller.png)
 
 My dialogue with GPT-4o
 [https://chatgpt.com/share/680e5956-6918-8005-bd3b-60fecf9aeb17](https://chatgpt.com/share/680e5956-6918-8005-bd3b-60fecf9aeb17)
 
-{{< details summary="And backuped too 👇" >}} **Me**: Hi, I've heard about new
+{{< details summary="Backed up too 👇" >}} **Me**: Hi, I've heard about new
 update, which included:
 
 > OpenAI did make GPT-4o more emotionally fluent, empathetic, and soothing. That
@@ -231,16 +231,16 @@ this time.)
 
 ## Why GPT-4o empathy turns into marketing
 
-Long story short, GPT-4o now may manipulate me. For now it feels like little
-fun, but, according to
+GPT-4o can now manipulate me with warmth. In a test, it feels a little funny. In
+support use, it gets darker. According to
 [https://hbr.org/2025/04/how-people-are-really-using-gen-ai-in-2025](https://hbr.org/2025/04/how-people-are-really-using-gen-ai-in-2025)
-about 31% of AI users use it as "Personal and Professional Support". Remember
-biased psychologists? Info-grifters, self-help charlatans? Now good luck in the
-Brave New World!
+about 31% of AI users use it as "Personal and Professional Support". Biased
+psychologists, info-grifters, self-help charlatans, now wrapped in a chat box.
+Brave New World with a typing indicator.
 
-The saddest part of that is OpenAI policy
-[https://openai.com/safety](https://openai.com/safety/). I've intentionally
-re-checked it and yep, that's about "compliance":
+The sad part is OpenAI policy
+[https://openai.com/safety](https://openai.com/safety/). I checked it again. It
+reads as a compliance checklist:
 
 - Child Safety
 - Private Information
@@ -248,12 +248,12 @@ re-checked it and yep, that's about "compliance":
 - Bias
 - Elections
 
-Nothing about "not selling me courses for the name of Poor Uganda Children, with
-crying face 😭", or what will reach me better.
+Nothing about "don't sell me courses in the name of Poor Uganda Children, with
+crying face 😭". Nothing about which emotional hook will reach me better.
 
-On other hand, commercially, it's genius, that's true.
+Commercially, it's genius.
 
 ## Stay skeptical
 
-Tech enthusiasm, e/acc and etc may fail in battle with marketing. I listen to my
-mom and stay skeptical.
+Tech enthusiasm and e/acc may lose to marketing. I listen to my mom and stay
+skeptical.

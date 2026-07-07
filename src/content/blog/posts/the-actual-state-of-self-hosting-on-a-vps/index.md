@@ -4,13 +4,13 @@ back_ref: /blog/_index.md
 draft: false
 title: The actual state of self-hosting on a VPS
 description:
-  "K3s loses to Docker Compose on a 1GB VPS — and Podman with Quadlet beats
-  both. Rootless, systemd-native, near-zero idle memory. Numbers, not vibes."
+  "K3s loses to Docker Compose on a 1GB VPS, and Podman with Quadlet beats both.
+  Rootless, systemd-native, near-zero idle memory. Numbers, not vibes."
 image: cursed_Kubernetes_cathedral.png
 ---
 
 I recently ran into a claim: Docker Compose is outdated and K3s is the king for
-my 1Gb VPS.
+my 1GB VPS.
 
 At the same time, `docker-compose.py` is effectively deprecated, with Compose
 now shipped as a built-in `docker compose` command. That alone is not a problem,
@@ -28,7 +28,7 @@ This post is about self-hosted setups:
 - limited ops time, bordering on laziness
 - preference for boring, anti-hype infra
 
-Within that landscape, I'm overviewing:
+Within that landscape, I compare:
 
 1. [Docker Compose](#docker-compose)
 2. [K3s](#k3s)
@@ -175,8 +175,7 @@ example-redis-1    valkey/valkey:latest   "docker-entrypoint.s…"   redis     2
 
 ### Pros
 
-It definitely works. It's simple, supports health checks, and has restart
-policies.
+It works. It's simple, supports health checks, and has restart policies.
 
 ### Cons
 
@@ -195,8 +194,8 @@ A few words from the official sites:
 >
 > Easy to install, half the memory, all in a binary of less than 100 MB.
 
-Setup is `curl -sfL https://get.k3s.io | sh -`. I already like it -- run as
-root, trust me 😈
+Setup is `curl -sfL https://get.k3s.io | sh -`. I already like it: run as root,
+trust me 😈
 
 {{< details summary="Cluster overview" >}}
 
@@ -491,8 +490,9 @@ I ever recoup that investment?
 The dark horse. I'd never heard of it before I started writing this article, but
 it looks the most promising.
 
-Firstly, _Podman_ is a engine that runs containers without a permanent
-privileged daemon. It uses OCI runtimes, rootless by design, Docker-compatible.
+First, _Podman_ is an engine that runs containers without a permanent privileged
+daemon. It uses OCI runtimes, is rootless by design, and stays Docker-compatible
+enough for this use.
 
 Second, _Quadlet_ generates systemd units, so containers integrate cleanly with
 systemd and journald.
@@ -505,13 +505,13 @@ key and repo).
 1. as root: `sudo apt update && sudo apt install podman`
 2. as regular user:
    `podman build -f Dockerfile.python -t local/python-app:dev .` (without
-   docker's requred manual group/permission management; images differs from one
+   Docker's required manual group/permission management; images differ from one
    user to another)
 3. `mkdir -p ~/.config/containers/systemd`
-4. `podman network create selfhosted` (it's quite strange but in default podman
-   network DNS disabled)
+4. `podman network create selfhosted` (strange, but the default Podman network
+   has DNS disabled)
 
-Preparation is done. Add the units and I'm ok.
+Preparation done. Add the units.
 
 {{< details summary="~/.config/containers/systemd/redis.container" >}}
 

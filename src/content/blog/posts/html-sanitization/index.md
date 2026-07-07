@@ -9,10 +9,9 @@ description:
 image: "sanitization.png"
 ---
 
-Once upon a time, I went through another security audit on a project that wasn't
-particularly old but had passed through the hands of several teams. After the
-first round of penetration testing, the auditing team found a lack of data
-sanitization on the backend side.
+I went through a security audit on a project that wasn't old, but had passed
+through several teams. After the first pentest round, the auditors found missing
+backend sanitization.
 
 With proof. Quite disappointing.
 
@@ -25,43 +24,40 @@ With proof. Quite disappointing.
 
 ## Constraint: sanitize on ingest and output
 
-As a result, security auditing team presented us with demands:
+The security audit gave us two demands:
 
 1. Sanitize all data coming from client to server on server side;
    - _Sanitize on Ingest_: A "defense in depth" strategy. Never trust user input
      and clean it before it touches the database. Classic security requirement.
 
 2. Sanitize all data coming from server to client on client side;
-   - _Sanitize on Output_: The modern web development approach --- sanitize data
+   - _Sanitize on Output_: The modern web development approach. Sanitize data
      for the specific context it's being used in (e.g., HTML, CSS, a URL) at the
      last possible moment. This is considered the most effective way to prevent
      XSS.
 
-Our tech stack was a fairly standard setup: a few microservices built with
-NestJS and a Next.js frontend. And _Sanitize on Output_ is a standard security
-practice in React (which powers Next.js); it already protects against HTML
-injection by default by sanitizing all rendered output. Disabling this is a
-major anti-pattern.
+Our stack was standard: a few NestJS microservices and a Next.js frontend.
+_Sanitize on Output_ is standard React practice. React already protects against
+HTML injection by default by escaping rendered output. Disabling that is a major
+anti-pattern.
 
 ## The double-encoding issue
 
-It wasn't a big deal to implement sanitization on the server side, so I did it
-and started storing strings with `&amp;` instead of the literal character `&` in
-the database. However, this created a classic double-escaping problem. Because
-React also escapes output, the `&amp;` I was carefully storing in the database
-was rendered literally on the screen as `&amp;`. The browser never turned it
-back into an `&`.
+Server-side sanitization was easy to add. I started storing strings with `&amp;`
+instead of the literal character `&` in the database. That created a classic
+double-escaping problem. Because React also escapes output, the `&amp;` I was
+carefully storing in the database was rendered literally on the screen as
+`&amp;`. The browser never turned it back into an `&`.
 
 Every online guide and AI assistant suggested the same thing: "Only sanitize on
 output"! But I couldn't do that; the security team's requirement to sanitize on
 ingest was non-negotiable.
 
-And the interesting idea landed in my head: Why, in **2025**, am I still using
+Then the useful question landed: Why, in **2025**, am I still using
 [character entities](https://grokipedia.com/page/Character_encodings_in_HTML#character-references)
 instead of _raw Unicode characters_?
 
-For simplicity, I'll provide a list for comparison (not all of them have to be
-used):
+Comparison list. Not all of these have to be used:
 
 | Character entity | Unicode symbol | Security critical |
 | :--------------- | :------------- | :---------------: |
@@ -78,18 +74,18 @@ used):
 | `&lt;`           | `＜`           |        ✅         |
 | `&gt;`           | `＞`           |        ✅         |
 
-The goal was reached --- the database now contained only _safe_ symbols, and the
-UI represented them nicely. But at what price? I asked.
+The goal was reached. The database contained only _safe_ symbols, and the UI
+rendered them nicely. But at what price?
 
-**Fun fact**: Single UTF symbol requires less space compared with 3+ ASCII
-symbols in utf encoding.
+**Fun fact**: one UTF symbol can take less space than a 3+ character ASCII
+entity.
 
 ## Trade-offs of Unicode substitution
 
-- First, legacy systems: If a system still uses KOI8-R and similar, this isn't
-  for it (legacy email clients, for example). Legacy fate.
+- Legacy systems: If a system still uses KOI8-R and similar, this isn't for it
+  (legacy email clients, for example). Legacy fate.
 - This approach has to work consistently across the entire backend.
-  - Any tech decision has to work consistently, isn't it?
+  - Any tech decision has to work consistently.
 - Database content isn't pure user input, but is it a real problem?
   - You'll need to migrate old data, ✅
   - I have to write
@@ -98,15 +94,13 @@ symbols in utf encoding.
     - Anyway, I'll set up a custom tokenizer in Typesense/Elasticsearch.
   - But it's already prepared to be exported into CSV without additional
     escaping (as a joke).
-- I'm not a mobile dev, and I don't have mobile apps yet --- I'll see (use
-  proper encoding and modern fonts, not from the dinosaur era 🤷).
-- Probably the most underrated point: This process is more like _data
-  transformation_ than _sanitization_.
+- I'm not a mobile dev, and I don't have mobile apps yet. I'll see (use proper
+  encoding and modern fonts, not from the dinosaur era 🤷).
+- The underrated point: this process is closer to _data transformation_ than
+  _sanitization_.
 
 ## Verdict: elegant under real constraints
 
-So, is this an ugly hack or an elegant solution?
-
-I count it as an elegant trade-off. In a perfect world, I would only sanitize on
-output. But I don't operate in a perfect world; (un)fortunately I operate with
-real-world constraints.
+I count it as an elegant trade-off under a real constraint. Perfect-world advice
+says sanitize on output only. My world ships with audit findings, old data, and
+production deadlines.

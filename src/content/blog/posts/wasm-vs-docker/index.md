@@ -5,14 +5,14 @@ draft: false
 title:
   "Docker images are hundreds of MB; a full game engine compiles to 35MB WASM"
 description:
-  "A full 3D game -- renderer, physics engine, scripting runtime -- exported to
-  WebAssembly is 35MB. The default Node.js Docker image is hundreds of MB,
+  "A full 3D game with renderer, physics engine, and scripting runtime exported
+  to WebAssembly is 35MB. The default Node.js Docker image is hundreds of MB,
   pulled 19 million times last week."
 image: hero.png
 ---
 
 I exported a game skeleton to WebAssembly a few hours ago and was surprised by
-the artifact size. Full 3D engine -- GL Compatibility renderer, Jolt physics,
+the artifact size. Full 3D engine: GL Compatibility renderer, Jolt physics,
 GDScript runtime, Ink narrative interpreter. The binary: 35MB. Runs in any
 browser, zero install.
 
@@ -35,8 +35,8 @@ WASD, Esc.
   });
 </script>
 
-`python:3.14-slim-trixie` -- the slim base, before you add a single dependency
--- is 144MB. Even a [careful minimal build with
+`python:3.14-slim-trixie`, the slim base before you add a single dependency, is
+144MB. Even a [careful minimal build with
 uv]({{< relref "blog/posts/docker-uv" >}}) lands at 282MB.
 
 ## Landscape
@@ -62,15 +62,15 @@ The Go binaries (livekit at 75MB) are already close.
 
 ## The open question
 
-On one hand, Go could be a solution, but `wasip1` is still preview -- no sockets
+On one hand, Go could be a solution, but `wasip1` is still preview: no sockets
 in the standard runtime, no threads. Zig is closer, but not there either. Only
 Rust and C/C++ are practical options today.
 
-On the other hand -- Cloudflare Workers can load WASM modules, containerd has
+On the other hand, Cloudflare Workers can load WASM modules, containerd has
 runwasi, Kubernetes has kwasm experiments, WASI runtimes exist.
 
 So why has WASM adoption stalled? The transfer-size case is already there:
 roughly 10×. Why isn't that enough to become standard practice?
 
-Same as ARM nodes a few years ago: cheaper, denser, widely available -- still
-not the default choice.
+Same as ARM nodes a few years ago: cheaper, denser, widely available. Still not
+the default choice.

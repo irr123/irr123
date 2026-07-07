@@ -9,69 +9,53 @@ description:
 image: morpheus.jpg
 ---
 
-Let's talk about building and evolving Golang services in the enterprise. We'll
-explore two approaches:
+Service templates are fine on day one. DI containers age better in Go services.
 
 ![Create image illustration in anime style with Morpheus from Matrix suggesting you blue and red pills](morpheus.jpg)
 
-- A _Service Template (generator)_ is a common approach for unifying and quickly
-  bootstrapping new microservices. Its popularity is evident in the community,
-  as demonstrated by examples such as:
+- A _Service Template (generator)_ bootstraps new microservices from a shared
+  starting point. Common examples:
   - https://github.com/evrone/go-clean-template
   - https://www.reddit.com/r/golang/comments/1h124ee/rate_my_go_project_template/
   - https://dev.to/protium/github-template-for-golang-services-3o27
   - https://www.youtube.com/watch?v=1ZbQS6pOlSQ
 - [Dependency injection](https://grokipedia.com/page/Dependency_injection)
-  (_DI_)[^1] is an approach where objects are constructed by passing
-  pre-initialized components to them, rather than having the objects initialize
-  those components themselves.[^2]
-  - [DI container](https://github.com/irr123/di) automates the dependency
-    injection process. While not the most common approach for bootstrapping new
-    services, it offers several advantages, which I will outline.
+  (_DI_)[^1] means code receives ready components instead of creating them
+  itself.[^2]
+  - [DI container](https://github.com/irr123/di) automates that wiring. It isn't
+    the most common Go bootstrap path, but it keeps the shared boot code typed.
 
 ## The problem: service drift
 
-The challenge is a timeless one: accelerating the delivery of value to
-production. From a technical perspective, this translates to several key
-requirements:
+The goal is boring: ship services faster without making each service a one-off
+snowflake. That means:
 
-- **Pre-built components:** These eliminate the need to reinvent the wheel,
-  saving valuable development time.
-- **Consistent service structure:** A uniform structure reduces
-  context-switching overhead.
-- **Unified interaction interfaces:** Standardized configuration, logging, and
-  metrics save significant time for operation guys.
+- **Pre-built components:** no new logging, metrics, config, DB, or broker code
+  in every service.
+- **Consistent service structure:** less context switching between services.
+- **Unified interaction interfaces:** same config, logs, metrics, and deploy
+  hooks for ops.
 
 ### Where templates start to drift
 
-Imagine a company with a few internal services looking to expand and release
-more. Or consider an outsourcing company developing services for external
-clients and aiming to increase its customer base. In both scenarios, efficiency
-is paramount, and directly related to the problems highlighted earlier.
+The drift starts when the second, fifth, and tenth service appear. The template
+keeps moving, but the generated services don't move with it.
 
-When examining individual services, I often find that, regardless of the
-specific
+When I inspect services, I usually find the same split. Whatever the
 [layered architecture](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html)
-employed (e.g.,
+is called:
 [Onion](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/),
 [Clean](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html),
 or
 [Hexagonal](<https://grokipedia.com/page/Hexagonal_architecture_(software)>)[^3])
-outer layers tend to be shared across services, whereas the core business logic
-remains distinct[^4]. Specifically, elements such as observability tools,
-database connections, and message broker clients can be identical. These
-constitute the essential pre-built components and contribute to a consistent
-service structure. A unified interaction interface emerges from the standardized
-configuration of these pre-built components. For example, a shared database
-connection operates with consistent configuration parameters, providing uniform
-logging, metrics, and deployment procedures.
+the outer layers repeat. Business logic changes.[^4] Observability, database
+connections, message broker clients, config, and metrics can be shared. That's
+the part worth typing and testing once.
 
 #### Straightforward implementation
 
-A common approach is to consolidate all shared code into one or more shared
-libraries. A service template can then be created to generate new services that
-include these libraries as dependencies, along with pre-prepared boilerplate
-code.
+A common approach is a shared library plus a service template. The template
+creates a new service with the library and prepared boilerplate.
 
 Pros:
 
@@ -79,18 +63,14 @@ Pros:
 
 Cons:
 
-- While addressing initial setup challenges, this method introduces a new
-  problem: a continuously evolving template will inevitably diverge from the
-  services it generates.
-- The "templating" nature of this approach makes the template itself difficult
-  to test and analyze with static analysis tools.
+- The template fixes initial setup, then drifts away from the services it
+  created.
+- The template itself is harder to test and analyze than normal Go code.
 
 #### DI container: typed shared bootstrapping
 
-Instead of relying on templates, I can retain the shared library approach and
-encapsulate all pre-built components within a container. This allows developers
-to focus solely on adding the business logic, adhering to the chosen layered
-architecture:
+Instead of relying on templates, I keep the shared library and put the shared
+components inside a container. The service adds business logic around it:
 
 ```go
 import (
@@ -116,31 +96,25 @@ func main() {
 
 [Live example](https://go.dev/play/p/vxWijBAc3lC).
 
-This approach reduces maintenance costs because it involves well-typed, valid
-code (without templating complexities) that can be effectively covered by
-quality checks. Furthermore, backward compatibility is maintained by following
-standard coding practices.
+This costs less to maintain because it's typed Go code, not a text template.
+Tests, static analysis, and normal compatibility rules apply.
 
 ## What templates still cover
 
-Continuing the comparison between containers and templates, it's worth noting
-that templates can offer a more comprehensive initial setup. This might include
-project layout, deployment scripts, CI/CD pipelines, VCS hooks, monitoring
-dashboards, alerts, and other elements. It's important to understand that
-templates provide these features only at the initial project creation and do not
-enforce them during subsequent project evolution (whereas containers maintain
-consistency).
+Templates still cover more on day one: project layout, deployment scripts,
+CI/CD, VCS hooks, dashboards, alerts. That's useful. The limit is enforcement.
+Templates provide those pieces at creation time. Containers keep shared wiring
+consistent while the service evolves.
 
-In conclusion good to know that these two approaches are not mutually exclusive
-and this article aims to explore the available options.
+Use both if needed. Template the folder. Put the living bootstrapping code in a
+container.
 
 {data-content="footnotes"}
 
 [^1]:
     [_IoC_](https://grokipedia.com/page/Inversion_of_control) is close but not
-    the same concept, don't be confused. _DI_ is a programming technique, while
-    _IoC_ is a design principle covered broader idea (let me know and I'll think
-    about post on this topic).
+    the same concept. _DI_ is a programming technique. _IoC_ is a broader design
+    principle.
 
 [^2]: I intentionally will avoid word "class".
 

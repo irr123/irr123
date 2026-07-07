@@ -19,14 +19,14 @@ page.
 
 ![Create image illustration in anime style included python3's snake, rust and uv (it's new package manager for python written in rust)](posts-docker-uv-1.jpg)
 
-Long story short -- [uv](https://github.com/astral-sh/uv) is a fast Rust-based
-Python pip alternative. It also replaces `python3 -m  venv ./venv`, and probably
-more by the time I reread this.
+[uv](https://github.com/astral-sh/uv) is a fast Rust-based Python package tool.
+It replaces `pip` for this build. It also replaces `python3 -m  venv ./venv`,
+and probably more by the time I reread this.
 
 ## Minimal uv Dockerfile
 
-So, don't use old one and [two](https://github.com/irr123/python-docker). Do it
-properly:
+Do not use my old [one and two](https://github.com/irr123/python-docker). Use
+the multi-stage build:
 
 ```bash
 ARG BASE_IMAGE=python:3.14-slim-trixie
@@ -56,5 +56,5 @@ WORKDIR /opt/app
 
 ## CI verdict: use uv where it saves time
 
-Personally I don't see any reason to spend time setting up uv locally, but on CI
-it saves a lot of time. Don't waste it!
+I don't spend time wiring uv into every local shell. CI is different. There it
+saves time on every build. Use it there.

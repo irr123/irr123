@@ -4,7 +4,7 @@ back_ref: /blog/_index.md
 draft: false
 title: Gemini 2.5 Pro one-shots a p5.js endless runner
 description:
-  "Gemini 2.5 Pro one-shotting a p5.js endless runner from a single prompt. Full
+  "Gemini 2.5 Pro one-shot a p5.js endless runner from a single prompt. Full
   transcript and the playable result inline."
 image: "t-rex.png"
 ---
@@ -16,7 +16,7 @@ https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-mar
 
 ## Prompt
 
-And it works, in one shot:
+It worked in one shot:
 
 ```txt
 Okay, here's a p5.js sketch for a captivating endless

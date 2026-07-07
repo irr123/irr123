@@ -4,32 +4,30 @@ back_ref: /blog/_index.md
 draft: false
 title: Will AI replace developers? Anthropic is hiring
 description:
-  "Anthropic's CEO says AI will replace developers — and the company has 150+
-  open engineering roles, six months per senior hire. Actions vs. claims."
+  "Anthropic's CEO says AI will replace developers; the company has 150+ open
+  engineering roles, six months per senior hire. Actions vs. claims."
 image: robot.jpg
 ---
 
-A common narrative from OpenAI and similar companies (previous hype was from
-no-code-guys) suggests that the era of human developers is ending due to cost
-considerations, and that AI will replace programmers soon.
+The public claim says AI will replace developers soon. The hiring page says the
+opposite.
 
 ![AI vs. Human Coder](robot.jpg)
 
-Here is a talk from the CEO of Anthropic, published one day before this article:
+Here is a talk from Anthropic's CEO, published one day before this post:
 
 {{< youtube id=esCSpbDPJik start="976" >}}
 
-And examine their [actual hiring plans](https://www.anthropic.com/jobs)
-(Product, Infra, and Data Science). Notably, hiring for any senior or even staff
-position takes six months or more:
+Now check their [actual hiring plans](https://www.anthropic.com/jobs): Product,
+Infra, and Data Science. Hiring for a senior or staff role takes six months or
+more:
 
 ![vacancy](vacancy.png)
 
-With around _150_ open positions and a team of about
-[1000](https://grokipedia.com/page/Anthropic), looks like Anthropic is gearing
-up for some serious growth, huh?
+Around _150_ open roles against a team of about
+[1000](https://grokipedia.com/page/Anthropic). That's not a company acting like
+engineering headcount is over.
 
-I draw mine 😉
+I draw my conclusion from the payroll 😉
 
-P.S. Pay close attention to Dario Amodei's final answer regarding what it means
-to be human. It's quite encouraging.
+P.S. Dario Amodei's final answer on what it means to be human is worth the time.

@@ -5,7 +5,7 @@ draft: false
 title: Querying documents with LLMs instead of reading them
 description:
   "Treat a 60-page PDF like a database: structure first, then targeted
-  follow-ups. Triage what's worth deep-reading in minutes — and watch the
+  follow-ups. Triage what's worth deep-reading in minutes, and watch the
   hallucinations."
 image: "img.png"
 ---
@@ -25,7 +25,7 @@ This isn’t deep reading. It’s triage.
 ## Workflow: index first, query second
 
 _The point_: figure out in minutes if a doc is worth hours. _Two steps_: broad
-“indexing” → targeted follow-ups.
+“indexing”, then targeted follow-ups.
 
 ### 1. Index the document structure
 
@@ -95,10 +95,10 @@ few rounds, I know if it’s worth a real read.
 This works as a filter. It breaks if I trust it blindly.
 
 - **Hallucinations happen.** I once asked about a new database’s WAL protocol.
-  The model said ARIES. Wrong -- the paper invented a new one. It only
-  _compared_ to ARIES. **Always cross-check.**
-- **Nuance dies.** Author’s pacing, careful build, caveats -- gone. Don’t use
-  this for philosophy, law, or anything where structure _is_ meaning.
+  The model said ARIES. Wrong. The paper invented a new one. It only _compared_
+  to ARIES. **Always cross-check.**
+- **Nuance dies.** Author’s pacing, careful build, caveats: gone. Don’t use this
+  for philosophy, law, or anything where structure _is_ meaning.
 - **Complexity flattens.** A summary makes a hard thing look simple. It’s
   navigation aid, not expertise.
 

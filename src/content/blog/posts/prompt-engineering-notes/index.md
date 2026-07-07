@@ -5,28 +5,27 @@ draft: false
 title: Prompt engineering notes, after the Cursor leak
 description:
   'Notes after the Cursor system-prompt leak: most "prompt engineer" tooling is
-  dead weight — modern LLMs auto-generate better prompts from raw context.'
+  dead weight. Modern LLMs auto-generate better prompts from raw context.'
 image: ai-refuses.jpg
 ---
 
 Cursor and some other
 [prompts](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)
-leaked. I'm not evaluating prompt quality here. I treat it as state of the art
-from experienced guys.
+leaked. I'm not grading prompt quality here. I treat them as the current best
+effort from people who know the tools.
 
 ![generate anime style image where AI fed up of prompt](ai-refuses.jpg)
 
 ## Start with official prompting docs
 
-It's always valuable to check official docs, such as:
+Start with official docs:
 
 - https://platform.openai.com/docs/guides/prompt-engineering
   - https://cookbook.openai.com/articles/related_resources
   - https://academy.openai.com/public/clubs/work-users-ynjqu/resources/use-cases-engineers
 - https://ai.google.dev/gemini-api/docs/prompting-intro
 
-While the documentation is extensive, it is preferable to rely on it rather than
-controversial sources.
+The docs are long, but they beat screenshots from prompt gurus.
 
 {{< details summary="Controversial sources" >}}
 ![some outdated principles](prompt-principle.jpeg)
@@ -36,17 +35,17 @@ controversial sources.
 
 I separate two goals:
 
-1. Build production-ready prompt executed by software
-2. Use AI in everyday life (for example all images here are AI-generated)
+1. Build a production prompt executed by software
+2. Use AI in daily life. For example, all images here are AI-generated
 
-And focus on **2**. In my personal workflow, I typically ask something like:
+I focus on **2**. In my personal workflow, I ask something like:
 
 > generate anime style image where AI fed up of prompt
 
-No context, no examples, no additional instructions/restrictions. Will it work?
-Yes. Will it fit into overall stylistic? Probably not.
+No context, no examples, no extra limits. Will it work? Yes. Will it match the
+post's style? Probably not.
 
-How to improve it? Following OpenAI best practices:
+To improve it, add context:
 
 > generate anime style image where AI fed up of prompt
 >
@@ -67,19 +66,19 @@ A few clarification rounds, and the result is usable.
 
 ## AI prompts in production software
 
-Take a look at leaked prompts from the header and imagine how much time and
-energy was spent into it, having context from the OpenAI cookbook 🤯
+Look at the leaked prompts from the header and imagine the time spent on them,
+even with the OpenAI cookbook in reach 🤯
 
 ## Generate the prompt from raw context
 
 Anthropic, claude.ai author,
 [provides](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-generator)
 automated tool https://anthropic.com/metaprompt-notebook/ (which requires access
-to their model and API key) to generate better prompt. And I'm here to argue
-that it was born outdated.
+to their model and API key) to generate a better prompt. I think it was born
+outdated.
 
-**Alternative**: use any AI provider to generate a prompt for prompt by
-providing _raw, unprepared context_, for example:
+**Alternative**: use any AI provider to generate the prompt from _raw,
+unprepared context_. Example:
 
 > build a prompt to
 >
@@ -87,7 +86,7 @@ providing _raw, unprepared context_, for example:
 >
 > `ctrl-C` + `ctrl-V` of raw index.html
 
-The resulted prompt:
+The result:
 
 > Anime style image, depicting an AI as a young, humanoid character with glowing
 > digital patterns on their skin. The AI's expression is one of extreme
@@ -105,5 +104,5 @@ Execute the prompt. Result is in the header.
 
 ## Prompt-wrapper fate
 
-AI has already evolved enough to replace third-party apps/services for prompt
-building, such as prompt engineers, a profession that emerged during the hype.
+AI is already good enough to replace most third-party prompt-building tools. The
+wrapper fate came fast.

@@ -9,18 +9,17 @@ description:
 image: "qrcode.png"
 ---
 
-What a shame -- nowadays, one quick request to GPT spits out a proper HTML page
-with a full-fledged QR code generator...[^1] and yet I wasted _way_ more time
-Googling for a free generator that could give me `png` and `svg`. Every single
-one wants registration, logging in through some OAuth nonsense, or worst of all,
-a payment for an `svg` 🤦🏼.
+One quick request to GPT now spits out a proper HTML page with a QR code
+generator.[^1] I still wasted _way_ more time Googling for a free generator that
+could give me `png` and `svg`. Every one wanted registration, OAuth login, or,
+worst of all, payment for an `svg` 🤦🏼.
 
 So I made my own.
 
-Here’s a free QR code generator. No sign-ups, no fees, works. I’m only tracking
-pageviews, so chill.
+Here’s a free QR code generator. No sign-ups, no fees. It works. I only track
+pageviews.
 
-(And yep, I gotta throw in some text here to make search engines happy 🙃)
+Search engines still demand text around a tool. Commodity blogging as tribute 🙃
 
 ## Generate a QR code
 
@@ -28,8 +27,7 @@ pageviews, so chill.
 
 ## Paste text, download SVG or PNG
 
-Wanna skip straight to it? Here’s the
-[direct link](/text/qr-code-generator.html).
+Skip the post. Use the [direct link](/text/qr-code-generator.html).
 
 {data-content="footnotes"}
 

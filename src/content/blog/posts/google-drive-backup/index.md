@@ -15,23 +15,22 @@ disappears?
 
 ![generate image in anime style where white collar in suit grabs his head because he realized that lost his reports](suit.jpg)
 
-I searched for a reliable, out-of-the-box solution. Google's suggestions didn't
-land, so I built my own. Lego backup: assemble the necessary components.
+I searched for a reliable out-of-the-box solution. Google's suggestions didn't
+land, so I built my own. Lego backup: assemble the parts.
 
 ## Backup building blocks
 
 - Access to
   [Google Cloud Console](https://console.cloud.google.com/iam-admin/serviceaccounts)
-- rclone.org: A powerful tool that provides rsync-like CLI functionality for
-  managing filesystems and cloud storage. It's well-documented; I focus on the
-  short path
+- rclone.org: rsync-like CLI for filesystems and cloud storage. The docs are
+  good; I focus on the short path
 
 ### Google Cloud Console: create the service account
 
-I started with the most crucial step: credentials to interact with the Google
-API. (Remember to enable the
+I started with the part that can break the whole plan: credentials for the
+Google API. Enable the
 [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com)
-if needed) This involves creating a
+if needed. This means creating a
 [Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts)
 and generating a
 [JSON private key](https://developers.google.com/workspace/guides/create-credentials#create_credentials_for_a_service_account).
@@ -56,8 +55,8 @@ Here's an example of what it looks like:
 
 ### rclone: copy Drive to local storage
 
-Almost there. The next step is to set up rclone for automated execution using
-Cron on a host. I'll skip the details of acquiring a hosting environment.
+Next, set up rclone for automated execution with cron on a host. I skip the host
+setup here.
 
 Here's prepared `rclone.conf`:
 
@@ -101,9 +100,8 @@ in the bash command refers to the exact name of the shared folder.
 
 ## Next: encryption and offsite storage
 
-This provides a solid foundation for Google Drive backup. Next step: add
-[encryption](https://rclone.org/crypt/) and robust, cost-effective
+This is enough for a basic Google Drive backup. Next step: add
+[encryption](https://rclone.org/crypt/) and cheap offsite
 [storage](https://rclone.org/s3/).
 
-Stay tuned, I'm gonna talk about that
-[next]({{< relref "blog/posts/google-drive-backup-part2" >}}).
+That's the [next part]({{< relref "blog/posts/google-drive-backup-part2" >}}).

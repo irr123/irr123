@@ -22,41 +22,40 @@ different experience? Start with the thing everyone mixes up: definitions.
 
 ## What is an AI agent?
 
-- **Anthropic** -- the company. Founded by ex-OpenAI researchers. Usual story.
-- **Claude** -- the model family. When someone says "ask Claude," they usually
+- **Anthropic**: the company. Founded by ex-OpenAI researchers. Usual story.
+- **Claude**: the model family. When someone says "ask Claude," they usually
   mean a single call to whichever model through a chatbot. Competes with GPT
   (OpenAI) and Gemini (Google).
-- **Opus / Sonnet / Haiku** -- model tiers. Opus = most capable, Haiku = fastest
-  / cheapest.
-- **Agentic approach** / **Agentic AI**[^1] -- reason → act → observe → repeat,
+- **Opus / Sonnet / Haiku**: model tiers. Opus = most capable, Haiku = fastest /
+  cheapest.
+- **Agentic approach** / **Agentic AI**[^1]: reason → act → observe → repeat,
   the loop itself; _the loop is what makes something agentic_.
-- **Agent** -- model wrapped in a harness, spins in a loop: reads context,
-  plans, acts, verifies, repeats. Distinct from a chatbot by execution pattern
-  -- a chat interface can front an agent; a one-shot call cannot.
-  - **Sub-Agent** -- execution thread inside an agent, inherits base settings,
+- **Agent**: model wrapped in a harness, spins in a loop: reads context, plans,
+  acts, verifies, repeats. Distinct from a chatbot by execution pattern: a chat
+  interface can front an agent; a one-shot call cannot.
+  - **Sub-Agent**: execution thread inside an agent, inherits base settings,
     extends them.
-- **Agent harness**[^2] -- everything in an AI agent except the model itself:
+- **Agent harness**[^2]: everything in an AI agent except the model itself:
   tools, memory, workflow (the loop, plan/build sub-agents), guardrails
   (permissions, sandbox).
-- **MCP server** -- tool through which the agent interacts with the outer world
-  -- web, DBs, clouds, apps.
-- **Skill** -- goal-aimed prompt plus optional scripts, packaged capability.
-- **RAG** -- memory, agent stores custom data and pulls relevant chunks into
+- **MCP server**: tool through which the agent interacts with the outer world:
+  web, DBs, clouds, apps.
+- **Skill**: goal-aimed prompt plus optional scripts, packaged capability.
+- **RAG**: memory, agent stores custom data and pulls relevant chunks into
   context.
-- **AGENTS.md** / **CLAUDE.md** / **SOUL.md** -- custom instructions loaded into
+- **AGENTS.md** / **CLAUDE.md** / **SOUL.md**: custom instructions loaded into
   the context.
-- **Context** -- text the agent handles at once: user input, custom
-  instructions, tool outputs, RAG-retrieved chunks. Bounded by the model's
-  context length.
+- **Context**: text the agent handles at once: user input, custom instructions,
+  tool outputs, RAG-retrieved chunks. Bounded by the model's context length.
 
-Providers are wrapping yesterday's chats in agent loops -- execution pattern
+Providers are wrapping yesterday's chats in agent loops. Execution pattern
 flips, the chat UI stays. Same split still holds: model caps capability, harness
-wires integrations and workflow -- and intent has to be decomposed into pieces
-the agent can handle. Who does the decomposition is the next question.
+wires integrations and workflow, and intent has to be decomposed into pieces the
+agent can handle. Who does the decomposition is the next question.
 
 ## AI platforms and architectures
 
-First, split common LLM application architectures by workflow -- the execution
+First, split common LLM application architectures by workflow: the execution
 pattern around model calls.
 
 At tiers 0-3 this is mostly application code: fixed calls, branching, one-off
@@ -77,8 +76,8 @@ Six tiers, in order of escalating cost/complexity:
 This post is about tiers 4 and 5: agent loops, orchestrators, and who owns
 intent decomposition.
 
-Three families competing for "AI agent" today. Same lens for each: who owns
-intent decomposition -- the specialized harness, the personal assistant, or me?
+Three families compete for "AI agent" today. Same lens for each: who owns intent
+decomposition? The specialized harness, the personal assistant, or me?
 
 ### Specialized AI agents
 
@@ -113,28 +112,28 @@ Fine results, at least looks relevant.
 > > quick, relevant results. Pro subscribers can switch to advanced options like
 > > GPT-5.2 or Claude models via the model selector.
 
-Fail. It understood the surface intent -- answer a product-stack question -- but
+Fail. It understood the surface intent (answer a product-stack question), but
 the product owned routing and context. I had no way to inspect which model
 routed the answer, which metadata it saw, or why it mixed Grok, Sonar, and Llama
 into one pile.
 
-The outcome -- specialized harness frames intent into its fixed shape. When that
+The outcome: specialized harness frames intent into its fixed shape. When that
 frame fits, I get a clean research answer. When the frame itself is wrong, I get
 confident product salad and no useful control surface.
 
 ### Personal assistant
 
 Tried _OpenClaw_ first. It wants 2+ CPUs and 8+ GB RAM; my VPS has 1 and 1. Ran
-it anyway -- it choked the VPS. Dropped it for _Hermes_.
+it anyway. It choked the VPS. Dropped it for _Hermes_.
 
 Rarely discussed, but experimental software with a lot of external integrations
 has too broad an attack surface, see https://days-since-openclaw-cve.com. Keep
 it in mind.
 
-#### Hermes --- an agent that grows with you
+#### Hermes, an agent that grows with you
 
-Kind of strange that Nous Research doesn't mention they have a Docker image --
-`docker.io/nousresearch/hermes-agent` -- which I've successfully set up in
+Strange that Nous Research doesn't mention they have a Docker image,
+`docker.io/nousresearch/hermes-agent`, which I've successfully set up in
 [podman]({{< relref "blog/posts/the-actual-state-of-self-hosting-on-a-vps" >}}).
 
 {{< details summary="/etc/containers/systemd/hermes-agent.container" >}}
@@ -181,8 +180,8 @@ And it runs completely fine on a 1 CPU / 1 GB VPS.
 I connected it to my GPT subscription, added integrations for X, Google
 Calendar, Notion, and this blog's RSS, plus free Mem0 as RAG.
 
-It even worked, right after setup, but the next day it totally forgot about the
-integration -- I have to persuade it to try again.
+It even worked right after setup, but the next day it forgot about the
+integration. I had to persuade it to try again.
 
 OAuth failed in a different way. During Google Calendar integration I issued
 credentials only for read/write on the calendar, not broader Google scopes. The
@@ -190,9 +189,9 @@ builtin Google skill wants broader access, so the agent re-requests broader
 scopes every time it touches the calendar, and eventually the auth flow breaks
 again.
 
-One more case -- I configured a scheduled job to check, each morning at 9:00, my
+One more case: I configured a scheduled job to check, each morning at 9:00, my
 Notion calendar, Google Calendar, event listings, and send me a summary for
-today and tomorrow. How often does it work right? Almost never -- it checks only
+today and tomorrow. How often does it work right? Almost never. It checks only
 one calendar, sends events for the next ~6 months instead of 2 days, sends
 events for the current month but from this and previous years, and so on.
 
@@ -200,20 +199,20 @@ Current state: the initial GPT auth token has expired, and the agent can't renew
 it automatically. Well... experiment successful.
 
 Each failure is easy to fix manually: cron, small script, explicit OAuth scopes,
-date windows, deterministic calendar queries. But that is exactly the point --
-the general assistant is supposed to replace the glue. Here it doesn't. The
-failure is not the model. The harness decomposes intent badly, and the UI
-doesn't expose decomposition early enough to fix it.[^3]
+date windows, deterministic calendar queries. But that is exactly the point: the
+general assistant is supposed to replace the glue. Here it doesn't. The failure
+is not the model. The harness decomposes intent badly, and the UI doesn't expose
+decomposition early enough to fix it.[^3]
 
 ### CLI coding agents
 
-Terminal-native, actively evolving. Everything in my hands -- only vendor ToS
-can limit me.
+Terminal-native, actively evolving. Everything in my hands. Only vendor ToS can
+limit me.
 
-#### OpenCode --- the open source AI coding agent
+#### OpenCode, the open source AI coding agent
 
 My favorite one. Open source, standard `~/.config/opencode` path, strong
-build/plan sub-agent architecture. Also ships `opencode web` -- same engine,
+build/plan sub-agent architecture. Also ships `opencode web`, same engine,
 browser UI.
 
 {{< details summary="~/.config/opencode/config.json" >}}
@@ -267,40 +266,32 @@ browser UI.
 
 {{< /details >}}
 
-Current AI-bro consensus: "Context is the key" -- I agree, context engineering
+Current AI-bro consensus: "Context is the key". I agree. Context engineering
 pwnd [prompt engineering]({{< relref "blog/posts/prompt-engineering-notes" >}}).
 
 Even more, after
-[Gloaguen et al., "Evaluating AGENTS.md" (Feb 2026)](https://arxiv.org/abs/2602.11988)
--- generated agent context files hurt task success and add ~20% inference cost
--- I've stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths,
-framework summaries, and obvious project descriptions. Current agents can
-inspect a repo per case, fast and cheap enough. Put only what they cannot infer
-from code: constraints, preferences, dangerous commands, external contracts.
+[Gloaguen et al., "Evaluating AGENTS.md" (Feb 2026)](https://arxiv.org/abs/2602.11988),
+generated agent context files hurt task success and add ~20% inference cost. I
+stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths, framework
+summaries, and obvious project descriptions. Current agents can inspect a repo
+per case, fast and cheap enough. Put only what they cannot infer from code:
+constraints, preferences, dangerous commands, external contracts.
 
 {{< details summary="my global CLAUDE.md / AGENTS.md" >}}
 
 ```md
-# Approach
+# Invariants
 
-Validate inputs; assert assumptions.
+Hold every turn. Violations get surfaced, not smoothed, mine or yours.
 
-Frame contradictions, don't compromise them.
-
-Define measurable outcomes before implementation.
-
-Prefer simple over clever.
-
-Be brief: 1024 characters by default.
-
-Enforce these on me; surface violations, don't smooth them.
+No assumption is used before it's stated. No contradiction is averaged; both
+sides framed, one chosen. No implementation starts before its measurable outcome
+exists. No clever where simple works. No reply over 1024 chars unless asked to
+expand.
 
 ## Environment
 
-There is no `gh` CLI command.
-
-Use `rg` instead of grep.
-
+Absent: `gh`. Forbidden: `rm`, `curl`, `git add`, `git commit`. Search: `rg`.
 ...
 ```
 
@@ -424,9 +415,9 @@ important.
 This config reaches the same control goal I like in OpenCode: decomposition
 stays visible, writes stay gated, mode switching stays under my control:
 
-- `"defaultMode": "plan"` -- plan mode by default: writes blocked, reads
-  allowed, plan exposed as `/plan`
-- `"disableAutoMode": "disable"` -- no autonomous mode switching
+- `"defaultMode": "plan"`: plan mode by default: writes blocked, reads allowed,
+  plan exposed as `/plan`
+- `"disableAutoMode": "disable"`: no autonomous mode switching
 - `"sandbox.enabled": true` plus a `permissions.deny` list for `rm -rf`,
   `git push`, `sudo`, `~/.ssh/**`, etc.
 - telemetry off: `DISABLE_TELEMETRY=1`, `DISABLE_FEEDBACK_COMMAND=1`,
@@ -434,12 +425,12 @@ stays visible, writes stay gated, mode switching stays under my control:
 
 ##### Current setup
 
-- **Context7 MCP** -- provides actual library docs instead of the model's stale
-  or hallucinated snippets.
-- **Playwright MCP** -- browser control. Nothing else to add.[^8]
-- ~**Caveman plugin** -- its selling point is "Saves tokens, preserve
+- **Context7 MCP**: provides actual library docs instead of the model's stale or
+  hallucinated snippets.
+- **Playwright MCP**: browser control. Nothing else to add.[^8]
+- ~**Caveman plugin**: its selling point is "Saves tokens, preserve
   accuracy".~[^9]
-- **security-guidance@claude-plugins-official** -- it's not me, it's life
+- **security-guidance@claude-plugins-official**: blame the times
 
 Each of these touches the harness only. Model stays the vendor's, intent stays
 mine.
@@ -447,14 +438,13 @@ mine.
 ## Intent is the failure point
 
 Perplexity frames intent into its fixed shape. Hermes decomposes intent on its
-own, without me. CLI plan mode keeps decomposition visible -- I'm the
-bottleneck.
+own, without me. CLI plan mode keeps decomposition visible. I'm the bottleneck.
 
 _The loop is what makes something agentic_, and the harness puts me inside or
 outside of it.
 
 - Outside the loop: I wait for a solution that fits my intent's shape. When it
-  doesn't, the agent won't say "no" -- it attempts the task anyway, drifts, and
+  doesn't, the agent won't say "no". It attempts the task anyway, drifts, and
   hands something back.
 - Inside the loop: I keep intent, decompose it, approve execution. The ceiling
   is whatever I can break into steps.
@@ -465,7 +455,7 @@ autonomy that emerges today.[^10]
 {data-content="footnotes"}
 
 [^1]:
-    Popularized by ReAct -- Yao et al., ICLR 2023
+    Popularized by ReAct: Yao et al., ICLR 2023
     ([paper](https://arxiv.org/abs/2210.03629),
     [Google Research blog](https://research.google/blog/react-synergizing-reasoning-and-acting-in-language-models/)).
 
@@ -487,12 +477,12 @@ autonomy that emerges today.[^10]
 
 [^6]:
     https://simonwillison.net/2025/Jun/13/prompt-injection-design-patterns/#the-plan-then-execute-pattern
-    -- caveat: the split is weaker here -- plan sub-agent still reads untrusted
-    repo while planning, so a malicious file can steer the plan.
+    Caveat: the split is weaker here. Plan sub-agent still reads untrusted repo
+    while planning, so a malicious file can steer the plan.
 
 [^7]:
     [Anthropic]({{< relref "blog/posts/will-ai-replace-developers" >}})
-    tightened terms -- subscription plans (including the corporate one I use) no
+    tightened terms. Subscription plans (including the corporate one I use) no
     longer cover Claude access from third-party apps; third-party access now
     requires per-usage API credits.
 
