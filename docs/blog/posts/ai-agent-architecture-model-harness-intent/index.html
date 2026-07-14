@@ -86,7 +86,7 @@ is not the model. The harness decomposes intent badly, and the UI doesn’t expo
 decomposition early enough to fix it.<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup></p><h3 id=cli-coding-agents><a href=#cli-coding-agents>#</a> CLI coding agents</h3><p>Terminal-native, actively evolving. Everything in my hands. Only vendor ToS can
 limit me.</p><h4 id=opencode-the-open-source-ai-coding-agent><a href=#opencode-the-open-source-ai-coding-agent>#</a> OpenCode, the open source AI coding agent</h4><p>My favorite one. Open source, standard <code>~/.config/opencode</code> path, strong
 build/plan sub-agent architecture. Also ships <code>opencode web</code>, same engine,
-browser UI.</p><details><summary>~/.config/opencode/config.json</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+browser UI.</p><details><summary>~/.config/opencode/opencode.jsonc</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
 </span></span><span style=display:flex><span>  &#34;$schema&#34;: <span style=color:#87ceeb>&#34;https://opencode.ai/config.json&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;autoupdate&#34;: <span style=color:red>false</span>,
 </span></span><span style=display:flex><span>  &#34;default_agent&#34;: <span style=color:#87ceeb>&#34;plan&#34;</span>,
@@ -109,17 +109,13 @@ browser UI.</p><details><summary>~/.config/opencode/config.json</summary><div cl
 </span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;-y&#34;</span>,
 </span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;@playwright/mcp@latest&#34;</span>,
 </span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--browser=chromium&#34;</span>,
-</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#87ceeb>&#34;--caps=vision&#34;</span>
 </span></span><span style=display:flex><span>      ],
 </span></span><span style=display:flex><span>      &#34;environment&#34;: {
 </span></span><span style=display:flex><span>        &#34;PLAYWRIGHT_BROWSERS_PATH&#34;: <span style=color:#87ceeb>&#34;{env:HOME}/.cache/ms-playwright&#34;</span>
 </span></span><span style=display:flex><span>      },
 </span></span><span style=display:flex><span>      &#34;enabled&#34;: <span style=color:red>true</span>
-</span></span><span style=display:flex><span>    },
-</span></span><span style=display:flex><span>    &#34;claude&#34;: {
-</span></span><span style=display:flex><span>      &#34;type&#34;: <span style=color:#87ceeb>&#34;local&#34;</span>,
-</span></span><span style=display:flex><span>      &#34;command&#34;: [<span style=color:#87ceeb>&#34;claude&#34;</span>, <span style=color:#87ceeb>&#34;mcp&#34;</span>, <span style=color:#87ceeb>&#34;serve&#34;</span>],
-</span></span><span style=display:flex><span>      &#34;enabled&#34;: <span style=color:red>false</span>
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;experimental&#34;: {
@@ -167,8 +163,9 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;permissions&#34;: {
 </span></span><span style=display:flex><span>    &#34;allow&#34;: [
-</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git diff *)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git log *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git diff *)&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git show *)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(git status)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(grep *)&#34;</span>,
 </span></span><span style=display:flex><span>      <span style=color:#87ceeb>&#34;Bash(echo *)&#34;</span>,
@@ -224,19 +221,32 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;enabledPlugins&#34;: {
 </span></span><span style=display:flex><span>    &#34;security-guidance@claude-plugins-official&#34;: <span style=color:red>true</span>,
-</span></span><span style=display:flex><span>    &#34;frontend-design@claude-plugins-official&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>    &#34;frontend-design@claude-plugins-official&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>    &#34;mattpocock-skills@mattpocock&#34;: <span style=color:red>true</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;extraKnownMarketplaces&#34;: {
+</span></span><span style=display:flex><span>    &#34;mattpocock&#34;: {
+</span></span><span style=display:flex><span>      &#34;source&#34;: {
+</span></span><span style=display:flex><span>        &#34;source&#34;: <span style=color:#87ceeb>&#34;github&#34;</span>,
+</span></span><span style=display:flex><span>        &#34;repo&#34;: <span style=color:#87ceeb>&#34;mattpocock/skills&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>  },
 </span></span><span style=display:flex><span>  &#34;sandbox&#34;: {
 </span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>,
 </span></span><span style=display:flex><span>    &#34;excludedCommands&#34;: [<span style=color:#87ceeb>&#34;git&#34;</span>]
 </span></span><span style=display:flex><span>  },
-</span></span><span style=display:flex><span>  &#34;effortLevel&#34;: <span style=color:#87ceeb>&#34;xhigh&#34;</span>,
-</span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,
 </span></span><span style=display:flex><span>  &#34;autoUpdatesChannel&#34;: <span style=color:#87ceeb>&#34;stable&#34;</span>,
-</span></span><span style=display:flex><span>  &#34;skipWorkflowUsageWarning&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,
+</span></span><span style=display:flex><span>  &#34;disableArtifact&#34;: <span style=color:red>true</span>,
 </span></span><span style=display:flex><span>  &#34;disableAutoMode&#34;: <span style=color:#87ceeb>&#34;disable&#34;</span>,
-</span></span><span style=display:flex><span>  &#34;theme&#34;: <span style=color:#87ceeb>&#34;light&#34;</span>,
-</span></span><span style=display:flex><span>  &#34;skipAutoPermissionPrompt&#34;: <span style=color:red>false</span>
+</span></span><span style=display:flex><span>  &#34;disableBundledSkills&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;disableClaudeAiConnectors&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;disableRemoteControl&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;disableWorkflows&#34;: <span style=color:red>true</span>,
+</span></span><span style=display:flex><span>  &#34;effortLevel&#34;: <span style=color:#87ceeb>&#34;high&#34;</span>,
+</span></span><span style=display:flex><span>  &#34;skipAutoPermissionPrompt&#34;: <span style=color:red>false</span>,
+</span></span><span style=display:flex><span>  &#34;theme&#34;: <span style=color:#87ceeb>&#34;light&#34;</span>
 </span></span><span style=display:flex><span>}
 </span></span></code></pre></div></div></details><p>This config reaches the same control goal I like in OpenCode: decomposition
 stays visible, writes stay gated, mode switching stays under my control:</p><ul><li><code>"defaultMode": "plan"</code>: plan mode by default: writes blocked, reads allowed,

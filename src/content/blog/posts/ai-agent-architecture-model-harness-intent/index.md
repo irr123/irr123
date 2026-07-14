@@ -215,7 +215,7 @@ My favorite one. Open source, standard `~/.config/opencode` path, strong
 build/plan sub-agent architecture. Also ships `opencode web`, same engine,
 browser UI.
 
-{{< details summary="~/.config/opencode/config.json" >}}
+{{< details summary="~/.config/opencode/opencode.jsonc" >}}
 
 ```json
 {
@@ -241,17 +241,13 @@ browser UI.
         "-y",
         "@playwright/mcp@latest",
         "--browser=chromium",
-        "--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium"
+        "--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium",
+        "--caps=vision"
       ],
       "environment": {
         "PLAYWRIGHT_BROWSERS_PATH": "{env:HOME}/.cache/ms-playwright"
       },
       "enabled": true
-    },
-    "claude": {
-      "type": "local",
-      "command": ["claude", "mcp", "serve"],
-      "enabled": false
     }
   },
   "experimental": {
@@ -337,8 +333,9 @@ important.
   },
   "permissions": {
     "allow": [
-      "Bash(git diff *)",
       "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
       "Bash(git status)",
       "Bash(grep *)",
       "Bash(echo *)",
@@ -394,19 +391,32 @@ important.
   },
   "enabledPlugins": {
     "security-guidance@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "mattpocock-skills@mattpocock": true
+  },
+  "extraKnownMarketplaces": {
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    }
   },
   "sandbox": {
     "enabled": true,
     "excludedCommands": ["git"]
   },
-  "effortLevel": "xhigh",
-  "awaySummaryEnabled": false,
   "autoUpdatesChannel": "stable",
-  "skipWorkflowUsageWarning": true,
+  "awaySummaryEnabled": false,
+  "disableArtifact": true,
   "disableAutoMode": "disable",
-  "theme": "light",
-  "skipAutoPermissionPrompt": false
+  "disableBundledSkills": true,
+  "disableClaudeAiConnectors": true,
+  "disableRemoteControl": true,
+  "disableWorkflows": true,
+  "effortLevel": "high",
+  "skipAutoPermissionPrompt": false,
+  "theme": "light"
 }
 ```
 
