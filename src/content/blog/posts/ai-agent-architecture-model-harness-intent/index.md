@@ -242,7 +242,7 @@ browser UI.
         "@playwright/mcp@latest",
         "--browser=chromium",
         "--executable-path=/Applications/Chromium.app/Contents/MacOS/Chromium",
-        "--caps=vision"
+        "--caps=vision,devtools"
       ],
       "environment": {
         "PLAYWRIGHT_BROWSERS_PATH": "{env:HOME}/.cache/ms-playwright"
@@ -380,12 +380,7 @@ important.
       "Read(~/.gnupg/**)",
       "Read(~/.kube/**)",
       "Read(~/.npmrc)",
-      "Read(~/.ssh/**)",
-      "Write(./.env*)",
-      "Write(./.git/**)",
-      "Write(./secrets/**)",
-      "Write(~/.aws/**)",
-      "Write(~/.ssh/**)"
+      "Read(~/.ssh/**)"
     ],
     "defaultMode": "plan"
   },
