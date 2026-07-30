@@ -1,0 +1,71 @@
+<!doctype html><html lang=en-US><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Rotten specs | I run spec-driven development without rotten s...</title><meta name=description content="I run spec-driven development without rotten specs while OpenSpec, spec-kit, BMAD and Matt Pocock's skills build a knowledge base I never asked for, then let it rot."><link rel=canonical href=https://bogomolov.work/blog/posts/rotten-specs/><link rel=alternate type=application/rss+xml href=/index.xml title="The Archive"><link rel=icon href=/favicon.ico sizes=32x32><link rel=icon href=/icon.svg type=image/svg+xml><link rel=apple-touch-icon href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><meta property="og:title" content="Rotten specs"><meta property="og:description" content="I run spec-driven development without rotten specs while OpenSpec, spec-kit, BMAD and Matt Pocock's skills build a knowledge base I never asked for, then let it rot."><meta property="og:type" content="article"><meta property="og:url" content="https://bogomolov.work/blog/posts/rotten-specs/"><meta property="og:image" content="https://bogomolov.work/blog/posts/rotten-specs/hero.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:creator content="@_irr123"><meta property="twitter:domain" content="bogomolov.work"><meta property="twitter:url" content="https://bogomolov.work/blog/posts/rotten-specs/"><meta name=twitter:title content="Rotten specs"><meta name=twitter:description content="I run spec-driven development without rotten specs while OpenSpec, spec-kit, BMAD and Matt Pocock's skills build a knowledge base I never asked for, then let it rot."><meta name=twitter:image content="https://bogomolov.work/blog/posts/rotten-specs/hero.png"><meta name=theme-color content="#2a2b2c"><link rel=stylesheet href=/css/main.min.a46fa85d9c213931f321919f4500a25f3f321caf97c559127fcc1fb655604f8ca32ccd8c9e70e3930ac22865c5bcb8353a6af8b4de8ab03b251516fa73b9a2e1.css integrity="sha512-pG+oXZwhOTHzIZGfRQCiXz8yHK+XxVkSf8wftlVgT4yjLM2MnnDjkwrCKGXFvLg1Omr4tN6KsDslFRb6c7mi4Q=="><link rel=preconnect href=https://cdn.jsdelivr.net><link rel=preconnect href=https://faro-collector-prod-eu-west-2.grafana.net crossorigin></head><body a=auto><main class=page-content aria-label=Content><div class=w><div class=post-meta><p><a href=/blog/ aria-label="Go back" title="Go back">← Back</a></p><p><time datetime=2026-07-25T01:53:56+00:00>2026-07-25</time></p></div><header><h1>Rotten specs</h1></header><article><p>Say spec-driven development out loud and someone answers “spec rot”. OpenSpec,
+spec-kit and BMAD earned that answer; every one of them builds a knowledge base
+I never asked for.</p><p>But I run SDD without rotten specs. The fix: stop building a knowledge base on
+top of it.</p><figure><a href=/blog/posts/rotten-specs/hero.png target=_blank><picture><source srcset=/blog/posts/rotten-specs/hero_hu_51c4e63615eb4b18.webp type=image/webp><source srcset=/blog/posts/rotten-specs/hero_hu_d6d37a8b53212bd2.jpg type=image/jpeg><img src=/blog/posts/rotten-specs/hero_hu_d6d37a8b53212bd2.jpg alt="a cold archive room. A single small blueprint under a desk lamp on a
+workbench, dwarfed by tall steel shelves of freshly printed markdown binders
+labeled CONTEXT, ADR, DECISIONS, MEMORY. Dust settling on the shelves, no
+librarian at the desk" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>SDD is two steps: write the spec, then build from it. Both steps run against a
+context budget, because the <em>1M</em> window is still a marketing number.</p><h2 id=two-steps-dont-need-a-local-issue-tracker><a href=#two-steps-dont-need-a-local-issue-tracker>#</a> Two steps don’t need a local issue tracker</h2><p>OpenSpec gave me openspec/specs/, then openspec/changes/&lt;name>/ with
+proposal.md, design.md, tasks.md and a nested specs/&lt;capability>/spec.md,
+then openspec/changes/archive/2025-01-23-&lt;name>/.</p><p>Matt Pocock’s skills sell the opposite: “small, easy to adapt, and composable”,
+a shot at GSD, BMAD and Spec-Kit for “owning the process”. Then
+/setup-matt-pocock-skills writes docs/agents/issue-tracker.md and a triage label
+vocabulary, /domain-modeling maintains a root CONTEXT.md plus
+docs/adr/0001-*.md, /to-spec publishes .scratch/&lt;feature>/spec.md,
+/to-tickets fills .scratch/&lt;feature>/issues/01-*.md, and /wayfinder lays
+a map.md over the pile. Smaller units that build the same knowledge base.</p><p>The rest repeat the shape: a constitution, a spec, a plan and a task list per
+feature, a memlog. Scott Logic ran spec-kit on one feature and counted 2,577
+lines of generated markdown against 689 lines of code, plus 3.5 hours of
+review<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. I read that once. The agent reads it every session, long
+after the code moved on.</p><h2 id=nobody-owns-the-memory><a href=#nobody-owns-the-memory>#</a> Nobody owns the memory</h2><p>Before writing this I deleted about 250MB from <code>~/.claude</code>. Memories, plans,
+task lists, session leftovers, backups, security logs. Nothing broke. Nothing
+noticed.</p><p>Count the layers that claimed to remember something for me:</p><ul><li>the harness: projects/&lt;slug>/memory/MEMORY.md and its per-type files,
+plans/, sessions/, history.jsonl, backups/<ul><li>global and per project</li></ul></li><li>the SDD framework: constitution, spec, plan, task list, CONTEXT.md, ADRs,
+archive</li><li>rotten AI-written comments in code, describing the shape before the last
+refactor</li><li>mine, and the only ones I edit: AGENTS.md, README.md, my tests, my
+openapi.yaml</li><li>somebody’s Jira/Monday/Confluence MCP servers<ul><li>plus the default expectation that <code>gh</code> is installed and GitHub Issues is
+where I track work</li></ul></li></ul><p>A lot of places, a lot of writers. Zero owners. One deleter: me.</p><p>Where to put a <code>{</code> is a <code>make fmt</code> question. Nobody needs to search three
+trackers, two memory stores and an ADR to answer it.</p><p>So, just stop mixing the jobs. One tool, one job is old advice and it holds
+here.</p><h2 id=my-sdd-adds-no-files-to-the-repo><a href=#my-sdd-adds-no-files-to-the-repo>#</a> My SDD adds no files to the repo</h2><p>I run Pi now. No bloatware, no opinions I didn’t add myself. My global
+<a href=/blog/posts/ai-agent-architecture-model-harness-intent/#opencode-the-open-source-ai-coding-agent>AGENTS.md</a>
+is 9 lines: six invariants, two headers and one environment note. Next to it,
+<a href=https://github.com/irr123/lean target=_blank rel="noopener noreferrer">three skills</a> I wrote<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><p><strong>Research</strong> only reads. It splits a question into angles, sends read-only
+sub-agents at the independent ones, returns cited findings and writes nothing.
+<strong>Transfer</strong> writes one owner-only Markdown handoff into the temp directory,
+secrets redacted, then stops. The handoff carries whatever the session produced:
+findings, or the spec. <strong>Apply</strong> takes that handoff, checks its claims against
+the current repo, makes the smallest change and runs the repo’s own checks.
+Durable guidance goes into the instruction files I already keep. No intermediate
+artifacts land in the repo.</p><p>Past 100+k tokens in a session I do <strong>Transfer</strong> and restart from the handoff.
+Same move once the spec is ready: hand off, drop the model a tier (Opus to
+Sonnet, Sol to Terra), then <strong>Apply</strong>. The spec crosses one boundary and dies
+there.</p><p>Even sessions I don’t want to keep at all:
+<code>export PI_CODING_AGENT_SESSION_DIR=${TMPDIR%/}/pi-sessions</code>.</p><h2 id=conclusion><a href=#conclusion>#</a> Conclusion</h2><p>Stop arguing with a pointless “grilling” session about <em>marketing strategy</em>
+while trying to ship a local POC.</p><p>While models earn more intelligence, your codebase is still the source of truth.
+The agent gets a new version every hour. The repo is the one worth investing in.</p><p>The software development cycle has been here for decades. LLM marketing tries to
+bury it. Rotten specs are the punishment for blind faith in the Machine God.</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Scott Logic, “Putting Spec Kit through its paces: radical idea or reinvented
+waterfall?”, 2025-11-26. 2,577 lines of markdown, 689 loc, 3.5 hrs review
+against 1,000 loc, no markdown, 15 min review.
+<a href=https://blog.scottlogic.com/2025/11/26/putting-spec-kit-through-its-paces-radical-idea-or-reinvented-waterfall.html target=_blank rel="noopener noreferrer">https://blog.scottlogic.com/2025/11/26/putting-spec-kit-through-its-paces-radical-idea-or-reinvented-waterfall.html</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>Not ideal. Three files, my taste, my harness. If you can do it better, don’t
+hesitate: open a PR.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article></div></main><footer class=site-footer><span class=reply>Reply via <a href="mailto:ivan.invoke@bogomolov.work?subject=Re%3A%20Rotten%20specs">Email</a></span>
+<span class=links><a href=/privacy/>Privacy</a> | <a target=_blank rel="noopener noreferrer external" href=https://newsletter.bogomolov.work>Newsletter</a> | <a target=_blank rel="noopener noreferrer external" href=/index.xml>RSS</a></span></footer><script type=module>
+  const webSdkScript = document.createElement("script");
+  webSdkScript.src = "https://cdn.jsdelivr.net/npm/@grafana/faro-web-sdk@2/dist/bundle/faro-web-sdk.iife.js";
+  webSdkScript.crossOrigin = "anonymous";
+  webSdkScript.onload = () => {
+    window.GrafanaFaroWebSdk.initializeFaro({
+      url: "https://faro-collector-prod-eu-west-2.grafana.net/collect/280a442f2880e6eb5e953a7169416ccf",
+      app: {
+        name: "blog",
+        version: "1.0.0",
+        environment: "production",
+      },
+      sessionTracking: {
+        samplingRate: 1,
+        persistent: true,
+      },
+    });
+  };
+
+  document.head.appendChild(webSdkScript);
+</script></body></html>

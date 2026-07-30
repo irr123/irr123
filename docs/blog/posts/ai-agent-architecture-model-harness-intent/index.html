@@ -135,17 +135,12 @@ summaries, and obvious project descriptions. Current agents can inspect a repo
 per case, fast and cheap enough. Put only what they cannot infer from code:
 constraints, preferences, dangerous commands, external contracts.</p><details><summary>my global CLAUDE.md / AGENTS.md</summary><div class=details-content><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-md data-lang=md><span style=display:flex><span><span style=color:#ff0;font-weight:700># Invariants
 </span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Hold every turn. Violations get surfaced, not smoothed, mine or yours.
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>No assumption is used before it&#39;s stated. No contradiction is averaged; both
-</span></span><span style=display:flex><span>sides framed, one chosen. No implementation starts before its measurable outcome
-</span></span><span style=display:flex><span>exists. No clever where simple works. No reply over 1024 chars unless asked to
-</span></span><span style=display:flex><span>expand.
+</span></span><span style=display:flex><span>Be brief Truth over comfort Simple over clever Name the invariants first State
+</span></span><span style=display:flex><span>the measurable goal Contradiction: name both sides, never average
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#87ceeb;font-weight:700>## Environment
 </span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>Absent: <span style=color:#87ceeb>`gh`</span>. Forbidden: <span style=color:#87ceeb>`rm`</span>, <span style=color:#87ceeb>`curl`</span>, <span style=color:#87ceeb>`git add`</span>, <span style=color:#87ceeb>`git commit`</span>. Search: <span style=color:#87ceeb>`rg`</span>.
-</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>Absent: <span style=color:#87ceeb>`gh`</span> Search: <span style=color:#87ceeb>`rg`</span> ...
 </span></span></code></pre></div></div></details><p>Still, the most reliable way to fix hallucinations is not to argue with the
 agent but to drop the session and restart from scratch.</p><p>OpenCode’s approach helps me clearly follow the principles above:</p><ol><li>In plan mode I explain the goal and constraints, pointing to important files
 or docs as entry points;</li><li>The plan sub-agent collects requirements, explores the repo, clarifies
@@ -231,6 +226,7 @@ important.</p><details><summary>~/.claude/settings.json</summary><div class=deta
 </span></span><span style=display:flex><span>    &#34;enabled&#34;: <span style=color:red>true</span>,
 </span></span><span style=display:flex><span>    &#34;excludedCommands&#34;: [<span style=color:#87ceeb>&#34;git&#34;</span>]
 </span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  &#34;autoMemoryEnabled&#34;: <span style=color:red>false</span>,
 </span></span><span style=display:flex><span>  &#34;autoUpdatesChannel&#34;: <span style=color:#87ceeb>&#34;stable&#34;</span>,
 </span></span><span style=display:flex><span>  &#34;awaySummaryEnabled&#34;: <span style=color:red>false</span>,
 </span></span><span style=display:flex><span>  &#34;disableArtifact&#34;: <span style=color:red>true</span>,

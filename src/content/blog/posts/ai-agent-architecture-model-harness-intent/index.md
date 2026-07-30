@@ -278,17 +278,12 @@ constraints, preferences, dangerous commands, external contracts.
 ```md
 # Invariants
 
-Hold every turn. Violations get surfaced, not smoothed, mine or yours.
-
-No assumption is used before it's stated. No contradiction is averaged; both
-sides framed, one chosen. No implementation starts before its measurable outcome
-exists. No clever where simple works. No reply over 1024 chars unless asked to
-expand.
+Be brief Truth over comfort Simple over clever Name the invariants first State
+the measurable goal Contradiction: name both sides, never average
 
 ## Environment
 
-Absent: `gh`. Forbidden: `rm`, `curl`, `git add`, `git commit`. Search: `rg`.
-...
+Absent: `gh` Search: `rg` ...
 ```
 
 {{< /details >}}
@@ -401,6 +396,7 @@ important.
     "enabled": true,
     "excludedCommands": ["git"]
   },
+  "autoMemoryEnabled": false,
   "autoUpdatesChannel": "stable",
   "awaySummaryEnabled": false,
   "disableArtifact": true,
