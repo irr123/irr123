@@ -1,7 +1,7 @@
 {{- $next := false -}}
 {{- if not .Params.excludeFromPostList -}}{{- $next = .PrevInSection -}}{{- end -}}
 {{- $abs := printf `href="%s#` .RelPermalink -}}
-<article class="post-unit"{{ with $next }} data-next="{{ .RelPermalink }}"{{ end }}>
+<article class="post-unit" data-url="{{ .RelPermalink }}"{{ with $next }} data-next="{{ .RelPermalink }}"{{ end }}>
   {{ partial "post_head.html" . }}
 
   {{ if .Params.toc }}

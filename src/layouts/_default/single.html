@@ -7,6 +7,20 @@
   const sentinel = document.getElementById("feed-sentinel");
   let loading = false;
 
+  const marker = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const unit = e.target;
+      if (location.pathname === unit.dataset.url) continue;
+      history.replaceState({}, "", unit.dataset.url);
+      document.title = unit.dataset.title;
+    }
+  }, { rootMargin: "0px 0px -80% 0px" });
+  for (const unit of feed.children) {
+    unit.dataset.title = document.title;
+    marker.observe(unit);
+  }
+
   function runScripts(root) {
     for (const old of root.querySelectorAll("script")) {
       const s = document.createElement("script");
@@ -28,7 +42,9 @@
       const unit = doc.querySelector(".post-unit");
       if (!unit) throw 0;
       const imported = document.importNode(unit, true);
+      imported.dataset.title = doc.title;
       feed.appendChild(imported);
+      marker.observe(imported);
       const prev = tail.querySelector(".post-next");
       if (prev) prev.remove();
       runScripts(imported);
