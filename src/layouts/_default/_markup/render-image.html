@@ -30,15 +30,25 @@
       {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
   {{- else -}}
-    {{- $webpOptions := "webp q75" -}}
-    {{- $jpegOptions := "jpeg q85" -}}
-    {{- $webp := $image.Process $webpOptions -}}
-    {{- $jpeg := $image.Process $jpegOptions -}}
+    {{- $jpeg := $image.Process "jpeg q85" -}}
+    {{- $webpSet := slice -}}
+    {{- $jpegSet := slice -}}
+    {{- range $w := (slice 360 540 720 1080 1440) -}}
+      {{- if lt $w $image.Width -}}
+        {{- $rw := $image.Process (printf "resize %dx webp q75" $w) -}}
+        {{- $webpSet = $webpSet | append (printf "%s %dw" $rw.RelPermalink $w) -}}
+        {{- $rj := $image.Process (printf "resize %dx jpeg q85" $w) -}}
+        {{- $jpegSet = $jpegSet | append (printf "%s %dw" $rj.RelPermalink $w) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $webp := $image.Process "webp q75" -}}
+    {{- $webpSet = $webpSet | append (printf "%s %dw" $webp.RelPermalink $image.Width) -}}
+    {{- $jpegSet = $jpegSet | append (printf "%s %dw" $jpeg.RelPermalink $image.Width) -}}
     <figure>
       <a href="{{ $originalPermalink }}" target="_blank" rel="noopener noreferrer">
         <picture>
-          <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
-          <source srcset="{{ $jpeg.RelPermalink }}" type="image/jpeg">
+          <source srcset="{{ delimit $webpSet ", " }}" sizes="(max-width: 720px) calc(100vw - 1.5rem), 720px" type="image/webp">
+          <source srcset="{{ delimit $jpegSet ", " }}" sizes="(max-width: 720px) calc(100vw - 1.5rem), 720px" type="image/jpeg">
           <img src="{{ $jpeg.RelPermalink }}"
                width="{{ $jpeg.Width }}" height="{{ $jpeg.Height }}"
                alt="{{ $alt }}"
