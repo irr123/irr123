@@ -1,6 +1,8 @@
 {{- $next := false -}}
 {{- if not .Params.excludeFromPostList -}}{{- $next = .PrevInSection -}}{{- end -}}
 {{- $abs := printf `href="%s#` .RelPermalink -}}
+{{- $pfx := path.Base .RelPermalink -}}
+{{- $content := replaceRE `(id="|href="#)(fn(?:ref)?:)` (printf `${1}%s-${2}` $pfx) .Content -}}
 <article class="post-unit" data-url="{{ .RelPermalink }}"{{ with $next }} data-next="{{ .RelPermalink }}"{{ end }}>
   {{ partial "post_head.html" . }}
 
@@ -9,7 +11,7 @@
     {{ replaceRE `href="#` $abs .TableOfContents | safeHTML }}
   </aside>
   {{ end }}
-  {{ replaceRE `href="#` $abs .Content | safeHTML }}
+  {{ replaceRE `href="#` $abs $content | safeHTML }}
 
   {{ with $next }}
   <nav class="post-next"><a rel="next" href="{{ .RelPermalink }}">Continue: {{ .Title }} →</a></nav>

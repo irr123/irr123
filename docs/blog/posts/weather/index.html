@@ -3,12 +3,12 @@ I use it because normal weather sites bury the useful shape under cards, maps,
 cookie banners, and forecast theater.</p><p>Every number and colour is the raw air temperature: the standard 2 m reading,
 not feels-like. One metric across the grid, the heading, and the what-to-wear
 scale. Hover a cell for its hour, conditions, and clothing note.</p><p>A strip under the search box flags active hazards near the shown spot:
-earthquakes, storms, floods, and wildfires, sorted by severity and distance.</p><p>Forecast and city search come from Open-Meteo<sup id=fnref:1><a href=/blog/posts/weather/#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. IP/GPS location,
-reverse-geocoding, and the hazard feeds come from other keyless services<sup id=fnref:2><a href=/blog/posts/weather/#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.
+earthquakes, storms, floods, and wildfires, sorted by severity and distance.</p><p>Forecast and city search come from Open-Meteo<sup id=weather-fnref:1><a href=/blog/posts/weather/#weather-fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. IP/GPS location,
+reverse-geocoding, and the hazard feeds come from other keyless services<sup id=weather-fnref:2><a href=/blog/posts/weather/#weather-fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.
 The URL holds the coordinates. Copy it to share a spot.</p><p>No ads. No affiliate boxes. No cookie banner. Grafana Faro handles basic runtime
-telemetry; coordinates go only to the weather and hazard APIs above.</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>Weather data and geocoding by <a href=https://open-meteo.com/ target=_blank rel="noopener noreferrer">Open-Meteo.com</a>,
+telemetry; coordinates go only to the weather and hazard APIs above.</p><div class=footnotes role=doc-endnotes><hr><ol><li id=weather-fn:1><p>Weather data and geocoding by <a href=https://open-meteo.com/ target=_blank rel="noopener noreferrer">Open-Meteo.com</a>,
 used under <a href=https://creativecommons.org/licenses/by/4.0/ target=_blank rel="noopener noreferrer">CC BY 4.0</a>. This
-page transforms the API response into a local day-by-hour grid.&#160;<a href=/blog/posts/weather/#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>All keyless, used as-is: IP location from
+page transforms the API response into a local day-by-hour grid.&#160;<a href=/blog/posts/weather/#weather-fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=weather-fn:2><p>All keyless, used as-is: IP location from
 <a href=https://wtfismyip.com/ target=_blank rel="noopener noreferrer">wtfismyip</a>, GPS reverse-geocoding from
 <a href=https://www.bigdatacloud.com/ target=_blank rel="noopener noreferrer">BigDataCloud</a>; hazard alerts from
 <a href=https://earthquake.usgs.gov/ target=_blank rel="noopener noreferrer">USGS</a> (quakes),
@@ -17,7 +17,7 @@ page transforms the API response into a local day-by-hour grid.&#160;<a href=/bl
 <a href=https://www.weather.gov/ target=_blank rel="noopener noreferrer">US NWS</a> (US warnings), and
 <a href=https://librewxr.net/ target=_blank rel="noopener noreferrer">LibreWXR</a> (worldwide met warnings, proxying WMO and
 national services’ CAP feeds). US-government and NASA data is public domain;
-GDACS is open EC/JRC data.&#160;<a href=/blog/posts/weather/#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div><nav class=post-next><a rel=next href=/blog/posts/ai-makes-runtime-cost-matter-again/>Continue: Runtime cost matters to me now →</a></nav></article></div><div id=feed-sentinel aria-hidden=true></div><script type=module>
+GDACS is open EC/JRC data.&#160;<a href=/blog/posts/weather/#weather-fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div><nav class=post-next><a rel=next href=/blog/posts/ai-makes-runtime-cost-matter-again/>Continue: Runtime cost matters to me now →</a></nav></article></div><div id=feed-sentinel aria-hidden=true></div><script type=module>
   const feed = document.getElementById("post-feed");
   const sentinel = document.getElementById("feed-sentinel");
   let loading = false;
