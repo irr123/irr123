@@ -1,0 +1,17 @@
+{{- $next := false -}}
+{{- if not .Params.excludeFromPostList -}}{{- $next = .PrevInSection -}}{{- end -}}
+{{- $abs := printf `href="%s#` .RelPermalink -}}
+<article class="post-unit"{{ with $next }} data-next="{{ .RelPermalink }}"{{ end }}>
+  {{ partial "post_head.html" . }}
+
+  {{ if .Params.toc }}
+  <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
+    {{ replaceRE `href="#` $abs .TableOfContents | safeHTML }}
+  </aside>
+  {{ end }}
+  {{ replaceRE `href="#` $abs .Content | safeHTML }}
+
+  {{ with $next }}
+  <nav class="post-next"><a rel="next" href="{{ .RelPermalink }}">Continue: {{ .Title }} →</a></nav>
+  {{ end }}
+</article>

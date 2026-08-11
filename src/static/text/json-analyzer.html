@@ -114,6 +114,7 @@
           if (h && h !== lastH) { lastH = h; fe.style.height = h + 1 + "px"; }
         }
       })();
+      const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 
       function analyzeJson() {
         const jsonString = document.getElementById("jsonInput").value;
@@ -129,7 +130,7 @@
         try {
           jsonObj = JSON.parse(jsonString);
         } catch (e) {
-          resultsDiv.innerHTML = `<div class="error">Invalid JSON: ${e.message}</div>`;
+          resultsDiv.innerHTML = `<div class="error">Invalid JSON: ${esc(e.message)}</div>`;
           return;
         }
 
@@ -200,7 +201,7 @@
         topKeys.forEach((item) => {
           const percentage = ((item.size / totalSize) * 100).toFixed(2);
           keyDistributionHTML += `<tr>
-                    <td>${item.key}</td>
+                    <td>${esc(item.key)}</td>
                     <td>${item.size.toLocaleString()} bytes</td>
                     <td>${percentage}%</td>
                 </tr>`;
@@ -236,12 +237,11 @@
         data.forEach((item) => {
           const percentage = ((item.size / totalSize) * 100).toFixed(2);
           const {snippet, fullText} = createSnippet(item.obj);
-          const escapedFullText = fullText.replace(/"/g, "&quot;");
           tableHTML += `<tr>
-              <td>${item.path}</td>
+              <td>${esc(item.path)}</td>
               <td>${item.size.toLocaleString()}</td>
               <td>${percentage}%</td>
-              <td class="snippet-cell" title="${escapedFullText}">${snippet}</td>
+              <td class="snippet-cell" title="${esc(fullText)}">${esc(snippet)}</td>
           </tr>`;
         });
 

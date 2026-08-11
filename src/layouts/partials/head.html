@@ -24,6 +24,7 @@
   {{ end -}}
   <title>{{ $adjustedTitle }}</title>
   <meta name="description" content="{{ $adjustedSummary }}">
+  {{- if .Params.noindex }}<meta name="robots" content="noindex,follow">{{ end }}
   <link rel="canonical" href="{{ .Permalink }}">
   <link rel="alternate" type="application/rss+xml" href="/index.xml" title="The Archive">
   <link rel="icon" href="/favicon.ico" sizes="32x32">

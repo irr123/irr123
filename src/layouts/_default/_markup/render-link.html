@@ -1,6 +1,8 @@
 {{- $u := urls.Parse .Destination -}}
+{{- $dest := .Destination -}}
+{{- if hasPrefix $dest "#" -}}{{- $dest = printf "%s%s" .Page.RelPermalink $dest -}}{{- end -}}
 <a
-  href="{{ .Destination }}"
+  href="{{ $dest }}"
   {{-
   with
   .Title

@@ -131,6 +131,7 @@ figcaption {
 }
 img {
   max-width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto;
 }
@@ -223,6 +224,17 @@ blockquote p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.post-unit + .post-unit::before {
+  content: "\25C6  \25C6  \25C6" / "";
+  display: block;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.post-next {
+  margin-top: 2rem;
 }
 
 .w,

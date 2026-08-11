@@ -161,7 +161,7 @@
   <body>
     <header id="bar">
       <form id="search">
-        <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" />
+        <input id="q" type="text" placeholder="city" aria-label="Search city" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" />
         <button type="submit">go</button>
         <select id="unit" aria-label="Temperature unit">
           <option value="c">°C</option>
@@ -171,8 +171,8 @@
         <ul id="suggest" role="listbox" aria-label="city suggestions"></ul>
       </form>
     </header>
-    <div id="status"></div>
-    <div id="alerts" aria-label="active hazard alerts"></div>
+    <div id="status" role="status" aria-live="polite"></div>
+    <div id="alerts" aria-label="active hazard alerts" aria-live="polite"></div>
     <div id="scroll"></div>
     <div id="legend" aria-label="what to wear by temperature"></div>
     <div id="tip" aria-hidden="true"></div>
@@ -201,8 +201,17 @@
         return r.json();
       };
       const swin = () => { try { return window.parent !== window ? window.parent : window; } catch (e) { return window; } };
+      const isCanonicalHost = () => {
+        try {
+          const host = window.frameElement && window.frameElement.closest(".post-unit");
+          if (!host) return true;
+          const first = window.parent.document.querySelector("#post-feed > .post-unit");
+          return !first || host === first;
+        } catch (e) { return false; }
+      };
       const writeUrl = (lat, lon) => {
-        try { swin().history.replaceState(null, "", "?lat=" + lat + "&lon=" + lon); } catch (e) {}
+        const w = isCanonicalHost() ? swin() : window;
+        try { w.history.replaceState(null, "", "?lat=" + lat + "&lon=" + lon); } catch (e) {}
       };
       const wmo = (() => {
         const WMO = {
@@ -334,18 +343,21 @@
         try {
           if (window.parent !== window) {
             const pdoc = window.parent.document;
-            const ph1 = pdoc.querySelector("h1");
-            const now = days.get(curr.date)?.[curr.hour];
-            if (ph1 && now) {
-              ph1.textContent = tempText(now.temp) + degSym();
-              const es = pdoc.createElement("span");
-              es.textContent = wmo(now.code, curr.hour).e;
-              es.style.fontSize = "1.3em";
-              es.style.marginLeft = "0.4em";
-              ph1.appendChild(es);
+            const host = window.frameElement?.closest(".post-unit");
+            if (host) {
+              const ptitle = host.querySelector("h1 .post-title");
+              const now = days.get(curr.date)?.[curr.hour];
+              if (ptitle && now) {
+                ptitle.textContent = tempText(now.temp) + degSym();
+                const es = pdoc.createElement("span");
+                es.textContent = wmo(now.code, curr.hour).e;
+                es.style.fontSize = "1.3em";
+                es.style.marginLeft = "0.4em";
+                ptitle.appendChild(es);
+              }
+              const ptime = host.querySelector(".post-meta time");
+              if (ptime) { ptime.textContent = curr.date; ptime.setAttribute("datetime", curr.date); }
             }
-            const ptime = pdoc.querySelector(".post-meta time");
-            if (ptime) { ptime.textContent = curr.date; ptime.setAttribute("datetime", curr.date); }
           }
         } catch (e) {}
 
@@ -576,7 +588,7 @@
         const frag = document.createDocumentFragment();
         alerts.forEach((a) => {
           const row = document.createElement("a");
-          row.href = a.url; row.target = "_blank"; row.rel = "noopener";
+          if (/^https:\/\//i.test(String(a.url))) { row.href = a.url; row.target = "_blank"; row.rel = "noopener"; }
           const lc = LEVEL_COLOR[a.level];
           if (lc) row.style.borderLeftColor = lc;
           row.appendChild(span("em", a.emoji));
@@ -680,13 +692,14 @@
       (() => {
         const suggestEl = document.getElementById("suggest");
         let items = [], active = -1, acToken = 0, timer = 0;
-        const close = () => { items = []; active = -1; suggestEl.replaceChildren(); };
+        const close = () => { items = []; active = -1; suggestEl.replaceChildren(); qEl.setAttribute("aria-expanded", "false"); qEl.removeAttribute("aria-activedescendant"); };
         const draw = () => {
           const frag = document.createDocumentFragment();
           items.forEach((it, i) => {
             const li = document.createElement("li");
+            li.id = "sug-" + i;
             li.setAttribute("role", "option");
-            if (i === active) li.className = "active";
+            if (i === active) { li.className = "active"; li.setAttribute("aria-selected", "true"); }
             const b = document.createElement("b");
             b.textContent = it.short;
             li.appendChild(b);
@@ -701,6 +714,9 @@
             frag.appendChild(li);
           });
           suggestEl.replaceChildren(frag);
+          qEl.setAttribute("aria-expanded", items.length ? "true" : "false");
+          if (active >= 0) qEl.setAttribute("aria-activedescendant", "sug-" + active);
+          else qEl.removeAttribute("aria-activedescendant");
         };
         const choose = (it) => {
           if (!it) return;

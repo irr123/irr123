@@ -1,7 +1,7 @@
 {{/* layouts/_default/_markup/render-image.html */}}
 {{- $src := .Destination -}}
-{{- $alt := .PlainText | safeHTMLAttr -}}
-{{- $title := .Title | safeHTMLAttr -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
 {{- $image := "" -}}
 {{- with .Page.Resources.GetMatch $src -}}
   {{- $image = . -}}
@@ -21,7 +21,7 @@
   {{- $originalPermalink := $image.RelPermalink -}}
   {{- if eq $image.MediaType.SubType "svg" -}}
     <figure>
-      <a href="{{ $originalPermalink }}" target="_blank">
+      <a href="{{ $originalPermalink }}" target="_blank" rel="noopener noreferrer">
         <img src="{{ $image.RelPermalink }}" {{/* This is already the original for SVG */}}
              alt="{{ $alt }}"
              {{- with $title }} title="{{ . }}"{{ end }}
@@ -35,11 +35,12 @@
     {{- $webp := $image.Process $webpOptions -}}
     {{- $jpeg := $image.Process $jpegOptions -}}
     <figure>
-      <a href="{{ $originalPermalink }}" target="_blank">
+      <a href="{{ $originalPermalink }}" target="_blank" rel="noopener noreferrer">
         <picture>
           <source srcset="{{ $webp.RelPermalink }}" type="image/webp">
           <source srcset="{{ $jpeg.RelPermalink }}" type="image/jpeg">
           <img src="{{ $jpeg.RelPermalink }}"
+               width="{{ $jpeg.Width }}" height="{{ $jpeg.Height }}"
                alt="{{ $alt }}"
                {{- with $title }} title="{{ . }}"{{ end }}
                {{- if eq .Ordinal 0 -}}
@@ -62,7 +63,7 @@
   {{- end -}}
   <figure>
     {{/* For external/fallback images, $src is the original URL */}}
-    <a href="{{ $src | safeURL }}" target="_blank">
+    <a href="{{ $src | safeURL }}" target="_blank" rel="noopener noreferrer">
       <img src="{{ $src | safeURL }}"
            alt="{{ $alt }}"
            {{- with $title }} title="{{ . }}"{{ end }}

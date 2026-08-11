@@ -1,23 +1,44 @@
 {{ define "main" }}
-<div class="post-meta">
-  <p>{{ partial "back_link.html" .}}</p>
-  {{ if not .Date.IsZero }}
-  <p>
-    <time datetime="{{ .Date.Format "2006-01-02T15:04:05-07:00" }}">
-      {{ .Date | time.Format site.Params.theme_config.date_format }}
-    </time>
-  </p>
-  {{ end }}
-</div>
+<div id="post-feed">{{ partial "post_unit.html" . }}</div>
+<div id="feed-sentinel" aria-hidden="true"></div>
 
-<header><h1>{{ .Title }}</h1></header>
+<script type="module">
+  const feed = document.getElementById("post-feed");
+  const sentinel = document.getElementById("feed-sentinel");
+  let loading = false;
 
-<article>
-  {{ if .Params.toc }}
-  <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
-    {{ .TableOfContents }}
-  </aside>
-  {{ end }}
-  {{ .Content }}
-</article>
+  function runScripts(root) {
+    for (const old of root.querySelectorAll("script")) {
+      const s = document.createElement("script");
+      for (const a of old.attributes) s.setAttribute(a.name, a.value);
+      s.textContent = old.textContent;
+      old.replaceWith(s);
+    }
+  }
+
+  async function loadNext() {
+    const tail = feed.lastElementChild;
+    const url = tail && tail.dataset.next;
+    if (loading || !url) { if (!url) loader.disconnect(); return; }
+    loading = true;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw 0;
+      const doc = new DOMParser().parseFromString(await res.text(), "text/html");
+      const unit = doc.querySelector(".post-unit");
+      if (!unit) throw 0;
+      const imported = document.importNode(unit, true);
+      feed.appendChild(imported);
+      const prev = tail.querySelector(".post-next");
+      if (prev) prev.remove();
+      runScripts(imported);
+    } catch { loader.disconnect(); }
+    loading = false;
+  }
+
+  const loader = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) loadNext();
+  }, { rootMargin: "800px" });
+  addEventListener("scroll", () => loader.observe(sentinel), { once: true, passive: true });
+</script>
 {{ end }}

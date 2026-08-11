@@ -4,3 +4,4 @@ CLAUDE.md
 .claude/
 .playwright-mcp/
 .optimize.stamp
+src/.hugo_build.lock

@@ -64,7 +64,7 @@ With `.prettierrc` in place, run `docker run` again.
 ## Conclusion
 
 Simple enough. I manage it with a Makefile; full code is here:
-[https://github.com/irr123/irr123](https://github.com/irr123/irr123/blob/main/Makefile#L27).
+[https://github.com/irr123/irr123](https://github.com/irr123/irr123/blob/main/Makefile).
 
 Prettier also formats static HTML/CSS/JS assets well enough and handles code
 blocks inside Markdown content pages.
