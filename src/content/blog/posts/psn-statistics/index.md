@@ -11,8 +11,8 @@ image: "astro-bot.png"
 
 <!-- ![test](astro-bot.png) -->
 
-I wrote a tool to inspect my PlayStation life: hours played, games beaten, and
-the backlog I pretend doesn't exist. It's open-source; patches welcome.
+I wrote a tool to inspect my PlayStation life. Hours played, games beaten, the
+backlog I pretend doesn't exist. It's open-source; patches welcome.
 
 https://github.com/irr123/psn-games-stats/tree/argparse
 

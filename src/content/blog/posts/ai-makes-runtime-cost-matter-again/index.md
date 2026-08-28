@@ -11,7 +11,7 @@ image: hero.png
 
 AI made me reopen a boring question: why am I still paying Fargate rent for V8?
 
-Bun's Zig-to-Rust AI rewrite got me running the math: 6 days, 960'000 lines,
+Bun's Zig-to-Rust AI rewrite got me running the math. 6 days, 960'000 lines,
 99.8% of Bun's existing tests passing, 9 days to merge ($10'000 total AI
 spent?)[^1].
 
@@ -53,7 +53,7 @@ The language map changes:
 
 - **Rust / C / C++**: smallest runtime footprint. Highest migration friction.
   Ecosystem question still open for my services.
-- **Go**: small runtime tax, boring deployment, strong backend ecosystem. Looks
+- **Go**: small runtime tax. Boring deployment, strong backend ecosystem. Looks
   like the new default from the cost side.[^3]
 - **Node / Python / PHP / Java / C#**: still productive defaults, but their
   runtime footprint is no longer free. Fargate turns it into a line item.

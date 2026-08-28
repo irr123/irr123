@@ -7,26 +7,26 @@ labeled CONTEXT, ADR, DECISIONS, MEMORY. Dust settling on the shelves, no
 librarian at the desk" loading=eager fetchpriority=high decoding=sync></picture></a></figure><p>SDD is two steps: write the spec, then build from it. Both steps run against a
 context budget, because the <em>1M</em> window is still a marketing number.</p><h2 id=two-steps-dont-need-a-local-issue-tracker><a href=/blog/posts/rotten-specs/#two-steps-dont-need-a-local-issue-tracker aria-label="Permalink to Two steps don’t need a local issue tracker">¶</a>&nbsp;Two steps don’t need a local issue tracker</h2><p>OpenSpec gave me openspec/specs/, then openspec/changes/&lt;name>/ with
 proposal.md, design.md, tasks.md and a nested specs/&lt;capability>/spec.md,
-then openspec/changes/archive/2025-01-23-&lt;name>/.</p><p>Matt Pocock’s skills sell the opposite: “small, easy to adapt, and composable”,
-a shot at GSD, BMAD and Spec-Kit for “owning the process”. Then
+then openspec/changes/archive/2025-01-23-&lt;name>/.</p><p>Matt Pocock’s skills sell the opposite. Marketed as “small, easy to adapt, and
+composable”, a shot at GSD, BMAD and Spec-Kit for “owning the process”. Then
 /setup-matt-pocock-skills writes docs/agents/issue-tracker.md and a triage label
 vocabulary, /domain-modeling maintains a root CONTEXT.md plus
 docs/adr/0001-*.md, /to-spec publishes .scratch/&lt;feature>/spec.md,
 /to-tickets fills .scratch/&lt;feature>/issues/01-*.md, and /wayfinder lays
-a map.md over the pile. Smaller units that build the same knowledge base.</p><p>The rest repeat the shape: a constitution, a spec, a plan and a task list per
+a map.md over the pile. Smaller units that build the same knowledge base.</p><p>The rest repeat the shape. A constitution, a spec, a plan and a task list per
 feature, a memlog. Scott Logic ran spec-kit on one feature and counted 2,577
 lines of generated markdown against 689 lines of code, plus 3.5 hours of
 review<sup id=rotten-specs-fnref:1><a href=/blog/posts/rotten-specs/#rotten-specs-fn:1 class=footnote-ref role=doc-noteref>1</a></sup>. I read that once. The agent reads it every session, long
 after the code moved on.</p><h2 id=nobody-owns-the-memory><a href=/blog/posts/rotten-specs/#nobody-owns-the-memory aria-label="Permalink to Nobody owns the memory">¶</a>&nbsp;Nobody owns the memory</h2><p>Before writing this I deleted about 250MB from <code>~/.claude</code>. Memories, plans,
 task lists, session leftovers, backups, security logs. Nothing broke. Nothing
 noticed.</p><p>Count the layers that claimed to remember something for me:</p><ul><li>the harness: projects/&lt;slug>/memory/MEMORY.md and its per-type files,
-plans/, sessions/, history.jsonl, backups/<ul><li>global and per project</li></ul></li><li>the SDD framework: constitution, spec, plan, task list, CONTEXT.md, ADRs,
+plans/, sessions/, history.jsonl, backups/<ul><li>global and per project</li></ul></li><li>the SDD framework. Constitution, spec, plan, task list, CONTEXT.md, ADRs,
 archive</li><li>rotten AI-written comments in code, describing the shape before the last
 refactor</li><li>mine, and the only ones I edit: AGENTS.md, README.md, my tests, my
 openapi.yaml</li><li>somebody’s Jira/Monday/Confluence MCP servers<ul><li>plus the default expectation that <code>gh</code> is installed and GitHub Issues is
 where I track work</li></ul></li></ul><p>A lot of places, a lot of writers. Zero owners. One deleter: me.</p><p>Where to put a <code>{</code> is a <code>make fmt</code> question. Nobody needs to search three
 trackers, two memory stores and an ADR to answer it.</p><p>So, just stop mixing the jobs. One tool, one job is old advice and it holds
-here.</p><h2 id=my-sdd-adds-no-files-to-the-repo><a href=/blog/posts/rotten-specs/#my-sdd-adds-no-files-to-the-repo aria-label="Permalink to My SDD adds no files to the repo">¶</a>&nbsp;My SDD adds no files to the repo</h2><p>I run Pi now. No bloatware, no opinions I didn’t add myself. My global
+here.</p><h2 id=my-sdd-adds-no-files-to-the-repo><a href=/blog/posts/rotten-specs/#my-sdd-adds-no-files-to-the-repo aria-label="Permalink to My SDD adds no files to the repo">¶</a>&nbsp;My SDD adds no files to the repo</h2><p>I run Pi now. Zero bloatware, zero opinions I didn’t add myself. My global
 <a href=/blog/posts/ai-agent-architecture-model-harness-intent/#opencode-the-open-source-ai-coding-agent>AGENTS.md</a>
 is 9 lines: six invariants, two headers and one environment note. Next to it,
 <a href=https://github.com/irr123/lean target=_blank rel="noopener noreferrer">three skills</a> I wrote<sup id=rotten-specs-fnref:2><a href=/blog/posts/rotten-specs/#rotten-specs-fn:2 class=footnote-ref role=doc-noteref>2</a></sup>.</p><p><strong>Research</strong> only reads. It splits a question into angles, sends read-only

@@ -23,6 +23,10 @@ build:
 hugo_add:
 	docker run --rm --user $$(id -u):$$(id -g) -v $(PWD)/src:/project ${HUGO} new content content/blog/posts/new-post/index.md
 
+.PHONY: check-cliches
+check-cliches:
+	find $(PWD)/src/content -name '*.md' -exec node $(PWD)/scripts/llm-cliche-highlighter.mjs {} \;
+
 .PHONY: optimize
 optimize:
 	@stamp=$(PWD)/.optimize.stamp; \

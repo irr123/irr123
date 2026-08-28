@@ -2,7 +2,7 @@
 date: 2026-04-18T00:00:00Z
 back_ref: /blog/_index.md
 draft: false
-title: "AI agent architecture: model, harness, intent"
+title: "AI agent architecture: model, harness and intent"
 description:
   "Where AI agents break: hidden intent. Plan-mode loops keep humans in control;
   opaque harnesses bury the failures. A frame for model, harness, intent."
@@ -30,22 +30,22 @@ different experience? Start with the thing everyone mixes up: definitions.
   cheapest.
 - **Agentic approach** / **Agentic AI**[^1]: reason → act → observe → repeat,
   the loop itself; _the loop is what makes something agentic_.
-- **Agent**: model wrapped in a harness, spins in a loop: reads context, plans,
+- **Agent**: model wrapped in a harness, spins in a loop. Reads context, plans,
   acts, verifies, repeats. Distinct from a chatbot by execution pattern: a chat
   interface can front an agent; a one-shot call cannot.
-  - **Sub-Agent**: execution thread inside an agent, inherits base settings,
+  - **Sub-Agent**: execution thread inside an agent. Inherits base settings,
     extends them.
-- **Agent harness**[^2]: everything in an AI agent except the model itself:
-  tools, memory, workflow (the loop, plan/build sub-agents), guardrails
+- **Agent harness**[^2]: everything in an AI agent except the model itself.
+  Tools, memory, workflow (the loop, plan/build sub-agents), guardrails
   (permissions, sandbox).
-- **MCP server**: tool through which the agent interacts with the outer world:
-  web, DBs, clouds, apps.
+- **MCP server**: tool through which the agent interacts with the outer world.
+  Web, DBs, clouds, apps.
 - **Skill**: goal-aimed prompt plus optional scripts, packaged capability.
 - **RAG**: memory, agent stores custom data and pulls relevant chunks into
   context.
 - **AGENTS.md** / **CLAUDE.md** / **SOUL.md**: custom instructions loaded into
   the context.
-- **Context**: text the agent handles at once: user input, custom instructions,
+- **Context**: text the agent handles at once. User input, custom instructions,
   tool outputs, RAG-retrieved chunks. Bounded by the model's context length.
 
 Providers are wrapping yesterday's chats in agent loops. Execution pattern
@@ -58,8 +58,8 @@ agent can handle. Who does the decomposition is the next question.
 First, split common LLM application architectures by workflow: the execution
 pattern around model calls.
 
-At tiers 0-3 this is mostly application code: fixed calls, branching, one-off
-tool use. At tiers 4-5 it becomes an agent harness: loop, state, permissions,
+At tiers 0-3 this is mostly application code. Fixed calls, branching, one-off
+tool use. At tiers 4-5 it becomes an agent harness. Loop, state, permissions,
 memory, orchestration.
 
 Six tiers, in order of escalating cost/complexity:
@@ -73,11 +73,11 @@ Six tiers, in order of escalating cost/complexity:
 | 4    | Agent, ReAct loop          | Iterative, unknown depth, state-dependent   | Unbounded: loop iterations × model/tool calls |
 | 5    | Multi-agent / orchestrator | Long-horizon, decomposable, large context   | Orchestrator + workers + replans + synthesis  |
 
-This post is about tiers 4 and 5: agent loops, orchestrators, and who owns
+This post is about tiers 4 and 5. Agent loops, orchestrators, and who owns
 intent decomposition.
 
 Three families compete for "AI agent" today. Same lens for each: who owns intent
-decomposition? The specialized harness, the personal assistant, or me?
+decomposition? The specialized harness, the personal assistant, or me.
 
 ### Specialized AI agents
 
@@ -86,7 +86,7 @@ decomposition? The specialized harness, the personal assistant, or me?
 - Customer service bot
 - AI for medical diagnosis
 
-Same product shape: narrow task, fixed workflow, integrations hidden behind the
+Same product shape. Narrow task, fixed workflow, integrations hidden behind the
 UI.
 
 _Perplexity_ is the research/search version of that shape.
@@ -198,7 +198,7 @@ events for the current month but from this and previous years, and so on.
 Current state: the initial GPT auth token has expired, and the agent can't renew
 it automatically. Well... experiment successful.
 
-Each failure is easy to fix manually: cron, small script, explicit OAuth scopes,
+Each failure is easy to fix manually. Cron, small script, explicit OAuth scopes,
 date windows, deterministic calendar queries. But that is exactly the point: the
 general assistant is supposed to replace the glue. Here it doesn't. The failure
 is not the model. The harness decomposes intent badly, and the UI doesn't expose
@@ -270,8 +270,8 @@ Even more, after
 generated agent context files hurt task success and add ~20% inference cost. I
 stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths, framework
 summaries, and obvious project descriptions. Current agents can inspect a repo
-per case, fast and cheap enough. Put only what they cannot infer from code:
-constraints, preferences, dangerous commands, external contracts.
+per case, fast and cheap enough. Put only what they cannot infer from code.
+Constraints, preferences, dangerous commands, external contracts.
 
 {{< details summary="my global CLAUDE.md / AGENTS.md" >}}
 
@@ -416,7 +416,7 @@ important.
 This config reaches the same control goal I like in OpenCode: decomposition
 stays visible, writes stay gated, mode switching stays under my control:
 
-- `"defaultMode": "plan"`: plan mode by default: writes blocked, reads allowed,
+- `"defaultMode": "plan"`: plan mode by default. Writes blocked, reads allowed,
   plan exposed as `/plan`
 - `"disableAutoMode": "disable"`: no autonomous mode switching
 - `"sandbox.enabled": true` plus a `permissions.deny` list for `rm -rf`,
@@ -447,8 +447,8 @@ outside of it.
 - Outside the loop: I wait for a solution that fits my intent's shape. When it
   doesn't, the agent won't say "no". It attempts the task anyway, drifts, and
   hands something back.
-- Inside the loop: I keep intent, decompose it, approve execution. The ceiling
-  is whatever I can break into steps.
+- Inside the loop: I keep intent, decompose it and approve execution. The
+  ceiling is whatever I can break into steps.
 
 Same year. Same frontier models. Humans still hold the loop. That is the
 autonomy that emerges today.[^10]

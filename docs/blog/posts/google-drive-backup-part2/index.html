@@ -30,9 +30,9 @@ browser. I did it with Docker:</p><div class=highlight><pre tabindex=0 style=col
 </span></span></span><span style=display:flex><span>    -v ./data:/data <span style=color:#87ceeb>\
 </span></span></span><span style=display:flex><span>    rclone/rclone --drive-shared-with-me <span style=color:#87ceeb>\
 </span></span></span><span style=display:flex><span>    copy dropbox-crypt: google-drive:&lt;SHARED FOLDER&gt;
-</span></span></code></pre></div><p>This decrypts and copies files back to Google Drive.</p><p><strong>Note:</strong> Only properly encrypted files will be recovered.</p><h2 id=verdict-encrypted-cheap-restorable><a href=/blog/posts/google-drive-backup-part2/#verdict-encrypted-cheap-restorable aria-label="Permalink to Verdict: encrypted, cheap, restorable">¶</a>&nbsp;Verdict: encrypted, cheap, restorable</h2><p>Dropbox gives the backup a second place to live. <code>crypt</code> keeps Dropbox from
-seeing the plain files. The weak point stays boring: password quality. Long,
-unique password. Stored properly.</p><p>Next boring task: regular restore tests. Then health checks and notifications.</p><nav class=post-next><a rel=next href=/blog/posts/google-drive-backup/>Continue: (Almost) Free Google Drive backup (part 1) →</a></nav></article></div><div id=feed-sentinel aria-hidden=true></div><script type=module>
+</span></span></code></pre></div><p>This decrypts and copies files back to Google Drive.</p><p><strong>Note:</strong> Only properly encrypted files will be recovered.</p><h2 id=verdict><a href=/blog/posts/google-drive-backup-part2/#verdict aria-label="Permalink to Verdict">¶</a>&nbsp;Verdict</h2><p>Encrypted, cheap, restorable. Dropbox gives the backup a second place to live.
+<code>crypt</code> keeps Dropbox from seeing the plain files. The weak point stays boring:
+password quality. Long, unique password. Stored properly.</p><p>Next boring task: regular restore tests. Then health checks and notifications.</p><nav class=post-next><a rel=next href=/blog/posts/google-drive-backup/>Continue: (Almost) Free Google Drive backup (part 1) →</a></nav></article></div><div id=feed-sentinel aria-hidden=true></div><script type=module>
   const feed = document.getElementById("post-feed");
   const sentinel = document.getElementById("feed-sentinel");
   let loading = false;

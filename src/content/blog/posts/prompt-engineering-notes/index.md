@@ -5,7 +5,7 @@ draft: false
 title: Prompt engineering notes, after the Cursor leak
 description:
   'Notes after the Cursor system-prompt leak: most "prompt engineer" tooling is
-  dead weight. Modern LLMs auto-generate better prompts from raw context.'
+  excess weight. Modern LLMs auto-generate better prompts from raw context.'
 image: ai-refuses.jpg
 ---
 
@@ -42,7 +42,7 @@ I focus on **2**. In my personal workflow, I ask something like:
 
 > generate anime style image where AI fed up of prompt
 
-No context, no examples, no extra limits. Will it work? Yes. Will it match the
+Context, examples, extra limits: missing. Will it work? Yes. Will it match the
 post's style? Probably not.
 
 To improve it, add context:

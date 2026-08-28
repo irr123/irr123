@@ -18,9 +18,8 @@ Here is a talk from Anthropic's CEO, published one day before this post:
 
 {{< youtube id=esCSpbDPJik start="976" >}}
 
-Now check their [actual hiring plans](https://www.anthropic.com/jobs): Product,
-Infra, and Data Science. Hiring for a senior or staff role takes six months or
-more:
+Now check their [actual hiring plans](https://www.anthropic.com/jobs). Product,
+Infra, Data Science. Hiring for a senior or staff role takes six months or more:
 
 ![vacancy](vacancy.png)
 

@@ -53,7 +53,7 @@ Every online guide and AI assistant suggested the same thing: "Only sanitize on
 output"! But I couldn't do that; the security team's requirement to sanitize on
 ingest was non-negotiable.
 
-Then the useful question landed: Why, in **2025**, am I still using
+Then the useful question landed. Why, in **2025**, am I still using
 [character entities](https://grokipedia.com/page/Character_encodings_in_HTML#character-references)
 instead of _raw Unicode characters_?
 

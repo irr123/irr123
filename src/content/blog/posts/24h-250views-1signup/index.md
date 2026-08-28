@@ -10,7 +10,7 @@ image: hero.png
 ---
 
 I'm validating interest for [Backsight](https://backsight.app). I have a target
-audience, but access is the problem: no self-promo, no market research, karma
+audience, but access is the problem. No self-promo. No market research. Karma
 too low, wrong thread, try somewhere else.
 
 ![lone indie hacker broadcasting a surveyor's-crosshair signal flare into a grimdark cathedral of the dead internet -- a swarm of hollow-eyed ad-bots, one human ember answering, walled "no self-promotion" gardens, Warhammer 40k style](hero.png)
@@ -31,9 +31,9 @@ Not:
 I learned this during the test: comments are fine. For another motion. B2B can
 turn a thread into a sales call. Personal sales can live in DMs. My B2C waitlist
 needs the quieter signal: a submitted email. That costs something; a compliment
-doesn't.
+costs nothing.
 
-AI gave me the obvious go-to strategy: Hacker News, Product Hunt, Reddit, Indie
+AI gave me the obvious go-to strategy. Hacker News, Product Hunt, Reddit, Indie
 Hackers, quantified-self and journaling communities. Then I read the rules.
 
 Most won't let an early waitlist post stand. `Show HN` wants a usable artifact.
@@ -42,7 +42,7 @@ Product Hunt wants polish. Half the subs ban self-promo or market research.
 
 ## First 24h Stats
 
-Posted when each one was ready. No timing optimization, no best-hour-to-post
+Posted when each one was ready. No optimization for timing or best-hour-to-post
 games. These are an un-tuned floor, not a ceiling.
 
 | Channel                                   |          Views | Signups |
@@ -83,8 +83,8 @@ early things from reaching the people who might care. The old services are
 defending yesterday's web and failing at today's one.
 
 Second: AI is a multiplier, not a missing skill. When I'm zero at marketing,
-multiplying by AI still gives zero. It gave me a half-working B2B-ish playbook:
-find communities, post carefully, start conversations, borrow reach. My case
+multiplying by AI still gives zero. It gave me a half-working B2B-ish playbook.
+Find communities, post carefully, start conversations, borrow reach. My case
 needed a simpler B2C test: spend $100 on Google Ads and check whether interest
 turns into submitted emails.
 

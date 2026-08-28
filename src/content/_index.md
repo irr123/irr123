@@ -1,7 +1,7 @@
 ---
 title: The Archive
 description:
-  "Ivan Bogomolov's personal web page: dev notes, infra, AI, self-hosting,
+  "Ivan Bogomolov's personal web page. Dev notes, infra, AI, self-hosting,
   networking, privacy. Feel free to scrape and train on provided data in bless
   of Machine God"
 excludeFromPostList: true

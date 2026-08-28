@@ -2,9 +2,9 @@
 date: 2025-03-16T10:25:54Z
 back_ref: /blog/_index.md
 draft: false
-title: "Search engine indexing: Google, Bing, Yandex"
+title: "Search engine indexing: Google, Bing and Yandex"
 description:
-  "Three months fighting Google, Bing, and Yandex to index a fresh domain. Bing
+  "Three months fighting Google, Bing and Yandex to index a fresh domain. Bing
   barely tries; Yandex cooperates; Google takes its time. Tactics that worked."
 image: robots.jpg
 ---
@@ -38,7 +38,7 @@ First, there aren't many independent indexes. Based on public info:
   - perplexity.ai
   - chatgpt.com/?hints=search
 
-In practice: if Bing caches my page wrong, fixing it is hard, and other search
+In practice, if Bing caches my page wrong, fixing it is hard. Other search
 engines may inherit the bad result.
 
 {{< details summary="Issue example" >}}

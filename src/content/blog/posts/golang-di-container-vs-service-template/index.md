@@ -49,8 +49,8 @@ is called:
 or
 [Hexagonal](<https://grokipedia.com/page/Hexagonal_architecture_(software)>)[^3])
 the outer layers repeat. Business logic changes.[^4] Observability, database
-connections, message broker clients, config, and metrics can be shared. That's
-the part worth typing and testing once.
+connections, message broker clients, config, and metrics can be shared. Type and
+test that once.
 
 #### Straightforward implementation
 
@@ -101,7 +101,7 @@ Tests, static analysis, and normal compatibility rules apply.
 
 ## What templates still cover
 
-Templates still cover more on day one: project layout, deployment scripts,
+Templates still cover more on day one. Project layout, deployment scripts,
 CI/CD, VCS hooks, dashboards, alerts. That's useful. The limit is enforcement.
 Templates provide those pieces at creation time. Containers keep shared wiring
 consistent while the service evolves.

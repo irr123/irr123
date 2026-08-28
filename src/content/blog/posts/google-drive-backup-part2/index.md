@@ -77,10 +77,10 @@ This decrypts and copies files back to Google Drive.
 
 **Note:** Only properly encrypted files will be recovered.
 
-## Verdict: encrypted, cheap, restorable
+## Verdict
 
-Dropbox gives the backup a second place to live. `crypt` keeps Dropbox from
-seeing the plain files. The weak point stays boring: password quality. Long,
-unique password. Stored properly.
+Encrypted, cheap, restorable. Dropbox gives the backup a second place to live.
+`crypt` keeps Dropbox from seeing the plain files. The weak point stays boring:
+password quality. Long, unique password. Stored properly.
 
 Next boring task: regular restore tests. Then health checks and notifications.

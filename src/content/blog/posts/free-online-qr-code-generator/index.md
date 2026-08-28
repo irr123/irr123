@@ -16,7 +16,7 @@ worst of all, payment for an `svg` 🤦🏼.
 
 So I made my own.
 
-Here’s a free QR code generator. No sign-ups, no fees. It works. I only track
+Here’s a free QR code generator. No sign-up. No fee. It works. I only track
 pageviews.
 
 Search engines still demand text around a tool. Commodity blogging as tribute 🙃

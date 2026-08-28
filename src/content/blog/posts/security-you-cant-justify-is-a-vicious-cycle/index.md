@@ -4,7 +4,7 @@ back_ref: /blog/_index.md
 draft: false
 title: Security you can't justify is a vicious cycle
 description:
-  "Dependabot is on fire, the model yells, the meeting says add TLS. Fine. Is
+  "Dependabot is on fire. The model yells. The meeting says add TLS. Fine. Is
   this stopping an attacker, or feeding a checklist?"
 image: "hero.png"
 ---

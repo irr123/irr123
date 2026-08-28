@@ -31,15 +31,15 @@ OpenSpec gave me openspec/specs/, then openspec/changes/&lt;name&gt;/ with
 proposal.md, design.md, tasks.md and a nested specs/&lt;capability&gt;/spec.md,
 then openspec/changes/archive/2025-01-23-&lt;name&gt;/.
 
-Matt Pocock's skills sell the opposite: "small, easy to adapt, and composable",
-a shot at GSD, BMAD and Spec-Kit for "owning the process". Then
+Matt Pocock's skills sell the opposite. Marketed as "small, easy to adapt, and
+composable", a shot at GSD, BMAD and Spec-Kit for "owning the process". Then
 /setup-matt-pocock-skills writes docs/agents/issue-tracker.md and a triage label
 vocabulary, /domain-modeling maintains a root CONTEXT.md plus
 docs/adr/0001-\*.md, /to-spec publishes .scratch/&lt;feature&gt;/spec.md,
 /to-tickets fills .scratch/&lt;feature&gt;/issues/01-\*.md, and /wayfinder lays
 a map.md over the pile. Smaller units that build the same knowledge base.
 
-The rest repeat the shape: a constitution, a spec, a plan and a task list per
+The rest repeat the shape. A constitution, a spec, a plan and a task list per
 feature, a memlog. Scott Logic ran spec-kit on one feature and counted 2,577
 lines of generated markdown against 689 lines of code, plus 3.5 hours of
 review[^scottlogic]. I read that once. The agent reads it every session, long
@@ -56,7 +56,7 @@ Count the layers that claimed to remember something for me:
 - the harness: projects/&lt;slug&gt;/memory/MEMORY.md and its per-type files,
   plans/, sessions/, history.jsonl, backups/
   - global and per project
-- the SDD framework: constitution, spec, plan, task list, CONTEXT.md, ADRs,
+- the SDD framework. Constitution, spec, plan, task list, CONTEXT.md, ADRs,
   archive
 - rotten AI-written comments in code, describing the shape before the last
   refactor
@@ -76,7 +76,7 @@ here.
 
 ## My SDD adds no files to the repo
 
-I run Pi now. No bloatware, no opinions I didn't add myself. My global
+I run Pi now. Zero bloatware, zero opinions I didn't add myself. My global
 [AGENTS.md]({{< relref "blog/posts/ai-agent-architecture-model-harness-intent/#opencode-the-open-source-ai-coding-agent" >}})
 is 9 lines: six invariants, two headers and one environment note. Next to it,
 [three skills](https://github.com/irr123/lean) I wrote[^lean].

@@ -12,7 +12,7 @@ image: "pic.png"
 I started cleaning up my home infrastructure and tried to make Shadowsocks act
 like a VPN. It failed in the parts I needed most.
 
-My pile: a few VPSs from different hosts, a Raspberry Pi, a PlayStation, some
+My pile. A few VPSs from different hosts, a Raspberry Pi, a PlayStation, some
 PCs, and phones. I want simple VPS monitoring, a Raspberry Pi dashboard, and a
 safe way to deploy services. I also want traffic exit points in other regions
 and IP ranges. Scheme below:
@@ -87,7 +87,7 @@ The docs provide many
 [installation options](https://github.com/shadowsocks/shadowsocks-rust#build--install),
 from regular Linux repos and snaps to Docker images and self-built binaries. I
 use pre-built binaries from the GitHub releases page. Same for service
-lifecycle: systemd, supervisord, self-managed, Docker/k8s. I use systemd. Here
+lifecycle. Systemd, supervisord, self-managed, Docker/k8s. I use systemd. Here
 is the unit file at `/etc/systemd/system/shadowsocks-server.service`:
 
 ```ini

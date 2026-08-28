@@ -39,7 +39,7 @@ image: ""
 
 <iframe id="wx" src="/text/weather.html" title="Local hourly weather grid" allow="geolocation"></iframe>
 
-My weather forecast as a day-by-hour grid: yesterday, today, and the next week.
+My weather forecast as a day-by-hour grid. Yesterday, today, and the next week.
 I use it because normal weather sites bury the useful shape under cards, maps,
 cookie banners, and forecast theater.
 
@@ -47,14 +47,14 @@ Every number and colour is the raw air temperature: the standard 2 m reading,
 not feels-like. One metric across the grid, the heading, and the what-to-wear
 scale. Hover a cell for its hour, conditions, and clothing note.
 
-A strip under the search box flags active hazards near the shown spot:
-earthquakes, storms, floods, and wildfires, sorted by severity and distance.
+A strip under the search box flags active hazards near the shown spot.
+Earthquakes, storms, floods, and wildfires, sorted by severity and distance.
 
 Forecast and city search come from Open-Meteo[^1]. IP/GPS location,
 reverse-geocoding, and the hazard feeds come from other keyless services[^2].
 The URL holds the coordinates. Copy it to share a spot.
 
-No ads. No affiliate boxes. No cookie banner. Grafana Faro handles basic runtime
+No ads or affiliate boxes. No cookie banner. Grafana Faro handles basic runtime
 telemetry; coordinates go only to the weather and hazard APIs above.
 
 {data-content="footnotes"}

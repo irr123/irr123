@@ -5,14 +5,14 @@ draft: false
 title:
   "Docker images are hundreds of MB; a full game engine compiles to 35MB WASM"
 description:
-  "A full 3D game with renderer, physics engine, and scripting runtime exported
-  to WebAssembly is 35MB. The default Node.js Docker image is hundreds of MB,
-  pulled 19 million times last week."
+  "A full 3D game in WebAssembly is 35MB. It has a renderer, physics engine and
+  scripting runtime. The default Node.js Docker image is hundreds of MB, pulled
+  19 million times last week."
 image: hero.png
 ---
 
 I exported a game skeleton to WebAssembly a few hours ago and was surprised by
-the artifact size. Full 3D engine: GL Compatibility renderer, Jolt physics,
+the artifact size. Full 3D engine. GL Compatibility renderer, Jolt physics,
 GDScript runtime, Ink narrative interpreter. The binary: 35MB. Runs in any
 browser, zero install.
 
@@ -72,5 +72,5 @@ runwasi, Kubernetes has kwasm experiments, WASI runtimes exist.
 So why has WASM adoption stalled? The transfer-size case is already there:
 roughly 10×. Why isn't that enough to become standard practice?
 
-Same as ARM nodes a few years ago: cheaper, denser, widely available. Still not
+Same as ARM nodes a few years ago. Cheaper, denser, widely available. Still not
 the default choice.
