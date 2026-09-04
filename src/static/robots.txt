@@ -1,2 +1,29 @@
-User-Agent: *
+# Policy: allow search engines and AI answer assistants; opt out of AI training.
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+# AI answer / search assistants
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+Allow: /
+
+# AI training
+User-agent: GPTBot
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: Claude-Web
+User-agent: Bytespider
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
+User-agent: Diffbot
+Disallow: /
+
 Sitemap: https://bogomolov.work/sitemap.xml
