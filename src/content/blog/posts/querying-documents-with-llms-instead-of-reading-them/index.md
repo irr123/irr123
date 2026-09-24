@@ -18,7 +18,7 @@ I tried something different on Google’s
 [Startup technical guide: AI agents](https://cloud.google.com/resources/content/building-ai-agents?hl=en).
 Instead of reading, I queried it. Treat the doc like a database.
 
-This isn’t deep reading. It’s triage.
+Call it triage.
 
 ![LLM → concise insights](img.png)
 
@@ -104,5 +104,5 @@ This works as a filter. It breaks if I trust it blindly.
 
 ## Conclusion
 
-This isn’t reading. It’s interrogation. I use it to slash through the pile of
+This is interrogation. I use it to slash through the pile of
 PDFs and whitepapers. Then I read the ones that deserve my hours.

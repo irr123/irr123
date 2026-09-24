@@ -278,12 +278,17 @@ Constraints, preferences, dangerous commands, external contracts.
 ```md
 # Invariants
 
-Be brief Truth over comfort Simple over clever Name the invariants first State
-the measurable goal Contradiction: name both sides, never average
+Be brief
 
-## Environment
+Truth over comfort
 
-Absent: `gh` Search: `rg` ...
+Simple over clever
+
+Contradiction: name both sides, never average
+
+Use subagents to do the work; main thread is orchestrator
+
+grep -> rg; python -> python3
 ```
 
 {{< /details >}}
@@ -319,8 +324,13 @@ important.
 ```json
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "cleanupPeriodDays": 1,
   "env": {
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1",
+    "DISABLE_AUTOUPDATER": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "DISABLE_COST_WARNINGS": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "DISABLE_ERROR_REPORTING": "1",
     "DISABLE_FEEDBACK_COMMAND": "1",
@@ -379,35 +389,30 @@ important.
     ],
     "defaultMode": "plan"
   },
-  "enabledPlugins": {
-    "security-guidance@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "mattpocock-skills@mattpocock": true
-  },
-  "extraKnownMarketplaces": {
-    "mattpocock": {
-      "source": {
-        "source": "github",
-        "repo": "mattpocock/skills"
-      }
-    }
-  },
-  "sandbox": {
-    "enabled": true,
-    "excludedCommands": ["git"]
-  },
-  "autoMemoryEnabled": false,
-  "autoUpdatesChannel": "stable",
-  "awaySummaryEnabled": false,
-  "disableArtifact": true,
-  "disableAutoMode": "disable",
-  "disableBundledSkills": true,
+  "model": "sonnet",
   "disableClaudeAiConnectors": true,
+  "disableBundledSkills": true,
   "disableRemoteControl": true,
   "disableWorkflows": true,
-  "effortLevel": "high",
-  "skipAutoPermissionPrompt": false,
-  "theme": "light"
+  "disableArtifact": true,
+  "enableAllProjectMcpServers": false,
+  "includeCoAuthoredBy": false,
+  "sandbox": {
+    "enabled": true,
+    "excludedCommands": [
+      "git"
+    ]
+  },
+  "effortLevel": "low",
+  "awaySummaryEnabled": false,
+  "autoUpdatesChannel": "stable",
+  "autoMemoryEnabled": false,
+  "disableAutoMode": "disable",
+  "theme": "light",
+  "editorMode": "normal",
+  "preferredNotifChannel": "notifications_disabled",
+  "autoCompactEnabled": false,
+  "skipAutoPermissionPrompt": false
 }
 ```
 

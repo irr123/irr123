@@ -339,6 +339,13 @@ const patterns = [
     find: makeRegexFinder(/\bnot\s+(?:just|only|merely|simply)\s+[^.!?\n;]*?\bbut(?:\s+also)?\b|\b(?:it|this|that)(?:['\u2019]s|\s+(?:is|was))\s+not\s+[^.!?\n,;\u2014\u2013]{1,60}[,;\u2014\u2013]\s*(?:it|this|that)(?:['\u2019]s|\s+(?:is|was))\b/gi)
   },
   {
+    id: 'not-but',
+    group: WIKI_GROUP,
+    name: '\u201cNot X, but Y\u201d',
+    description: 'Plain negative parallelism, including the split-sentence \u201cisn\u2019t X. It\u2019s Y\u201d form.',
+    find: makeRegexFinder(/\bnot\s+(?!(?:just|only|merely|simply)\b)[^.!?\n;]{1,100}?\bbut\b|\b(?:isn['\u2019]t|is not)\s+[^.!?\n]{1,80}[.!?]\s*(?:it['\u2019]s|it is|this['\u2019]s|this is|that['\u2019]s|that is)\b/gi)
+  },
+  {
     id: 'note-that',
     group: WIKI_GROUP,
     name: '\u201cIt\u2019s important to note\u201d',
