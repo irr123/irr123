@@ -104,5 +104,5 @@ This works as a filter. It breaks if I trust it blindly.
 
 ## Conclusion
 
-This is interrogation. I use it to slash through the pile of
-PDFs and whitepapers. Then I read the ones that deserve my hours.
+This is interrogation. I use it to slash through the pile of PDFs and
+whitepapers. Then I read the ones that deserve my hours.

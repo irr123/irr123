@@ -399,9 +399,7 @@ important.
   "includeCoAuthoredBy": false,
   "sandbox": {
     "enabled": true,
-    "excludedCommands": [
-      "git"
-    ]
+    "excludedCommands": ["git"]
   },
   "effortLevel": "low",
   "awaySummaryEnabled": false,
