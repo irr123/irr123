@@ -60,8 +60,9 @@ Count the layers that claimed to remember something for me:
   archive
 - rotten AI-written comments in code, describing the shape before the last
   refactor
-- mine, and the only ones I edit: AGENTS.md, README.md, my tests, my
-  openapi.yaml
+- mine, and the only ones I edit:
+  [AGENTS.md]({{< relref "blog/posts/ai-agent-architecture-model-harness-intent/#opencode-the-open-source-ai-coding-agent" >}}),
+  README.md, my tests, my openapi.yaml
 - somebody's Jira/Monday/Confluence MCP servers
   - plus the default expectation that `gh` is installed and GitHub Issues is
     where I track work

@@ -321,7 +321,8 @@ Helm isn’t included by default, so I’ll use raw YAML manifests.</p><details>
 </span></span></code></pre></div><p>On a single VPS.</p><h3 id=k3s-verdict-full-cluster-tax><a href=/blog/posts/the-actual-state-of-self-hosting-on-a-vps/#k3s-verdict-full-cluster-tax aria-label="Permalink to K3s verdict: full cluster tax">¶</a>&nbsp;K3s verdict: full cluster tax</h3><p>Pros: it provides <code>/usr/local/bin/k3s-uninstall.sh</code>.</p><p>Jokes aside: on the one hand it gives me the full Kubernetes experience, even
 with built-in ingress controller, so I could reuse existing manifests for a
 full-fledged cluster and <em>scale</em> things up (no, but belief helps, see
-non-clusterized <code>deployment-valkey.yaml</code>).</p><p>On the other hand, I pay high operational costs and high CPU/RAM overhead. Will
+non-clusterized <code>deployment-valkey.yaml</code>).</p><p>On the other hand, I pay high operational costs and high <a href=/blog/posts/ai-makes-runtime-cost-matter-again/>CPU/RAM
+overhead</a>. Will
 I ever recoup that investment?</p><h2 id=podman--quadlet><a href=/blog/posts/the-actual-state-of-self-hosting-on-a-vps/#podman--quadlet aria-label="Permalink to Podman + Quadlet">¶</a>&nbsp;Podman + Quadlet</h2><p>The dark horse. I’d never heard of it before I started writing this article, but
 it looks the most promising.</p><p>First, <em>Podman</em> is an engine that runs containers without a permanent privileged
 daemon. It uses OCI runtimes, is rootless by design, and stays Docker-compatible

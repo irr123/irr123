@@ -30,9 +30,11 @@ spikes. The runtime pays rent on Fargate while I'm paying for it.
 
 ### One rewrite, run the math
 
-Say _$100_ in Claude Code tokens to produce a first port to Go or Rust. Not to
-ship it blindly. Review, tests, and rollout still cost human time. But the first
-draft is no longer the expensive part.
+Say _$100_ in [Claude
+Code]({{< relref "blog/posts/ai-agent-architecture-model-harness-intent/#claude-code" >}})
+tokens to produce a first port to Go or Rust. Not to ship it blindly. Review,
+tests, and rollout still cost human time. But the first draft is no longer the
+expensive part.
 
 Fargate bills _$0.04048_ per vCPU-hour and _$0.004445_ per GB-hour[^2]. Minimum
 task size: 0.25 vCPU / 0.5 GB, about _$9/month_. A compiled service with a Mongo
@@ -64,7 +66,9 @@ runtime choice visible again.
 
 ## Plan B
 
-Or move off AWS to Hetzner and cut the bill by ~10x.
+Or move off AWS to
+[Hetzner]({{< relref "blog/posts/the-actual-state-of-self-hosting-on-a-vps" >}})
+and cut the bill by ~10x.
 
 {data-content="footnotes"}
 

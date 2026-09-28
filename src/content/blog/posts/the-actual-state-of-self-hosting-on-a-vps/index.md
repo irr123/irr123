@@ -482,7 +482,8 @@ with built-in ingress controller, so I could reuse existing manifests for a
 full-fledged cluster and _scale_ things up (no, but belief helps, see
 non-clusterized `deployment-valkey.yaml`).
 
-On the other hand, I pay high operational costs and high CPU/RAM overhead. Will
+On the other hand, I pay high operational costs and high [CPU/RAM
+overhead]({{< relref "blog/posts/ai-makes-runtime-cost-matter-again" >}}). Will
 I ever recoup that investment?
 
 ## Podman + Quadlet

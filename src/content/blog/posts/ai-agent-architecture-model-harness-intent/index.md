@@ -473,7 +473,8 @@ autonomy that emerges today.[^10]
 
 [^4]:
     Yes-yes, I know about openspec.dev, but the plan has to stay observable, not
-    5+ A4 neuro-generated pages of raw text.
+    5+ A4 [neuro-generated]({{< relref "blog/posts/rotten-specs" >}}) pages of
+    raw text.
 
 [^5]:
     To save some tokens I use stronger model for plan (Opus) and weaker for

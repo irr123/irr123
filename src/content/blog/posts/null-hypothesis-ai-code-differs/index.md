@@ -56,7 +56,8 @@ led me to people who had already run the measurements.
 These papers do find differences:
 
 - **raw** AI-involved code is "more comment-heavy, less cross-file reused, ..."
-  - these differences disappear in real-world repos (my guess: AGENTS.md
+  - these differences disappear in real-world repos (my guess:
+    [AGENTS.md]({{< relref "blog/posts/ai-agent-architecture-model-harness-intent" >}})
     customizations, linters and formatters, plus review)
 - The stronger signal: AI-involved commits are smaller and more localized.
   - which I didn't measure and don't care about

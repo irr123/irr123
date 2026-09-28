@@ -2,6 +2,7 @@
 date: 2025-05-24T08:47:42Z
 back_ref: /blog/_index.md
 draft: false
+noindex: true
 title: Free online QR code generator (no signup, SVG + PNG)
 description:
   "A free QR code generator that gives you SVG and PNG without registration,

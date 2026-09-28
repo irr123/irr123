@@ -2,6 +2,7 @@
 date: 2025-03-24T19:09:56Z
 back_ref: /blog/_index.md
 draft: false
+noindex: true
 title: "PlayStation statistics: an open-source PSN tool"
 description:
   "An open-source script that pulls PlayStation playtime, completion, and the
