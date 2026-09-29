@@ -1,6 +1,5 @@
 ---
 date: 2025-03-05T08:46:19Z
-back_ref: /blog/_index.md
 draft: false
 title: Encrypted Google Drive backup with rclone crypt (part 2)
 description:

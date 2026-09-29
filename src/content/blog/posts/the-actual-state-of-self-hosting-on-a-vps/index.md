@@ -1,6 +1,5 @@
 ---
 date: 2025-12-18T12:44:19Z
-back_ref: /blog/_index.md
 draft: false
 title: The actual state of self-hosting on a VPS
 description:

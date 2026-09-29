@@ -1,6 +1,5 @@
 ---
 date: 2026-06-25T00:00:00Z
-back_ref: /_index.md
 url: "/privacy/"
 title: "/privacy"
 excludeFromPostList: true

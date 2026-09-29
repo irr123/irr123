@@ -14,6 +14,13 @@
   --focus-offset: 2px;
 }
 
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
 html,
 body {
   height: 100%;
@@ -23,7 +30,6 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100%;
   font: 18px/1.7 monospace;
   overflow-wrap: break-word;
@@ -80,8 +86,8 @@ h1 {
   transform: translateX(-50%);
   text-align: center;
 }
-:is(h2, h3, h4, h5, h6, hr) {
-  margin: 1.5rem 0 0 0;
+:where(h2, h3, h4, h5, h6, hr) {
+  margin: 1.5rem 0 0;
 }
 h2 {
   font-size: clamp(1.6rem, 3.5vw, 2rem);
@@ -115,8 +121,8 @@ a {
   }
 }
 
-:is(p, li, pre, video, details, figure, table, blockquote) {
-  margin: var(--mobile-pad) 0 0 0;
+:where(p, li, pre, video, details, figure, table, blockquote) {
+  margin: var(--mobile-pad) 0 0;
 }
 
 ul {
@@ -129,11 +135,16 @@ ol {
 figcaption {
   text-align: center;
 }
+img,
+.w,
+.site-footer {
+  margin: 0 auto;
+}
+
 img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 hr {
@@ -163,7 +174,7 @@ code.has-jax {
 
 :where(blockquote) {
   border-left: 1px solid var(--border);
-  padding: 0 0 0 1rem;
+  padding-left: 1rem;
 }
 
 details summary {
@@ -194,10 +205,6 @@ table {
   padding: 0.5rem;
 }
 
-blockquote p {
-  margin: 0;
-}
-
 :where(input, textarea, select, button) {
   color: var(--fg);
   background: var(--bg);
@@ -224,6 +231,13 @@ blockquote p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+}
+.post-meta nav {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .post-unit + .post-unit::before {
@@ -240,13 +254,12 @@ blockquote p {
 .w,
 .site-footer {
   max-width: var(--content-w);
-  margin: 0 auto;
 }
 .site-footer {
   display: flex;
   flex-wrap: wrap;
   gap: var(--mobile-pad) 1rem;
-  margin: var(--mobile-pad) auto 0 auto;
+  margin: var(--mobile-pad) auto 0;
 }
 .site-footer .links {
   margin-left: auto;

@@ -1,6 +1,5 @@
 ---
 date: 2025-09-10T03:43:41Z
-back_ref: /blog/_index.md
 draft: false
 noindex: true
 title: "JSON analyzer: find which keys bloat your payload"

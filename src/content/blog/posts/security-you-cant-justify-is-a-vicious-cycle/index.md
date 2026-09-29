@@ -1,6 +1,5 @@
 ---
 date: 2026-07-02T15:03:27Z
-back_ref: /blog/_index.md
 draft: false
 title: Security you can't justify is a vicious cycle
 description:

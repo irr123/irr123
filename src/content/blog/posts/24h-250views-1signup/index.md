@@ -1,6 +1,5 @@
 ---
 date: 2026-06-20T10:16:00Z
-back_ref: /blog/_index.md
 draft: false
 title: "24h: 250 views, 1 signup"
 description:

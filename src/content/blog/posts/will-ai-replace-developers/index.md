@@ -1,6 +1,5 @@
 ---
 date: 2025-03-12T18:22:35Z
-back_ref: /blog/_index.md
 draft: false
 noindex: true
 title: Will AI replace developers? Anthropic is hiring

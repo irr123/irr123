@@ -1,6 +1,5 @@
 ---
 date: 2026-05-18T12:00:00Z
-back_ref: /blog/_index.md
 draft: false
 title: Runtime cost matters to me now
 description:

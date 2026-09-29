@@ -1,0 +1,19 @@
+{{- if .Ancestors -}}
+{{- $home := index .Ancestors.Reverse 0 -}}
+{{- $crumbs := slice -}}
+{{- $prev := "" -}}
+{{- range .Ancestors.Reverse | after 1 | append . -}}
+  {{- $name := strings.TrimPrefix "/" .Title -}}
+  {{- if ne $name $prev -}}
+    {{- $crumbs = $crumbs | append (dict "name" $name "link" .RelPermalink "url" .Permalink) -}}
+  {{- end -}}
+  {{- $prev = $name -}}
+{{- end -}}
+{{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Home" "item" $home.Permalink) -}}
+<nav aria-label="Breadcrumb"><a href="{{ $home.RelPermalink }}">/</a>
+{{- range $i, $c := $crumbs -}}
+  {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 2) "name" $c.name "item" $c.url) -}}
+  <a href="{{ $c.link }}"{{ if eq $i (sub (len $crumbs) 1) }} aria-current="page"{{ end }}>{{ $c.name }}/</a>
+{{- end -}}</nav>
+<script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items) | jsonify | safeJS }}</script>
+{{- end -}}

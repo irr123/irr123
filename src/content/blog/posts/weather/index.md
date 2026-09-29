@@ -1,6 +1,5 @@
 ---
 date: 2026-06-02T17:09:18Z
-back_ref: /blog/_index.md
 draft: false
 title: Real-time weather forecast
 description:

@@ -1,6 +1,5 @@
 ---
 date: 2025-02-21T06:31:02Z
-back_ref: /blog/_index.md
 draft: false
 title: Go DI container vs. service template generator
 description:

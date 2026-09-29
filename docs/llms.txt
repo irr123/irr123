@@ -11,6 +11,5 @@ Primary signal: a public build log. No marketing layer.
 - [About Ivan](https://bogomolov.work/about/)
 - [Uses](https://bogomolov.work/uses/)
 - [Search](https://bogomolov.work/search/)
-- [Blank](https://bogomolov.work/blank/)
 - [Privacy](https://bogomolov.work/privacy/)
 - [RSS](https://bogomolov.work/index.xml)

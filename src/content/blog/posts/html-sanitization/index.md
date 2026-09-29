@@ -1,6 +1,5 @@
 ---
 date: 2025-09-05T08:13:44Z
-back_ref: /blog/_index.md
 draft: false
 title: "HTML sanitization: the double-encoding trap"
 description:

@@ -1,5 +1,4 @@
 ---
-back_ref: /_index.md
 title: The Archive
 description:
   "Ivan Bogomolov's archive of notes on infra, AI, self-hosting, networking,

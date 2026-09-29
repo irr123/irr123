@@ -1,6 +1,5 @@
 ---
 date: 2025-07-12T11:04:35Z
-back_ref: /blog/_index.md
 draft: false
 title: Private WireGuard VPN with selective Tor routing
 description:

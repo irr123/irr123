@@ -1,6 +1,5 @@
 ---
 date: 2026-07-25T01:53:56Z
-back_ref: /blog/_index.md
 draft: false
 title: Rotten specs
 description:

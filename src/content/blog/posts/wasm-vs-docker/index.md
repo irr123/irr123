@@ -1,6 +1,5 @@
 ---
 date: 2026-05-09T12:00:00Z
-back_ref: /blog/_index.md
 draft: false
 title:
   "Docker images are hundreds of MB; a full game engine compiles to 35MB WASM"

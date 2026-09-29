@@ -1,6 +1,5 @@
 ---
 date: 2026-04-18T00:00:00Z
-back_ref: /blog/_index.md
 draft: false
 title: "AI agent architecture: model, harness and intent"
 description:

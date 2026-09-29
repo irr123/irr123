@@ -1,6 +1,5 @@
 ---
 date: 2026-09-27T10:00:00Z
-back_ref: /blog/_index.md
 draft: false
 title: "Null hypothesis: AI code differs"
 description:
