@@ -23,6 +23,7 @@ marketing. Boring, on purpose.
 <data class="p-name" value="Ivan Bogomolov"></data>
 <a class="u-url" href="https://bogomolov.work/about/" hidden></a>
 
+- <a href="/index.xml">RSS</a>
 - <a href="https://www.linkedin.com/in/bogomolov-ivan/" target=_blank rel="me noopener noreferrer">LinkedIn</a>
 - <a href="https://x.com/_irr123" target=_blank rel="me noopener noreferrer">X</a>
 - <a href="https://medium.com/@irr123" target=_blank rel="me noopener noreferrer">Medium</a>

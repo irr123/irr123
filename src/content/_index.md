@@ -12,7 +12,6 @@ scrolling, but:
 
 - [/blog]({{< relref "blog" >}})
 - [/uses]({{< relref "uses" >}})
-- [/about]({{< relref "about" >}})
 - [/stats](https://stats.uptimerobot.com/9UL6x8vt8O "Public uptime monitor for bogomolov.work")
 
 {{< details summary="QR code for this site" >}}
