@@ -1,7 +1,6 @@
 ---
 date: 2026-04-22T08:47:42Z
-url: "/about/"
-title: "/about"
+title: "About"
 excludeFromPostList: true
 ---
 

@@ -345,7 +345,7 @@
             const pdoc = window.parent.document;
             const host = window.frameElement?.closest(".post-unit");
             if (host) {
-              const ptitle = host.querySelector("h1 .post-title");
+              const ptitle = host.querySelector("h1");
               const now = days.get(curr.date)?.[curr.hour];
               if (ptitle && now) {
                 ptitle.textContent = tempText(now.temp) + degSym();

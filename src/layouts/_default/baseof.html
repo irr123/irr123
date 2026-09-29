@@ -2,16 +2,10 @@
 <html lang="{{ $.Site.Language.Locale }}">
     {{- partial "head.html" . -}}
     <body a="auto">
-        <main class="page-content" aria-label="Content">
-            <div class="w" {{ if eq .Params.pagefind false }}data-pagefind-ignore="all"{{ end }}>
-                {{- block "main" . }}{{- end }}
-            </div>
+        <main class="w" aria-label="Content" {{ if eq .Params.pagefind false }}data-pagefind-ignore="all"{{ end }}>
+            {{- block "main" . }}{{- end }}
         </main>
         {{- partial "footer.html" . }}
-        {{- partial "google_analytics.html" -}}
-        {{- partial "adsense.html" -}}
-        {{- partial "yandex_metrika.html" -}}
-        {{- partial "meta_pixel.html" -}}
         {{- partial "grafana_faro.html" -}}
     </body>
 </html>

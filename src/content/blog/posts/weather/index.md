@@ -19,7 +19,7 @@ image: ""
     border: 0;
     height: 1360px;
   }
-  .post-unit:has(#wx) header h1 {
+  .post-unit:has(#wx) h1 {
     min-height: 9rem;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@ image: ""
       transform: translateX(-50%);
       height: 1490px;
     }
-    .post-unit:has(#wx) header h1 { min-height: 11rem; }
+    .post-unit:has(#wx) h1 { min-height: 11rem; }
   }
 </style>
 

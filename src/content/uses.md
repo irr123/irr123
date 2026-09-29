@@ -1,7 +1,6 @@
 ---
 date: 2026-01-04T08:47:42Z
-url: "/uses/"
-title: "/uses"
+title: "Uses"
 excludeFromPostList: true
 ---
 

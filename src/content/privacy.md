@@ -1,7 +1,6 @@
 ---
 date: 2026-06-25T00:00:00Z
-url: "/privacy/"
-title: "/privacy"
+title: "Privacy"
 excludeFromPostList: true
 ---
 

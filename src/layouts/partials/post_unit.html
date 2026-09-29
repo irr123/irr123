@@ -6,11 +6,6 @@
 <article class="post-unit" data-url="{{ .RelPermalink }}"{{ with $next }} data-next="{{ .RelPermalink }}"{{ end }}>
   {{ partial "post_head.html" . }}
 
-  {{ if .Params.toc }}
-  <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
-    {{ replaceRE `href="#` $abs .TableOfContents | safeHTML }}
-  </aside>
-  {{ end }}
   {{ replaceRE `href="#` $abs $content | safeHTML }}
 
   {{ with $next }}

@@ -52,21 +52,6 @@
   {{- $mainScss := resources.Get "css/main.scss" -}}
   {{- $style := $mainScss | css.Sass $options | resources.Minify -}}
   <style>{{ $style.Content | safeCSS }}</style>
-  {{- if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
-  {{- if and site.Params.googleAnalytics (ne site.Params.googleAnalytics "") -}}
-  <link rel="preconnect" href="https://analytics.google.com" crossorigin>
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  {{- end -}}
-  {{- if and site.Params.adSense (ne site.Params.adSense "") -}}
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
-  {{- end -}}
-  {{- if and site.Params.yandexMetrika (ne site.Params.yandexMetrika "") -}}
-  <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
-  <link rel="preconnect" href="https://mc.yandex.com" crossorigin>
-  {{- end -}}
-  {{- if and site.Params.metaPixel (ne site.Params.metaPixel "") -}}
-  <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
-  {{- end -}}
   {{- if and site.Params.grafanaFaro (ne site.Params.grafanaFaro "") -}}
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   {{- $c := urls.Parse site.Params.grafanaFaro }}

@@ -1,11 +1,9 @@
 {{ define "main" }}
-<div class="post-meta">
+<header class="post-meta">
   {{ partial "breadcrumbs.html" . }}
-</div>
-
-<header>
-  <h1>{{ .Title }}</h1>
 </header>
+
+<h1>{{ .Title }}</h1>
 <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
 <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 <pagefind-input></pagefind-input>
