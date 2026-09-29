@@ -1,4 +1,4 @@
 ---
-title: The Archive
+title: Posts
 pagefind: false
 ---

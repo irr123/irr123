@@ -9,7 +9,7 @@
 {{- range $i, $c := $crumbs -}}
   {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 2) "name" $c.name "item" $c.url) -}}
   {{- $last := eq $i (sub (len $crumbs) 1) -}}
-  <a href="{{ $c.link }}"{{ if $last }} aria-current="page"{{ else }} title="{{ $c.name }}"{{ end }}>{{ if $last }}{{ $c.name }}{{ else }}...{{ end }}/</a>
+  <a href="{{ $c.link }}"{{ if $last }} aria-current="page"{{ else }} title="{{ $c.name }}"{{ end }}>{{ if $last }}{{ $c.name }}{{ else }}…{{ end }}/</a>
 {{- end -}}</nav>
 <script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items) | jsonify | safeJS }}</script>
 {{- end -}}
