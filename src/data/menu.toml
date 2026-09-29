@@ -2,7 +2,7 @@
 title = "Index"
 
   [entries.post_list]
-  limit = 8
+  limit = 5
   show_more = true
   show_more_url = "/blog/posts/"
 

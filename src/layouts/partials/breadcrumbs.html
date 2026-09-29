@@ -5,7 +5,7 @@
   {{- $crumbs = $crumbs | append (dict "name" (strings.TrimPrefix "/" .Title) "link" .RelPermalink "url" .Permalink) -}}
 {{- end -}}
 {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Home" "item" $home.Permalink) -}}
-<nav aria-label="Breadcrumb"><a href="{{ $home.RelPermalink }}">/</a>
+<nav aria-label="Breadcrumb"><a href="{{ $home.RelPermalink }}" title="Home">/</a>
 {{- range $i, $c := $crumbs -}}
   {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 2) "name" $c.name "item" $c.url) -}}
   {{- $last := eq $i (sub (len $crumbs) 1) -}}
