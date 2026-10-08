@@ -25,8 +25,11 @@ marketing. Boring, on purpose.
 
 - <a href="/index.xml">RSS</a>
 - <a href="https://www.linkedin.com/in/bogomolov-ivan/" target=_blank rel="me noopener noreferrer">LinkedIn</a>
-- <a href="https://x.com/_irr123" target=_blank rel="me noopener noreferrer">X</a>
+  /
+  <a href="https://x.com/_irr123" target=_blank rel="me noopener noreferrer">X</a>
 - <a href="https://medium.com/@irr123" target=_blank rel="me noopener noreferrer">Medium</a>
+  /
+  <a href="https://dev.to/irr123" target=_blank rel="me noopener noreferrer">Dev.to</a>
 
 <link href="https://sr.ht/~irr123/" rel="me">
 <link href="https://github.com/irr123" rel="me">
