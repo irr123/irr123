@@ -267,23 +267,27 @@ pwnd [prompt engineering]({{< relref "blog/posts/prompt-engineering-notes" >}}).
 Even more, after
 [Gloaguen et al., "Evaluating AGENTS.md" (Feb 2026)](https://arxiv.org/abs/2602.11988),
 generated agent context files hurt task success and add ~20% inference cost. I
-stopped keeping per-repo CLAUDE.md / AGENTS.md files full of paths, framework
-summaries, and obvious project descriptions. Current agents can inspect a repo
-per case, fast and cheap enough. Put only what they cannot infer from code.
-Constraints, preferences, dangerous commands, external contracts.
+stopped keeping per-repo
+[CLAUDE.md / AGENTS.md](https://github.com/irr123/my-configs/blob/master/AGENTS.md)
+files full of paths, framework summaries, and obvious project descriptions.
+Current agents can inspect a repo per case, fast and cheap enough. Put only what
+they cannot infer from code. Constraints, preferences, dangerous commands,
+external contracts.
 
 {{< details summary="my global CLAUDE.md / AGENTS.md" >}}
 
 ```md
 # Invariants
 
-Truth over comfort
+Be concise
 
 Simple over clever
 
-Be concise: make every word count
+Facts over sycophancy
 
-Contradiction: name both sides, never average
+Contradictions: name both sides, never average
+
+For task responses, end with a recap of actions taken, gaps
 ```
 
 {{< /details >}}
