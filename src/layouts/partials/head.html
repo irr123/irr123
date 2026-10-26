@@ -57,4 +57,7 @@
   {{- $c := urls.Parse site.Params.grafanaFaro }}
   <link rel="preconnect" href="{{ $c.Scheme }}://{{ $c.Host }}" crossorigin>
   {{- end -}}
+  {{- if and (eq .Kind "page") (eq .Section "blog") -}}
+  {{- partial "article_jsonld.html" . -}}
+  {{- end -}}
 </head>

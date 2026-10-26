@@ -32,7 +32,7 @@ turn a thread into a sales call. Personal sales can live in DMs. My B2C waitlist
 needs the quieter signal: a submitted email. That costs something; a compliment
 costs nothing.
 
-AI gave me the obvious go-to strategy. Hacker News, Product Hunt, Reddit, Indie
+AI gave me a standard go-to strategy. Hacker News, Product Hunt, Reddit, Indie
 Hackers, quantified-self and journaling communities. Then I read the rules.
 
 Most won't let an early waitlist post stand. `Show HN` wants a usable artifact.

@@ -277,17 +277,13 @@ Constraints, preferences, dangerous commands, external contracts.
 ```md
 # Invariants
 
-Be brief
-
 Truth over comfort
 
 Simple over clever
 
+Be concise: make every word count
+
 Contradiction: name both sides, never average
-
-Use subagents to do the work; main thread is orchestrator
-
-grep -> rg; python -> python3
 ```
 
 {{< /details >}}

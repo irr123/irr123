@@ -70,7 +70,7 @@ ListenPort = 51820
 PrivateKey = <paste content of server-privatekey here>
 ```
 
-Start the WireGuard service and enable it to launch on boot
+Start the WireGuard service and enable it to launch on boot:
 `sudo systemctl start wg-quick@wg0 && sudo systemctl enable wg-quick@wg0`.
 
 I check its status with `sudo journalctl -eu wg-quick@wg0.service`.
@@ -238,7 +238,7 @@ AllowedIPs = 192.168.42.5/32
 **Note**: Replace _ens3_ with the server's public-facing network interface
 (e.g., _eth0_).
 
-Finally, apply all the changes by restarting the services
+Finally, apply all the changes by restarting the services:
 `sudo systemctl restart tor && sudo systemctl restart wg-quick@wg0`.
 
 ## Client configs: split tunnel vs Tor full tunnel

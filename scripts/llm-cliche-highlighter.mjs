@@ -1,18 +1,13 @@
 #!/usr/bin/env node
 // Standalone CLI port of https://tools.simonwillison.net/llm-cliche-highlighter
+// The source typography settings are in ../src/hugo.toml. Hugo maps straight
+// apostrophes to ’, which the echo detector also recognizes as \u2019.
 // Same detection algorithm (pattern list + chain/echo/question/anaphora finders),
 // adapted from browser DOM rendering to ANSI terminal output.
 //
 // Usage:
 //   node llm-cliche-highlighter.mjs file.txt
-//   cat file.txt | node llm-cliche-highlighter.mjs
-//   node llm-cliche-highlighter.mjs --url https://example.com/article
 //
-// Flags:
-//   --json          print raw matches as JSON instead of highlighted text
-//   --full          show the whole text, not just windows around hits
-//   --url <url>     fetch article text via r.jina.ai reader proxy
-
 import { readFileSync } from 'node:fs';
 
 // ==== impl start (ported verbatim from the page's <script type="module">) ====
@@ -410,8 +405,6 @@ const patterns = [
   }
 ];
 
-const patternsById = Object.fromEntries(patterns.map(p => [p.id, p]));
-
 const CONTEXT_WORDS = 12;
 
 function countWords(s) {
@@ -459,14 +452,11 @@ function buildWindows(text, regions) {
   return windows;
 }
 
-function collectMatches(text, enabled) {
-  const perPattern = {};
+function collectMatches(text) {
   const raw = [];
   for (const p of patterns) {
-    perPattern[p.id] = 0;
-    if (!enabled.has(p.id)) continue;
     for (const m of p.find(text)) {
-      m.patternId = p.id;
+      m.pattern = p;
       raw.push(m);
     }
   }
@@ -475,11 +465,9 @@ function collectMatches(text, enabled) {
   for (const m of raw) {
     const last = matches[matches.length - 1];
     if (last && m.start < last.end) continue;
-    m.id = matches.length;
     matches.push(m);
-    perPattern[m.patternId] += 1;
   }
-  return { matches, perPattern };
+  return matches;
 }
 
 function buildRegions(text, matches) {
@@ -550,10 +538,8 @@ function renderRegions(text, from, to, regions) {
   return out;
 }
 
-function renderOutput(text, regions, onlyHighlights) {
-  if (!onlyHighlights || regions.length === 0) {
-    return renderRegions(text, 0, text.length, regions);
-  }
+function renderOutput(text, regions) {
+  if (regions.length === 0) return renderRegions(text, 0, text.length, regions);
   const windows = buildWindows(text, regions);
   let out = '';
   let prev = 0;
@@ -572,58 +558,28 @@ function renderOutput(text, regions, onlyHighlights) {
   return out;
 }
 
-async function readInput(args) {
-  const urlIdx = args.indexOf('--url');
-  if (urlIdx !== -1) {
-    const url = args[urlIdx + 1];
-    if (!url) throw new Error('--url requires a value');
-    const res = await fetch('https://r.jina.ai/' + url, { headers: { 'X-Return-Format': 'text' } });
-    if (!res.ok) throw new Error('HTTP ' + res.status + ' fetching via r.jina.ai');
-    return res.text();
-  }
-  const fileArg = args.find(a => !a.startsWith('--'));
-  if (fileArg) return readFileSync(fileArg, 'utf8');
-  return readFileSync(0, 'utf8');
+function readInput(args) {
+  const file = args[0];
+  if (!file) throw new Error('Usage: node llm-cliche-highlighter.mjs <file>');
+  return readFileSync(file, 'utf8');
 }
 
-async function main() {
+function main() {
   const args = process.argv.slice(2);
-  const asJson = args.includes('--json');
-  const full = args.includes('--full');
-
-  const text = await readInput(args);
-  const enabled = new Set(patterns.map(p => p.id));
-  const { matches, perPattern } = collectMatches(text, enabled);
+  const text = readInput(args);
+  const matches = collectMatches(text);
   const regions = buildRegions(text, matches);
-
-  if (asJson) {
-    const out = matches.map(m => ({
-      pattern: m.patternId,
-      name: patternsById[m.patternId].name,
-      text: text.slice(m.start, m.end),
-      start: m.start,
-      end: m.end,
-      badgeTitle: m.badgeTitle || null
-    }));
-    console.log(JSON.stringify({ matches: out, perPattern, stats: {
-      matches: matches.length,
-      flaggedSentences: regions.length,
-      chainItems: matches.reduce((n, m) => n + (m.count || 0), 0)
-    } }, null, 2));
-    return;
-  }
 
   if (matches.length === 0) {
     console.log('No clich\u00e9s detected.');
     return;
   }
 
-  console.log(renderOutput(text, regions, !full));
+  console.log(renderOutput(text, regions));
   console.log();
   console.log(BOLD + '--- Matches ---' + RESET);
   matches.forEach((m, i) => {
-    const p = patternsById[m.patternId];
-    const parts = [p.name];
+    const parts = [m.pattern.name];
     if (m.badgeTitle) parts.push(m.badgeTitle);
     console.log(`${i + 1}. \u201c${snippet(text.slice(m.start, m.end))}\u201d \u2014 ${parts.join(' \u00b7 ')}`);
   });
@@ -632,7 +588,7 @@ async function main() {
   console.log(`${matches.length} match${matches.length === 1 ? '' : 'es'}, ${regions.length} flagged sentence${regions.length === 1 ? '' : 's'}, ${items} chain item${items === 1 ? '' : 's'}`);
 }
 
-main().catch(err => {
+Promise.resolve().then(main).catch(err => {
   console.error(err.message || err);
   process.exitCode = 1;
 });

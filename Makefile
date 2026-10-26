@@ -1,4 +1,4 @@
-HUGO ?= ghcr.io/gohugoio/hugo:v0.162.1 # https://hub.docker.com/r/hugomods/hugo/tags
+HUGO ?= ghcr.io/gohugoio/hugo:v0.165.0 # https://hub.docker.com/r/hugomods/hugo/tags
 PAGEFIND ?= pagefind@v1.5.2            # https://www.npmjs.com/package/pagefind
 
 .PHONY: serve
@@ -25,7 +25,7 @@ hugo_add:
 
 .PHONY: check-cliches
 check-cliches:
-	find $(PWD)/src/content -name '*.md' -exec node $(PWD)/scripts/llm-cliche-highlighter.mjs {} \;
+	find "$(PWD)/src/content" -name '*.md' -print -exec node "$(PWD)/scripts/llm-cliche-highlighter.mjs" {} \;
 
 .PHONY: optimize
 optimize:

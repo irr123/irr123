@@ -149,10 +149,10 @@ systemctl start shadowsocks-server.service
 ```
 
 After this, I can configure any client, like the Windows one I mentioned
-[previously](#shadowsocks). It passes traffic through the set-up VPS. Configure
-a local/global/PAC SOCKS5 proxy and try [myip.wtf](https://myip.wtf). With the
-server set up like this, the next step is to route its outgoing traffic through
-Tor.
+[previously](#shadowsocks). It passes traffic through the configured VPS.
+Configure a local/global/PAC SOCKS5 proxy and try [myip.wtf](https://myip.wtf).
+With the server set up like this, the next step is to route its outgoing traffic
+through Tor.
 
 Don't forget, all these parts are already automated by the Ansible playbook.
 

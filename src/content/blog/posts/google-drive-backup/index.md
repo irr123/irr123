@@ -99,7 +99,7 @@ in the bash command refers to the exact name of the shared folder.
 
 ## Next: encryption and offsite storage
 
-This is enough for a basic Google Drive backup. Next step: add
+This gives me a basic Google Drive backup. Next step: add
 [encryption](https://rclone.org/crypt/) and cheap offsite
 [storage](https://rclone.org/s3/).
 
