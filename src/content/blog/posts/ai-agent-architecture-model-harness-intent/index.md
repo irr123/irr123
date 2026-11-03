@@ -6,6 +6,8 @@ description:
   "Where AI agents break: hidden intent. Plan-mode loops keep humans in control;
   opaque harnesses bury the failures. A frame for model, harness, intent."
 image: hero.png
+table_labels:
+  - AI agent patterns and costs
 ---
 
 My VPS runs a "personal AI agent". It forgets its own abilities every morning.

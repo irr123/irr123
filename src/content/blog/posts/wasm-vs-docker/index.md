@@ -8,6 +8,8 @@ description:
   scripting runtime. The default Node.js Docker image is hundreds of MB, pulled
   19 million times last week."
 image: hero.png
+table_labels:
+  - Web page, game and Docker image sizes
 ---
 
 I exported a game skeleton to WebAssembly a few hours ago and was surprised by

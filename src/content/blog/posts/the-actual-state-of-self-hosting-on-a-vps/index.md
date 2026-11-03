@@ -6,6 +6,8 @@ description:
   "K3s loses to Docker Compose on a 1GB VPS, and Podman with Quadlet beats both.
   Rootless, systemd-native, near-zero idle memory. Numbers, not vibes."
 image: cursed_Kubernetes_cathedral.png
+table_labels:
+  - Docker Compose, K3s and Podman comparison
 ---
 
 I recently ran into a claim: Docker Compose is outdated and K3s is the king for

@@ -4,11 +4,23 @@
 </header>
 
 <h1>{{ .Title }}</h1>
+<p data-pagefind-ignore><a href="{{ "blog/posts/" | relURL }}">Browse all posts</a></p>
+<noscript><p>Search needs JavaScript.</p></noscript>
+<p id="search-unavailable" role="status" hidden>Search could not load. Browse the posts instead.</p>
+<script nomodule>document.getElementById("search-unavailable").hidden = false;</script>
 <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css" />
-<script src="/pagefind/pagefind-component-ui.js" type="module"></script>
 <pagefind-input></pagefind-input>
+<pagefind-summary></pagefind-summary>
 <pagefind-results></pagefind-results>
 <script type="module">
-  document.querySelector("pagefind-input input")?.focus();
+  import("/pagefind/pagefind-component-ui.js")
+    .then(() => {
+      const input = document.querySelector("pagefind-input input");
+      if (!input) throw new Error("Search input did not initialize");
+      if (document.activeElement === document.body) input.focus();
+    })
+    .catch(() => {
+      document.getElementById("search-unavailable").hidden = false;
+    });
 </script>
 {{ end }}

@@ -6,6 +6,8 @@ description:
   "Sanitizing HTML on both ingest and output renders literal `&amp;` in the UI.
   Fix: store raw Unicode, sanitize once. Pattern for React, Next.js, NestJS."
 image: "sanitization.png"
+table_labels:
+  - Character entities and Unicode substitutions
 ---
 
 I went through a security audit on a project that wasn't old, but had passed

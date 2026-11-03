@@ -5,11 +5,17 @@
   {{- $crumbs = $crumbs | append (dict "name" (strings.TrimPrefix "/" .Title) "link" .RelPermalink "url" .Permalink) -}}
 {{- end -}}
 {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Home" "item" $home.Permalink) -}}
-<nav aria-label="Breadcrumb"><a href="{{ $home.RelPermalink }}" title="Home">/</a>
-{{- range $i, $c := $crumbs -}}
-  {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 2) "name" $c.name "item" $c.url) -}}
-  {{- $last := eq $i (sub (len $crumbs) 1) -}}
-  &nbsp;<a href="{{ $c.link }}"{{ if $last }} aria-current="page"{{ else }} title="{{ $c.name }}"{{ end }}>{{ if $last }}{{ $c.name }}{{ else }}…{{ end }}/</a>
-{{- end -}}</nav>
+<details class="breadcrumbs">
+  <summary>Breadcrumbs</summary>
+  <nav aria-label="Breadcrumb">
+    <ol>
+      <li><a href="{{ $home.RelPermalink }}">Home</a></li>
+      {{- range $i, $c := $crumbs -}}
+        {{- $items = $items | append (dict "@type" "ListItem" "position" (add $i 2) "name" $c.name "item" $c.url) -}}
+        <li>{{ if eq $i (sub (len $crumbs) 1) }}<span aria-current="page">{{ $c.name }}</span>{{ else }}<a href="{{ $c.link }}">{{ $c.name }}</a>{{ end }}</li>
+      {{- end -}}
+    </ol>
+  </nav>
+</details>
 <script type="application/ld+json">{{ (dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items) | jsonify | safeJS }}</script>
 {{- end -}}

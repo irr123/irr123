@@ -6,6 +6,8 @@ description:
   "24h of cold pre-launch waitlist outreach. One permissive channel carried 81%
   of views and the only signup; the gatekept subs returned nothing."
 image: hero.png
+table_labels:
+  - Views and signups by channel
 ---
 
 I'm validating interest for [Backsight](https://backsight.app). I have a target

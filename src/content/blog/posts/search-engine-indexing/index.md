@@ -6,6 +6,8 @@ description:
   "Three months fighting Google, Bing and Yandex to index a fresh domain. Bing
   barely tries; Yandex cooperates; Google takes its time. Tactics that worked."
 image: robots.jpg
+table_labels:
+  - Search queries indexed by engine
 ---
 
 Search indexing is too flaky to bet a small site on. I spent about three months
