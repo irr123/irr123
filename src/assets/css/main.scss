@@ -12,8 +12,6 @@
   --fg: #fefff0;
   --link: #79a8ff;
   --visited: #f78fe7;
-
-  --focus-offset: 2px;
 }
 
 @mixin light {
@@ -57,7 +55,6 @@ body {
   --pf-border-focus: var(--fg);
   --pf-hover: var(--bg);
   --pf-mark: var(--fg);
-  --pf-outline-focus: var(--fg);
   --pf-border-radius: 0;
   --pf-font: monospace;
   --pf-input-font-size: var(--size-1);
@@ -135,17 +132,6 @@ details summary {
     text-decoration-style: solid;
     text-decoration-thickness: 2px;
   }
-}
-
-a:focus,
-details summary:focus,
-input:focus,
-textarea:focus,
-select:focus,
-button:focus,
-.table-scroll:focus {
-  outline: 1px solid var(--border);
-  outline-offset: var(--focus-offset);
 }
 
 details summary {
@@ -283,11 +269,6 @@ pagefind-input .pf-input {
   margin-bottom: var(--size-1) !important;
   border-width: 0 0 1px !important;
   box-shadow: none !important;
-}
-
-pagefind-input .pf-input:focus {
-  outline: 1px solid var(--border) !important;
-  outline-offset: var(--focus-offset) !important;
 }
 
 .pf-summary,
