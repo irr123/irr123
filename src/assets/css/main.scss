@@ -5,8 +5,8 @@
   --line-height: 1.625;
   --size-0: 0.125rem;
   --size-1: 1.125rem;
-  --size-2: 2rem;
-  --size-3: 2.625rem;
+  --size-2: 1.5rem;
+  --size-3: 2rem;
 
   --bg: #2a2b2c;
   --fg: #fefff0;
@@ -81,8 +81,8 @@ body[a="light"] {
 }
 
 h1 {
-  font-size: 2rem;
-  font-size: clamp(2rem, calc(1.4rem + 2vw), 4rem);
+  font-size: var(--size-3);
+  font-size: clamp(var(--size-3), calc(1.4rem + 2vw), calc(var(--size-3) * 2));
   line-height: 1.15;
   position: relative;
   width: 80vw;
@@ -92,28 +92,32 @@ h1 {
   text-align: center;
 }
 h2 {
-  font-size: 1.5rem;
-  font-size: clamp(1.5rem, calc(1.2rem + 1vw), 2.625rem);
-  line-height: 1.2;
+  font-size: var(--size-2);
+  font-size: clamp(
+    var(--size-2),
+    calc(1.2rem + 1vw),
+    calc(var(--size-2) * 1.5)
+  );
+  line-height: 1.15;
 }
 h1,
-h2 {
-  margin: var(--size-1) 0 0;
-}
+h2,
 h3,
 h4,
 h5,
-h6,
-hr,
+h6 {
+  margin: var(--size-1) 0 0;
+}
 p,
 li,
+hr,
 pre,
 video,
-details,
 figure,
-.table-scroll,
+details,
 blockquote,
-.post-next {
+.post-next,
+.table-scroll {
   margin: var(--size-0) 0 0;
 }
 
