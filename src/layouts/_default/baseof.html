@@ -3,6 +3,13 @@
     {{- partial "head.html" . -}}
     <body a="auto">
         <main class="w" aria-label="Content" {{ if eq .Params.pagefind false }}data-pagefind-ignore="all"{{ end }}>
+            {{- with .Params.Image }}
+              {{- $image := $.Resources.GetMatch . }}
+              {{- if $image }}
+                {{- $thumbnail := $image.Fit "240x240 webp q75" }}
+                <span hidden data-pagefind-meta="image[content]" content="{{ $thumbnail.RelPermalink }}"></span>
+              {{- end }}
+            {{- end }}
             {{- block "main" . }}{{- end }}
         </main>
         {{- partial "footer.html" . }}
