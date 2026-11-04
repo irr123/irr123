@@ -160,10 +160,10 @@ a {
 }
 
 ul {
-  padding-inline-start: var(--size-1);
+  padding-inline-start: 2ch;
 }
 ol {
-  padding-inline-start: var(--size-2);
+  padding-inline-start: 3.5ch;
 }
 
 figcaption {
@@ -244,21 +244,6 @@ textarea::placeholder {
   gap: var(--size-0);
 }
 
-.breadcrumbs {
-  min-width: 0;
-  margin: 0;
-  summary {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  ol {
-    padding-inline-start: var(--size-2);
-  }
-  li {
-    margin: 0;
-  }
-}
 .post-meta time {
   flex-shrink: 0;
   white-space: nowrap;
