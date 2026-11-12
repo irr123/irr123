@@ -14,5 +14,7 @@ scrolling, but:
 - [/uses]({{< relref "uses" >}})
 - [/stats](https://stats.uptimerobot.com/9UL6x8vt8O "Public uptime monitor for bogomolov.work")
 
+<br />
+
 {{< details summary="QR code for this site" >}}
 ![QR code linking to bogomolov.work](/img/qr.svg) {{< /details >}}
